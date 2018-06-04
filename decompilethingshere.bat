@@ -1,0 +1,1 @@
+python decompiler.py > decompilelog.txt
