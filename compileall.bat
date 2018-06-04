@@ -20,4 +20,5 @@ FOR /R %FROMDIR% %%a in (*.pyo) DO (
 FOR /R %FROMDIR% %%a in (__pycache__) DO (
 	rmdir /S /Q "%%a\"
 )
-pause
+if exist "compiled\TURBODRIVER_WickedWhims_Scripts.ts4script" del /S "compiled\TURBODRIVER_WickedWhims_Scripts.ts4script"
+7z.exe a -r -tzip "compiled\TURBODRIVER_WickedWhims_Scripts.ts4script" ".\compiled\*"
