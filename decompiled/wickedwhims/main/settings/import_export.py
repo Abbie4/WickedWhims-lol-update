@@ -53,9 +53,9 @@ def _export_current_settings():
             while save_name.lower() == first_free_name.lower():
                 found_free_name = False
                 break
-        if found_free_name is False:
-            i += 1
-            continue
+            if found_free_name is False:
+                i += 1
+                continue
         return first_free_name
 
     def _export_done_dialog_callback(_):

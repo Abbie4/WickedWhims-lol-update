@@ -1,1 +1,0 @@
-python -O -m compileall decompiled > compilelog.txt
