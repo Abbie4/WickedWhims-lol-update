@@ -12,13 +12,12 @@ from wickedwhims.sxex_bridge.body import get_sim_body_state, AdditionalBodyState
 HAS_STARPON_LOADED = None
 DEFAULT_STRAPON_PART_ID = -1
 
-def has_loaded_strapon(sim_identifier):
+def has_loaded_strapon():
     global HAS_STARPON_LOADED, DEFAULT_STRAPON_PART_ID
-    sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if HAS_STARPON_LOADED is not None:
         return HAS_STARPON_LOADED
     HAS_STARPON_LOADED = False
-    strapon_cas_id_parts_list = get_strapon_part_ids(sim_info)
+    strapon_cas_id_parts_list = get_strapon_part_ids()
     if strapon_cas_id_parts_list:
         HAS_STARPON_LOADED = True
         DEFAULT_STRAPON_PART_ID = int(strapon_cas_id_parts_list[0])

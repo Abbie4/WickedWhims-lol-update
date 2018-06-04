@@ -31,7 +31,7 @@ class _NuditySocialComplimentSexyBodyInteraction(TurboSocialMixerInteraction, Tu
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         nudity_skill_level = get_sim_nudity_skill_level(sim)
         if nudity_skill_level < 2:
@@ -80,7 +80,7 @@ class _NuditySocialTalkAboutNudityInteraction(TurboSocialMixerInteraction, Turbo
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
@@ -136,7 +136,7 @@ class _NuditySocialConvinceToNudityInteraction(TurboSocialMixerInteraction, Turb
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         nudity_skill_level = get_sim_nudity_skill_level(sim)
         if nudity_skill_level < 4:

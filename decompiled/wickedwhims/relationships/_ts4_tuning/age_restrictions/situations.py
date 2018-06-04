@@ -22,7 +22,7 @@ def unlock_situations_for_teens():
             tests_list = list()
             for test in situation_instance._initiating_sim_tests:
                 if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
+                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
                 tests_list.append(test)
             situation_instance._initiating_sim_tests = TestList(tests_list)
 

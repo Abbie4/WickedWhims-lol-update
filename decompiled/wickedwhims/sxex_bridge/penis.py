@@ -50,9 +50,7 @@ def get_sim_soft_penis_author_key(sim_identifier):
 def get_penis_soft_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     penis_outfit_author = get_sim_soft_penis_author_key(sim_info)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_PART_ID_CHILD')
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_PART_ID_MMF')
         else:
@@ -66,9 +64,7 @@ def get_penis_soft_cas_id(sim_identifier):
 def get_penis_soft_texture_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     penis_outfit_author = get_sim_soft_penis_author_key(sim_info)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_TEXTURE_ID_CHILD')
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF', exclude_default=True)
         else:
@@ -97,9 +93,7 @@ def get_sim_hard_penis_author_key(sim_identifier):
 def get_penis_hard_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     penis_outfit_author = get_sim_hard_penis_author_key(sim_info)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_PART_ID_CHILD')
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_PART_ID_MMF')
         else:
@@ -113,9 +107,7 @@ def get_penis_hard_cas_id(sim_identifier):
 def get_penis_hard_texture_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     penis_outfit_author = get_sim_hard_penis_author_key(sim_info)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_TEXTURE_ID_CHILD')
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_TEXTURE_ID_MMF', exclude_default=True)
         else:
@@ -128,27 +120,25 @@ def get_penis_hard_texture_cas_id(sim_identifier):
 
 def _get_sim_soft_penis_type(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        return 'PENIS_SOFT_CAS_PART_ID_CHILD'
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             return 'PENIS_SOFT_CAS_PART_ID_MMF'
         return 'PENIS_SOFT_CAS_PART_ID_MFF'
-    elif TurboSimUtil.Gender.is_male_frame(sim_info):
-        return 'PENIS_SOFT_CAS_PART_ID_FMF'
-    return 'PENIS_SOFT_CAS_PART_ID_FFF'
+    else:
+        if TurboSimUtil.Gender.is_male_frame(sim_info):
+            return 'PENIS_SOFT_CAS_PART_ID_FMF'
+        return 'PENIS_SOFT_CAS_PART_ID_FFF'
 
 def _get_sim_hard_penis_type(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        return 'PENIS_HARD_CAS_PART_ID_CHILD'
-    elif TurboSimUtil.Gender.is_male(sim_info):
+    if TurboSimUtil.Gender.is_male(sim_info):
         if TurboSimUtil.Gender.is_male_frame(sim_info):
             return 'PENIS_HARD_CAS_PART_ID_MMF'
         return 'PENIS_HARD_CAS_PART_ID_MFF'
-    elif TurboSimUtil.Gender.is_male_frame(sim_info):
-        return 'PENIS_HARD_CAS_PART_ID_FMF'
-    return 'PENIS_HARD_CAS_PART_ID_FFF'
+    else:
+        if TurboSimUtil.Gender.is_male_frame(sim_info):
+            return 'PENIS_HARD_CAS_PART_ID_FMF'
+        return 'PENIS_HARD_CAS_PART_ID_FFF'
 
 def update_sim_penis_state(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
@@ -201,9 +191,9 @@ class PenisSettingsInteraction(TurboImmediateSuperInteraction, TurboInteractionS
     def on_interaction_test(cls, interaction_context, interaction_target):
         if not TurboTypesUtil.Sims.is_sim(interaction_target):
             return False
-        if TurboSimUtil.Age.is_younger_than(interaction_target, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(interaction_target, TurboSimUtil.Age.TEEN):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_in_sex(cls.get_interaction_sim(interaction_context)) or is_sim_going_to_sex(cls.get_interaction_sim(interaction_context)):
             return False

@@ -39,7 +39,7 @@ def _on_sim_outfit_change(sim_info, category_and_index):
     update_naturism_buffs(sim_info, category_and_index)
 
 def _update_nudity_buffs(sim_info, category_and_index):
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     if not is_sim_naturist(sim_info) or get_sim_nudity_skill_level(sim_info) < 2:
         return
@@ -52,7 +52,7 @@ def _update_nudity_buffs(sim_info, category_and_index):
         remove_sim_buff(sim_info, SimBuff.WW_NUDITY_IS_NAKED_HIGH)
 
 def update_naturism_buffs(sim_info, category_and_index):
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     has_naturist_buff = has_sim_buff(sim_info, SimBuff.WW_NATURISM_SKILL_LEVEL_2) or (has_sim_buff(sim_info, SimBuff.WW_NATURISM_SKILL_LEVEL_3) or (has_sim_buff(sim_info, SimBuff.WW_NATURISM_SKILL_LEVEL_4) or has_sim_buff(sim_info, SimBuff.WW_NATURISM_SKILL_LEVEL_5)))
     sim_outfit_level = get_sim_outfit_level(sim_info, outfit_category_and_index=category_and_index)

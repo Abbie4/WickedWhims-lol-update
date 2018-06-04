@@ -238,7 +238,7 @@ def _get_room_sims_score(sims_list, exclude_sims_ids, location_style):
         if TurboManagerUtil.Sim.get_sim_id(sim) in exclude_sims_ids:
             pass
         sim_score = 0
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
             sim_score += -25
         elif location_style == LocationStyleType.PRIVACY:
             sim_score += -10

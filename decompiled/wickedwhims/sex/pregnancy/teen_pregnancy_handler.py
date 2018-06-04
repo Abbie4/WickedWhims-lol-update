@@ -62,7 +62,7 @@ def _on_sim_pregnancy_buff_added_and_removed(buff_type, sim_id):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_id)
     if sim_info is None:
         return
-    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN and TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.CHILD:
+    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN:
         return
     if TurboResourceUtil.Resource.get_guid64(buff_type) not in PREGNANCY_BUFFS:
         return

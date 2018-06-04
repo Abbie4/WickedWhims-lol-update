@@ -80,9 +80,9 @@ def get_sex_pair_score(sim_identifier, target_sim_identifier):
 def get_available_for_sex_sims(only_on_hypersexual_lot=False, forbidden_traits=()):
     sims_list = set()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
             pass
-        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             pass
         if not get_sex_setting(SexSetting.PLAYER_AUTONOMY_STATE, variable_type=bool) and TurboSimUtil.Sim.is_player(sim):
             pass

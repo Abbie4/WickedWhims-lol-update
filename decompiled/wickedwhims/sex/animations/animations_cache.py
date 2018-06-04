@@ -47,13 +47,8 @@ def has_animation_with_object(object_id, gender):
             animation_cache_category_object_genders_list = animation_cache_category_object_dict[genders_amount]
             for genders_list in animation_cache_category_object_genders_list:
                 for gender_in_list in genders_list:
-                    if gender_in_list == gender:
+                    while gender_in_list == SexGenderType.BOTH or gender_in_list == gender:
                         return True
-                    if gender_in_list == SexGenderType.BOTH and (gender == SexGenderType.MALE or gender == SexGenderType.FEMALE):
-                        return True
-                    while gender_in_list == SexGenderType.CBOTH:
-                        if gender == SexGenderType.CMALE or gender == SexGenderType.CFEMALE:
-                            return True
 
 def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
     complete_list = list()
@@ -62,48 +57,16 @@ def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
             complete_list.append(SexGenderType.BOTH)
         if sim_gender_copy == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.BOTH)
-        if sim_gender_copy == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
-            complete_list.append(SexGenderType.CBOTH)
-        if sim_gender_copy == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
-            complete_list.append(SexGenderType.CBOTH)
         complete_list.append(sim_gender_copy)
-    sim_genders_used = list(sim_genders)
     for sim_gender in sim_genders:
         while sim_gender in complete_list:
             complete_list.remove(sim_gender)
-            sim_genders_used.remove(sim_gender)
     if len(complete_list) == 0:
         return True
     for gender in complete_list:
-        if gender == SexGenderType.BOTH:
-            found_gender = False
-            for sim_gender in sim_genders_used:
-                if sim_gender == SexGenderType.MALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_gender = True
-                    break
-                while sim_gender == SexGenderType.FEMALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_gender = True
-                    break
-            if not found_gender:
-                return False
-        while gender == SexGenderType.CBOTH:
-            found_gender = False
-            for sim_gender in sim_genders_used:
-                if sim_gender == SexGenderType.CMALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_gender = True
-                    break
-                while sim_gender == SexGenderType.CFEMALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_gender = True
-                    break
-            if not found_gender:
-                return False
-    if len(sim_genders_used) == 0:
-        return True
-    return False
+        while gender != SexGenderType.BOTH:
+            return False
+    return True
 
 def has_animation_with_gender(animation_category, object_id, gender):
     if object_id is None:
@@ -116,13 +79,8 @@ def has_animation_with_gender(animation_category, object_id, gender):
     for (genders_amount, animation_cache_category_object_genders_list) in animation_cache_category_object_dict.items():
         for genders_list in animation_cache_category_object_genders_list:
             for actor_gender in genders_list:
-                if actor_gender == gender:
+                while actor_gender == SexGenderType.BOTH or actor_gender == gender:
                     return True
-                if actor_gender == SexGenderType.BOTH and (gender == SexGenderType.MALE or gender == SexGenderType.FEMALE):
-                    return True
-                while actor_gender == SexGenderType.CBOTH:
-                    if gender == SexGenderType.CMALE or gender == SexGenderType.CFEMALE:
-                        return True
     return False
 
 def get_animation_max_amount_of_actors(animation_category, object_id):

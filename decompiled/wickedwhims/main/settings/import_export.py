@@ -55,7 +55,7 @@ def _export_current_settings():
                 break
         if found_free_name is False:
             i += 1
-            return  ''.join(('My_Sexy_Settings_', str(i)))
+            continue
         return first_free_name
 
     def _export_done_dialog_callback(_):

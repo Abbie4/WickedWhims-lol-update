@@ -18,9 +18,9 @@ from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relat
 from wickedwhims.utils_sims import is_sim_available
 
 def update_sim_nudity_skill_on_active_nudity(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
         return
     if is_sim_in_sex(sim_identifier) or is_sim_going_to_sex(sim_identifier):
         return
@@ -41,7 +41,7 @@ def update_sim_nudity_skill_on_active_nudity(sim_identifier):
 
 def update_sim_nudity_skill_on_seeing_nudity(sim, target):
     skill_points = _get_sim_nudity_value(target, sim)*get_nudity_skill_points_modifier(NuditySkillIncreaseReason.SEEING_NUDITY)
-    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD and not get_nudity_setting(NuditySetting.CHILD_POSITIVE_NUDITY_STATE, variable_type=bool) and is_sim_naturist(target):
+    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD and is_sim_naturist(target):
         apply_nudity_skill_influence(sim, skill_points, overall_limit=200.0)
         return
     increase_sim_nudity_skill(sim, skill_points, extra_fatigue=0.05, reason=NuditySkillIncreaseReason.SEEING_NUDITY)
@@ -72,6 +72,8 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     score_collection = list()
     if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TODDLER:
         base_modifier = -0.5
+    elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
+        base_modifier = -1.0
     else:
         sim_outfit_level = get_sim_outfit_level(sim_info)
         target_outfit_level = get_sim_outfit_level(target_sim_info)

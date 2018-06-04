@@ -88,19 +88,15 @@ def get_sims_risk_chance_for_sex_autonomy(sims_list, location_style):
     risk_chance = 1.0
     for sim in sims_list:
         sim_age = TurboSimUtil.Age.get_age(sim)
-        if sim_age == TurboSimUtil.Age.CHILD:
-            risk_chance -= 0.1
-        elif sim_age == TurboSimUtil.Age.TEEN:
+        if sim_age == TurboSimUtil.Age.TEEN:
             risk_chance -= 0.05
         else:
             while sim_age == TurboSimUtil.Age.ELDER:
                 risk_chance -= 0.1
     if location_style == LocationStyleType.PRIVACY or (location_style == LocationStyleType.COMFORT or location_style == LocationStyleType.SEMI_OPEN) or location_style == LocationStyleType.OPEN:
         for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-            if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
+            while TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
                 risk_chance -= 0.05
-            while TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
-                risk_chance -= 0.01
     return risk_chance
 
 def get_sims_pair_for_sex_autonomy(only_on_hypersexual_lot=False):

@@ -64,7 +64,7 @@ def react_to_sims_nudity(sim):
             pass
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
             pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD) and not get_nudity_setting(NuditySetting.CHILD_POSITIVE_NUDITY_STATE, variable_type=bool):
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
             pass
         if is_sim_in_sex(target):
             pass
@@ -110,7 +110,7 @@ def _nudity_reaction(sim, target, only_mixer=False, force=False):
     if not si_result and (si_result is None or TurboInteractionUtil.can_interaction_fallback_to_mixer_interaction(sim, si_result.execute_result.interaction)):
         si_result = TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_NUDITY_REACTION_MIXER, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_REACTION, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT)
     if si_result:
-        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD and not get_nudity_setting(NuditySetting.CHILD_POSITIVE_NUDITY_STATE, variable_type=bool):
+        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD:
             add_sim_buff(sim, SimBuff.PRIVACY_EMBARRASSED)
         cooldown_offset = random.randint(-1, 2)
         sim_ev(sim).full_nudity_reaction_cooldown = 12 + cooldown_offset
@@ -129,7 +129,7 @@ def _is_only_mixer_reaction(sim):
     return False
 
 def _is_positive_to_sim_nudity(sim, target):
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD, or_equal=True) and not get_nudity_setting(NuditySetting.CHILD_POSITIVE_NUDITY_STATE, variable_type=bool):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD, or_equal=True):
         return False
     if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
         return True

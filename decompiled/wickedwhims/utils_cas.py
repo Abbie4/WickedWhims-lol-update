@@ -40,7 +40,7 @@ def copy_outfit_to_special(sim_identifier, set_special_outfit=False, outfit_cate
     if not TurboSimUtil.CAS.has_outfit(sim_info, (TurboCASUtil.OutfitCategory.SPECIAL, 0)):
         TurboSimUtil.CAS.generate_outfit(sim_info, (TurboCASUtil.OutfitCategory.SPECIAL, 0))
     current_outfit = outfit_category_and_index if outfit_category_and_index is not None else (TurboCASUtil.OutfitCategory.get_outfit_category(sim_ev(sim_info).current_outfit_category), int(sim_ev(sim_info).current_outfit_index))
-    outfit_body_parts = get_outfit_parts_cache(sim_info) if outfit_category_and_index is None else None
+    outfit_body_parts = sim_ev(sim_info).outfit_parts_cache if outfit_category_and_index is None else None
     (club, club_gathering) = TurboClubUtil.get_sim_club_gathering(sim_info)
     if club is not None and club_gathering is not None:
         set_special_outfit = True
@@ -153,12 +153,11 @@ def get_sim_outfit_parts(sim_identifier, outfit_category_and_index=None):
     current_outfit_category_and_index = TurboSimUtil.CAS.get_current_outfit(sim_info)
     if outfit_category_and_index is not None and (current_outfit_category_and_index[0] != outfit_category_and_index[0] or current_outfit_category_and_index[1] != outfit_category_and_index[1]):
         return TurboSimUtil.CAS.get_outfit_parts(sim_info, outfit_category_and_index)
-    outfit_parts_cache = get_outfit_parts_cache(sim_info)
+    outfit_parts_cache = sim_ev(sim_info).outfit_parts_cache
     if outfit_parts_cache:
         return outfit_parts_cache
     outfit_parts = TurboSimUtil.CAS.get_outfit_parts(sim_info, current_outfit_category_and_index)
     sim_ev(sim_info).outfit_parts_cache = outfit_parts
-    sim_ev(sim_info).outfit_parts_cache_age = TurboSimUtil.Age.get_age(sim_info)
     return outfit_parts
 
 def get_sim_outfit_cas_part_from_bodytype(sim_identifier, bodytype, outfit_category_and_index=None):
@@ -193,13 +192,3 @@ def is_sim_in_special_outfit(sim_info):
     current_outfit = TurboSimUtil.CAS.get_current_outfit(sim_info)
     return current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0
 
-def get_outfit_parts_cache(sim_identifier):
-    sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    try:
-        outfit_parts_cache_age = sim_ev(sim_info).outfit_parts_cache_age
-    except AttributeError:
-        return
-    outfit_parts_cache = None
-    if outfit_parts_cache_age is not None and outfit_parts_cache_age is TurboSimUtil.Age.get_age(sim_info):
-        outfit_parts_cache = sim_ev(sim_info).outfit_parts_cache
-    return outfit_parts_cache

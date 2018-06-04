@@ -76,7 +76,6 @@ class SexSetting:
     REACTION_TO_SEX_STATE = 'reactions_to_sex'
     REACTION_TO_CUM_STATE = 'reactions_to_cum'
     REACTION_TO_TEEN_PREGNANCY_STATE = 'reactions_to_teen_pregnancy'
-    PRECOCIOUS_PUBERTY_STATE = 'precocious_puberty'
 
 @register_main_settings_option()
 def _register_sex_settings():
@@ -165,7 +164,6 @@ def _setup_settings_variables():
     _setup_settings_variable(SexSetting.REACTION_TO_SEX_STATE, 1)
     _setup_settings_variable(SexSetting.REACTION_TO_CUM_STATE, 1)
     _setup_settings_variable(SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE, 1)
-    _setup_settings_variable(SexSetting.PRECOCIOUS_PUBERTY_STATE, 0)
 
 def _notification_settings():
     settings_option_window = SettingsWindow(0, 3942521497, 2390465803, cancel_callback=_open_sex_settings)
@@ -502,7 +500,6 @@ def _cheats_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(1413563001, 3687654653, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.REACTION_TO_SEX_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(634015514, 1608028199, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.REACTION_TO_CUM_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(2657851670, 1137427362, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE))
-    settings_option_window.add_settings_option(SettingsSwitchOption(3483084758, 1687437541, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.PRECOCIOUS_PUBERTY_STATE, allow_change_callback=False))
     return settings_option_window
 
 def _setup_settings_variable(variable, default_state):

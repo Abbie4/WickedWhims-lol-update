@@ -30,8 +30,6 @@ class NuditySetting:
     TOILET_USE_UNDRESS_STATE = 'toilet_undress_flag'
     BREAST_FEEDING_UNDRESS_STATE = 'breast_feed_undress_flag'
     NUDITY_PRIVACY = 'nudity_privacy'
-    CHILD_POSITIVE_NUDITY_STATE = 'child_positive_flag'
-    CHILD_ON_LOT_AUTONOMY = 'child_lot_autonomy'
     REACTION_TO_NUDITY_STATE = 'nudity_reactions'
 
 @register_main_settings_option()
@@ -76,8 +74,6 @@ def _setup_settings_variables():
     _setup_settings_variable(NuditySetting.TOILET_USE_UNDRESS_STATE, 1)
     _setup_settings_variable(NuditySetting.BREAST_FEEDING_UNDRESS_STATE, 1)
     _setup_settings_variable(NuditySetting.NUDITY_PRIVACY, 1)
-    _setup_settings_variable(NuditySetting.CHILD_POSITIVE_NUDITY_STATE, 0)
-    _setup_settings_variable(NuditySetting.CHILD_ON_LOT_AUTONOMY, 0)
     _setup_settings_variable(NuditySetting.REACTION_TO_NUDITY_STATE, 1)
 
 class CompleteUndressingTypeSetting(TurboEnum):
@@ -178,8 +174,6 @@ def _other_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(1224818283, 3312839120, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.NUDITY_ASSURANCE_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(1521332630, 2094981913, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.TOILET_USE_UNDRESS_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(3872449146, 2574151234, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.BREAST_FEEDING_UNDRESS_STATE))
-    settings_option_window.add_settings_option(SettingsSwitchOption(4025095813, 1942721956, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.CHILD_POSITIVE_NUDITY_STATE))
-    settings_option_window.add_settings_option(SettingsSwitchOption(4105666745, 2538692182, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.CHILD_ON_LOT_AUTONOMY))
     return settings_option_window
 
 def _cheats_settings():

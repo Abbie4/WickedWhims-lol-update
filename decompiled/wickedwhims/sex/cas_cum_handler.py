@@ -145,7 +145,7 @@ def _on_sim_outfit_change(sim_info, category_and_index):
     update_cum_buffs(sim_info, outfit_category_and_index=category_and_index)
 
 def update_cum_buffs(sim_info, outfit_category_and_index=None):
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     has_positive_buff = has_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_POSITIVE)
     has_negative_buff = has_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_NEGATIVE)

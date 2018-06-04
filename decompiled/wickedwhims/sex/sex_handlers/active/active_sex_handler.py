@@ -158,21 +158,13 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, preferenced_gender)) in genders_list:
-            if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
+            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type:
                 self._actors_list[actor_id] = sim_id
                 return True
-            while self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH and preferenced_gender == sim_gender_sex_type:
-                if sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE:
-                    self._actors_list[actor_id] = sim_id
-                    return True
         for (actor_id, (gender, _)) in genders_list:
-            if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
+            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH:
                 self._actors_list[actor_id] = sim_id
                 return True
-            while self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH:
-                if sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE:
-                    self._actors_list[actor_id] = sim_id
-                    return True
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
             for actor_id in self._actors_list.keys():
                 while self._actors_list[actor_id] is None:

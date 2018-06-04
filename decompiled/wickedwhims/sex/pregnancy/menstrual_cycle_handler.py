@@ -72,13 +72,11 @@ def clear_period_related_buffs(sim_identifier):
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_CRAMPS_HIGH)
 
 def can_sim_have_period(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return False
     if TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.ELDER, or_equal=True):
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
-        return False
-    if not get_sex_setting(SexSetting.PRECOCIOUS_PUBERTY_STATE, variable_type=bool) and not has_sim_trait(sim_identifier, SimTrait.WW_PRECOCIOUS_PUBERTY) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD:
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
         return False
     if not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANBEIMPREGNATED):
         return False
@@ -124,9 +122,7 @@ def _get_sim_current_menstrual_impregnation_chance(sim_identifier):
         return 0.0
     sim_age = TurboSimUtil.Age.get_age(sim_info)
     result = 0.0
-    if sim_age == TurboSimUtil.Age.CHILD:
-        result = 0.8
-    elif sim_age == TurboSimUtil.Age.TEEN:
+    if sim_age == TurboSimUtil.Age.TEEN:
         result = 0.9
     elif sim_age == TurboSimUtil.Age.YOUNGADULT:
         result = 0.91

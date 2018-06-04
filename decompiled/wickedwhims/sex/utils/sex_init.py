@@ -29,25 +29,19 @@ def get_age_limits_for_sex(sims_list):
             oldest_sim_age = TurboSimUtil.Age.get_age(actor_sim_info)
     is_allowing_teens = get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool)
     is_teen_only = youngest_sim_age == oldest_sim_age == TurboSimUtil.Age.TEEN
-    is_child_only = youngest_sim_age == oldest_sim_age == TurboSimUtil.Age.CHILD
     has_teen = youngest_sim_age == TurboSimUtil.Age.TEEN or oldest_sim_age == TurboSimUtil.Age.TEEN
-    has_child = youngest_sim_age == TurboSimUtil.Age.CHILD or oldest_sim_age == TurboSimUtil.Age.CHILD
     if not get_relationship_setting(RelationshipSetting.ROMANCE_AGE_RESTRICTION_STATE, variable_type=bool):
         if is_teen_only and is_allowing_teens:
             return (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.TEEN)
         if has_teen and is_allowing_teens:
             return (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.ELDER)
-        if is_child_only and is_allowing_teens:
-            return (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.CHILD)
-        if has_child and is_allowing_teens:
-            return (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.ELDER)
         return (TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ELDER)
     else:
         if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool):
             return (TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ELDER)
-        return (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.ELDER)
+        return (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.ELDER)
 
-def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, skip_cfemales=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.CHILD, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
+def get_sims_for_sex(skip_males=False, skip_females=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.TEEN, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboManagerUtil.Sim.get_sim_id(sim) in skip_sims_ids:
             pass
@@ -56,10 +50,6 @@ def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, sk
         if skip_males is True and get_sim_sex_gender(sim, ignore_sim_specific_gender=True) == SexGenderType.MALE:
             pass
         if skip_females is True and get_sim_sex_gender(sim, ignore_sim_specific_gender=True) == SexGenderType.FEMALE:
-            pass
-        if skip_cmales is True and get_sim_sex_gender(sim, ignore_sim_specific_gender=True) == SexGenderType.CMALE:
-            pass
-        if skip_cfemales is True and get_sim_sex_gender(sim, ignore_sim_specific_gender=True) == SexGenderType.CFEMALE:
             pass
         while not TurboSimUtil.Age.is_younger_than(sim, min_sims_age):
             if TurboSimUtil.Age.is_older_than(sim, max_sims_age):
@@ -81,9 +71,9 @@ def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, sk
                         pass
                 yield TurboManagerUtil.Sim.get_sim_id(sim)
 
-def get_nearby_sims_for_sex(position, radius=16, skip_males=False, skip_females=False, skip_cmales=False, skip_cfemales=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.TEEN, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
+def get_nearby_sims_for_sex(position, radius=16, skip_males=False, skip_females=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.TEEN, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
     is_position_at_active_lot = TurboWorldUtil.Lot.is_position_on_active_lot(position)
-    for sim in get_sims_for_sex(skip_males=skip_males, skip_females=skip_females, skip_cmales=skip_cmales, skip_cfemales=skip_cfemales, only_npc=only_npc, relative_sims=relative_sims, min_sims_age=min_sims_age, max_sims_age=max_sims_age, skip_sims_ids=skip_sims_ids):
+    for sim in get_sims_for_sex(skip_males=skip_males, skip_females=skip_females, only_npc=only_npc, relative_sims=relative_sims, min_sims_age=min_sims_age, max_sims_age=max_sims_age, skip_sims_ids=skip_sims_ids):
         if is_position_at_active_lot and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
             is_sim_in_range = True
         else:

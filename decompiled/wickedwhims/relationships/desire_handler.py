@@ -29,15 +29,13 @@ def _wickedwhims_on_sims_talking_desire_interactions_outcome(interaction_instanc
     target_sim_info = TurboManagerUtil.Sim.get_sim_info(TurboInteractionUtil.get_interaction_target(interaction_instance))
     if target_sim_info is None:
         return
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD) or TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN) or TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.TEEN):
         return
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN or (TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD) or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD):
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN):
         return
     if TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN and TurboSimUtil.Age.is_older_than(target_sim_info, TurboSimUtil.Age.TEEN):
         return
-    if TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD and TurboSimUtil.Age.is_older_than(target_sim_info, TurboSimUtil.Age.CHILD):
-        return
-    if get_relationship_setting(RelationshipSetting.ROMANCE_AGE_RESTRICTION_STATE, variable_type=bool) or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD and TurboSimUtil.Age.is_older_than(sim_info, TurboSimUtil.Age.TEEN):
+    if get_relationship_setting(RelationshipSetting.ROMANCE_AGE_RESTRICTION_STATE, variable_type=bool) or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN and TurboSimUtil.Age.is_older_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     if has_sim_trait(sim_info, SimTrait.WW_SEXUALLY_ABSTINENT):
         set_sim_desire_level(sim_info, 0)
@@ -95,14 +93,14 @@ def get_sim_desire_level(sim_identifier):
 
 def set_sim_desire_level(sim_identifier, amount):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     set_sim_statistic_value(sim_info, amount, SimCommodity.WW_SEX_MASTER_DESIRE)
     _update_sim_desire_effects(sim_info)
 
 def change_sim_desire_level(sim_identifier, amount):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     change_sim_statistic_value(sim_info, amount, SimCommodity.WW_SEX_MASTER_DESIRE)
     _update_sim_desire_effects(sim_info)

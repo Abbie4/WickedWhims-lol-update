@@ -20,7 +20,7 @@ def setup_sim_nude_outfit(sim_info):
 
 def update_nude_body_data(sim_identifier, force_update=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
         from wickedwhims.sxex_bridge.penis import get_penis_soft_cas_id, get_penis_soft_texture_cas_id, get_penis_hard_cas_id, get_penis_hard_texture_cas_id
@@ -78,15 +78,6 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
     return True
 
 def get_default_nude_cas_part_id(sim_identifier, bodytype):
-    if bodytype == TurboCASUtil.BodyType.LOWER_BODY:
-        return 22074
-    if bodytype == TurboCASUtil.BodyType.SHOES:
-        return 22018
-    if TurboSimUtil.Gender.is_male(sim_identifier) and bodytype == TurboCASUtil.BodyType.UPPER_BODY:
-        return 22069
-    if TurboSimUtil.Age.get_age(sim_identifier) is TurboSimUtil.Age.CHILD and TurboSimUtil.Gender.is_female(sim_identifier):
-        if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
-            return 62394
     if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
         return 6562
     if bodytype == TurboCASUtil.BodyType.LOWER_BODY:

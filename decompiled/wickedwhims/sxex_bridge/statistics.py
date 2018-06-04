@@ -70,11 +70,10 @@ def display_sim_statistics_dialog(sim_identifier):
     values[28] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'time_spent_on_sex_climax'), sex_time_overall))
     sex_unique_partners_overall = get_sim_ww_statistic(sim_info, 'unique_sex_partners')
     values[30] = str(sex_unique_partners_overall)
-    values[31] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_child'), sex_unique_partners_overall))
-    values[32] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_teen'), sex_unique_partners_overall))
-    values[33] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult'), sex_unique_partners_overall))
-    values[34] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_adult'), sex_unique_partners_overall))
-    values[35] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_elder'), sex_unique_partners_overall))
+    values[31] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_teen'), sex_unique_partners_overall))
+    values[32] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult'), sex_unique_partners_overall))
+    values[33] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_adult'), sex_unique_partners_overall))
+    values[34] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'unique_sex_partner_elder'), sex_unique_partners_overall))
     sex_cum_received_overall = get_sim_ww_statistic(sim_info, 'times_received_cum_face') + get_sim_ww_statistic(sim_info, 'times_received_cum_chest') + get_sim_ww_statistic(sim_info, 'times_received_cum_back') + get_sim_ww_statistic(sim_info, 'times_received_cum_vagina') + get_sim_ww_statistic(sim_info, 'times_received_cum_butt') + get_sim_ww_statistic(sim_info, 'times_received_cum_feet')
     values[40] = str(sex_cum_received_overall)
     values[41] = str(_get_percentage(get_sim_ww_statistic(sim_info, 'times_received_cum_face'), sex_cum_received_overall))
@@ -101,7 +100,6 @@ def display_sim_statistics_dialog(sim_identifier):
 def _update_sim_statistics(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     set_sim_ww_statistic(sim_info, 'unique_sex_partners', 0)
-    set_sim_ww_statistic(sim_info, 'unique_sex_partner_child', 0)
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_teen', 0)
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult', 0)
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_adult', 0)
@@ -109,9 +107,7 @@ def _update_sim_statistics(sim_identifier):
     for target_sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
         while sim_info is not target_sim_info and has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
             increase_sim_ww_statistic(sim_info, 'unique_sex_partners')
-            if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
-                increase_sim_ww_statistic(sim_info, 'unique_sex_partner_child')
-            elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN:
+            if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN:
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_teen')
             elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.YOUNGADULT:
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult')

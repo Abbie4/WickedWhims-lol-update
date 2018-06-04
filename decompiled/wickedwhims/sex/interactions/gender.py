@@ -25,8 +25,6 @@ class SetSimGenderRecognitionAsMaleInteraction(TurboImmediateSuperInteraction, T
             return False
         if is_sim_in_sex(interaction_target) or is_sim_planning_for_sex(interaction_target):
             return False
-        if sim_ev(interaction_target).gender_recognition == int(TurboSimUtil.Gender.CMALE):
-            return False
         if sim_ev(interaction_target).gender_recognition == int(TurboSimUtil.Gender.MALE):
             return False
         return True
@@ -48,8 +46,6 @@ class SetSimGenderRecognitionAsFemaleInteraction(TurboImmediateSuperInteraction,
         if interaction_target is None or not TurboTypesUtil.Sims.is_sim(interaction_target):
             return False
         if is_sim_in_sex(interaction_target) or is_sim_planning_for_sex(interaction_target):
-            return False
-        if sim_ev(interaction_target).gender_recognition == int(TurboSimUtil.Gender.CFEMALE):
             return False
         if sim_ev(interaction_target).gender_recognition == int(TurboSimUtil.Gender.FEMALE):
             return False

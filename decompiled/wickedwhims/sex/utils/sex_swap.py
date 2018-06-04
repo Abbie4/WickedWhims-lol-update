@@ -16,7 +16,5 @@ def is_compatible_actor(sim_identifier, sim_actor, target_sim_identifier, target
         return True
     if (get_sim_sex_gender(sim_identifier) == target_actor.get_gender_type() or target_actor.get_gender_type() == SexGenderType.BOTH) and (get_sim_sex_gender(target_sim_identifier) == sim_actor.get_gender_type() or sim_actor.get_gender_type() == SexGenderType.BOTH):
         return True
-    if (get_sim_sex_gender(sim_identifier) == target_actor.get_gender_type() or target_actor.get_gender_type() == SexGenderType.CBOTH) and (get_sim_sex_gender(target_sim_identifier) == sim_actor.get_gender_type() or sim_actor.get_gender_type() == SexGenderType.CBOTH):
-        return True
     return False
 

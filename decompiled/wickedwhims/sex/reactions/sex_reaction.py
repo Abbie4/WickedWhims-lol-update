@@ -154,7 +154,7 @@ def get_reaction_type(sim, sex_handler, allow_special_types=False):
             if found_lovers and found_non_lovers:
                 sex_reaction_data = SEX_REACTION_JEALOUS
                 sex_reaction_should_left = True
-        if SEX_REACTION_HORRIFIED[0] > sex_reaction_data[0] and (TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD) or is_true_family_relationship(sim, target)):
+        if SEX_REACTION_HORRIFIED[0] > sex_reaction_data[0] and (TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) or is_true_family_relationship(sim, target)):
             sex_reaction_data = SEX_REACTION_HORRIFIED
             sex_reaction_should_left = True
         if SEX_REACTION_CUCK_MALE[0] > sex_reaction_data[0] and has_sim_trait(sim, SimTrait.WW_CUCKOLD):

@@ -30,7 +30,7 @@ def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):
     if interaction_guid not in JUMPING_INTERACTIONS:
         return
     sim_info = TurboManagerUtil.Sim.get_sim_info(TurboInteractionUtil.get_interaction_sim(interaction_instance))
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     if get_modified_outfit(sim_info)[0] != TurboCASUtil.OutfitCategory.SWIMWEAR:
         return

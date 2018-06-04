@@ -87,9 +87,8 @@ Other Statistics\\\
           Vaginal: {26.String}%, Anal: {27.String}%,\\\
           Climax: {28.String}%)\\\
   \u2517 Unique Sex Partners: {30.String}\\\
-     \u2517 (Child: {31.String}%, Teen: {32.String}%,\\\
-           Young Adult: {33.String}%, Adult: {34.String}%),\\\
-           Elder: {34.String}%\\\
+     \u2517 (Teen: {31.String}%, Young Adult: {32.String}%,\\\
+           Adult: {33.String}%, Elder: {34.String}%)\\\
   \u2517 Times Received Cum: {40.String}\\\
      \u2517 (Face: {41.String}%, Chest: {42.String}%, Back: {43.String}%,\\\
            Vagina: {44.String}%, Butt: {45.String}%, Feet: {46.String}%)\\\

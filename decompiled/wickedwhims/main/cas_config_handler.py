@@ -18,7 +18,7 @@ PENIS_CAS_PART_IDS_LIST = None
 
 def get_pre_cas_parts_dict():
     main_dict = dict()
-    main_dict['_PENIS_LIST'] = [[0, 'Penis_WickedWhims_Old_Default', 'Original Default', 'WickedWhims'], [98, 'Penis_Dagangsta', 'Dagangsta Child', 'Dagangsta'], [97, 'Penis_Churchai', 'Churchai Child', 'Churchai'], [100, 'Penis_Untraditional_NERD_1', 'Untraditional NERD 1', 'Untraditional NERD'], [101, 'Penis_Untraditional_NERD_2', 'Untraditional NERD 2', 'Untraditional NERD'], [102, 'Penis_Untraditional_NERD_3', 'Untraditional NERD 3', 'Untraditional NERD'], [103, 'Penis_Untraditional_NERD_Uncut', 'Untraditional NERD Uncut', 'Untraditional NERD'], [200, 'Penis_LunarEclipse', 'LunarEclipse', 'LunariEclipse'], [300, 'Penis_BetterBody', 'Better Body Penis', 'Hiroki'], [301, 'Penis_BetterBody_2', 'Better Body Penis 2', 'Hiroki'], [400, 'Penis_PornstarCock_Small', 'Pornstar Cock Small', 'Noir and Dark Sims'], [401, 'Penis_PornstarCock_Small_Uncut', 'Pornstar Cock Small Uncut', 'Noir and Dark Sims'], [402, 'Penis_PornstarCock_Average', 'Pornstar Cock Average', 'Noir and Dark Sims'], [403, 'Penis_PornstarCock_Average_Uncut', 'Pornstar Cock Average Uncut', 'Noir and Dark Sims'], [404, 'Penis_PornstarCock_Big', 'Pornstar Cock Big', 'Noir and Dark Sims'], [405, 'Penis_PornstarCock_Big_Uncut', 'Pornstar Cock Big Uncut', 'Noir and Dark Sims'], [406, 'Penis_PornstarCock_ExtraBig', 'Pornstar Cock Extra Big', 'Noir and Dark Sims'], [407, 'Penis_PornstarCock_ExtraBig_Uncut', 'Pornstar Cock Extra Big Uncut', 'Noir and Dark Sims'], [408, 'Penis_PornstarCock_Huge', 'Pornstar Cock Huge', 'Noir and Dark Sims'], [409, 'Penis_PornstarCock_Huge_Uncut', 'Pornstar Cock Huge Uncut', 'Noir and Dark Sims'], [450, 'Penis_Futanari_Small_Cut', 'Futanari Penis Small Cut', 'Noir and Dark Sims'], [451, 'Penis_Futanari_Small_Uncut', 'Futanari Penis Small Uncut', 'Noir and Dark Sims'], [452, 'Penis_Futanari_Average_Cut', 'Futanari Penis Average Cut', 'Noir and Dark Sims'], [453, 'Penis_Futanari_Average_Uncut', 'Futanari Penis Average Uncut', 'Noir and Dark Sims'], [454, 'Penis_Futanari_Big_Cut', 'Futanari Penis Big Cut', 'Noir and Dark Sims'], [455, 'Penis_Futanari_Big_Uncut', 'Futanari Penis Big Uncut', 'Noir and Dark Sims'], [456, 'Penis_Futanari_ExtraBig_Cut', 'Futanari Penis Extra Big Cut', 'Noir and Dark Sims'], [457, 'Penis_Futanari_ExtraBig_Uncut', 'Futanari Penis Extra Big Uncut', 'Noir and Dark Sims'], [458, 'Penis_Futanari_Huge_Cut', 'Futanari Penis Huge Cut', 'Noir and Dark Sims'], [459, 'Penis_Futanari_Huge_Uncut', 'Futanari Penis Huge Uncut', 'Noir and Dark Sims'], [460, 'Penis_Futanari_Vagina_Small_Cut', 'Futanari Penis without Testicles Small Cut', 'Noir and Dark Sims'], [461, 'Penis_Futanari_Vagina_Small_Uncut', 'Futanari Penis without Testicles Small Uncut', 'Noir and Dark Sims'], [462, 'Penis_Futanari_Vagina_Average_Cut', 'Futanari Penis without Testicles Average Cut', 'Noir and Dark Sims'], [463, 'Penis_Futanari_Vagina_Average_Uncut', 'Futanari Penis without Testicles Average Uncut', 'Noir and Dark Sims'], [464, 'Penis_Futanari_Vagina_Big_Cut', 'Futanari Penis without Testicles Big Cut', 'Noir and Dark Sims'], [465, 'Penis_Futanari_Vagina_Big_Uncut', 'Futanari Penis without Testicles Big Uncut', 'Noir and Dark Sims'], [466, 'Penis_Futanari_Vagina_ExtraBig_Cut', 'Futanari Penis without Testicles Extra Big Cut', 'Noir and Dark Sims'], [467, 'Penis_Futanari_Vagina_ExtraBig_Uncut', 'Futanari Penis without Testicles Extra Big Uncut', 'Noir and Dark Sims'], [468, 'Penis_Futanari_Vagina_Huge_Cut', 'Futanari Penis without Testicles Huge Cut', 'Noir and Dark Sims'], [469, 'Penis_Futanari_Vagina_Huge_Uncut', 'Futanari Penis without Testicles Huge Uncut', 'Noir and Dark Sims']]
+    main_dict['_PENIS_LIST'] = [[0, 'Penis_WickedWhims_Old_Default', 'Original Default', 'WickedWhims'], [100, 'Penis_Untraditional_NERD_1', 'Untraditional NERD 1', 'Untraditional NERD'], [101, 'Penis_Untraditional_NERD_2', 'Untraditional NERD 2', 'Untraditional NERD'], [102, 'Penis_Untraditional_NERD_3', 'Untraditional NERD 3', 'Untraditional NERD'], [103, 'Penis_Untraditional_NERD_Uncut', 'Untraditional NERD Uncut', 'Untraditional NERD'], [200, 'Penis_LunarEclipse', 'LunarEclipse', 'LunariEclipse'], [300, 'Penis_BetterBody', 'Better Body Penis', 'Hiroki'], [301, 'Penis_BetterBody_2', 'Better Body Penis 2', 'Hiroki'], [400, 'Penis_PornstarCock_Small', 'Pornstar Cock Small', 'Noir and Dark Sims'], [401, 'Penis_PornstarCock_Small_Uncut', 'Pornstar Cock Small Uncut', 'Noir and Dark Sims'], [402, 'Penis_PornstarCock_Average', 'Pornstar Cock Average', 'Noir and Dark Sims'], [403, 'Penis_PornstarCock_Average_Uncut', 'Pornstar Cock Average Uncut', 'Noir and Dark Sims'], [404, 'Penis_PornstarCock_Big', 'Pornstar Cock Big', 'Noir and Dark Sims'], [405, 'Penis_PornstarCock_Big_Uncut', 'Pornstar Cock Big Uncut', 'Noir and Dark Sims'], [406, 'Penis_PornstarCock_ExtraBig', 'Pornstar Cock Extra Big', 'Noir and Dark Sims'], [407, 'Penis_PornstarCock_ExtraBig_Uncut', 'Pornstar Cock Extra Big Uncut', 'Noir and Dark Sims'], [408, 'Penis_PornstarCock_Huge', 'Pornstar Cock Huge', 'Noir and Dark Sims'], [409, 'Penis_PornstarCock_Huge_Uncut', 'Pornstar Cock Huge Uncut', 'Noir and Dark Sims'], [450, 'Penis_Futanari_Small_Cut', 'Futanari Penis Small Cut', 'Noir and Dark Sims'], [451, 'Penis_Futanari_Small_Uncut', 'Futanari Penis Small Uncut', 'Noir and Dark Sims'], [452, 'Penis_Futanari_Average_Cut', 'Futanari Penis Average Cut', 'Noir and Dark Sims'], [453, 'Penis_Futanari_Average_Uncut', 'Futanari Penis Average Uncut', 'Noir and Dark Sims'], [454, 'Penis_Futanari_Big_Cut', 'Futanari Penis Big Cut', 'Noir and Dark Sims'], [455, 'Penis_Futanari_Big_Uncut', 'Futanari Penis Big Uncut', 'Noir and Dark Sims'], [456, 'Penis_Futanari_ExtraBig_Cut', 'Futanari Penis Extra Big Cut', 'Noir and Dark Sims'], [457, 'Penis_Futanari_ExtraBig_Uncut', 'Futanari Penis Extra Big Uncut', 'Noir and Dark Sims'], [458, 'Penis_Futanari_Huge_Cut', 'Futanari Penis Huge Cut', 'Noir and Dark Sims'], [459, 'Penis_Futanari_Huge_Uncut', 'Futanari Penis Huge Uncut', 'Noir and Dark Sims'], [460, 'Penis_Futanari_Vagina_Small_Cut', 'Futanari Penis without Testicles Small Cut', 'Noir and Dark Sims'], [461, 'Penis_Futanari_Vagina_Small_Uncut', 'Futanari Penis without Testicles Small Uncut', 'Noir and Dark Sims'], [462, 'Penis_Futanari_Vagina_Average_Cut', 'Futanari Penis without Testicles Average Cut', 'Noir and Dark Sims'], [463, 'Penis_Futanari_Vagina_Average_Uncut', 'Futanari Penis without Testicles Average Uncut', 'Noir and Dark Sims'], [464, 'Penis_Futanari_Vagina_Big_Cut', 'Futanari Penis without Testicles Big Cut', 'Noir and Dark Sims'], [465, 'Penis_Futanari_Vagina_Big_Uncut', 'Futanari Penis without Testicles Big Uncut', 'Noir and Dark Sims'], [466, 'Penis_Futanari_Vagina_ExtraBig_Cut', 'Futanari Penis without Testicles Extra Big Cut', 'Noir and Dark Sims'], [467, 'Penis_Futanari_Vagina_ExtraBig_Uncut', 'Futanari Penis without Testicles Extra Big Uncut', 'Noir and Dark Sims'], [468, 'Penis_Futanari_Vagina_Huge_Cut', 'Futanari Penis without Testicles Huge Cut', 'Noir and Dark Sims'], [469, 'Penis_Futanari_Vagina_Huge_Uncut', 'Futanari Penis without Testicles Huge Uncut', 'Noir and Dark Sims']]
     penis_parts = dict()
     penis_parts['Penis_WickedWhims_Old_Default'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 17354941039612302195, 'PENIS_SOFT_CAS_PART_ID_MFF': 16900757479479265442, 'PENIS_SOFT_CAS_PART_ID_FMF': 16900757479479265442, 'PENIS_SOFT_CAS_PART_ID_FFF': 16900757479479265442, 'PENIS_HARD_CAS_PART_ID_MMF': 14243251136880415957, 'PENIS_HARD_CAS_PART_ID_MFF': 18142873582521958545, 'PENIS_HARD_CAS_PART_ID_FMF': 18142873582521958545, 'PENIS_HARD_CAS_PART_ID_FFF': 18142873582521958545}
     penis_parts['Penis_Untraditional_NERD_1'] = {'PENIS_SOFT_CAS_PART_ID_FMF': 10287377498559428630, 'PENIS_SOFT_CAS_PART_ID_MMF': 10287377498559428630}
@@ -26,8 +26,6 @@ def get_pre_cas_parts_dict():
     penis_parts['Penis_Untraditional_NERD_3'] = {'PENIS_SOFT_CAS_PART_ID_FMF': 17213811511466745692, 'PENIS_SOFT_CAS_PART_ID_MMF': 17213811511466745692}
     penis_parts['Penis_Untraditional_NERD_Uncut'] = {'PENIS_SOFT_CAS_PART_ID_FMF': 16859505218324355809, 'PENIS_SOFT_CAS_PART_ID_MMF': 16859505218324355809}
     penis_parts['Penis_LunarEclipse'] = {'PENIS_HARD_CAS_PART_ID_MFF': 9223372038993379308, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372038972949381, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372038993379308, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372038972949381, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372040477827993, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372038100314453, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372040477827993, 'PENIS_SOFT_CAS_PART_ID_MMF': 9223372038100314453}
-    penis_parts['Penis_Dagangsta'] = {'PENIS_SOFT_CAS_PART_ID_CHILD': 16167628749985717169}
-    penis_parts['Penis_Churchai'] = {'PENIS_HARD_CAS_PART_ID_CHILD': 9754250493793977126}
     penis_parts['Penis_BetterBody'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372038368607453, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372039061255172}
     penis_parts['Penis_BetterBody_2'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 16981047874505727944, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372037305394352}
     penis_parts['Penis_PornstarCock_Small'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372040780423212, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372038074318859, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372040794997628, 'PENIS_HARD_CAS_TEXTURE_ID_MMF': 9223372040794997628, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372040780423212, 'PENIS_HARD_CAS_PART_ID_MFF': 9223372038074318859, 'PENIS_SOFT_CAS_TEXTURE_ID_MFF': 9223372040794997628, 'PENIS_HARD_CAS_TEXTURE_ID_MFF': 9223372040794997628, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372037706112211, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372037866015322, 'PENIS_SOFT_CAS_TEXTURE_ID_FMF': 9223372036887564076, 'PENIS_HARD_CAS_TEXTURE_ID_FMF': 9223372036887564076, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372037706112211, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372037866015322, 'PENIS_SOFT_CAS_TEXTURE_ID_FFF': 9223372036887564076, 'PENIS_HARD_CAS_TEXTURE_ID_FFF': 9223372036887564076}
@@ -63,20 +61,12 @@ def get_pre_cas_parts_dict():
     main_dict['_PENIS_PARTS'] = penis_parts
     male_underwear_parts = [(-1, 24742), (-1, 24741), (-1, 24740), (-1, 24539), (-1, 83931), (-1, 83929), (-1, 83932), (-1, 83930), (-1, 69627), (-1, 69628), (-1, 69629), (-1, 69630), (-1, 69631), (-1, 69632), (-1, 69626), (-1, 69625), (-1, 69624)]
     female_underwear_parts = [(24426, 24434), (24427, 24435), (24424, 24432), (24425, 24433), (40931, 40900), (40935, 40904), (40930, 40899), (40932, 40933), (40933, 40902), (40934, 40903), (84063, 84053), (84064, 84054), (84065, 84055), (84066, 84056), (84067, 84057), (84068, 84058), (84059, 84049), (84060, 84050), (84061, 84051), (84062, 84052)]
-    child_male_underwear_parts = [(-1, 37688), (-1, 37689), (-1, 37690), (-1, 37691), (-1, 37692), (-1, 37693), (-1, 44818), (-1, 44676), (-1, 44674)]
-    child_female_underwear_parts = [(37673, 37796), (37678, 37797), (37674, 37798), (37677, 37799), (37675, 37800), (37676, 37517), (45129, 46517), (45128, 46516)]
     main_dict['_UNDERWEAR_MALE_PARTS'] = male_underwear_parts
     main_dict['_UNDERWEAR_FEMALE_PARTS'] = female_underwear_parts
-    main_dict['_UNDERWEAR_CHILD_MALE_PARTS'] = child_male_underwear_parts
-    main_dict['_UNDERWEAR_CHILD_FEMALE_PARTS'] = child_female_underwear_parts
     main_dict['_STRAPON_LIST'] = [[10, 'Strapon_Azmodan22_Female', 'Azmodan22 Female Strapon', 'Azmodan22']]
     strapon_parts = dict()
     strapon_parts['Strapon_Azmodan22_Female'] = [12809811016933154869, 9720214040714755941, 10854472850203600612, 11554976338356644811, 17982268356138628121, 13267899183187519679, 17916907420887639294, 12872118224779588270, 17031009722235732838, 10043057261028104391, 15796471725877477912, 12083312791141021895, 13523698017766118783, 14875424974616572780, 14458140897810102808, 10115566520094726204, 17564824903314514029, 11701898016962346052, 12256572452638468176]
     main_dict['_STRAPON_PARTS'] = strapon_parts
-    main_dict['_CHILD_STRAPON_LIST'] = [[10, 'Strapon_Alec15_cFemale', 'Alec15 Child Female Strapon', 'Alec15']]
-    child_strapon_parts = {}
-    child_strapon_parts['Strapon_Alec15_cFemale'] = [18002282973446129059, 13629967598840207276, 11349001298853011426, 14432721862215753933, 10497354938454705086, 15190026501009278331, 11847972575753704443, 9451531092172161518, 11340141603401211881, 17285505591509599228, 13277720470162288604, 15131744139864002650, 12945061153762885507, 17656140836799771695, 16254769018299082511, 16527783484860928755, 9741498876726838344, 13561050739592104541, 12751550898914181652]
-    main_dict['_CHILD_STRAPON_PARTS'] = child_strapon_parts
     return main_dict
 
 def get_default_cas_parts_dict():
@@ -85,16 +75,12 @@ def get_default_cas_parts_dict():
         return DEFAULT_CAS_PARTS_DICT
     main_dict = dict()
     penis_parts = dict()
-    penis_parts['Penis_Default'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_MFF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_CHILD': 16167628749985717169, 'PENIS_HARD_CAS_PART_ID_CHILD': 9754250493793977126, 'PENIS_SOFT_CAS_TEXTURE_ID_CHILD': -1, 'PENIS_HARD_CAS_TEXTURE_ID_CHILD': -1}
+    penis_parts['Penis_Default'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_MFF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FFF': 9223372041025717268}
     main_dict['_PENIS_PARTS'] = penis_parts
     male_underwear_parts = [(-1, 24742)]
     female_underwear_parts = [(24426, 24434)]
-    child_male_underwear_parts = [(-1, 37688)]
-    child_female_underwear_parts = [(37673, 37796)]
     main_dict['_UNDERWEAR_MALE_PARTS'] = male_underwear_parts
     main_dict['_UNDERWEAR_FEMALE_PARTS'] = female_underwear_parts
-    main_dict['_UNDERWEAR_CHILD_MALE_PARTS'] = child_male_underwear_parts
-    main_dict['_UNDERWEAR_CHILD_FEMALE_PARTS'] = child_female_underwear_parts
     DEFAULT_CAS_PARTS_DICT = main_dict
     return DEFAULT_CAS_PARTS_DICT
 
@@ -240,14 +226,9 @@ def get_penis_cas_part(author_key, type_key, exclude_default=False):
         return -1
     return default_penis_parts['Penis_Default'][type_key]
 
-def get_underwear_part_sets(sim_info):
+def get_underwear_part_sets(sim_gender):
     global CAS_PARTS_DICT
-    sim_gender = TurboSimUtil.Gender.get_gender(sim_info)
-    sim_age = TurboSimUtil.Age.get_age(sim_info)
-    if sim_age == TurboSimUtil.Age.CHILD:
-        underwear_key = '_UNDERWEAR_CHILD_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_CHILD_FEMALE_PARTS'
-    else:
-        underwear_key = '_UNDERWEAR_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_FEMALE_PARTS'
+    underwear_key = '_UNDERWEAR_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_FEMALE_PARTS'
     if CAS_PARTS_DICT is None:
         CAS_PARTS_DICT = get_pre_cas_parts_dict()
     cas_parts = CAS_PARTS_DICT
@@ -269,27 +250,15 @@ def get_underwear_part_sets(sim_info):
                 valid_underwear_sets.append([top_part, bottom_part])
     return valid_underwear_sets
 
-def get_strapon_part_ids(sim_info):
+def get_strapon_part_ids():
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
         CAS_PARTS_DICT = get_pre_cas_parts_dict()
     cas_parts = CAS_PARTS_DICT
     if '_STRAPON_LIST' not in cas_parts or '_STRAPON_PARTS' not in cas_parts:
         cas_parts = get_pre_cas_parts_dict()
-    if '_CHILD_STRAPON_LIST' not in cas_parts or '_CHILD_STRAPON_PARTS' not in cas_parts:
-        cas_parts = get_pre_cas_parts_dict()
     strapon_part_ids_list = list()
-    if TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD:
-        if '_CHILD_STRAPON_LIST' in cas_parts and '_CHILD_STRAPON_PARTS' in cas_parts:
-            child_strapon_list = cas_parts['_CHILD_STRAPON_LIST']
-            if child_strapon_list:
-                while True:
-                    for (priority, author_key, name, author_name) in child_strapon_list:
-                        child_strapon_parts_list = cas_parts['_CHILD_STRAPON_PARTS'][author_key]
-                        for cas_id in child_strapon_parts_list:
-                            while cas_id not in strapon_part_ids_list:
-                                strapon_part_ids_list.append(cas_id)
-    elif '_STRAPON_LIST' in cas_parts and '_STRAPON_PARTS' in cas_parts:
+    if '_STRAPON_LIST' in cas_parts and '_STRAPON_PARTS' in cas_parts:
         strapon_list = cas_parts['_STRAPON_LIST']
         if strapon_list:
             while True:

@@ -31,9 +31,9 @@ class ChangeSimStraponInteraction(TurboSuperInteraction):
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN:
             return False
-        if not has_loaded_strapon(interaction_context.sim.sim_info):
+        if not has_loaded_strapon():
             return False
         return True
 
@@ -56,7 +56,7 @@ class AllowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractionSt
             return False
         if has_sim_trait(interaction_target, SimTrait.GENDEROPTIONS_TOILET_STANDING):
             return False
-        if not has_loaded_strapon(interaction_context.sim.sim_info):
+        if not has_loaded_strapon():
             return False
         if sim_ev(interaction_target).is_strapon_allowed is False:
             return True
@@ -86,7 +86,7 @@ class DisallowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractio
             return False
         if has_sim_trait(interaction_target, SimTrait.GENDEROPTIONS_TOILET_STANDING):
             return False
-        if not has_loaded_strapon(interaction_context.sim.sim_info):
+        if not has_loaded_strapon():
             return False
         if sim_ev(interaction_target).is_strapon_allowed is True:
             return True

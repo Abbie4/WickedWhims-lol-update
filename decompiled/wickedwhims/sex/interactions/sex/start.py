@@ -26,7 +26,7 @@ def _test_for_sex_start(interaction_context, interaction_sim, interaction_target
         return False
     if not is_sim_ready_for_sex(interaction_sim) or sim_ev(interaction_sim).active_pre_sex_handler is not None:
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.CHILD):
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.TEEN:
         return False
     if TurboTypesUtil.Objects.is_game_object(interaction_target):
         interaction_target = TurboObjectUtil.GameObject.get_parent(interaction_target)

@@ -22,16 +22,14 @@ from wickedwhims.utils_situations import has_sim_situations
 @register_on_game_update_method(interval=2500)
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
             pass
-        if(not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD)):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             pass
         while not is_sim_in_sex(sim):
             if is_sim_going_to_sex(sim):
                 pass
             if has_sim_situations(sim, (SimSituation.GRIMREAPER, SimSituation.FIRE, SimSituation.BABYBIRTH_HOSPITAL)):
-                pass
-            if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.CHILD):
                 pass
             if not is_sim_available(sim):
                 pass
@@ -39,7 +37,7 @@ def _trigger_desire_reaction_on_game_update():
             for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
                 if sim is target:
                     pass
-                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
+                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
                     pass
                 if not _has_reaction_to_nudity(sim, target):
                     pass
@@ -62,7 +60,7 @@ def _trigger_desire_reaction_on_game_update():
 def _has_reaction_to_nudity(sim, target):
     if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
         return True
-    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and (TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.CHILD):
+    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN:
         return True
     if is_sim_exhibitionist(sim):
         return True

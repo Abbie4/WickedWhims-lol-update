@@ -38,10 +38,6 @@ class PregnancyTakeFertilityTestOutcomeInteraction(TurboImmediateSuperInteractio
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         sim = cls.get_interaction_sim(interaction_instance)
-        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD and not get_sex_setting(SexSetting.PRECOCIOUS_PUBERTY_STATE, variable_type=bool) and not has_sim_trait(sim, SimTrait.WW_PRECOCIOUS_PUBERTY):
-            pregnancy_chance = int(get_sim_current_pregnancy_chance(sim)*100)
-            display_notification(text=72538425, text_tokens=(sim, str(pregnancy_chance)), title=2800719885, icon=sim)
-            return True
         if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) == PregnancyModeSetting.MENSTRUAL_CYCLE:
             pregnancy_chance = int(get_sim_current_menstrual_pregnancy_chance(sim)*100)
             days_till_ovulation = get_sim_days_till_ovulation(sim)

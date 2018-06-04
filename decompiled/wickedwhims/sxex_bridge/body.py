@@ -24,7 +24,6 @@ def update_sim_body_data(sim_identifier, override_outfit_category_and_index=None
     else:
         outfit_category_and_index = override_outfit_category_and_index
     sim_ev(sim_info).outfit_parts_cache = TurboSimUtil.CAS.get_outfit_parts(sim_info, outfit_category_and_index)
-    sim_ev(sim_info).outfit_parts_cache_age = TurboSimUtil.Age.get_age(sim_info)
 
 class BodyState(TurboEnum):
     __qualname__ = 'BodyState'
