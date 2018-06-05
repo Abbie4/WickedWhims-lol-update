@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="ChangeActorOutfitInteraction" i="interaction" m="wickedwhims.sex.interactions.sex_cas.outfit" n="TURBODRIVER:WickedWhims_Change_Actor_Outfit_Picker" s="11309325992773936936">
+  <V t="disabled" n="_saveable" />
+  <V t="Disallow" n="allow_current_outfit">
+    <T n="Disallow">0xD6BF23DE</T>
+  </V>
+  <T n="category">17412749801601704519</T>  <!--UndressSimParent-->
+  <T n="display_name">0xE9FBA083</T>
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <V n="outfit_sim_info" t="from_participant">
+    <U n="from_participant">
+      <E n="participant">TargetSim</E>
+    </U>
+  </V>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">TargetSim</E>
+      </U>
+    </V>
+  </L>
+</I>

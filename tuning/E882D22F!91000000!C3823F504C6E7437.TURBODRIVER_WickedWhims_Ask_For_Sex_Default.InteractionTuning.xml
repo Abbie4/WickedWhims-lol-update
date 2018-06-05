@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="AskForSexSocialMixerInteraction" i="interaction" m="wickedwhims.sex.interactions.sex.social" n="TURBODRIVER:WickedWhims_Ask_For_Sex_Default" s="14087892198480573495">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="InGame\UI\Icons\InteractionQueueSubInteractions\icon_queuesubinteraction_romantic.png">2f7d0004:00000000:d2da0a0c5a0bc252</T>
+    </U>
+  </V>
+  <T n="allow_autonomous">False</T>
+  <T n="allow_user_directed">True</T>
+  <T n="display_name">0xE0C90006</T>  <!--Ask for Sex-->
+  <T n="display_name_target">0x4218F70A<!--Be Asked for Sex--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="attention_cost">1.25</T>
+  <V n="content_score" t="enabled">
+    <U n="enabled">
+      <T n="base_score">500</T>
+    </U>
+  </V>
+  <T n="ignores_greetings">False</T>
+  <L n="interaction_category_tags">
+    <E>Interaction_Friendly</E>
+    <E>Social_Flirty</E>
+    <E>Interaction_Chat</E>
+    <E>Interaction_Mixer</E>
+    <E>Interaction_All</E>
+    <E>Interaction_Mixer_Social</E>
+    <E>Interaction_Social_Contagious</E>
+  </L>
+  <V n="outcome" t="test_based">
+    <U n="test_based">
+      <L n="tested_outcomes">
+        <U>
+          <L n="potential_outcomes">
+            <U>
+              <U n="outcome">
+                <E n="outcome_result">SUCCESS</E>
+                <V t="enabled" n="cancel_si" />
+                <V t="enabled" n="animation_ref">
+                  <U n="enabled">
+                    <T n="factory">12008<!--AnimationElement: Soc_Romance_NT_Flirt_PickupLine_Succeed_basic--></T>
+                  </U>
+                </V>
+                <L n="continuation">
+                  <U>
+                    <T n="affordance">13486302087029439947<!--WickedWhims_Ask_For_Sex_Success_Default--></T>
+                  </U>
+                </L>
+                <V t="enabled" n="response">
+                  <V n="enabled" t="individual">
+                    <U n="individual">
+                      <L n="animations">
+                        <U>
+                          <E n="target">Actor</E>
+                          <U n="animation">
+                            <T n="factory">99689<!--AnimationElement: Socials_Responses_Woohoo_Bed_Acceptance--></T>
+                          </U>
+                        </U>
+                        <U>
+                          <E n="target">TargetSim</E>
+                          <U n="animation">
+                            <T n="factory">99689<!--AnimationElement: Socials_Responses_Woohoo_Bed_Acceptance--></T>
+                          </U>
+                        </U>
+                      </L>
+                    </U>
+                  </V>
+                </V>
+              </U>
+            </U>
+          </L>
+          <L n="tests">
+            <L>
+              <V t="test_based_score_threshold">
+                <U n="test_based_score_threshold">
+                  <T n="test_based_score">13299080933458659880</T>
+                  <U n="threshold">
+                    <E n="comparison">GREATER_OR_EQUAL</E>
+                    <T n="value">15</T>
+                  </U>
+                </U>
+              </V>
+            </L>
+          </L>
+        </U>
+        <U>
+          <L n="potential_outcomes">
+            <U>
+              <U n="outcome">
+                <E n="outcome_result">FAILURE</E>
+                <V t="enabled" n="animation_ref">
+                  <U n="enabled">
+                    <T n="factory">12007<!--AnimationElement: Soc_Romance_NT_Flirt_PickupLine_Fail_basic--></T>
+                  </U>
+                </V>
+                <L n="continuation">
+                  <U>
+                    <T n="affordance">17979319336372264984<!--WickedWhims_Ask_For_Sex_Failure_Default--></T>
+                  </U>
+                </L>
+                <E n="outcome_result">FAILURE</E>
+                <V n="response" t="enabled">
+                  <V n="enabled" t="individual">
+                    <U n="individual">
+                      <L n="animations">
+                        <U>
+                          <E n="target">Actor</E>
+                          <U n="animation">
+                            <T n="factory">11811<!--AnimationElement: Social_Responses_Embarrassed_Cringe--></T>
+                          </U>
+                        </U>
+                        <U>
+                          <E n="target">TargetSim</E>
+                          <U n="animation">
+                            <T n="factory">11813<!--AnimationElement: Social_Responses_Embarrassed_Offended--></T>
+                          </U>
+                        </U>
+                      </L>
+                    </U>
+                  </V>
+                </V>
+              </U>
+            </U>
+          </L>
+          <L n="tests">
+            <L>
+              <V t="test_based_score_threshold">
+                <U n="test_based_score_threshold">
+                  <T n="test_based_score">13299080933458659880</T>
+                  <U n="threshold">
+                    <E n="comparison">LESS_OR_EQUAL</E>
+                    <T n="value">14</T>
+                  </U>
+                </U>
+              </V>
+            </L>
+          </L>
+        </U>
+      </L>
+    </U>
+  </V>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">TargetSim</E>
+      </U>
+    </V>
+  </L>
+  <U n="sub_action">
+    <T n="base_weight">20</T>
+  </U>
+  <E n="target_type">TARGET</E>
+  <T n="visible">True</T>
+</I>

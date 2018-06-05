@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="SimReward" i="reward" m="rewards.reward" n="TURBODRIVER:reward_Trait_Sexually_Abstinent" s="10310333123237709450">
+  <T p="SexuallyAbstinentIcon" n="icon">2f7d0004:00000000:E240567011E3C882</T>
+  <T n="name">0x6A8F4B55</T>
+  <T n="reward_description">0xF0D3FB42</T>
+  <L n="rewards">
+    <V t="specific_reward">
+      <V n="specific_reward" t="trait">
+        <U n="trait">
+          <T n="trait">9304612692064094116<!--Trait: SexuallyAbstinent--></T>
+        </U>
+      </V>
+    </V>
+  </L>
+  <L n="tests">
+    <L>
+      <V t="sim_info">
+        <U n="sim_info">
+          <V t="specified" n="ages">
+            <L n="specified">
+              <E>TEEN</E>
+              <E>YOUNGADULT</E>
+              <E>ADULT</E>
+              <E>ELDER</E>
+            </L>
+          </V>
+          <E n="who">Actor</E>
+        </U>
+      </V>
+    </L>
+    <L>
+      <V t="trait">
+        <U n="trait">
+          <L n="blacklist_traits">
+            <T>12289485419405954221<!--Trait: SexuallyAlluring--></T>
+          </L>
+        </U>
+      </V>
+    </L>
+  </L>
+</I>

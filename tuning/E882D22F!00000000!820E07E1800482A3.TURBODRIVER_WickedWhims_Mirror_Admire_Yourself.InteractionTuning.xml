@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="SuperInteraction" i="interaction" m="interactions.base.super_interaction" n="TURBODRIVER:WickedWhims_Mirror_Admire_Yourself" s="9371436539701396131">
+  <L n="_constraints">
+    <U>
+      <L n="constraints">
+        <U>
+          <E n="key">HUMAN</E>
+          <V n="value" t="cone">
+            <U n="cone">
+              <T n="angle">20</T>
+              <T n="ideal_radius_max">1</T>
+              <T n="ideal_radius_min">0.5</T>
+              <T n="max_radius">2</T>
+              <T n="min_radius">0.7</T>
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+    <U>
+      <L n="constraints">
+        <U>
+          <E n="key">HUMAN</E>
+          <V n="value" t="facing">
+            <U n="facing">
+              <T n="inner_radius">0.1</T>
+              <T n="range">30</T>
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+    <U>
+      <L n="constraints">
+        <U>
+          <E n="key">HUMAN</E>
+          <V n="value" t="line_of_sight" />
+        </U>
+      </L>
+    </U>
+  </L>
+  <V t="enabled" n="privacy">
+    <U n="enabled">
+      <V t="reference" n="privacy_snippet">
+        <T n="reference">39309<!--Privacy: privacy_snippet_medium_distance--></T>
+      </V>
+    </U>
+  </V>
+  <V t="participant" n="_icon">
+    <U n="participant">
+      <L n="participant_type">
+        <E>Object</E>
+      </L>
+    </U>
+  </V>
+  <V n="outcome" t="single">
+    <U n="single">
+      <U n="actions">
+        <L n="continuation">
+          <U>
+            <T n="affordance">16494769695130976453<!--SuperInteraction: WickedWhims_Mirror_Admire_Yourself_End--></T>
+          </U>
+        </L>
+        <T n="force_outcome_on_exit">True</T>
+      </U>
+    </U>
+  </V>
+  <T n="pie_menu_icon" p="NaturismIcon">2f7d0004:00000000:8b2a2ab9fcb31dcc</T>
+  <V t="enabled" n="_saveable" />
+  <L n="_static_commodities" />
+  <T n="allow_autonomous">False</T>
+  <T n="attention_cost">0.75</T>
+  <V n="basic_content" t="flexible_length">
+    <U n="flexible_length">
+      <L n="conditional_actions">
+        <V t="list_reference">
+          <T n="list_reference">40705<!--ExitConditionList: ExitConditionList_MotivesNearFail--></T>
+        </V>
+        <V t="list_reference">
+          <T n="list_reference">40702<!--ExitConditionList: ExitConditionList_EmotionStressed--></T>
+        </V>
+        <V t="list_reference">
+          <T n="list_reference">40144<!--ExitConditionList: ExitConditionList_EmotionMiserable--></T>
+        </V>
+      </L>
+      <V n="content" t="staging_content">
+        <U n="staging_content">
+          <U n="content_set">
+            <L n="affordance_links">
+              <T>11554486797094228915<!--MixerInteraction: TURBODRIVER:WickedWhims_Mirror_Admire_Your_Body_Animation_1--></T>
+              <T>11554486797094228912<!--MixerInteraction: TURBODRIVER:WickedWhims_Mirror_Admire_Your_Body_Animation_2--></T>
+              <T>11554486797094228913<!--MixerInteraction: TURBODRIVER:WickedWhims_Mirror_Admire_Your_Body_Animation_3--></T>
+              <T>11554486797094228918<!--MixerInteraction: TURBODRIVER:WickedWhims_Mirror_Admire_Your_Body_Animation_4--></T>
+              <T>11554486797094228919<!--MixerInteraction: TURBODRIVER:WickedWhims_Mirror_Admire_Your_Body_Animation_5--></T>
+            </L>
+          </U>
+        </U>
+      </V>
+      <T n="start_autonomous_inertial">False</T>
+    </U>
+  </V>
+  <V t="tunable_focus" n="basic_focus" />
+  <T n="display_name">0x41389A02</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="force_exit_on_inertia">False</T>
+  <L n="interaction_category_tags">
+    <E>Interaction_Super</E>
+    <E>Interaction_All</E>
+  </L>
+  <L n="mood_list">
+    <T>14634<!--Mood: Mood_Confident--></T>
+  </L>
+  <T n="pie_menu_priority">5</T>
+  <V t="enabled" n="route_start_balloon">
+    <U n="enabled">
+      <U n="balloon">
+        <L n="balloon_choices">
+          <U>
+            <V n="item" t="balloon_icon">
+              <U n="balloon_icon">
+                <V t="participant" n="icon">
+                  <U n="participant">
+                    <L n="participant_type">
+                      <E>Object</E>
+                    </L>
+                  </U>
+                </V>
+              </U>
+            </V>
+          </U>
+        </L>
+        <L n="balloon_target">
+          <E>Actor</E>
+        </L>
+      </U>
+    </U>
+  </V>
+  <E n="scoring_priority">NORMAL</E>
+  <T n="subaction_selection_weight">3</T>
+  <V t="literal" n="super_affordance_compatibility">
+    <U n="literal">
+      <V n="default_inclusion" t="exclude_all" />
+    </U>
+  </V>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="test_set_reference">
+      <T n="test_set_reference">28176<!--TestSetInstance: testSet_EmotionNotStressed--></T>
+    </V>
+    <V t="test_set_reference">
+      <T n="test_set_reference">28305<!--TestSetInstance: testSet_EmotionNotMiserable--></T>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

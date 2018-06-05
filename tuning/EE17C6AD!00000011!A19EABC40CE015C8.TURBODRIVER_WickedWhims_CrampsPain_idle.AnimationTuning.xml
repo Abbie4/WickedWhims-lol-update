@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="AnimationElement" i="animation" m="animation.animation_element" n="TURBODRIVER:WickedWhims_CrampsPain_idle" s="11645934544944633288">
+  <T n="asm_key">02d5df13:00000000:a19eabc40ce015c8</T>
+  <L n="begin_states">
+    <T>Idle</T>
+  </L>
+</I>

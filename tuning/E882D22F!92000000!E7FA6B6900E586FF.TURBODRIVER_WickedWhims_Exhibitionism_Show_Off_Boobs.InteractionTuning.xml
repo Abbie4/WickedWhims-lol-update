@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="ExhibitionismFlashShowOffInteraction" i="interaction" m="wickedwhims.nudity.interactions.flash" n="TURBODRIVER:WickedWhims_Exhibitionism_Show_Off_Boobs" s="16715791065669797631">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="ExhibitionismIcon">2f7d0004:00000000:dbadcc7d9db92ed0</T>
+    </U>
+  </V>
+  <V t="enabled" n="_saveable" />
+  <T n="attention_cost">0.5</T>
+  <V n="basic_content" t="one_shot">
+    <U n="one_shot">
+      <U n="animation_ref">
+        <T n="factory">16681267346131570941<!--AnimationElement: WickedWhims_Boobs_Flashing_Animation_Element--></T>
+      </U>
+    </U>
+  </V>
+  <T n="display_name">0x34365938</T>  <!--Flash Boobs-->
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <V n="outcome" t="single">
+    <U n="single">
+      <U n="actions">
+        <L n="continuation">
+          <U>
+            <T n="affordance">15859725363070913301<!--ExhibitionismDressUpOutfitInteraction: WickedWhims_Exhibitionism_Dress_Up--></T>
+          </U>
+        </L>
+      </U>
+    </U>
+  </V>
+  <E n="scoring_priority">NORMAL</E>
+  <E n="target_type">ACTOR</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

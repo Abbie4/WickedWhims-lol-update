@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="NudityChangeUnderwearInteraction" i="interaction" m="wickedwhims.nudity.interactions.underwear" n="TURBODRIVER:WickedWhims_Dresser_Edit_Underwear" s="14369679725457799948">
+  <V t="participant" n="_icon">
+    <U n="participant">
+      <L n="participant_type">
+        <E>Object</E>
+      </L>
+    </U>
+  </V>
+  <T n="pie_menu_icon" p="UnderwearChangeIcon">2f7d0004:00000000:95416fd03deb65cf</T>
+  <T n="category">16004868385894589359</T>  <!--Wicked Parent-->
+  <V t="enabled" n="_saveable" />
+  <T n="allow_autonomous">False</T>
+  <V t="tunable_focus" n="basic_focus" />
+  <T n="display_name">0x2A71C5E5</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="force_exit_on_inertia">False</T>
+  <L n="interaction_category_tags">
+    <E>Interaction_Super</E>
+    <E>Interaction_All</E>
+  </L>
+  <E n="scoring_priority">NORMAL</E>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">TargetSim</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

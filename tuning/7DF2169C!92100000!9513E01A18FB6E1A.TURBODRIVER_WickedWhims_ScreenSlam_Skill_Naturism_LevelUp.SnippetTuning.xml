@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="ScreenSlam" i="snippet" m="snippets" n="TURBODRIVER:WickedWhims_ScreenSlam_Skill_Naturism_LevelUp" s="10742175938901667354">
+  <U n="value">
+    <T p="NaturismIcon" n="icon">2f7d0004:00000000:8b2a2ab9fcb31dcc</T>
+    <E n="screen_slam_size">SMALL</E>
+    <T n="text">0x84AB4C50</T>
+    <V t="enabled" n="title">
+      <T n="enabled">0x3A5709BF</T>
+    </V>
+  </U>
+</I>

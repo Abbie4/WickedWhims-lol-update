@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="SimReward" i="reward" m="rewards.reward" n="TURBODRIVER:reward_Trait_CumSlut" s="10438028236933481475">
+  <T p="CumIcon" n="icon">2f7d0004:00000000:85FE09F562F62AF0</T>
+  <T n="name">0xD189794F</T>
+  <T n="reward_description">0x1D528561</T>
+  <L n="rewards">
+    <V t="specific_reward">
+      <V n="specific_reward" t="trait">
+        <U n="trait">
+          <T n="trait">13329958653635829193<!--Trait: CumSlut--></T>
+        </U>
+      </V>
+    </V>
+  </L>
+  <L n="tests">
+    <L>
+      <V t="sim_info">
+        <U n="sim_info">
+          <V t="specified" n="ages">
+            <L n="specified">
+              <E>TEEN</E>
+              <E>YOUNGADULT</E>
+              <E>ADULT</E>
+              <E>ELDER</E>
+            </L>
+          </V>
+          <E n="who">Actor</E>
+        </U>
+      </V>
+    </L>
+  </L>
+</I>

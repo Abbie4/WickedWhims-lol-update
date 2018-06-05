@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="Trait" i="trait" m="traits.traits" n="TURBODRIVER:WickedWhims_Trait_Reward_Cuckold" s="460148084400330375">
+  <L n="ages">
+    <E>TEEN</E>
+    <E>ADULT</E>
+    <E>ELDER</E>
+    <E>YOUNGADULT</E>
+  </L>
+  <T n="buffs_add_on_spawn_only">False</T>
+  <L n="conflicting_traits">
+    <T>124879<!--Trait: trait_Jealous--></T>
+  </L>
+  <T n="display_name">0xEDB578F0</T>
+  <T n="display_name_gender_neutral">0x48A55A2C</T>
+  <T p="CuckIcon" n="icon">2f7d0004:00000000:909D976B42478D0E</T>
+  <T n="trait_description">0x61F9EF38</T>
+  <T n="trait_origin_description">0x7ACBD430</T>
+  <E n="trait_type">GAMEPLAY</E>
+</I>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="WickedWhimsAnimationPackage" i="snippet" m="wickedwhims.sex.animations.animations_tuning" n="TURBODRIVER:WickedWhims_Default_Sex_Animations" s="16577046735251227061">
+  <T n="wickedwhims_animations">1</T>
+  <L n="animations_list">
+<!--
+	MORNING WANK - MALE
+-->
+    <T>
+      <T n="animation_raw_display_name">Morning Wank</T> <!-- Raw Text for displayed animation name. Remove this field if using the "animation_display_name" field. -->
+      <T n="animation_author">TURBODRIVER</T> <!-- Raw Text for author name of this animation. -->
+      <T n="animation_locations">SINGLE_BED, DOUBLE_BED</T> <!-- List of location categories where this animation can be used at. Use the "Creating WickedWhims Animation XML File" tutorial for locations. -->
+      <T n="animation_category">HANDJOB</T> <!-- Category of the animation (TEASING, HANDJOB, FOOTJOB, ORALJOB, VAGINAL, ANAL, CLIMAX). -->
+      <T n="animation_loops">3</T> <!-- Number of times the animation will play in a row. -->
+
+      <T n="animation_actors_list"> <!-- List of actors in this animation -->
+        <T>
+          <T n="actor_id">0</T> <!-- Numerical ID that represents this actor, should be 0 if this is the first actor. -->
+          <T n="animation_clip_name">TURBODRIVER:Morning_Wank_male</T> <!-- Sim animation CLIP name. -->
+          <T n="animation_type">HANDJOB</T> <!-- Category of interaction this actor is performing (NONE, TEASING, HANDJOB, FOOTJOB, ORALJOB, VAGINAL, ANAL). -->
+          <T n="animation_genders">MALE</T> <!-- Gender type of this actor (MALE, FEMALE, BOTH) -->
+          <T n="animation_naked_type">BOTTOM</T> <!-- Naked flag type this actor will undress when performing (NONE, TOP, BOTTOM, ALL) -->
+
+          <T n="actor_interactions"> <!-- List of this actor interactions with other actors -->
+            <T>
+              <T n="receiving_actor_id">0</T> <!-- Numerical ID of an actor this actor is interacting with -->
+              <T n="receiving_actor_category">HANDJOB</T> <!-- Category of interaction this actor is performing on the receiving actor -->
+              <T n="receiving_actor_cum_layers">DISABLED</T> <!-- List of cum layer types to apply on receiving actor (DISABLED, FACE, CHEST, BACK, VAGINA, BUTT, FEET, NONE) -->
+            </T>
+          </T>
+        </T>
+
+      </T>
+    </T>
+
+<!--
+	REVERSE COWGIRL 1
+-->
+    <T>
+      <T n="animation_raw_display_name">Reverse Cowgirl</T>
+      <T n="animation_author">TURBODRIVER</T>
+      <T n="animation_locations">SINGLE_BED, DOUBLE_BED</T>
+      <T n="animation_category">VAGINAL</T>
+      <T n="animation_loops">2</T>
+
+      <T n="animation_actors_list">
+        <T>
+          <T n="actor_id">0</T>
+          <T n="animation_clip_name">TURBODRIVER:cowgirl_1_male</T>
+          <T n="animation_type">VAGINAL</T>
+          <T n="animation_genders">MALE</T>
+          <T n="animation_naked_type">BOTTOM</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">1</T>
+              <T n="receiving_actor_category">VAGINAL</T>
+              <T n="receiving_actor_cum_layers">VAGINA</T>
+            </T>
+          </T>
+        </T>
+
+        <T>
+          <T n="actor_id">1</T>
+          <T n="animation_clip_name">TURBODRIVER:cowgirl_1_female</T>
+          <T n="animation_type">VAGINAL</T>
+          <T n="animation_genders">BOTH</T>
+          <T n="animation_naked_type">BOTTOM</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">0</T>
+              <T n="receiving_actor_category">VAGINAL</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+
+      </T>
+    </T>
+
+<!--
+	MAKEOUT KISS - FLOOR
+-->
+    <T>
+      <T n="animation_raw_display_name">Makeout Kiss</T>
+      <T n="animation_author">TURBODRIVER</T>
+      <T n="animation_locations">FLOOR</T>
+      <T n="animation_category">TEASING</T>
+      <T n="animation_loops">3</T>
+
+      <T n="animation_actors_list">
+        <T>
+          <T n="actor_id">0</T>
+          <T n="animation_clip_name">TURBODRIVER:Makeout_Teasing_male</T>
+          <T n="animation_type">TEASING</T>
+          <T n="animation_pref_gender">MALE</T>
+          <T n="animation_genders">BOTH</T>
+          <T n="animation_naked_type">ALL</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">1</T>
+              <T n="receiving_actor_category">TEASING</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+
+        <T>
+          <T n="actor_id">1</T>
+          <T n="animation_clip_name">TURBODRIVER:Makeout_Teasing_female</T>
+          <T n="animation_type">TEASING</T>
+          <T n="animation_pref_gender">FEMALE</T>
+          <T n="animation_genders">BOTH</T>
+          <T n="animation_naked_type">ALL</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">0</T>
+              <T n="receiving_actor_category">TEASING</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+
+      </T>
+    </T>
+
+<!--
+	MAKEOUT KISS - BED
+-->
+    <T>
+      <T n="animation_raw_display_name">Makeout Kiss</T>
+      <T n="animation_author">TURBODRIVER</T>
+      <T n="animation_locations">SINGLE_BED, DOUBLE_BED</T>
+      <T n="animation_custom_locations"></T>
+      <T n="animation_category">TEASING</T>
+      <T n="animation_loops">3</T>
+
+      <T n="animation_actors_list">
+        <T>
+          <T n="actor_id">0</T>
+          <T n="animation_clip_name">TURBODRIVER:Makeout_Teasing_male</T>
+          <T n="animation_type">TEASING</T>
+          <T n="animation_pref_gender">MALE</T>
+          <T n="animation_genders">BOTH</T>
+          <T n="animation_naked_type">ALL</T>
+          <T n="animation_y_offset">0.56</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">1</T>
+              <T n="receiving_actor_category">TEASING</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+
+        <T>
+          <T n="actor_id">1</T>
+          <T n="animation_clip_name">TURBODRIVER:Makeout_Teasing_female</T>
+          <T n="animation_type">TEASING</T>
+          <T n="animation_pref_gender">FEMALE</T>
+          <T n="animation_genders">BOTH</T>
+          <T n="animation_naked_type">ALL</T>
+          <T n="animation_y_offset">0.56</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">0</T>
+              <T n="receiving_actor_category">TEASING</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+
+      </T>
+    </T>
+
+  </L>
+</I>

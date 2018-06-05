@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="PieMenuCategory" i="pie_menu_category" m="interactions.pie_menu_category" n="TURBODRIVER:WickedWhims_Pie_NPC_Sex_Change" s="9928613778900427199">
+  <T n="_collapsible">False</T>
+  <T n="_display_name">0xBCAACF01</T>
+  <T n="_display_priority">3</T>
+  <T n="_parent">16270672220039733240</T>
+  <T n="pie_menu_icon" p="SexIcon">2f7d0004:00000000:c85281820ae2a13b</T>
+</I>

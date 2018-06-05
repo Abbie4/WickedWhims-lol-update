@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="Puddle" i="object" m="objects.puddles.puddle" n="TURBODRIVER:WickedWhims_Puddle_Blood_Small" s="9580888828985279040">
+  <U n="_components">
+    <V t="enabled" n="focus">
+      <U n="enabled">
+        <V n="_focus_score" t="globally">
+          <U n="globally">
+            <E n="base">MEDIUM</E>
+          </U>
+        </V>
+      </U>
+    </V>
+    <V n="state" t="enabled">
+      <U n="enabled">
+        <L n="states">
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">77368<!--ObjectStateValue: Puddle_State_Inside--></T>
+              </U>
+              <U>
+                <T n="key">77369<!--ObjectStateValue: Puddle_State_Outside--></T>
+              </U>
+            </L>
+            <V n="default_value" t="reference">
+              <T n="reference">77368<!--ObjectStateValue: Puddle_State_Inside--></T>
+            </V>
+          </U>
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">100570<!--ObjectStateValue: EmotionEnvironment_Enabled--></T>
+              </U>
+              <U>
+                <T n="key">100571<!--ObjectStateValue: EmotionEnvironment_Disabled--></T>
+              </U>
+            </L>
+            <V t="reference" n="default_value">
+              <T n="reference">100571<!--ObjectStateValue: EmotionEnvironment_Disabled--></T>
+            </V>
+          </U>
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">74328<!--ObjectStateValue: Puddle_IsPuddle--></T>
+              </U>
+              <U>
+                <T n="key">74329<!--ObjectStateValue: Puddle_NotPuddle--></T>
+              </U>
+            </L>
+            <V n="default_value" t="reference">
+              <T n="reference">74328<!--ObjectStateValue: Puddle_IsPuddle--></T>
+            </V>
+          </U>
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">136085<!--ObjectStateValue: Puddle_Existence_On--></T>
+              </U>
+              <U>
+                <T n="key">136086<!--ObjectStateValue: Puddle_Existence_Off_destroy--></T>
+              </U>
+            </L>
+            <V n="default_value" t="reference">
+              <T n="reference">136085<!--ObjectStateValue: Puddle_Existence_On--></T>
+            </V>
+          </U>
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">151675<!--ObjectStateValue: generic_ObjectInUse_True--></T>
+              </U>
+              <U>
+                <T n="key">151677<!--ObjectStateValue: generic_ObjectInUse_False--></T>
+              </U>
+            </L>
+            <V n="default_value" t="reference">
+              <T n="reference">151677<!--ObjectStateValue: generic_ObjectInUse_False--></T>
+            </V>
+          </U>
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">100046<!--CommodityBasedObjectStateValue: FireState_Burn_Incinerate_NoAsh--></T>
+                <U n="value">
+                  <V t="enabled" n="replace_object" />
+                </U>
+              </U>
+              <U>
+                <T n="key">100095<!--CommodityBasedObjectStateValue: FireState_Burn_Incinerate_NoAsh_Burning--></T>
+              </U>
+              <U>
+                <T n="key">100096<!--CommodityBasedObjectStateValue: FireState_Burn_Incinerate_NoAsh_Not_Burning--></T>
+              </U>
+            </L>
+            <V t="reference" n="default_value">
+              <T n="reference">100096<!--CommodityBasedObjectStateValue: FireState_Burn_Incinerate_NoAsh_Not_Burning--></T>
+            </V>
+          </U>
+        </L>
+        <V t="enabled" n="unique_state_changes">
+          <U n="enabled">
+            <T n="inside_placement_state">77368<!--ObjectStateValue: Puddle_State_Inside--></T>
+            <T n="outside_placement_state">77369<!--ObjectStateValue: Puddle_State_Outside--></T>
+          </U>
+        </V>
+      </U>
+    </V>
+  </U>
+  <L n="_super_affordances">
+    <T>27284<!--ClearSpaceSuperInteraction: Puddle_Mop_Small--></T>
+    <T>13328<!--ImmediateSuperInteraction: debug_Reset--></T>
+    <T>13326<!--ImmediateSuperInteraction: debug_ObjectDestroy--></T>
+    <T>103888<!--ImmediateSuperInteraction: cheat_set_as_head--></T>
+    <T>27290<!--ClearSpaceSuperInteraction: Puddle_Mop_Energized_Small--></T>
+    <T>163020<!--SuperInteraction: pet_Misbehavior_PuddlesDrink_Dog--></T>
+    <T>173539<!--SuperInteraction: pet_Misbehavior_PuddlesDrink_Cat--></T>
+    <T>163021<!--SuperInteraction: dog_Misbehavior_PuddlesPlay--></T>
+  </L>
+  <L n="environment_score_trait_modifiers">
+    <U>
+      <T n="trait">102265<!--Trait: trait_Hidden_Camping--></T>
+      <U n="modifiers">
+        <V n="negative_modifiers" t="enabled">
+          <U n="enabled">
+            <T n="multiply_modifier">0.5</T>
+          </U>
+        </V>
+      </U>
+    </U>
+    <U>
+      <T n="trait">16858<!--Trait: trait_Neat--></T>
+      <U n="modifiers">
+        <V n="negative_modifiers" t="enabled">
+          <U n="enabled">
+            <T n="multiply_modifier">3</T>
+          </U>
+        </V>
+      </U>
+    </U>
+    <U>
+      <T n="trait">16860<!--Trait: trait_Slob--></T>
+      <U n="modifiers">
+        <V t="enabled" n="negative_modifiers">
+          <U n="enabled">
+            <T n="multiply_modifier">0</T>
+          </U>
+        </V>
+      </U>
+    </U>
+  </L>
+  <U n="evaporation_outcome">
+    <T n="nothing">1</T>
+    <T n="plant">0</T>
+    <T n="weeds">0</T>
+  </U>
+  <U n="indoor_evaporation_time">
+    <T n="lower_bound">1440</T>
+    <T n="upper_bound">1440</T>
+  </U>
+  <U n="intial_stat_value">
+    <T n="stat">16676<!--Statistic: statistic_Object_Puddle-Water--></T>
+    <T n="value">-50</T>
+  </U>
+  <U n="outdoor_evaporation_time">
+    <T n="lower_bound">1440</T>
+    <T n="upper_bound">1440</T>
+  </U>
+</I>

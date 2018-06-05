@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="RelationshipBit" i="relbit" m="relationships.relationship_bit" n="TURBODRIVER:WickedWhims_RelBit_Knows_Sex_Fantasy" s="470160556">
+  <T p="InGame\UI\Icons\Debug\missing_image.png" n="icon">2f7d0004:00000000:30f0846c783606f9</T>
+  <E n="relationship_culling_prevention">PLAYED_ONLY</E>
+  <T n="visible">False</T>
+</I>

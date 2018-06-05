@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="LootActions" i="action" m="interactions.utils.loot" n="TURBODRIVER:WickedWhims_Loot_PregnancyLaborPuddle" s="17130648916201026455">
+  <L n="loot_actions">
+    <V t="create_puddles">
+      <U n="create_puddles">
+        <U n="default_puddle_factory">
+          <T n="large">1</T>
+          <T n="medium">2</T>
+          <T n="none">0</T>
+          <T n="small">1</T>
+        </U>
+        <U n="chance">
+          <T n="base_chance">75</T>
+        </U>
+        <E n="subject">Actor</E>
+        <E n="target_participant_type">Actor</E>
+        <L n="trait_puddle_factory">
+          <U>
+            <U n="puddle_factory">
+              <T n="none">0</T>
+              <T n="small">1</T>
+            </U>
+            <T n="trait">16858<!--Trait: trait_Neat--></T>
+          </U>
+          <U>
+            <U n="puddle_factory">
+              <T n="large">1</T>
+              <T n="none">0</T>
+              <T n="small">0</T>
+            </U>
+            <T n="trait">16860<!--Trait: trait_Slob--></T>
+          </U>
+        </L>
+        <L n="tests">
+          <L>
+            <V t="at_work">
+              <U n="at_work">
+                <T n="is_at_work">False</T>
+              </U>
+            </V>
+          </L>
+        </L>
+      </U>
+    </V>
+  </L>
+  <T n="run_test_first">True</T>
+</I>

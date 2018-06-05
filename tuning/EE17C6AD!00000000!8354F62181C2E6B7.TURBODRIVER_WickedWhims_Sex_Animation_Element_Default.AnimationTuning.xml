@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="AnimationElement" i="animation" m="animation.animation_element" n="TURBODRIVER:WickedWhims_Sex_Animation_Element_Default" s="9463459340783642295">
+  <T p="TURBODRIVER:WickedWhims_Sex_Animation_Jazz_Default" n="asm_key">02d5df13:00000000:9408eaf007f9df32</T>
+  <L n="begin_states">
+    <T>Perform</T>
+  </L>
+</I>

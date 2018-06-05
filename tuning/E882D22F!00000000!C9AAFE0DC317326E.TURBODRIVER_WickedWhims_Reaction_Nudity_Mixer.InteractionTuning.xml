@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="MixerInteraction" i="interaction" m="interactions.base.mixer_interaction" n="TURBODRIVER:WickedWhims_Reaction_Nudity_Mixer" s="14531706482725433966">
+  <V t="participant" n="_icon">
+    <U n="participant">
+      <L n="participant_type">
+        <E>TargetSim</E>
+      </L>
+    </U>
+  </V>
+  <T n="allow_user_directed">False</T>
+  <V t="disable_focus" n="basic_focus" />
+  <L n="basic_liabilities">
+    <V t="timeout" />
+  </L>
+  <T n="display_name">0x8B997542</T>
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="interaction_category_tags">
+    <E>Interaction_Mixer</E>
+    <E>Interaction_All</E>
+  </L>
+  <V t="single" n="outcome">
+    <U n="single">
+      <U n="actions">
+        <L n="basic_extras">
+          <V t="balloon">
+            <U n="balloon">
+              <L n="balloon_choices">
+                <U>
+                  <V n="item" t="balloon_icon">
+                    <U n="balloon_icon">
+                      <V t="participant" n="icon">
+                        <U n="participant">
+                          <L n="participant_type">
+                            <E>TargetSim</E>
+                          </L>
+                        </U>
+                      </V>
+                    </U>
+                  </V>
+                </U>
+              </L>
+              <L n="balloon_target">
+                <E>Actor</E>
+              </L>
+            </U>
+          </V>
+        </L>
+      </U>
+    </U>
+  </V>
+  <U n="sub_action">
+    <T n="base_weight">2</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals" />
+  <T n="visible">False</T>
+</I>

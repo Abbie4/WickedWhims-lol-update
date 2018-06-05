@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="WaitForSexPartnerInteraction" i="interaction" m="wickedwhims.sex.interactions.sex.route" n="TURBODRIVER:WickedWhims_Wait_For_Sex_Partner" s="10743453316184346728">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="SexIcon">2f7d0004:00000000:c85281820ae2a13b</T>
+    </U>
+  </V>
+  <L n="_constraints">
+    <U>
+      <L n="constraints">
+        <U>
+          <V n="value" t="posture">
+            <U n="posture">
+              <L n="posture_manifest_tuning">
+                <U>
+                  <V t="None" n="carry_left" />
+                  <V t="None" n="carry_right" />
+                  <V t="FullBody" n="compatibility" />
+                  <V t="enabled" n="posture_type">
+                    <T n="enabled">15537<!--Posture: posture_Stand--></T>
+                  </V>
+                  <V t="Any" n="surface" />
+                </U>
+              </L>
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+  </L>
+  <V n="basic_content" t="flexible_length">
+    <U n="flexible_length">
+      <L n="conditional_actions">
+        <V t="literal">
+          <U n="literal">
+            <L n="conditions">
+              <V t="time_based">
+                <U n="time_based">
+                  <T n="max_time">3</T>
+                  <T n="min_time">3</T>
+                </U>
+              </V>
+            </L>
+            <E n="interaction_action">EXIT_CANCEL</E>
+          </U>
+        </V>
+      </L>
+      <V t="looping_content" n="content">
+        <U n="looping_content">
+          <U n="animation_ref">
+            <T n="factory">12142<!--AnimationElement: View_View_Looping_basic--></T>
+          </U>
+        </U>
+      </V>
+      <V t="disabled" n="periodic_stat_change" />
+    </U>
+  </V>
+  <V t="disabled" n="_saveable" />
+  <T n="attention_cost">0.5</T>
+  <T n="display_name">0x9BFED398</T>  <!--Wait for Partner -->
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="force_exit_on_inertia">False</T>
+  <E n="scoring_priority">HIGH</E>
+  <E n="target_type">ACTOR</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

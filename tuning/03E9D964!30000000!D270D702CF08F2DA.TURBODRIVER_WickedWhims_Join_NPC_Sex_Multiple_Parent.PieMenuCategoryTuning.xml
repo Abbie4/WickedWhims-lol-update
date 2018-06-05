@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="PieMenuCategory" i="pie_menu_category" m="interactions.pie_menu_category" n="TURBODRIVER:WickedWhims_Join_NPC_Sex_Multiple_Parent" s="15163856352419836634">
+  <T n="_collapsible">False</T>
+  <T n="_display_name">0x391DB6E6</T>
+  <T n="_display_priority">3</T>
+  <T n="_parent">16270672220039733240</T>
+  <T n="pie_menu_icon" p="SexIcon">2f7d0004:00000000:f77ddd220dcbdd7e</T>
+</I>

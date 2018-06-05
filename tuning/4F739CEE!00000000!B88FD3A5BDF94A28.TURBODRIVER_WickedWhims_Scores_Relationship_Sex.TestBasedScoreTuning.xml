@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="RelationshipSexTestBasedScore" i="test_based_score" m="wickedwhims.sex._ts4_relationship_tests" n="TURBODRIVER:WickedWhims_Scores_Relationship_Sex" s="13299080933458659880">
+  <L n="_scores">
+    <U>
+      <T n="score">0</T>
+      <V t="sim_info" n="test">
+        <U n="sim_info">
+          <V t="specified" n="ages">
+            <L n="specified">
+              <E>TEEN</E>
+              <E>YOUNGADULT</E>
+              <E>ADULT</E>
+              <E>ELDER</E>
+            </L>
+          </V>
+          <E n="who">Actor</E>
+        </U>
+      </V>
+    </U>
+  </L>
+</I>

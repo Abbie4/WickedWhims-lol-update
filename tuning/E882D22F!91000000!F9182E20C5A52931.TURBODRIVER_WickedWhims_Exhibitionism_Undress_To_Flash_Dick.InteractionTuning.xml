@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="ExhibitionismUndressToFlashDickInteraction" i="interaction" m="wickedwhims.nudity.interactions.flash" n="TURBODRIVER:WickedWhims_Exhibitionism_Undress_To_Flash_Dick" s="17949147033174878513">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="ExhibitionismIcon">2f7d0004:00000000:dbadcc7d9db92ed0</T>
+    </U>
+  </V>
+  <T n="allow_autonomous">False</T>
+  <T n="allow_user_directed">False</T>
+  <T n="display_name">0xED38B4F2</T>  <!--Flash Dick-->
+  <T n="display_name_target">0x711A7823<!--String: "Be Flashed"--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="ignores_greetings">True</T>
+  <V n="outcome" t="single">
+    <U n="single">
+      <U n="actions">
+        <V t="enabled" n="animation_ref">
+          <U n="enabled">
+            <T n="factory">96791<!--AnimationElement: OutfitChange_Canonical--></T>
+          </U>
+        </V>
+        <L n="continuation">
+          <U>
+            <T n="affordance">17295230039061599741<!--SocialMixerInteraction: WickedWhims_Exhibitionism_Show_Off_Dick--></T>
+            <E n="target">Actor</E>
+          </U>
+        </L>
+        <V t="enabled" n="cancel_si">
+          <L n="enabled">
+            <E>Actor</E>
+            <E>TargetSim</E>
+          </L>
+        </V>
+      </U>
+    </U>
+  </V>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <L n="interaction_category_tags">
+    <E>Interaction_Laundry_GenerateNoPile</E>
+  </L>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">TargetSim</E>
+      </U>
+    </V>
+    <V t="posture">
+      <U n="posture">
+        <L n="required_postures">
+          <T>15537<!--Posture: posture_Stand--></T>
+          <T>23832<!--Posture: posture_StandExclusive--></T>
+        </L>
+      </U>
+    </V>
+  </L>
+  <E n="target_type">TARGET</E>
+  <T n="visible">True</T>
+</I>

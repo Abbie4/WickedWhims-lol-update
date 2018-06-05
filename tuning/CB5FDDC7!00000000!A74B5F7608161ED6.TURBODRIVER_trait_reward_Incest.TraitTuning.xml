@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="Trait" i="trait" m="traits.traits" n="TURBODRIVER:trait_reward_Incest" s="12054833788133711574">
+  <L n="ages">
+    <E>TEEN</E>
+    <E>ADULT</E>
+    <E>ELDER</E>
+    <E>YOUNGADULT</E>
+  </L>
+  <T n="buffs_add_on_spawn_only">False</T>
+  <T n="display_name">0xFAD9FBA0</T>
+  <T n="display_name_gender_neutral">0xDA9DAA2D</T>
+  <T p="IncestIcon" n="icon">2f7d0004:00000000:C0582DCEE125C6A8</T>
+  <T n="trait_description">0xB2F028B8</T>
+  <T n="trait_origin_description">0x7ACBD430</T>
+  <E n="trait_type">GAMEPLAY</E>
+</I>

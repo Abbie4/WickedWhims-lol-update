@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="RouteToSexDestinationInteraction" i="interaction" m="wickedwhims.sex.interactions.sex.route" n="TURBODRIVER:WickedWhims_Route_To_Sex_Destination" s="9505421038918286752">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="SexIcon">2f7d0004:00000000:c85281820ae2a13b</T>
+    </U>
+  </V>
+  <V t="disabled" n="_saveable" />
+  <T n="attention_cost">0.5</T>
+  <T n="display_name">0x6D011246</T>  <!--Go to Sex Location-->
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <T n="force_exit_on_inertia">False</T>
+  <E n="scoring_priority">HIGH</E>
+  <E n="target_type">ACTOR</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="StartNPCSexHandjobInteraction" i="interaction" m="wickedwhims.sex.interactions.npc_sex.start" n="TURBODRIVER:WickedWhims_Start_NPC_Sex_Handjob" s="15159097093062328127">
+  <V t="disabled" n="_saveable" />
+  <T n="category">16270672220039733240</T>  <!--NPCSexParent-->
+  <T n="display_name">0x795BA55C</T>  <!--Handjob-->
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">TargetSim</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+</I>

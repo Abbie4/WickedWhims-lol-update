@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="SituationGoalRanInteractionOnTargetedSim" i="situation_goal" m="situations.situation_goal_targeted_sim" n="TURBODRIVER:WickedWhims_Whim_Talk_About_Nudity" s="16671232001435073015">
+  <V n="_display_data" t="enabled">
+    <U n="enabled">
+      <V t="enabled" n="instance_display_icon">
+        <T n="enabled" p="NudityWhimIcon">2f7d0004:00000000:92fb41810700c0fb</T>
+      </V>
+      <V t="enabled" n="instance_display_name">
+        <T n="enabled">0x536FFA1C</T>
+      </V>
+      <V n="instance_display_tooltip" t="enabled">
+        <T n="enabled">0x1615EB9A</T>
+      </V>
+    </U>
+  </V>
+  <U n="_goal_test">
+    <L n="affordances">
+      <T>18209219286625006841</T>
+      <T>11284927627327383595</T>
+      <T>11948461369467711666</T>
+      <T>10862624661993502652</T>
+      <T>9861557282880692657</T>
+      <T>13451548886674510474</T>
+    </L>
+    <T n="consider_cancelled_as_failure">True</T>
+    <E n="test_event">InteractionComplete</E>
+  </U>
+  <L n="_pre_tests">
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="statistic">
+      <U n="statistic">
+        <T n="stat">11075532584768988993<!--Commodity: WickedWhims_Commodity_Nudity_Skill_Level--></T>
+        <V n="threshold" t="value_threshold">
+          <U n="value_threshold">
+            <E n="comparison">GREATER_OR_EQUAL</E>
+            <T n="value">1</T>
+          </U>
+        </V>
+      </U>
+    </V>
+  </L>
+  <T n="_score">50</T>
+  <T p="InGame\Audio\Bumper\bumper_event_goal_complete.propx" n="audio_sting_on_complete">39b2aa4a:00000000:ed52c39bcc2a7111</T>
+</I>

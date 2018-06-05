@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="Privacy" i="snippet" m="snippets" n="TURBODRIVER:privacy_snippet_sex_interaction" s="14371448621509310833">
+  <U n="value">
+    <V n="embarrassed_affordance" t="enabled">
+      <T n="enabled">17527718687503152388</T>
+    </V>
+    <T n="max_line_of_sight_radius">6</T>
+    <L n="tests">
+      <L>
+        <V t="sim_info">
+          <U n="sim_info">
+            <V t="specified" n="ages">
+              <L n="specified">
+                <E>TODDLER</E>
+                <E>CHILD</E>
+                <E>TEEN</E>
+                <E>YOUNGADULT</E>
+                <E>ADULT</E>
+                <E>ELDER</E>
+              </L>
+            </V>
+            <E n="who">Actor</E>
+          </U>
+        </V>
+        <V t="sim_info">
+          <U n="sim_info">
+            <V t="specified" n="ages">
+              <L n="specified">
+                <E>TODDLER</E>
+                <E>CHILD</E>
+                <E>TEEN</E>
+                <E>YOUNGADULT</E>
+                <E>ADULT</E>
+                <E>ELDER</E>
+              </L>
+            </V>
+            <E n="who">TargetSim</E>
+          </U>
+        </V>
+      </L>
+    </L>
+  </U>
+</I>

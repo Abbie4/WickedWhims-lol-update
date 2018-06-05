@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="CheatDisableAutonomySexLocationInteraction" i="interaction" m="wickedwhims.sex.interactions.autonomy.special" n="TURBODRIVER:WickedWhims_Cheat_DisableFromSexAutonomy" s="16756625324408299851">
+  <V t="disabled" n="_saveable" />
+  <T n="cheat">True</T>
+  <V t="disabled" n="content_score" />
+  <T n="debug">True</T>
+  <T n="category">16004868385894589359</T>  <!--WickedParent-->
+  <T n="display_name">0xD469212B<!--String: "Disable for Sex Autonomy"--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="interaction_category_tags">
+    <E>INVALID</E>
+  </L>
+  <T n="pie_menu_priority">9</T>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+</I>

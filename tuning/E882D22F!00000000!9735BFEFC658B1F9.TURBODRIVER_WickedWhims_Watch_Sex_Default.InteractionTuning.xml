@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="SuperInteraction" i="interaction" m="interactions.base.super_interaction" n="TURBODRIVER:WickedWhims_Watch_Sex_Default" s="10895825910038573561">
+  <L n="_constraints">
+    <U>
+      <E n="constrained_participant">Actor</E>
+      <L n="constraints">
+        <U>
+          <V n="value" t="line_of_sight">
+            <U n="line_of_sight">
+              <V t="disabled" n="temporary_los" />
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+    <U>
+      <E n="constrained_participant">Actor</E>
+      <L n="constraints">
+        <U>
+          <V n="value" t="facing">
+            <U n="facing">
+              <T n="inner_radius">1</T>
+              <T n="range">180</T>
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+    <U>
+      <L n="constraints">
+        <U>
+          <V n="value" t="cone">
+            <U n="cone">
+              <T n="angle">360</T>
+              <T n="ideal_angle">1</T>
+              <T n="ideal_radius_min">0.5</T>
+              <T n="max_radius">6</T>
+              <T n="min_radius">1</T>
+            </U>
+          </V>
+        </U>
+      </L>
+    </U>
+  </L>
+  <V t="participant" n="_icon">
+    <U n="participant">
+      <L n="participant_type">
+        <E>TargetSim</E>
+      </L>
+    </U>
+  </V>
+  <V t="enabled" n="_saveable" />
+  <T n="acquire_targets_as_resource">False</T>
+  <T n="allow_autonomous">False</T>
+  <T n="attention_cost">0.5</T>
+  <V n="basic_content" t="flexible_length">
+    <U n="flexible_length">
+      <L n="conditional_actions">
+        <V t="list_reference">
+          <T n="list_reference">40705<!--ExitConditionList: ExitConditionList_MotivesNearFail--></T>
+        </V>
+        <V t="literal">
+          <U n="literal">
+            <L n="conditions">
+              <V t="stat_based">
+                <U n="stat_based">
+                  <T n="stat">6249265185615422734<!--Commodity: WickedWhims_Commodity_Is_Sim_In_Sex--></T>
+                  <U n="threshold">
+                    <E n="comparison">LESS_OR_EQUAL</E>
+                    <T n="value">0</T>
+                  </U>
+                  <E n="who">TargetSim</E>
+                </U>
+              </V>
+            </L>
+            <E n="interaction_action">EXIT_NATURALLY</E>
+          </U>
+        </V>
+      </L>
+      <V n="periodic_stat_change" t="enabled">
+        <U n="enabled">
+          <L n="operations">
+            <V t="statistic_change">
+              <U n="statistic_change">
+                <T n="amount">0.30</T>
+                <T n="stat">16655<!--Commodity: motive_Fun--></T>
+              </U>
+            </V>
+            <V t="statistic_change">
+              <U n="statistic_change">
+                <T n="amount">0.15</T>
+                <T n="stat">1368186405019524405<!--Commodity: Desire--></T>
+              </U>
+            </V>
+          </L>
+        </U>
+      </V>
+      <V t="looping_content" n="content">
+        <U n="looping_content">
+          <U n="animation_ref">
+            <T n="factory">129906<!--AnimationElement: reactions_Watch_Idle--></T>
+          </U>
+        </U>
+      </V>
+    </U>
+  </V>
+  <V n="basic_focus" t="tunable_focus">
+    <U n="tunable_focus">
+      <T n="score">5</T>
+      <L n="subject">
+        <E>Object</E>
+      </L>
+    </U>
+  </V>
+  <V t="disabled" n="basic_reserve_object" />
+  <V t="disabled" n="content_score" />
+  <T n="display_name">0x66CA9C71<!--String: "Watching Sex"--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="interaction_category_tags">
+    <E>Interaction_Super</E>
+    <E>Interaction_All</E>
+  </L>
+  <V t="enabled" n="posture_target_preference">
+    <L n="enabled">
+      <U>
+        <E n="key">SEATING_BARSTOOL</E>
+        <T n="value">5</T>
+      </U>
+      <U>
+        <E n="key">SEATING_BED</E>
+        <T n="value">10</T>
+      </U>
+      <U>
+        <E n="key">SEATING_DINING</E>
+        <T n="value">15</T>
+      </U>
+      <U>
+        <E n="key">SEATING_LIVING</E>
+        <T n="value">15</T>
+      </U>
+      <U>
+        <E n="key">SEATING_LOVESEAT</E>
+        <T n="value">15</T>
+      </U>
+      <U>
+        <E n="key">SEATING_SOFA</E>
+        <T n="value">15</T>
+      </U>
+    </L>
+  </V>
+  <E n="scoring_priority">NORMAL</E>
+  <T n="subaction_selection_weight">1</T>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

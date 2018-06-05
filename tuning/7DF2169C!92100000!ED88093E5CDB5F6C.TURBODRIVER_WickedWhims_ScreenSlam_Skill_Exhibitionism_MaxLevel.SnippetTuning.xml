@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="ScreenSlam" i="snippet" m="snippets" n="TURBODRIVER:WickedWhims_ScreenSlam_Skill_Exhibitionism_MaxLevel" s="17362783788245647868">
+  <U n="value">
+    <T p="ExhibitionismIcon" n="icon">2f7d0004:00000000:dbadcc7d9db92ed0</T>
+    <E n="screen_slam_size">LARGE</E>
+    <T n="text">0x3D18C8A4</T>
+    <V t="enabled" n="title">
+      <T n="enabled">0xA2FEE513</T>
+    </V>
+  </U>
+</I>

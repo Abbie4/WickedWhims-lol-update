@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="WickedWhimsAnimationPackage" i="snippet" m="wickedwhims.sex.animations.animations_tuning" n="TURBODRIVER:WickedWhims_Special_Solo_Sex_Animations" s="16963333321622189457">
+  <T n="wickedwhims_animations">1</T>
+  <L n="animations_list">
+
+    <!--
+    	FEMALE MASTURBATION
+    -->
+    <T>
+      <T n="animation_raw_display_name">Masturbation</T>
+      <T n="animation_author">Amra72</T>
+      <T n="animation_locations">FLOOR</T>
+      <T n="animation_category">HANDJOB</T>
+      <T n="animation_loops">10</T>
+      <T n="animation_stage_name">TURBODRIVER:Amra72:Solo_Female_Masturbation_1</T>
+      <T n="animation_allowed_for_random">0</T>
+      <T n="animation_hidden">1</T>
+
+      <T n="animation_actors_list">
+        <T>
+          <T n="actor_id">0</T>
+          <T n="animation_clip_name">Amra72:Floor_Mast_f_y_01</T>
+          <T n="animation_type">HANDJOB</T>
+          <T n="animation_genders">FEMALE</T>
+          <T n="animation_naked_type">BOTTOM</T>
+
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">0</T>
+              <T n="receiving_actor_category">HANDJOB</T>
+              <T n="receiving_actor_cum_layers">DISABLED</T>
+            </T>
+          </T>
+        </T>
+      </T>
+    </T>
+
+    <!--
+      MALE MASTURBATION
+    -->
+    <T>
+      <T n="animation_raw_display_name">Masturbation</T>
+      <T n="animation_author">ooOLaLaWorld Animations</T>
+      <T n="animation_locations">FLOOR</T>
+      <T n="animation_category">HANDJOB</T>
+      <T n="animation_loops">10</T>
+      <T n="animation_stage_name">TURBODRIVER:SAM:Solo_Male_Masturbation_1</T>
+      <T n="animation_allowed_for_random">0</T>
+      <T n="animation_hidden">1</T>
+
+      <T n="animation_actors_list">
+        <T>
+          <T n="actor_id">0</T>
+          <T n="animation_name">SAM:PosePack_masterbation_set_1</T>
+          <T n="animation_type">HANDJOB</T>
+          <T n="animation_genders">MALE</T>
+          <T n="animation_naked_flags">BOTTOM</T>
+          <T n="actor_interactions">
+            <T>
+              <T n="receiving_actor_id">0</T>
+              <T n="receiving_actor_category">HANDJOB</T>
+              <T n="receiving_actor_cum_layer">DISABLED</T>
+            </T>
+          </T>
+        </T>
+      </T>
+    </T>
+
+  </L>
+</I>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="AnimationElement" i="animation" m="animation.animation_element" n="TURBODRIVER:WickedWhims_Boobs_Flashing_Animation_Element" s="16681267346131570941">
+  <T n="actor_name">x</T>
+  <T n="asm_key">02d5df13:00000000:c2d8ef471233e1fe</T>
+  <L n="begin_states">
+    <T>Play</T>
+  </L>
+  <T n="repeat">False</T>
+</I>

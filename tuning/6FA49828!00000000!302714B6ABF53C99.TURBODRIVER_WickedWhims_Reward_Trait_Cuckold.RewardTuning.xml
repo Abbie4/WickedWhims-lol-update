@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="SimReward" i="reward" m="rewards.reward" n="TURBODRIVER:WickedWhims_Reward_Trait_Cuckold" s="3469764812713835673">
+  <T p="CuckIcon" n="icon">2f7d0004:00000000:909D976B42478D0E</T>
+  <T n="name">0xEDB578F0</T>
+  <T n="reward_description">0x61F9EF38</T>
+  <L n="rewards">
+    <V t="specific_reward">
+      <V n="specific_reward" t="trait">
+        <U n="trait">
+          <T n="trait">460148084400330375<!--Trait: Cuckold--></T>
+        </U>
+      </V>
+    </V>
+  </L>
+  <L n="tests">
+    <L>
+      <V t="trait">
+        <U n="trait">
+          <L n="blacklist_traits">
+            <T>124879<!--Trait: trait_Jealous--></T>
+          </L>
+        </U>
+      </V>
+    </L>
+  </L>
+</I>

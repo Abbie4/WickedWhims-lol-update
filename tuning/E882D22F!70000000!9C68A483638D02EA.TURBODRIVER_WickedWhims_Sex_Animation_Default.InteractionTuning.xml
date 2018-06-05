@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="DefaultAnimationsInteraction" i="interaction" m="wickedwhims.sex.interactions.animation.default" n="TURBODRIVER:WickedWhims_Sex_Animation_Default" s="11270438951712522986">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="SexIcon">2f7d0004:00000000:c85281820ae2a13b</T>
+    </U>
+  </V>
+  <V t="disabled" n="_saveable" />
+  <T n="attention_cost">0.5</T>
+  <V n="basic_content" t="flexible_length">
+    <U n="flexible_length">
+      <V n="content" t="looping_content">
+        <U n="looping_content">
+          <U n="animation_ref">
+            <T n="factory">9463459340783642295<!--AnimationElement: WickedWhims_Sex_Animation_Element_Default--></T>
+          </U>
+        </U>
+      </V>
+      <T n="start_autonomous_inertial">False</T>
+    </U>
+  </V>
+  <L n="basic_extras">
+    <V t="reslot_plumbbob">
+      <U n="reslot_plumbbob">
+        <T n="bone_name">b__ROOT__</T>
+        <U n="offset">
+          <T n="y">-500</T>
+        </U>
+        <E n="target">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="disable_transitions">True</T>
+  <V t="disable_focus" n="basic_focus" />
+  <T n="display_name">0x81A6F8AD</T>  <!--Sex -->
+  <T n="allow_autonomous">False</T>
+  <V t="enabled" n="basic_reserve_object">
+    <U n="enabled">
+      <V t="all" n="reserve_type" />
+    </U>
+  </V>
+  <T n="force_exit_on_inertia">False</T>
+  <E n="scoring_priority">HIGH</E>
+  <E n="target_type">OBJECT</E>
+  <V t="enabled" n="sim_affinity_posture_scoring_data">
+    <U n="enabled">
+      <L n="my_scoring">
+        <U>
+          <V t="relationship_based" n="affinity_strategy" />
+          <T n="negate_tag">True</T>
+        </U>
+        <U>
+          <V t="avoid" n="affinity_strategy" />
+          <E n="running_interaction_tag">Very_Loud</E>
+        </U>
+      </L>
+      <L n="my_tags">
+        <E>Loud</E>
+      </L>
+    </U>
+  </V>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

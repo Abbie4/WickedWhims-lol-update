@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="GameObject" i="object" m="objects.game_object" n="TURBODRIVER:object_Mannequin_Male_Tuning" s="17786994508131422865">
+  <U n="_components">
+    <V n="mannequin" t="enabled">
+      <U n="enabled">
+        <V t="enabled" n="outfit_sharing">
+          <E n="enabled">Retail FullBody</E>
+        </V>
+        <T n="state_trigger_singed">39611<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change--></T>
+        <V n="template" t="resource">
+          <U n="resource">
+            <V t="enabled" n="outfit">
+              <U n="enabled">
+                <E n="outfit_category">BATHING</E>
+              </U>
+            </V>
+            <T n="resource_key" p="ExhibitionismUnderwearMale.siminfo">025ed6f4:00000000:f04cf802402640df</T>
+          </U>
+        </V>
+      </U>
+    </V>
+    <V t="enabled" n="state">
+      <U n="enabled">
+        <L n="states">
+          <U>
+            <L n="client_states">
+              <U>
+                <T n="key">39611<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change--></T>
+              </U>
+              <U>
+                <T n="key">39736<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change_Burning--></T>
+              </U>
+              <U>
+                <T n="key">39737<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change_Not_Burning--></T>
+              </U>
+              <U>
+                <T n="key">77532<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change_Replace--></T>
+              </U>
+            </L>
+            <V t="reference" n="default_value">
+              <T n="reference">39737<!--CommodityBasedObjectStateValue: FireState_Burn_Material_Change_Not_Burning--></T>
+            </V>
+          </U>
+        </L>
+      </U>
+    </V>
+  </U>
+  <L n="_super_affordances">
+    <T>13328<!--CommandSuperInteraction: debug_Reset--></T>
+    <T>13326<!--CommandSuperInteraction: debug_ObjectDestroy--></T>
+    <T>13983<!--StandSuperInteraction: sim-stand--></T>
+  </L>
+</I>

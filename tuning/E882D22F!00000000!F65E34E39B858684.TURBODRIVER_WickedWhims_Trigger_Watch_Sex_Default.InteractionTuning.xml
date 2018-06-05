@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="WatchSexInteraction" i="interaction" m="wickedwhims.sex.interactions.sex.watch" n="TURBODRIVER:WickedWhims_Trigger_Watch_Sex_Default" s="17752684933312513668">
+  <V t="disabled" n="_saveable" />
+  <T n="category">16004868385894589359</T>  <!--Wicked-->
+  <T n="display_name">0x9AF9827F<!--String: "Watch Sex"--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">TargetSim</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <V t="single" n="outcome">
+    <U n="single">
+      <U n="actions">
+        <L n="continuation">
+          <U>
+            <T n="affordance">10895825910038573561<!--SuperInteraction: WickedWhims_Watch_Sex_Default--></T>
+            <E n="target">TargetSim</E>
+          </U>
+        </L>
+        <T n="force_outcome_on_exit">True</T>
+      </U>
+    </U>
+  </V>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+  </L>
+</I>

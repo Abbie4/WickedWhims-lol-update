@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="SimReward" i="reward" m="rewards.reward" n="TURBODRIVER:WickedWhims_Reward_Trait_Exhibitionist" s="12422920560197330477">
+  <T p="ExhibitionismIcon" n="icon">2f7d0004:00000000:dbadcc7d9db92ed0</T>
+  <T n="name">0x85785D53</T>
+  <T n="reward_description">0xF05F3D5D</T>
+  <L n="rewards">
+    <V t="specific_reward">
+      <V n="specific_reward" t="trait">
+        <U n="trait">
+          <T n="trait">10416229829191106747<!--Trait: Exhibitionist--></T>
+        </U>
+      </V>
+    </V>
+  </L>
+  <L n="tests">
+    <L>
+      <V t="sim_info">
+        <U n="sim_info">
+          <V t="specified" n="ages">
+            <L n="specified">
+              <E>TEEN</E>
+              <E>YOUNGADULT</E>
+              <E>ADULT</E>
+              <E>ELDER</E>
+            </L>
+          </V>
+          <E n="who">Actor</E>
+        </U>
+      </V>
+      <V t="skill_test">
+        <U n="skill_test">
+          <T n="skill">13681797894157322134<!--Skill: WickedWhims_Skill_Naturism--></T>
+          <V t="interval" n="skill_range">
+            <U n="interval">
+              <U n="skill_interval">
+                <T n="lower_bound">3</T>
+                <T n="upper_bound">5</T>
+              </U>
+            </U>
+          </V>
+          <T n="use_effective_skill_level">False</T>
+        </U>
+      </V>
+    </L>
+  </L>
+</I>

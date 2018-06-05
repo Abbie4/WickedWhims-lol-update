@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimData version="0x00000101" u="0x00000000">
+  <Instances>
+    <I name="TURBODRIVER:WickedWhims_Reward_Trait_Cuckold" schema="SimReward" type="Object">
+      <T name="icon">00B2D882-00000000-909D976B42478D0E</T>
+      <T name="name">0xEDB578F0</T>
+      <T name="reward_description">0x61F9EF38</T>
+    </I>
+  </Instances>
+  <Schemas>
+    <Schema name="SimReward" schema_hash="0xEEE438EF">
+      <Columns>
+        <Column name="icon" type="ResourceKey" flags="0x00000000" />
+        <Column name="name" type="LocalizationKey" flags="0x00000000" />
+        <Column name="reward_description" type="LocalizationKey" flags="0x00000000" />
+      </Columns>
+    </Schema>
+  </Schemas>
+</SimData>

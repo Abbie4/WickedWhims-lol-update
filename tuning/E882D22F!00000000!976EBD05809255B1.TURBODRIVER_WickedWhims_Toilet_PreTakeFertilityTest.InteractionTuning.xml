@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="PrePregnancyTakeFertilityTestInteraction" i="interaction" m="wickedwhims.sex.interactions.pregnancy.fertility_test" n="TURBODRIVER:WickedWhims_Toilet_PreTakeFertilityTest" s="10911866778494850481">
+  <V t="enabled" n="_saveable" />
+  <T n="allow_autonomous">False</T>
+  <V t="tunable_focus" n="basic_focus" />
+  <T n="display_name">0x21CD5B98<!--String: "Take Fertility Awareness Test"--></T>
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="basic_extras">
+    <V t="payment">
+      <U n="payment">
+        <T n="display_only">True</T>
+        <V t="literal" n="payment">
+          <U n="literal">
+            <V n="payment_cost" t="amount">
+              <U n="amount">
+                <T n="amount">10</T>
+              </U>
+            </V>
+          </U>
+        </V>
+      </U>
+    </V>
+  </L>
+  <T n="force_exit_on_inertia">False</T>
+  <V n="outcome" t="single">
+    <U n="single">
+      <U n="actions">
+        <L n="continuation">
+          <U>
+            <T n="affordance">17681256309946806522<!--WickedWhims_Toilet_TakeFertilityTest--></T>
+            <E n="target">Object</E>
+          </U>
+        </L>
+        <T n="force_outcome_on_exit">True</T>
+      </U>
+    </U>
+  </V>
+  <L n="interaction_category_tags">
+    <E>Interaction_Super</E>
+    <E>Interaction_All</E>
+  </L>
+  <E n="scoring_priority">NORMAL</E>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--Buff: buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="trait">
+      <U n="trait">
+        <L n="whitelist_traits">
+          <T>136875<!--Trait: trait_GenderOptions_Pregnancy_CanBeImpregnated--></T>
+        </L>
+        <L n="blacklist_traits">
+          <T>137716<!--Trait: trait_GenderOptions_Pregnancy_Cannot_BeImpregnated--></T>
+        </L>
+      </U>
+    </V>
+    <V t="statistic">
+      <U n="statistic">
+        <T n="stat">16641<!--Commodity: commodity_PregnancyDiscovery--></T>
+        <V t="value_threshold" n="threshold">
+          <U n="value_threshold">
+            <T n="value">0</T>
+          </U>
+        </V>
+      </U>
+    </V>
+    <V t="state">
+      <U n="state">
+        <E n="operator">LESS_OR_EQUAL</E>
+        <T n="value">15300<!--CommodityBasedObjectStateValue: Pregnant_NotShowing--></T>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="state">
+      <U n="state">
+        <V t="enabled" n="tooltip">
+          <T n="enabled">0x1DB3D754</T>
+        </V>
+        <T n="value">15081<!--ObjectStateValue: BrokenState_Unbroken--></T>
+      </U>
+    </V>
+  </L>
+  <T n="time_overhead">30</T>
+</I>

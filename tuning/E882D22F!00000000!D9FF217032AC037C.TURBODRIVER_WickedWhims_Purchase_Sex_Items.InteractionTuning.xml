@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="PurchasePickerInteraction" i="interaction" m="interactions.base.picker_interaction" n="TURBODRIVER:WickedWhims_Purchase_Sex_Items" s="15708310791061767036">
+  <V t="disabled" n="_saveable" />
+  <T n="category">16004868385894589359</T>
+  <T n="allow_autonomous">False</T>
+  <V t="enabled" n="continuation">
+    <L n="enabled">
+      <U>
+        <T n="affordance">13187<!--browse_web--></T>
+      </U>
+    </L>
+  </V>
+  <V t="mailman_delivery" n="delivery_method" />
+  <T n="display_name">0xA167046F<!--Purchase Wicked Items--></T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="interaction_category_tags">
+    <E>INVALID</E>
+  </L>
+  <V t="purchase_picker" n="picker_dialog">
+    <U n="purchase_picker">
+      <V n="text" t="enabled">
+        <V n="enabled" t="single">
+          <T n="single">0xA167046F<!--Purchase Wicked Items--></T>
+        </V>
+      </V>
+    </U>
+  </V>
+  <T p="InGame\UI\Icons\PieMenu\Interactions\icon_pieMenu_immediateInteraction.png" n="pie_menu_icon">2f7d0004:00000000:25eea5cdba6a6fd6</T>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <V t="specific_items" n="purchase_list_option">
+    <U n="specific_items">
+      <L n="item_list">
+        <T>11891109332024626718<!--Wicked Condoms Box--></T>
+        <T>16840089604155629431<!--Wicked Birth Control Pills Box--></T>
+      </L>
+    </U>
+  </V>
+  <V n="purchase_notification" t="enabled">
+    <V n="enabled" t="literal">
+      <U n="literal">
+        <V t="enabled" n="icon">
+          <V t="participant" n="enabled">
+            <U n="participant">
+              <L n="participant_type">
+                <E>Object</E>
+              </L>
+            </U>
+          </V>
+        </V>
+        <V t="disabled" n="secondary_icon" />
+        <V n="text" t="single">
+          <T n="single">0xA38EBAEB</T>
+        </V>
+        <E n="visual_type">SPEECH</E>
+      </U>
+    </V>
+  </V>
+  <T n="show_descriptions">False</T>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171<!--buff_Sim_IsDying--></T>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="state">
+      <U n="state">
+        <V t="always_pass" n="fallback_behavior" />
+        <T n="value">110121<!--frontDesk_Slotted_0_No--></T>
+      </U>
+    </V>
+    <V t="state">
+      <U n="state">
+        <V t="always_pass" n="fallback_behavior" />
+        <E n="operator">NOTEQUAL</E>
+        <T n="value">15080<!--BrokenState_Broken--></T>
+      </U>
+    </V>
+  </L>
+  <V t="enabled" n="utility_info">
+    <L n="enabled">
+      <E>POWER</E>
+    </L>
+  </V>
+</I>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="Trait" i="trait" m="traits.traits" n="TURBODRIVER:trait_reward_NotJealous" s="15163032885896298056">
+  <L n="ages">
+    <E>TEEN</E>
+    <E>ADULT</E>
+    <E>ELDER</E>
+    <E>YOUNGADULT</E>
+  </L>
+  <T n="buffs_add_on_spawn_only">False</T>
+  <L n="conflicting_traits">
+    <T>124879<!--Trait: trait_Jealous--></T>
+  </L>
+  <T n="display_name">0x4528A2FC</T>
+  <T n="display_name_gender_neutral">0xD054832F</T>
+  <T p="NotJealousIcon" n="icon">2f7d0004:00000000:8A07B6C977BF3951</T>
+  <T n="trait_description">0x2E00C87</T>
+  <T n="trait_origin_description">0x7ACBD430</T>
+  <E n="trait_type">GAMEPLAY</E>
+</I>

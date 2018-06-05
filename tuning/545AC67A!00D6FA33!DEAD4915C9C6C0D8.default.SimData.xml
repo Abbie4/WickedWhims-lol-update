@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimData version="0x00000101" u="0x00000000">
+  <Instances>
+    <I name="default" schema="Renderer.CensorTuning" type="Object">
+      <T name="TileWidthMeters">0.1</T>
+      <T name="DistanceMin">0</T>
+      <T name="DistanceMax">1000</T>
+      <L name="CensorModes">
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_TORSO_PELVIS</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__ROOT_bind__</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_FULLBODY</T>
+          <L name="Bones" />
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_TORSO</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__L_lowBackTarget_slot</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_PELVIS</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__ROOT_bind__</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_RHAND</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__R_Hand__</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_LHAND</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__L_Hand__</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_TODDLER_PELVIS</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__ROOT_bind__</T>
+            </U>
+          </L>
+        </U>
+        <U type="Object" schema="Renderer.CensorModeData">
+          <T name="ModeName">CENSOR_PET_PELVIS</T>
+          <L name="Bones">
+            <U type="Object" schema="Renderer.CensorBoneData">
+              <T name="Padding">0,0,0</T>
+              <T name="BoneName">b__Stomach0__</T>
+            </U>
+          </L>
+        </U>
+      </L>
+    </I>
+  </Instances>
+  <Schemas>
+    <Schema name="Renderer.CensorTuning" schema_hash="0x70B56FC7">
+      <Columns>
+        <Column name="TileWidthMeters" type="Single" flags="0x00000000" />
+        <Column name="DistanceMin" type="Single" flags="0x00000000" />
+        <Column name="DistanceMax" type="Single" flags="0x00000000" />
+        <Column name="CensorModes" type="Vector" flags="0x00000000" />
+      </Columns>
+    </Schema>
+    <Schema name="Renderer.CensorModeData" schema_hash="0x22036DBE">
+      <Columns>
+        <Column name="ModeName" type="HashedString" flags="0x00000000" />
+        <Column name="Bones" type="Vector" flags="0x00000000" />
+      </Columns>
+    </Schema>
+    <Schema name="Renderer.CensorBoneData" schema_hash="0xCD4A3D8E">
+      <Columns>
+        <Column name="Padding" type="Float3" flags="0x00000000" />
+        <Column name="BoneName" type="HashedString" flags="0x00000000" />
+      </Columns>
+    </Schema>
+  </Schemas>
+</SimData>

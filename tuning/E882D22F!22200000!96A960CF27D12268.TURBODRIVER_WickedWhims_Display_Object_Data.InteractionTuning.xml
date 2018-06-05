@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="DisplayObjectDataInteraction" i="interaction" m="wickedwhims.debug.interactions.objects_data" n="TURBODRIVER:WickedWhims_Display_Object_Data" s="10856314819595805288">
+  <V t="disabled" n="_saveable" />
+  <T n="display_name">0xA7BF45FA</T>
+  <T n="allow_autonomous">False</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+  <L n="test_globals">
+    <V t="buff">
+      <U n="buff">
+        <L n="blacklist">
+          <T>26171</T>
+        </L>
+      </U>
+    </V>
+  </L>
+</I>

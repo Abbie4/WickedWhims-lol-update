@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="Trait" i="trait" m="traits.traits" n="TURBODRIVER:trait_reward_CumSlut" s="13329958653635829193">
+  <L n="ages">
+    <E>TEEN</E>
+    <E>ADULT</E>
+    <E>ELDER</E>
+    <E>YOUNGADULT</E>
+  </L>
+  <T n="buffs_add_on_spawn_only">False</T>
+  <T n="display_name">0xD189794F</T>
+  <T n="display_name_gender_neutral">0xBDEC4A74</T>
+  <T p="CumIcon" n="icon">2f7d0004:00000000:85FE09F562F62AF0</T>
+  <T n="trait_description">0x1D528561</T>
+  <T n="trait_origin_description">0x7ACBD430</T>
+  <E n="trait_type">GAMEPLAY</E>
+</I>

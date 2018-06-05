@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<I c="ExhibitionismSocialTalkAboutNudityInteraction" i="interaction" m="wickedwhims.nudity.interactions.social" n="TURBODRIVER:WickedWhims_Social_Mixer_Exhibitionism_Talk_About_Nudity" s="11948461369467711666">
+  <V t="resource_key" n="_icon">
+    <U n="resource_key">
+      <T n="key" p="ExhibitionismIcon">2f7d0004:00000000:dbadcc7d9db92ed0</T>
+    </U>
+  </V>
+  <T n="allow_autonomous">False</T>
+  <T n="allow_user_directed">True</T>
+  <T n="category">14871500538326494490<!--:Exhibitionism_Parent--></T>
+  <T n="display_name">0xB575760F</T>
+  <T n="display_name_target">0x58D5FE17</T>
+  <U n="display_name_text_tokens">
+    <L n="tokens">
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Actor</E>
+        </U>
+      </V>
+      <V t="participant_type">
+        <U n="participant_type">
+          <E n="participant">Object</E>
+        </U>
+      </V>
+    </L>
+  </U>
+  <L n="interaction_category_tags">
+    <E>Interaction_Chat</E>
+    <E>Interaction_Mixer</E>
+    <E>Interaction_All</E>
+  </L>
+  <V n="outcome" t="test_based">
+    <U n="test_based">
+      <L n="fallback_outcomes">
+        <U>
+          <U n="outcome">
+            <V t="enabled" n="animation_ref">
+              <U n="enabled">
+                <T n="factory">11856<!--AnimationElement: Soc_Friendly_NT_Debate_success_basic--></T>
+                <U n="overrides">
+                  <V n="balloons" t="enabled">
+                    <L n="enabled">
+                      <U>
+                        <L n="balloon_choices">
+                          <U>
+                            <V n="item" t="balloon_category">
+                              <T n="balloon_category">14774125248299122188<!--BalloonCategory: BalloonCategory_Exhibitionism_Speech--></T>
+                            </V>
+                          </U>
+                        </L>
+                        <L n="balloon_target">
+                          <E>Actor</E>
+                        </L>
+                      </U>
+                    </L>
+                  </V>
+                </U>
+              </U>
+            </V>
+            <L n="loot_list">
+              <T>10766<!--LootActions: Gender_Preference_Loot--></T>
+              <T>10954<!--LootActions: Loot_ForSocialsSocialMotiveMedium--></T>
+              <T>11036<!--LootActions: Rel_Gain_Small--></T>
+              <T>32056<!--LootActions: Loot_SocialContect_Fun_Loss_conditionalBoring_Medium--></T>
+              <T>76189<!--LootActions: Loot_Commodity_CareerBenefit_Agent_Agent--></T>
+              <T>104567<!--LootActions: loot_Relationship_Bit_KnowsIsAlien--></T>
+            </L>
+          </U>
+        </U>
+      </L>
+    </U>
+  </V>
+  <U n="posture_preferences">
+    <T n="apply_penalties">False</T>
+  </U>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <U n="skill_loot_data">
+    <V t="enabled" n="level_range">
+      <U n="enabled">
+        <T n="lower_bound">1</T>
+        <T n="upper_bound">10</T>
+      </U>
+    </V>
+    <T n="stat">16699<!--Skill: statistic_Skill_AdultMajor_Charisma--></T>
+  </U>
+  <U n="sub_action">
+    <T n="base_weight">8</T>
+  </U>
+  <E n="target_type">TARGET</E>
+  <L n="test_globals">
+    <V t="user_running_interaction">
+      <U n="user_running_interaction">
+        <L n="affordances">
+          <T>106223<!--SocialSuperInteraction: interrogate_Interrogate--></T>
+        </L>
+        <E n="participant">Actor</E>
+        <T n="test_for_not_running">True</T>
+      </U>
+    </V>
+    <V t="relationship">
+      <U n="relationship">
+        <T n="num_relations">0</T>
+        <U n="required_relationship_bits">
+          <L n="match_all">
+            <T>15803<!--RelationshipBit: has_met--></T>
+          </L>
+        </U>
+        <L n="subject">
+          <E>Actor</E>
+        </L>
+      </U>
+    </V>
+    <V t="relationship">
+      <U n="relationship">
+        <T n="num_relations">1</T>
+        <U n="required_relationship_bits">
+          <L n="match_all">
+            <T>15803<!--RelationshipBit: has_met--></T>
+          </L>
+        </U>
+        <L n="target_sim">
+          <E>Listeners</E>
+        </L>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">Actor</E>
+      </U>
+    </V>
+    <V t="sim_info">
+      <U n="sim_info">
+        <V t="specified" n="ages">
+          <L n="specified">
+            <E>TEEN</E>
+            <E>YOUNGADULT</E>
+            <E>ADULT</E>
+            <E>ELDER</E>
+          </L>
+        </V>
+        <V t="specified" n="species">
+          <U n="specified">
+            <L n="species">
+              <E />
+            </L>
+          </U>
+        </V>
+        <E n="who">TargetSim</E>
+      </U>
+    </V>
+  </L>
+  <T n="visible">True</T>
+</I>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASM name="TURBODRIVER:WickedWhims_Butt_Flashing_Animation_Script" dcc="sage">
+  <Actor name="x" type="Sim" master="true" virtual="false" />
+
+  <Parameter name="x:age" type="enum" labels="teen,youngadult,adult,elder" default="adult" />
+  <Parameter name="x:sex" type="enum" labels="male,female" default="male" />
+  <Parameter name="x:mood" template="mood" type="enum" labels="happy,confident,angry,sad,bored,embarrassed,uncomfortable,playful,tense,focused,energized,flirty,fine,inspired,dazed" default="fine" />
+
+  <PostureManifest actors="x">
+    <Support family="stand" compatibility="FullBody" carry_left="*" carry_right="*" surface="*" />
+    <Support family="stand" compatibility="UpperBody" carry_left="*" carry_right="*" surface="*" />
+    <Support family="sit" compatibility="FullBody" carry_left="*" carry_right="*" surface="*" />
+    <Support family="sit" compatibility="UpperBody" carry_left="*" carry_right="*" surface="*" />
+    <Support family="movingStand" compatibility="FullBody" carry_left="*" carry_right="*" surface="*" />
+    <Support family="movingStand" compatibility="UpperBody" carry_left="*" carry_right="*" surface="*" />
+  </PostureManifest>
+
+  <State name="Play" type="public" countlooptime="false" disableautostop="false" facialoverlays="false" focus="none" interrupt_this="false" skippable="false" tailoverlays="true" />
+  <Connection from="entry" to="Play"/>
+  <Connection from="Play" to="exit"/>
+
+  <State name="Play" type="public" countlooptime="false" disableautostop="false" skippable="false" facialoverlays="false" focus="none" interrupt_this="false" tailoverlays="true">
+    <description></description>
+    <MakeController>
+      <Controller target="x" controller="@ClipController(clip=mike24:PosePack_201709241801508264_set_1, loop_count=#1)" focus="undefined" id="8" ik_configuration="" mask="" overridePosture="false" track="normal" transition_class_in="Default" transition_class_out="Default" start_frame_offset="0" end_frame_offset="0">
+        <TransitionClassList>
+          <Transition transition_class_name="Default" transition_duration_in="0.5" use_custom_transition_in="false" transition_type_in="linear" transition_mask_in="" transition_duration_out="0.5" use_custom_transition_out="false" transition_type_out="linear" transition_mask_out="" />
+        </TransitionClassList>
+      </Controller>
+    </MakeController>
+  </State>
+</ASM>

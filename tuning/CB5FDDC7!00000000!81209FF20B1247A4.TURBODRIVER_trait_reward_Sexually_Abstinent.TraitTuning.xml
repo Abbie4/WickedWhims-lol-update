@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="Trait" i="trait" m="traits.traits" n="TURBODRIVER:trait_reward_Sexually_Abstinent" s="9304612692064094116">
+  <L n="ages">
+    <E>TEEN</E>
+    <E>ADULT</E>
+    <E>ELDER</E>
+    <E>YOUNGADULT</E>
+  </L>
+  <T n="buffs_add_on_spawn_only">False</T>
+  <L n="conflicting_traits">
+    <T>12289485419405954221<!--Trait: SexuallyAlluring--></T>
+  </L>
+  <T n="display_name">0x6A8F4B55</T>
+  <T n="display_name_gender_neutral">0x066DF4EE</T>
+  <T p="SexuallyAbstinentIcon" n="icon">2f7d0004:00000000:E240567011E3C882</T>
+  <T n="trait_description">0xF0D3FB42</T>
+  <T n="trait_origin_description">0x7ACBD430</T>
+  <E n="trait_type">GAMEPLAY</E>
+</I>
