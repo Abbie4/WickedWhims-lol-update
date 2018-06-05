@@ -30,7 +30,7 @@ def _wickedwhims_register_pregnancy_buff_callback():
 
 @register_sim_occult_type_change_event_method(unique_id='WickedWhims', priority=1)
 def _wickedwhims_update_sim_pregnancy_visuals(sim_info, _):
-    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN:
+    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN and TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.CHILD:
         return
     _update_sim_pregnancy_data(sim_info)
 
@@ -62,7 +62,7 @@ def _on_sim_pregnancy_buff_added_and_removed(buff_type, sim_id):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_id)
     if sim_info is None:
         return
-    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN:
+    if TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.TEEN and TurboSimUtil.Age.get_age(sim_info) != TurboSimUtil.Age.CHILD:
         return
     if TurboResourceUtil.Resource.get_guid64(buff_type) not in PREGNANCY_BUFFS:
         return

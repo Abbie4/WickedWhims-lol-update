@@ -215,9 +215,9 @@ class PenisSettingsInteraction(TurboImmediateSuperInteraction, TurboInteractionS
     def on_interaction_test(cls, interaction_context, interaction_target):
         if not TurboTypesUtil.Sims.is_sim(interaction_target):
             return False
-        if TurboSimUtil.Age.is_younger_than(interaction_target, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(interaction_target, TurboSimUtil.Age.CHILD):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(cls.get_interaction_sim(interaction_context)) or is_sim_going_to_sex(cls.get_interaction_sim(interaction_context)):
             return False

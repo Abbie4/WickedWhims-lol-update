@@ -14,7 +14,7 @@ These settings affect the base game mechanics like age restrictions, gender pref
 \\\
 Save and restart for this setting to work.', None), (3579577312, 'Romance Age Restrictions Settings', None), (689435193, 'Allow/Disallow romance interactions for all ages.\\\
 \\\
-(from Teen to Elder)', None), (1972153895, 'Allow All Ages Romance', None), (1840687547, 'Disallow All Ages Romance', None), (2064322478, 'Polyamory Relationships Settings', None), (606279529, 'Allow/Disallow polyamory and polygamy relationships.', None), (3487178965, 'Allow Polyamory/Polygamy Relationships', None), (4221398665, 'Disallow Polyamory/Polygamy Relationships', None), (3857402476, 'Global Jealousy Cheat', None), (4022532503, 'Enable/Disable jealousy of relationships globally.\\\
+(from Child to Elder)', None), (1972153895, 'Allow All Ages Romance', None), (1840687547, 'Disallow All Ages Romance', None), (2064322478, 'Polyamory Relationships Settings', None), (606279529, 'Allow/Disallow polyamory and polygamy relationships.', None), (3487178965, 'Allow Polyamory/Polygamy Relationships', None), (4221398665, 'Disallow Polyamory/Polygamy Relationships', None), (3857402476, 'Global Jealousy Cheat', None), (4022532503, 'Enable/Disable jealousy of relationships globally.\\\
 \\\
 Use the Polyamorous reward trait for individual Sims.', None), (584740058, 'Use the Polyamorous reward trait for individual Sims.\\\
 \\\

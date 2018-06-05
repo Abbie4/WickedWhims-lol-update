@@ -20,7 +20,7 @@ def setup_sim_nude_outfit(sim_info):
 
 def update_nude_body_data(sim_identifier, force_update=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
         return
     if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
         from wickedwhims.sxex_bridge.penis import get_penis_soft_cas_id, get_penis_soft_texture_cas_id, get_penis_hard_cas_id, get_penis_hard_texture_cas_id
@@ -67,7 +67,7 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
         outfit_editor = TurboCASUtil.OutfitEditor(sim_identifier, outfit_category_and_index=(TurboCASUtil.OutfitCategory.BATHING, 0))
     except RuntimeError:
         return False
-    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.TODDLER):
         for bodytype in (TurboCASUtil.BodyType.UPPER_BODY, TurboCASUtil.BodyType.LOWER_BODY, TurboCASUtil.BodyType.SHOES):
             outfit_editor.add_cas_part(bodytype, get_default_nude_cas_part_id(sim_identifier, bodytype))
         if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_TOILET_STANDING) and sim_ev(data_holder_sim_info).nude_outfit_parts[TurboCASUtil.BodyType.LOWER_BODY] != -1:

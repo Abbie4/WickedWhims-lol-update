@@ -268,7 +268,7 @@ class TurboTunableUtil:
                 elif copy_sim_info_test is not None:
                     sim_info_test.ages = copy_sim_info_test.ages
                 else:
-                    sim_info_test.ages = (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
+                    sim_info_test.ages = (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
                 if species is not None:
                     sim_info_test.species = frozenset(species) if species else None
                 elif copy_sim_info_test is not None:

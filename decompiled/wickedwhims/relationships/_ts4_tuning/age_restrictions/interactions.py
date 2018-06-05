@@ -39,7 +39,7 @@ def remove_romance_age_restrictions(value):
                 if test is default_age_test:
                     test = teen_adult_test
                 elif TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
+                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
                 tests_list.append(test)
             affordance_instance.test_globals = TestList(tests_list)
         while hasattr(affordance_instance, 'tests') and affordance_instance.tests:
@@ -52,7 +52,7 @@ def remove_romance_age_restrictions(value):
                     if test is default_age_test:
                         test = teen_adult_test
                     elif TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
+                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER))
                     test_tests_list.append(test)
                 tests_group_list.append(tuple(test_tests_list))
             affordance_instance.tests = CompoundTestList(tests_group_list)

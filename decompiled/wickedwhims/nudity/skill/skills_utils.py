@@ -61,7 +61,7 @@ def get_nudity_nudity_skill_type(sim_identifier):
 def increase_sim_nudity_skill(sim_identifier, amount, extra_fatigue=0.0, reason=NuditySkillIncreaseReason.NONE):
     if amount <= 0:
         return
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return
     if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN, or_equal=True):
         return

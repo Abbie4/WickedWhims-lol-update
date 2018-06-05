@@ -30,9 +30,9 @@ class NudityPermissionDenied(TurboEnum):
 
 def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, extra_skill_level=0, **kwargs):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
     if nudity_setting_test is True and not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
         return (True, tuple())

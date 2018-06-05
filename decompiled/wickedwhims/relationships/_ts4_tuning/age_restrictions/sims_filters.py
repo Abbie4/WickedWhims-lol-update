@@ -19,7 +19,7 @@ def unlock_sims_filters_for_teens():
         new_filter_terms_list = list()
         for filter_term in sim_filter_instance._filter_terms:
             if TurboTunableUtil.Filters.AgeFilterTerm.is_age_filter_term(filter_term):
-                filter_term = TurboTunableUtil.Filters.AgeFilterTerm.get_age_filter_term(min_value=TurboSimUtil.Age.TEEN, max_value=TurboSimUtil.Age.ELDER, copy_age_filter_term=filter_term)
+                filter_term = TurboTunableUtil.Filters.AgeFilterTerm.get_age_filter_term(min_value=TurboSimUtil.Age.CHILD, max_value=TurboSimUtil.Age.ELDER, copy_age_filter_term=filter_term)
             new_filter_terms_list.append(filter_term)
         sim_filter_instance._filter_terms = tuple(new_filter_terms_list)
 

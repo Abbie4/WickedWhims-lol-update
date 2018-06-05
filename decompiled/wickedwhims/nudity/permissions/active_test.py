@@ -18,9 +18,9 @@ from wickedwhims.utils_sims import is_sim_available
 NUDITY_EXCEPTION_INTERACTIONS = (SimInteraction.WW_EXHIBITIONISM_DRESS_UP, SimInteraction.WW_EXHIBITIONISM_FORCE_DRESS_UP, SimInteraction.WW_NATURISM_DRESS_UP, SimInteraction.WW_NATURISM_FORCE_DRESS_UP, SimInteraction.WW_SEX_ANIMATION_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_AUTONOMY_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_ROUTE_TO_SEX_LOCATION, 13825701230762267064)
 
 def test_sim_nudity_permission(sim):
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return False
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
         return False
     if sim_ev(sim).is_flashing is True or sim_ev(sim).on_toilet_outfit_state != -1 or sim_ev(sim).on_breast_feeding_outfit_state != -1:
         return False

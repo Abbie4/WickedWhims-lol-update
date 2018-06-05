@@ -34,7 +34,7 @@ def trigger_story_progression():
     story_progression_debug_sims_count = 0
     story_progression_debug_data = list()
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
             pass
         if not TurboSimUtil.Component.has_component(sim_info, TurboComponentUtil.ComponentType.STATISTIC):
             pass

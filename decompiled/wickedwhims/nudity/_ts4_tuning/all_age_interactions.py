@@ -26,7 +26,7 @@ def _wickedwhims_enable_nudity_interactions_for_teens():
             affordance_tests_list = list()
             for test in affordance_instance.test_globals:
                 if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN,))
+                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN,))
                 affordance_tests_list.append(test)
             affordance_instance.test_globals = TestList(affordance_tests_list)
         if hasattr(affordance_instance, 'sim_tests') and affordance_instance.sim_tests:
@@ -35,7 +35,7 @@ def _wickedwhims_enable_nudity_interactions_for_teens():
                 simtests_test_list = list()
                 for test in test_group:
                     if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN,))
+                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN,))
                     simtests_test_list.append(test)
                 simtests_group_list.append(tuple(simtests_test_list))
             affordance_instance.sim_tests = CompoundTestList(simtests_group_list)
@@ -45,7 +45,7 @@ def _wickedwhims_enable_nudity_interactions_for_teens():
                 test_tests_list = list()
                 for test in test_group:
                     if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN,))
+                        test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN,))
                     test_tests_list.append(test)
                 tests_group_list.append(tuple(test_tests_list))
             affordance_instance.tests = CompoundTestList(tests_group_list)

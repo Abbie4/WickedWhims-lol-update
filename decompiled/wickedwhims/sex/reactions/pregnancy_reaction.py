@@ -42,7 +42,7 @@ def _wickedwhims_register_pregnancy_labor_buff_callback():
 def _reaction_to_teen_sims_pregnancy(sim):
     if not get_sex_setting(SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE, variable_type=bool):
         return False
-    if TurboSimUtil.Age.get_age(sim) != TurboSimUtil.Age.TEEN:
+    if TurboSimUtil.Age.get_age(sim) != TurboSimUtil.Age.TEEN and TurboSimUtil.Age.get_age(sim) != TurboSimUtil.Age.CHILD:
         return False
     if not TurboSimUtil.Pregnancy.is_pregnant(sim):
         return False

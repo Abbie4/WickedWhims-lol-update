@@ -18,9 +18,9 @@ from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relat
 from wickedwhims.utils_sims import is_sim_available
 
 def update_sim_nudity_skill_on_active_nudity(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
         return
     if is_sim_in_sex(sim_identifier) or is_sim_going_to_sex(sim_identifier):
         return
@@ -73,7 +73,7 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TODDLER:
         base_modifier = -0.5
     elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
-        base_modifier = -1.0
+        base_modifier = 0.15
     else:
         sim_outfit_level = get_sim_outfit_level(sim_info)
         target_outfit_level = get_sim_outfit_level(target_sim_info)

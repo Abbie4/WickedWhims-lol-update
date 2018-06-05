@@ -30,7 +30,7 @@ POSITIVE_MOODS = (SimMood.CONFIDENT, SimMood.FLIRTY, SimMood.ENERGIZED, SimMood.
 NEGATIVE_MOODS = (SimMood.STRESSED, SimMood.EMBARRASSED, SimMood.ANGRY, SimMood.UNCOMFORTABLE, SimMood.SAD)
 POSITIVE_REACTIONS = (SexReactionType.FRIENDLY, SexReactionType.EXCITED, SexReactionType.FLIRTY)
 NEGATIVE_REACTIONS = (SexReactionType.SAD, SexReactionType.ANGRY, SexReactionType.HORRIFIED, SexReactionType.JEALOUS)
-AGE_INDEX = (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
+AGE_INDEX = (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
 
 class SexSatisfactionType(TurboEnum):
     __qualname__ = 'SexSatisfactionType'
@@ -135,7 +135,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
             satisfaction_value += 0.15
         if TurboSimUtil.Gender.is_female(sim_info) and TurboSimUtil.Gender.is_male(target_sim_info):
             target_sim_age = TurboSimUtil.Age.get_age(target_sim_info)
-            if target_sim_age == TurboSimUtil.Age.TEEN and random.uniform(0, 1) < 0.25:
+            if (target_sim_age == TurboSimUtil.Age.TEEN or target_sim_age == TurboSimUtil.Age.CHILD) and random.uniform(0, 1) < 0.25:
                 satisfaction_value += -0.05
             elif target_sim_age == TurboSimUtil.Age.YOUNGADULT and random.uniform(0, 1) < 0.1:
                 satisfaction_value += -0.1
@@ -322,13 +322,13 @@ def test_sex_satifaction_outcome(output=None):
     satisfaction_positive_types = dict()
     satisfaction_negative_types = dict()
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
             pass
         sims_count += 1
         for target_sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
             if sim_info is target_sim_info:
                 pass
-            if TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.TEEN):
+            if TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.CHILD):
                 pass
             sims_pairs += 1
             sim_ev(sim_info).sim_immutable_sex_state_snapshot = get_sim_sex_state_snapshot(sim_info)

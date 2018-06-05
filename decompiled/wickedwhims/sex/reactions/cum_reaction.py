@@ -52,7 +52,7 @@ def _reaction_to_sims_cum(sim):
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
             pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
             pass
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
             pass

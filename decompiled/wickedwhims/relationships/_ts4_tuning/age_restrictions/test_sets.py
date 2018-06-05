@@ -23,7 +23,7 @@ def unlock_testsets_for_teens():
             tests_list = list()
             for test in test_group:
                 if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.TEEN,))
+                    test = modify_sim_info_test_ages(test, add_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN,))
                 tests_list.append(test)
             testset_groups_list.append(tuple(tests_list))
         snippet_instance.test = CompoundTestList(list(testset_groups_list))

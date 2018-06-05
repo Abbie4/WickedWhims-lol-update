@@ -72,11 +72,11 @@ def clear_period_related_buffs(sim_identifier):
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_CRAMPS_HIGH)
 
 def can_sim_have_period(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return False
     if TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.ELDER, or_equal=True):
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
         return False
     if not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANBEIMPREGNATED):
         return False
@@ -122,6 +122,8 @@ def _get_sim_current_menstrual_impregnation_chance(sim_identifier):
         return 0.0
     sim_age = TurboSimUtil.Age.get_age(sim_info)
     result = 0.0
+    if sim_age == TurboSimUtil.Age.CHILD:
+        result = 0.8
     if sim_age == TurboSimUtil.Age.TEEN:
         result = 0.9
     elif sim_age == TurboSimUtil.Age.YOUNGADULT:
@@ -155,7 +157,7 @@ def get_sim_menstrual_cycle_days(sim_identifier):
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
     random_int = random.Random(sim_id)
     (adult_cycle, teen_cycle, _, _) = get_cycle_durations()
-    if TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
+    if TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD:
         menstrual_cycle_days = random_int.randint(*teen_cycle)
     else:
         menstrual_cycle_days = random_int.randint(*adult_cycle)

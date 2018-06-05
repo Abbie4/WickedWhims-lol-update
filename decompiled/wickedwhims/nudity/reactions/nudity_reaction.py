@@ -64,7 +64,7 @@ def react_to_sims_nudity(sim):
             pass
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
             pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
             pass
         if is_sim_in_sex(target):
             pass
@@ -129,7 +129,7 @@ def _is_only_mixer_reaction(sim):
     return False
 
 def _is_positive_to_sim_nudity(sim, target):
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD, or_equal=True):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TODDLER, or_equal=True):
         return False
     if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
         return True
@@ -145,7 +145,7 @@ def _is_positive_to_sim_nudity(sim, target):
         return False
     if TurboSimUtil.Gender.get_gender(target) not in get_sim_preferenced_genders(sim):
         chance = 0.15
-        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD:
             chance += 0.05
         if has_sim_mood(sim, SimMood.FLIRTY):
             chance += 0.05
