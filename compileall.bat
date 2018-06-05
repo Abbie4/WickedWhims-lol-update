@@ -10,11 +10,11 @@ FOR /R %FROMDIR% %%a in (*.pyo) DO (
 	
 	set oldFile=%%~a
 	set oldFile=!oldFile:.cpython-33=!
-
+	MOVE "%%a" "!oldFile!"
 	echo "newfile: " + !newFile!
 	echo "copying: "
-	xcopy "%%a" "!newFile!" /fys
-	del "%%a"
+	xcopy "!oldFile!" "!newFile!" /fys
+	del "!oldFile!"
 	echo "done copying"
 )
 FOR /R %FROMDIR% %%a in (__pycache__) DO (
