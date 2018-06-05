@@ -78,6 +78,10 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
     return True
 
 def get_default_nude_cas_part_id(sim_identifier, bodytype):
+    sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    if sim_is_child and bodytype == TurboCASUtil.BodyType.SHOES:
+        return 22018
     if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
         return 6562
     if bodytype == TurboCASUtil.BodyType.LOWER_BODY:

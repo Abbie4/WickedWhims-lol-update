@@ -112,8 +112,12 @@ class SexAnimationActorInstance:
             return self.gender_type
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
             return SexGenderType.BOTH
+        if self.gender_type == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
+            return SexGenderType.CBOTH
         if self.gender_type == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.BOTH
+        if self.gender_type == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
+            return SexGenderType.CBOTH
         if self.gender_type == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.BOTH
         return self.gender_type
@@ -122,7 +126,7 @@ class SexAnimationActorInstance:
         pref_gender = self.preferenced_gender_type
         if pref_gender == SexGenderType.NONE:
             pref_gender = self.get_gender_type(default_gender=True)
-            if pref_gender == SexGenderType.BOTH:
+            if pref_gender == SexGenderType.BOTH or pref_gender == SexGenderType.CBOTH:
                 pref_gender = SexGenderType.NONE
         return pref_gender
 
@@ -132,6 +136,11 @@ class SexAnimationActorInstance:
             pref_gender_type = self.get_preferenced_gender_type()
             if pref_gender_type == SexGenderType.NONE:
                 return SexGenderType.BOTH
+            return pref_gender_type
+        elif gender_type == SexGenderType.CBOTH:
+            pref_gender_type = self.get_preferenced_gender_type()
+            if pref_gender_type == SexGenderType.NONE:
+                return SexGenderType.CBOTH
             return pref_gender_type
         return gender_type
 
@@ -310,7 +319,7 @@ class SexAnimationInstance:
         for i in range(len(self.get_actors())):
             animation_1_gender = animation_1_genders[i]
             animation_2_gender = animation_2_genders[i]
-            while animation_1_gender != animation_2_gender and animation_1_gender != SexGenderType.BOTH and animation_2_gender != SexGenderType.BOTH:
+            while animation_1_gender != animation_2_gender and animation_1_gender != SexGenderType.BOTH and animation_2_gender != SexGenderType.BOTH and animation_1_gender != SexGenderType.CBOTH and animation_2_gender != SexGenderType.CBOTH:
                 return False
         return True
 

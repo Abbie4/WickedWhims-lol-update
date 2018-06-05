@@ -158,11 +158,11 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, preferenced_gender)) in genders_list:
-            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type:
+            while self._actors_list[actor_id] is None and (gender == SexGenderType.BOTH or gender == SexGenderType.CBOTH) and preferenced_gender == sim_gender_sex_type:
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, _)) in genders_list:
-            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH:
+            while self._actors_list[actor_id] is None and (gender == SexGenderType.BOTH or gender == SexGenderType.CBOTH):
                 self._actors_list[actor_id] = sim_id
                 return True
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:

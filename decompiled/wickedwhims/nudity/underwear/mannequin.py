@@ -26,10 +26,17 @@ def open_underwear_mannequin(sim=None):
     global UNDERWEAR_MANNEQUIN_IN_USE, UNDERWEAR_MANNEQUIN_SIM_ID, UNDERWEAR_MANNEQUIN_OBJECT_ID
     if sim is None:
         sim = TurboManagerUtil.Sim.get_active_sim()
-    if TurboSimUtil.Gender.is_male(sim):
-        mannequin = TurboObjectUtil.GameObject.create_object(15785160026562278628, location=TurboSimUtil.Location.get_location(sim))
+    sim_is_child = TurboSimUtil.Age.get_age(sim) is TurboSimUtil.Age.CHILD
+    if sim_is_child:
+        if TurboSimUtil.Gender.is_male(sim):
+            mannequin = TurboObjectUtil.GameObject.create_object(11608346933607860892, location=TurboSimUtil.Location.get_location(sim))
+        else:
+            mannequin = TurboObjectUtil.GameObject.create_object(16793401209133712026, location=TurboSimUtil.Location.get_location(sim))
     else:
-        mannequin = TurboObjectUtil.GameObject.create_object(14110242915816833432, location=TurboSimUtil.Location.get_location(sim))
+        if TurboSimUtil.Gender.is_male(sim):
+            mannequin = TurboObjectUtil.GameObject.create_object(15785160026562278628, location=TurboSimUtil.Location.get_location(sim))
+        else:
+            mannequin = TurboObjectUtil.GameObject.create_object(14110242915816833432, location=TurboSimUtil.Location.get_location(sim))
     mannequin_id = TurboResourceUtil.Resource.get_id(mannequin)
     mannequin_component = TurboObjectUtil.Mannequin.get_component(mannequin)
     mannequin_sim_info = TurboObjectUtil.Mannequin.get_mannequin_component_sim_info(mannequin_component)
@@ -38,14 +45,25 @@ def open_underwear_mannequin(sim=None):
         for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
             while TurboSimUtil.CAS.has_outfit(sim, (outfit_category, outfit_index)):
                 underwear_parts = get_sim_underwear_data(sim, (outfit_category, outfit_index))
-                if TurboSimUtil.Gender.is_male(sim):
-                    top_body_part = get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.UPPER_BODY)
-                    bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.LOWER_BODY)
-                    TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 6563})
+                if sim_is_child:
+                    if TurboSimUtil.Gender.is_male(sim):
+                        top_body_part = get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.UPPER_BODY)
+                        bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.LOWER_BODY)
+                        TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 12348270534692886420, TurboCASUtil.BodyType.HEAD: 12348270534692886420, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 22018})
+                    else:
+                        top_body_part = underwear_parts[0] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 6)
+                        bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 7)
+                        TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 12348270534692886420, TurboCASUtil.BodyType.HEAD: 12348270534692886420, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 22018})
+
                 else:
-                    top_body_part = underwear_parts[0] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 6)
-                    bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 7)
-                    TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 6543})
+                    if TurboSimUtil.Gender.is_male(sim):
+                        top_body_part = get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.UPPER_BODY)
+                        bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, TurboCASUtil.BodyType.LOWER_BODY)
+                        TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 6563})
+                    else:
+                        top_body_part = underwear_parts[0] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 6)
+                        bottom_body_part = underwear_parts[1] if outfit_category != TurboCASUtil.OutfitCategory.SLEEP and outfit_category != TurboCASUtil.OutfitCategory.SWIMWEAR else get_default_nude_cas_part_id(sim, 7)
+                        TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: top_body_part, TurboCASUtil.BodyType.LOWER_BODY: bottom_body_part, TurboCASUtil.BodyType.SHOES: 6543})
     TurboObjectUtil.Mannequin.populate_mannequin_protocol_buffer(mannequin_component)
     TurboSimUtil.CAS.set_current_outfit(mannequin_sim_info, TurboSimUtil.CAS.get_current_outfit(sim))
     display_notification(text=2196543455, title=712099301, information_level=TurboUIUtil.Notification.UiDialogNotificationLevel.PLAYER)
