@@ -25,7 +25,7 @@ def _wickedwhims_disable_share_pregnancy_news_interaction_for_teens():
         tests_list = list()
         for test in affordance_instance.test_globals:
             if TurboTunableUtil.Tests.SimInfo.is_sim_info_test(test) and TurboTunableUtil.Tests.SimInfo.is_age_test(test):
-                test = modify_sim_info_test_ages(test, remove_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN,))
+                test = modify_sim_info_test_ages(test, remove_ages=(TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN))
             tests_list.append(test)
         affordance_instance.test_globals = TestList(tests_list)
 

@@ -35,6 +35,19 @@ def register_exception_watch_callback():
 
     return _wrapper
 
+def log_message(message):
+    _log_message_text("TurboLib: " + message + "\n")
+
+def _log_message_text(message):
+    try:
+        file_path = "C:/Users/Jack's Computer/Documents/Electronic Arts/The Sims 4/WickedWhims_3.3.4.129c_MessageLog.txt"
+        if file_path is not None:
+            log_file = open(file_path, 'a', buffering=1, encoding='utf-8')
+            log_file.write(message)
+            log_file.flush()
+    except:
+        pass
+
 def log_custom_exception(exception_message, exception=None):
     stack_trace = ''.join(traceback.format_stack())
     stack_trace += 'TurboLib: ' + exception_message + ' -> ' + str(exception) + '\
