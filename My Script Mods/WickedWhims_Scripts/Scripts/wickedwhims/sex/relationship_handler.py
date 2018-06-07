@@ -1,13 +1,37 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.buffs_enum import SimBuff
+from enums.moods_enum import SimMood
+from enums.motives_enum import SimMotive
+from enums.relationship_enum import RelationshipTrackType, ShortTermRelationshipTrackType, SimRelationshipBit
+from enums.situations_enum import SimSituationJob
+from enums.skills_enum import SimSkill
+from enums.statistics_enum import SimCommodity
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.desire_handler import get_sim_desire_level
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.relationships.relationship_utils import get_sim_preferenced_genders
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexAutonomyLevelSetting
+from wickedwhims.sex.utils.sex_init import get_age_limits_for_sex
+from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
+from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
+from wickedwhims.utils_buffs import add_sim_buff, has_sim_buff
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_motives import get_sim_motive_value, set_sim_motive_value
+from wickedwhims.utils_relations import change_relationship_with_sim, get_relationship_with_sim, add_relationsip_bit_with_sim, has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bit
+from wickedwhims.utils_sims import has_sim_mood
+from wickedwhims.utils_situations import has_sim_situation_job
+from wickedwhims.utils_skills import get_sim_skill_level
+from wickedwhims.utils_statistics import change_sim_statistic_value
+from wickedwhims.utils_traits import has_sim_trait
+RELATIONSHIP_SEX_ACCEPTANCE_THRESHOLD = 15
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.buffs_enum import SimBufffrom enums.moods_enum import SimMoodfrom enums.motives_enum import SimMotivefrom enums.relationship_enum import RelationshipTrackType, ShortTermRelationshipTrackType, SimRelationshipBitfrom enums.situations_enum import SimSituationJobfrom enums.skills_enum import SimSkillfrom enums.statistics_enum import SimCommodityfrom enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.desire_handler import get_sim_desire_levelfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.relationships.relationship_utils import get_sim_preferenced_gendersfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexAutonomyLevelSettingfrom wickedwhims.sex.utils.sex_init import get_age_limits_for_sexfrom wickedwhims.sxex_bridge.relationships import is_true_family_relationshipfrom wickedwhims.sxex_bridge.statistics import increase_sim_ww_statisticfrom wickedwhims.utils_buffs import add_sim_buff, has_sim_bufffrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_motives import get_sim_motive_value, set_sim_motive_valuefrom wickedwhims.utils_relations import change_relationship_with_sim, get_relationship_with_sim, add_relationsip_bit_with_sim, has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bitfrom wickedwhims.utils_sims import has_sim_moodfrom wickedwhims.utils_situations import has_sim_situation_jobfrom wickedwhims.utils_skills import get_sim_skill_levelfrom wickedwhims.utils_statistics import change_sim_statistic_valuefrom wickedwhims.utils_traits import has_sim_traitRELATIONSHIP_SEX_ACCEPTANCE_THRESHOLD = 15
 def get_relationship_sex_acceptance_threshold():
     return RELATIONSHIP_SEX_ACCEPTANCE_THRESHOLD
-
+
+
 def get_test_relationship_score(sims_list, skip_always_accept=False):
     if not sims_list:
         return 0
@@ -19,7 +43,8 @@ def get_test_relationship_score(sims_list, skip_always_accept=False):
             overall_score += get_relationship_score(sim, target, skip_always_accept=skip_always_accept)
     relationship_score = overall_score/len(sims_list)
     return relationship_score
-
+
+
 def get_relationship_score(sim_identifier, target_sim_identifier, skip_always_accept=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     target_sim_info = TurboManagerUtil.Sim.get_sim_info(target_sim_identifier)
@@ -242,7 +267,8 @@ def get_relationship_score(sim_identifier, target_sim_identifier, skip_always_ac
     if current_higiene_motive == -100:
         score += -8
     return score
-
+
+
 def apply_asking_for_woohoo_relations(sim_identifier, target_sim_identifier, status, display_message=True):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     target_sim_info = TurboManagerUtil.Sim.get_sim_info(target_sim_identifier)
@@ -396,8 +422,9 @@ def apply_asking_for_woohoo_relations(sim_identifier, target_sim_identifier, sta
         if display_message is True and (TurboSimUtil.Sim.is_player(sim_info) or TurboSimUtil.Sim.is_player(target_sim_info)):
             display_notification(text=215847180, text_tokens=(target_sim_info, sim_info), title=0, secondary_icon=target_sim_info)
         increase_sim_ww_statistic(sim_info, 'times_sex_got_rejected')
-
+
+
 def get_sim_relationship_sims(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     return get_sim_ids_with_relationsip_bit(sim_info, SimRelationshipBit.ROMANTIC_MARRIED) or (get_sim_ids_with_relationsip_bit(sim_info, SimRelationshipBit.ROMANTIC_GETTINGMARRIED) or (get_sim_ids_with_relationsip_bit(sim_info, SimRelationshipBit.ROMANTIC_ENGAGED) or get_sim_ids_with_relationsip_bit(sim_info, SimRelationshipBit.ROMANTIC_SIGNIFICANT_OTHER)))
-
+

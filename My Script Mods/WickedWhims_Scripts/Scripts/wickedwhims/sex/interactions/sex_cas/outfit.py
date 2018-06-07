@@ -1,10 +1,21 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.ui_util import TurboUIUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import CompleteUndressingTypeSetting, NuditySetting, get_nudity_setting
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sex.sex_handlers.active.utils.outfit import undress_sim
+from wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_state, set_sim_bottom_naked_state, set_sim_top_naked_state, get_sim_body_state
+from wickedwhims.sxex_bridge.nudity import reset_sim_bathing_outfits
+from wickedwhims.sxex_bridge.outfit import strip_outfit, dress_up_outfit, StripType
+from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_underwear_outfit
+from wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype, has_sim_body_part, copy_outfit_to_special, get_modified_outfit
+from wickedwhims.utils_interfaces import display_outfit_picker_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.ui_util import TurboUIUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import CompleteUndressingTypeSetting, NuditySetting, get_nudity_settingfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sex.sex_handlers.active.utils.outfit import undress_simfrom wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_state, set_sim_bottom_naked_state, set_sim_top_naked_state, get_sim_body_statefrom wickedwhims.sxex_bridge.nudity import reset_sim_bathing_outfitsfrom wickedwhims.sxex_bridge.outfit import strip_outfit, dress_up_outfit, StripTypefrom wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_underwear_outfitfrom wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype, has_sim_body_part, copy_outfit_to_special, get_modified_outfitfrom wickedwhims.utils_interfaces import display_outfit_picker_dialog
+
 class ChangeActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeActorOutfitInteraction'
 
@@ -44,7 +55,8 @@ class ChangeActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInteract
                 while TurboSimUtil.CAS.has_outfit(target, (outfit_category, outfit_index)):
                     outfits.append((outfit_category, outfit_index))
         display_outfit_picker_dialog(title=4119196202, title_tokens=(target,), outfits=outfits, sim=target, callback=_outfit_picker_callback)
-
+
+
 def _has_outfit_parts_to_undress(interaction_sim, interaction_target, body_types):
     if interaction_target is None or not TurboTypesUtil.Sims.is_sim(interaction_target):
         return False
@@ -66,7 +78,8 @@ def _has_outfit_parts_to_undress(interaction_sim, interaction_target, body_types
         if part_id == -1:
             pass
     return False
-
+
+
 class UndressActorTopInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorTopInteraction'
 
@@ -82,7 +95,8 @@ class UndressActorTopInteraction(TurboImmediateSuperInteraction, TurboInteractio
         set_sim_top_naked_state(target, strip_type_top == StripType.NUDE)
         set_sim_top_underwear_state(target, strip_type_top != StripType.NUDE)
         return True
-
+
+
 class UndressActorBottomInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorBottomInteraction'
 
@@ -98,7 +112,8 @@ class UndressActorBottomInteraction(TurboImmediateSuperInteraction, TurboInterac
         set_sim_bottom_naked_state(target, strip_type_bottom == StripType.NUDE)
         set_sim_bottom_underwear_state(target, strip_type_bottom != StripType.NUDE)
         return True
-
+
+
 class UndressActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorOutfitInteraction'
 
@@ -117,7 +132,8 @@ class UndressActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInterac
         set_sim_bottom_naked_state(target, strip_type_bottom == StripType.NUDE)
         set_sim_bottom_underwear_state(target, strip_type_bottom != StripType.NUDE)
         return True
-
+
+
 class UndressActorCompletelyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorCompletelyInteraction'
 
@@ -138,7 +154,8 @@ class UndressActorCompletelyInteraction(TurboImmediateSuperInteraction, TurboInt
         set_sim_top_underwear_state(target, False)
         set_sim_bottom_underwear_state(target, False)
         return True
-
+
+
 class UndressActorShoesInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorShoesInteraction'
 
@@ -149,7 +166,8 @@ class UndressActorShoesInteraction(TurboImmediateSuperInteraction, TurboInteract
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.SHOES)
-
+
+
 class UndressActorHatInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorHatInteraction'
 
@@ -160,7 +178,8 @@ class UndressActorHatInteraction(TurboImmediateSuperInteraction, TurboInteractio
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.HAT)
-
+
+
 class UndressActorLeggingsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorLeggingsInteraction'
 
@@ -171,7 +190,8 @@ class UndressActorLeggingsInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.TIGHTS)
-
+
+
 class UndressActorSocksInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorSocksInteraction'
 
@@ -182,7 +202,8 @@ class UndressActorSocksInteraction(TurboImmediateSuperInteraction, TurboInteract
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.SOCKS)
-
+
+
 class UndressActorGlovesInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorGlovesInteraction'
 
@@ -193,7 +214,8 @@ class UndressActorGlovesInteraction(TurboImmediateSuperInteraction, TurboInterac
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.GLOVES)
-
+
+
 class UndressActorGlassesInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorGlassesInteraction'
 
@@ -204,7 +226,8 @@ class UndressActorGlassesInteraction(TurboImmediateSuperInteraction, TurboIntera
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.GLASSES)
-
+
+
 class UndressActorHeadInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorHeadInteraction'
 
@@ -231,7 +254,8 @@ class UndressActorHeadInteraction(TurboImmediateSuperInteraction, TurboInteracti
         if has_sim_body_part(cls.get_interaction_target(interaction_instance), TurboCASUtil.BodyType.BROW_RING_RIGHT):
             strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.BROW_RING_RIGHT)
         return True
-
+
+
 class UndressActorLeftHandInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorLeftHandInteraction'
 
@@ -250,7 +274,8 @@ class UndressActorLeftHandInteraction(TurboImmediateSuperInteraction, TurboInter
         if has_sim_body_part(cls.get_interaction_target(interaction_instance), TurboCASUtil.BodyType.MIDDLE_FINGER_LEFT):
             strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.MIDDLE_FINGER_LEFT)
         return True
-
+
+
 class UndressActorRightHandInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorRightHandInteraction'
 
@@ -269,7 +294,8 @@ class UndressActorRightHandInteraction(TurboImmediateSuperInteraction, TurboInte
         if has_sim_body_part(cls.get_interaction_target(interaction_instance), TurboCASUtil.BodyType.MIDDLE_FINGER_RIGHT):
             strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.MIDDLE_FINGER_RIGHT)
         return True
-
+
+
 class UndressActorOtherAccessoriesInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UndressActorOtherAccessoriesInteraction'
 
@@ -280,4 +306,4 @@ class UndressActorOtherAccessoriesInteraction(TurboImmediateSuperInteraction, Tu
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return strip_outfit(cls.get_interaction_target(interaction_instance), strip_bodytype=TurboCASUtil.BodyType.CUMMERBUND)
-
+

@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.command_util import TurboCommandUtil
+from turbolib.events.core import register_zone_load_event_method
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from turbolib.wrappers.commands import register_game_command, TurboCommandType
+from wickedwhims.nudity.underwear.operator import get_sim_underwear_data, set_sim_underwear_data, validate_outfit_underwear
+from wickedwhims.sxex_bridge.nudity import get_default_nude_cas_part_id
+from wickedwhims.sxex_bridge.outfit import dress_up_outfit
+from wickedwhims.utils_interfaces import display_notification
+UNDERWEAR_MANNEQUIN_IN_USE = False
+UNDERWEAR_MANNEQUIN_SIM_ID = -1
+UNDERWEAR_MANNEQUIN_OBJECT_ID = -1
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.command_util import TurboCommandUtilfrom turbolib.events.core import register_zone_load_event_methodfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom turbolib.wrappers.commands import register_game_command, TurboCommandTypefrom wickedwhims.nudity.underwear.operator import get_sim_underwear_data, set_sim_underwear_data, validate_outfit_underwearfrom wickedwhims.sxex_bridge.nudity import get_default_nude_cas_part_idfrom wickedwhims.sxex_bridge.outfit import dress_up_outfitfrom wickedwhims.utils_interfaces import display_notificationUNDERWEAR_MANNEQUIN_IN_USE = FalseUNDERWEAR_MANNEQUIN_SIM_ID = -1UNDERWEAR_MANNEQUIN_OBJECT_ID = -1
 def open_underwear_mannequin(sim=None):
     global UNDERWEAR_MANNEQUIN_IN_USE, UNDERWEAR_MANNEQUIN_SIM_ID, UNDERWEAR_MANNEQUIN_OBJECT_ID
     if sim is None:
@@ -37,7 +47,8 @@ def open_underwear_mannequin(sim=None):
     UNDERWEAR_MANNEQUIN_OBJECT_ID = mannequin_id
     dress_up_outfit(sim)
     TurboCommandUtil.invoke_command('sims.exit2caswithmannequinid {}'.format(mannequin_id, ''))
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=50, late=True)
 def _wickedwhims_check_for_underwear_mannequin():
     global UNDERWEAR_MANNEQUIN_IN_USE
@@ -70,13 +81,15 @@ def _wickedwhims_check_for_underwear_mannequin():
     TurboSimUtil.CAS.set_current_outfit(sim_info, TurboSimUtil.CAS.get_current_outfit(sim_info), dirty=True)
     _reset_current_underwear_mannequin_data()
     TurboObjectUtil.GameObject.destroy_object(mannequin, cause='Temporary underwear mannequin.')
-
+
+
 def _reset_current_underwear_mannequin_data():
     global UNDERWEAR_MANNEQUIN_IN_USE, UNDERWEAR_MANNEQUIN_SIM_ID, UNDERWEAR_MANNEQUIN_OBJECT_ID
     UNDERWEAR_MANNEQUIN_IN_USE = False
     UNDERWEAR_MANNEQUIN_SIM_ID = -1
     UNDERWEAR_MANNEQUIN_OBJECT_ID = -1
-
+
+
 @register_game_command('ww.cleanup_mannequins', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_clean_up_mannequins(output=None):
     male_mannequin = TurboObjectUtil.Definition.get(15785160026562278628)
@@ -86,4 +99,4 @@ def _wickedwhims_command_clean_up_mannequins(output=None):
         while object_definition == male_mannequin or object_definition == female_mannequin:
             TurboObjectUtil.GameObject.destroy_object(game_object, cause='Temporary underwear mannequin.')
     output('Cleaned up WickedWhims mannequins.')
-
+

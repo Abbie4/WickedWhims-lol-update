@@ -1,16 +1,21 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.pregnancy.birth_control.condoms import update_sim_condom_state, give_sim_condoms, get_condom_wrapper_object_id
+from wickedwhims.sex.pregnancy.birth_control.pills import is_sim_allowed_for_free_birth_control, update_sim_birth_control_status_buff, update_sim_birth_control_power, take_birth_control_pill
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, NPCBirthControlModeSetting
+from wickedwhims.utils_inventory import get_object_amount_in_sim_inventory
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.pregnancy.birth_control.condoms import update_sim_condom_state, give_sim_condoms, get_condom_wrapper_object_idfrom wickedwhims.sex.pregnancy.birth_control.pills import is_sim_allowed_for_free_birth_control, update_sim_birth_control_status_buff, update_sim_birth_control_power, take_birth_control_pillfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, NPCBirthControlModeSettingfrom wickedwhims.utils_inventory import get_object_amount_in_sim_inventoryfrom wickedwhims.utils_traits import has_sim_trait
 def update_sim_birth_control_state(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     update_sim_condom_state(sim_info)
     update_sim_birth_control_status_buff(sim_info)
     update_sim_birth_control_power(sim_info)
-
+
+
 def try_late_assign_birth_control(sim_identifier):
     if get_sex_setting(SexSetting.NPC_BIRTH_CONTROL_MODE, variable_type=int) == NPCBirthControlModeSetting.UNSAFE:
         return False
@@ -23,7 +28,8 @@ def try_late_assign_birth_control(sim_identifier):
     if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_TOILET_STANDING):
         return give_sim_condoms(sim_identifier, amount=1)
     return take_birth_control_pill(sim_identifier, no_inventory=True)
-
+
+
 def is_sim_birth_control_safe(sim_identifier, allow_potentially=True):
     if (not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANBEIMPREGNATED) or has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANNOT_BEIMPREGNATED)) and (not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE) or has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANNOTIMPREGNATE)):
         return True
@@ -39,4 +45,4 @@ def is_sim_birth_control_safe(sim_identifier, allow_potentially=True):
     if allow_potentially is True and is_sim_allowed_for_free_birth_control(sim_identifier):
         return True
     return False
-
+

@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin, TurboSocialMixerInteraction, TurboInteractionCancelMixin, TurboInteractionInitMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.relationship_handler import apply_asking_for_woohoo_relations
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import prepare_npc_sim_to_sex
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin, TurboSocialMixerInteraction, TurboInteractionCancelMixin, TurboInteractionInitMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.relationship_handler import apply_asking_for_woohoo_relationsfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import prepare_npc_sim_to_sex
+
 class AskForSexSocialMixerInteraction(TurboSocialMixerInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'AskForSexSocialMixerInteraction'
 
@@ -28,7 +31,8 @@ class AskForSexSocialMixerInteraction(TurboSocialMixerInteraction, TurboInteract
                 while True:
                     for sim_info in pre_sex_handler.get_actors_sim_info_gen():
                         clear_sim_sex_extra_data(sim_info)
-
+
+
 class AskForSexSocialSuccessInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AskForSexSocialSuccessInteraction'
 
@@ -57,7 +61,8 @@ class AskForSexSocialSuccessInteraction(TurboImmediateSuperInteraction, TurboInt
             while result:
                 sim_ev(actor_sim).in_sex_process_interaction = TurboInteractionUtil.get_interaction_from_enqueue_result(result)
         return True
-
+
+
 class AskForSexSocialFailureInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AskForSexSocialFailureInteraction'
 
@@ -74,4 +79,4 @@ class AskForSexSocialFailureInteraction(TurboImmediateSuperInteraction, TurboInt
             clear_sim_sex_extra_data(target)
         apply_asking_for_woohoo_relations(sim, target, False)
         return True
-
+

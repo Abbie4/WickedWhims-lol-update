@@ -1,10 +1,19 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.buffs_enum import SimBuff
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.commands import register_game_command, TurboCommandType
+from wickedwhims.main.basemental_handler import is_sim_on_basemental_drugs, is_basemental_drugs_installed
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_impregnate, can_sim_get_pregnant
+from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting, MenstrualCycleDurationSetting
+from wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff, has_sim_buff
+from wickedwhims.utils_traits import has_sim_trait
+ABSOLUTE_DAYS_OFFSET = 31415
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.buffs_enum import SimBufffrom enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.commands import register_game_command, TurboCommandTypefrom wickedwhims.main.basemental_handler import is_sim_on_basemental_drugs, is_basemental_drugs_installedfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_impregnate, can_sim_get_pregnantfrom wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting, MenstrualCycleDurationSettingfrom wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff, has_sim_bufffrom wickedwhims.utils_traits import has_sim_traitABSOLUTE_DAYS_OFFSET = 31415
 def update_period_related_buffs(sim_identifier):
     clear_period_related_buffs(sim_identifier)
     if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) != PregnancyModeSetting.MENSTRUAL_CYCLE:
@@ -14,7 +23,8 @@ def update_period_related_buffs(sim_identifier):
     if TurboSimUtil.Pregnancy.is_pregnant(sim_identifier):
         return
     apply_period_related_buffs(sim_identifier)
-
+
+
 def apply_period_related_buffs(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_info)
@@ -42,7 +52,8 @@ def apply_period_related_buffs(sim_identifier):
         cramps_duration = random_inst.randint(*cramps_duration) if random_inst.uniform(0, 1) <= 0.5 else 0
     if cramps_duration > 0 and cycle_day > menstrual_cycle_days - cramps_duration:
         add_sim_buff(sim_info, random_inst.choice((SimBuff.WW_PREGNANCY_CRAMPS_LOW, SimBuff.WW_PREGNANCY_CRAMPS_MEDIUM, SimBuff.WW_PREGNANCY_CRAMPS_HIGH)), reason=2061236478)
-
+
+
 def clear_period_related_buffs(sim_identifier):
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_PERIOD_FINE)
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_PERIOD_FLIRTY)
@@ -54,7 +65,8 @@ def clear_period_related_buffs(sim_identifier):
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_CRAMPS_LOW)
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_CRAMPS_MEDIUM)
     remove_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_CRAMPS_HIGH)
-
+
+
 def can_sim_have_period(sim_identifier):
     if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return False
@@ -69,7 +81,8 @@ def can_sim_have_period(sim_identifier):
     if has_sim_trait(sim_identifier, SimTrait.PLANTSIM):
         return False
     return True
-
+
+
 def is_sim_on_period(sim_identifier):
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
     menstrual_cycle_days = get_sim_menstrual_cycle_days(sim_identifier)
@@ -80,17 +93,20 @@ def is_sim_on_period(sim_identifier):
     (_, _, _, period_duration) = get_cycle_durations()
     period_duration = random_int.randint(*period_duration)
     return cycle_day <= period_duration
-
+
+
 def apply_pregnancy_boost_data(sim_identifier):
     absolute_days = TurboWorldUtil.Time.get_absolute_days() + ABSOLUTE_DAYS_OFFSET
     sim_ev(sim_identifier).pregnancy_fertility_boost = (absolute_days, random.uniform(1.5, 2.5))
-
+
+
 def reset_pregnancy_boost_data(sim_identifier):
     absolute_days = TurboWorldUtil.Time.get_absolute_days() + ABSOLUTE_DAYS_OFFSET
     menstrual_cycle_days = get_sim_menstrual_cycle_days(sim_identifier)
     if absolute_days > sim_ev(sim_identifier).pregnancy_fertility_boost[0] + menstrual_cycle_days:
         sim_ev(sim_identifier).pregnancy_fertility_boost = (0, 1.0)
-
+
+
 def get_sim_current_menstrual_pregnancy_chance(sim_identifier):
     if has_sim_trait(sim_identifier, SimTrait.WW_INFERTILE):
         return 0.0
@@ -99,7 +115,8 @@ def get_sim_current_menstrual_pregnancy_chance(sim_identifier):
     if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE):
         return _get_sim_current_menstrual_impregnation_chance(sim_identifier)
     return 0.0
-
+
+
 def _get_sim_current_menstrual_impregnation_chance(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if not can_sim_impregnate(sim_info):
@@ -119,7 +136,8 @@ def _get_sim_current_menstrual_impregnation_chance(sim_identifier):
     if is_sim_on_basemental_drugs(sim_info, skip_weed=True):
         result -= result*0.25
     return result
-
+
+
 def _get_sim_current_menstrual_pregnancy_chance(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if not can_sim_get_pregnant(sim_info):
@@ -134,7 +152,8 @@ def _get_sim_current_menstrual_pregnancy_chance(sim_identifier):
         pregnancy_chance -= pregnancy_chance*0.25
     pregnancy_chance *= max(1, sim_ev(sim_info).pregnancy_fertility_boost[1])
     return min(pregnancy_chance, 1.0)
-
+
+
 def get_sim_menstrual_cycle_days(sim_identifier):
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
     random_int = random.Random(sim_id)
@@ -144,7 +163,8 @@ def get_sim_menstrual_cycle_days(sim_identifier):
     else:
         menstrual_cycle_days = random_int.randint(*adult_cycle)
     return menstrual_cycle_days
-
+
+
 def get_sim_days_till_ovulation(sim_identifier):
     menstrual_cycle_days = get_sim_menstrual_cycle_days(sim_identifier)
     (_, _, _, ovulation_day) = get_fertility_days_data(menstrual_cycle_days)
@@ -154,7 +174,8 @@ def get_sim_days_till_ovulation(sim_identifier):
     if target_day >= 0:
         return target_day
     return menstrual_cycle_days + target_day
-
+
+
 def get_sim_menstrual_pregnancy_chance_matrix(sim_identifier):
     menstrual_cycle_days = get_sim_menstrual_cycle_days(sim_identifier)
     (before_fertile_window_start, fertile_window_start, most_fertile_window_start, ovulation_day) = get_fertility_days_data(menstrual_cycle_days)
@@ -179,14 +200,16 @@ def get_sim_menstrual_pregnancy_chance_matrix(sim_identifier):
             while fertility_bonus is True:
                 pregnancy_matrix[day] += pregnancy_matrix[day]*0.2
     return pregnancy_matrix
-
+
+
 def get_fertility_chances_data():
     before_fertile_window_chance = (0.0, 0.1)
     fertile_window_chance = (0.15, 0.21)
     most_fertile_window_chance = (0.31, 0.36)
     ovulation_day_chance = (0.49, 0.84)
     return (before_fertile_window_chance, fertile_window_chance, most_fertile_window_chance, ovulation_day_chance)
-
+
+
 def get_fertility_days_data(menstrual_cycle_days):
     if _get_menstrual_cycle_duration() == MenstrualCycleDurationSetting.VERY_LONG:
         ovulation_day = menstrual_cycle_days - 14
@@ -213,7 +236,8 @@ def get_fertility_days_data(menstrual_cycle_days):
         before_fertile_window_start = ovulation_day - 3
         return (before_fertile_window_start, fertile_window_start, most_fertile_window_start, ovulation_day)
     return (0, 0, 0, 0)
-
+
+
 def get_cycle_durations():
     if _get_menstrual_cycle_duration() == MenstrualCycleDurationSetting.VERY_LONG:
         adult_cycle = (21, 30)
@@ -240,7 +264,8 @@ def get_cycle_durations():
         cramps_duration = (1, 1)
         return (adult_cycle, teen_cycle, cramps_duration, period_duration)
     return ((0, 0), (0, 0), (0, 0), (0, 0))
-
+
+
 @exception_watch()
 def _get_menstrual_cycle_duration():
     if get_sex_setting(SexSetting.MENSTRUAL_CYCLE_DURATION, variable_type=int) == MenstrualCycleDurationSetting.AUTO:
@@ -253,7 +278,8 @@ def _get_menstrual_cycle_duration():
             return MenstrualCycleDurationSetting.SHORT
         return MenstrualCycleDurationSetting.NORMAL
     return get_sex_setting(SexSetting.MENSTRUAL_CYCLE_DURATION, variable_type=int)
-
+
+
 @register_game_command('ww.shift_menstrual_days', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_shift_menstrual_days(output=None):
     global ABSOLUTE_DAYS_OFFSET
@@ -261,4 +287,4 @@ def _wickedwhims_command_shift_menstrual_days(output=None):
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
         update_period_related_buffs(sim_info)
     output('Menstrual Cycle days have shifted.')
-
+

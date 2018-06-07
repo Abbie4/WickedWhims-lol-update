@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.commands import register_game_command, TurboCommandType
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.commands import register_game_command, TurboCommandType
 @register_game_command('ww.gender_preference', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sim_gender_preference(*args, output=None):
     if len(args) != 1 and len(args) != 3:
@@ -41,7 +39,8 @@ def _wickedwhims_command_sim_gender_preference(*args, output=None):
         TurboSimUtil.Gender.set_gender_preference(sim, TurboSimUtil.Gender.MALE, 0)
         TurboSimUtil.Gender.set_gender_preference(sim, TurboSimUtil.Gender.FEMALE, 0)
     output("Sim '" + ' '.join(TurboSimUtil.Name.get_name(sim)) + "' gender preference has been changed.")
-
+
+
 @register_game_command('ww.preference_hetero', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sims_preference_hetero(*args, output=None):
     if len(args) != 2:
@@ -74,7 +73,8 @@ def _wickedwhims_command_sims_preference_hetero(*args, output=None):
             TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.MALE, 100)
             TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.FEMALE, 0)
     output('Made ' + str(len(sims_list)) + ' (' + str(percentage) + '%) of ' + sims_gender + ' Sims purely heterosexual.')
-
+
+
 @register_game_command('ww.preference_homo', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sims_preference_homo(*args, output=None):
     if len(args) != 2:
@@ -107,7 +107,8 @@ def _wickedwhims_command_sims_preference_homo(*args, output=None):
             TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.MALE, 0)
             TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.FEMALE, 100)
     output('Made ' + str(len(sims_list)) + ' (' + str(percentage) + '%) of ' + sims_gender + ' Sims purely homosexual.')
-
+
+
 @register_game_command('ww.preference_bi', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sims_preference_bi(*args, output=None):
     if len(args) != 2:
@@ -136,7 +137,8 @@ def _wickedwhims_command_sims_preference_bi(*args, output=None):
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.MALE, 100)
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.FEMALE, 100)
     output('Made ' + str(len(sims_list)) + ' (' + str(percentage) + '%) of ' + sims_gender + ' Sims purely bisexual.')
-
+
+
 @register_game_command('ww.preference_random', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sims_preference_random(*args, output=None):
     if len(args) != 2:
@@ -165,7 +167,8 @@ def _wickedwhims_command_sims_preference_random(*args, output=None):
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.MALE, random.randint(0, 100))
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.FEMALE, random.randint(0, 100))
     output('Made ' + str(len(sims_list)) + ' (' + str(percentage) + '%) of ' + sims_gender + ' Sims gender preference random.')
-
+
+
 @register_game_command('ww.preference_neutral', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_sims_preference_neutral(*args, output=None):
     if len(args) != 2:
@@ -194,4 +197,4 @@ def _wickedwhims_command_sims_preference_neutral(*args, output=None):
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.MALE, 0)
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.FEMALE, 0)
     output('Reset ' + str(len(sims_list)) + ' (' + str(percentage) + '%) of ' + sims_gender + ' Sims gender preference.')
-
+

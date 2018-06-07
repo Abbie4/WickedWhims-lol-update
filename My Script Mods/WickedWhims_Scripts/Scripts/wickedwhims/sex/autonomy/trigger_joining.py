@@ -1,10 +1,19 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.tick_handler import register_on_game_update_method
+from wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animations
+from wickedwhims.sex.animations.animations_operator import get_random_animation_of_type
+from wickedwhims.sex.autonomy.sims import get_available_for_sex_sims, get_sex_pair_score
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.relationship_handler import get_relationship_sex_acceptance_threshold
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSetting
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlers
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handler
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.tick_handler import register_on_game_update_methodfrom wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animationsfrom wickedwhims.sex.animations.animations_operator import get_random_animation_of_typefrom wickedwhims.sex.autonomy.sims import get_available_for_sex_sims, get_sex_pair_scorefrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.relationship_handler import get_relationship_sex_acceptance_thresholdfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSettingfrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlersfrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handlerfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation
 @register_on_game_update_method(interval=6000)
 def _trigger_autonomy_joining_to_sex_on_game_update():
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.DISABLED:
@@ -37,7 +46,8 @@ def _trigger_autonomy_joining_to_sex_on_game_update():
                     pass
                 while _trigger_autonomy_join_sex_interaction(sex_handler, sim):
                     return
-
+
+
 def _trigger_autonomy_join_sex_interaction(active_sex_handler, join_sim):
     object_identifier = active_sex_handler.get_object_identifier()
     genders = list()
@@ -69,4 +79,4 @@ def _trigger_autonomy_join_sex_interaction(active_sex_handler, join_sim):
         ask_player_to_start = True
     join_sex_interaction_from_pre_sex_handler(pre_sex_handler, (join_sim,), ask_player_to_join=ask_player_to_start, ignore_relationship_check=True)
     return True
-
+

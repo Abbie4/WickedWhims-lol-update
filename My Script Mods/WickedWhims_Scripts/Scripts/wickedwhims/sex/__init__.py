@@ -1,10 +1,16 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from enums.tags_enum import GameTag
+from enums.whims_enum import WhimSet
+from turbolib.events.core import register_zone_load_event_method, has_game_loaded
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resources.affordances import AffordanceRegistration, register_affordance_class
+from turbolib.resources.whims import WhimRegistration, register_whim_class
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from turbolib.types_util import TurboTypesUtil
+from wickedwhims.utils_rewards import register_satisfaction_reward
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom enums.tags_enum import GameTagfrom enums.whims_enum import WhimSetfrom turbolib.events.core import register_zone_load_event_method, has_game_loadedfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resources.affordances import AffordanceRegistration, register_affordance_classfrom turbolib.resources.whims import WhimRegistration, register_whim_classfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom turbolib.types_util import TurboTypesUtilfrom wickedwhims.utils_rewards import register_satisfaction_reward
+
 @register_affordance_class()
 class SexSimsTerrainAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexSimsTerrainAffordanceRegistration'
@@ -14,7 +20,8 @@ class SexSimsTerrainAffordanceRegistration(AffordanceRegistration):
 
     def is_terrain(self):
         return True
-
+
+
 @register_affordance_class()
 class SexSimsAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexSimsAffordanceRegistration'
@@ -24,7 +31,8 @@ class SexSimsAffordanceRegistration(AffordanceRegistration):
 
     def is_script_object(self, script_object):
         return TurboTypesUtil.Sims.is_sim(script_object) and TurboSimUtil.Species.is_human(script_object)
-
+
+
 @register_affordance_class()
 class SexSimsPhoneAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexSimsPhoneAffordanceRegistration'
@@ -37,7 +45,8 @@ class SexSimsPhoneAffordanceRegistration(AffordanceRegistration):
 
     def is_sim_phone(self):
         return True
-
+
+
 @register_affordance_class()
 class SexObjectsAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexObjectsAffordanceRegistration'
@@ -47,7 +56,8 @@ class SexObjectsAffordanceRegistration(AffordanceRegistration):
 
     def is_script_object(self, script_object):
         return TurboTypesUtil.Objects.is_game_object(script_object)
-
+
+
 @register_affordance_class()
 class PregnancyFertilityTestObjectAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'PregnancyFertilityTestObjectAffordanceRegistration'
@@ -66,7 +76,8 @@ class PregnancyFertilityTestObjectAffordanceRegistration(AffordanceRegistration)
             while tags_count >= 2:
                 return True
         return False
-
+
+
 @register_affordance_class()
 class SexComputerObjectAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexComputerObjectAffordanceRegistration'
@@ -82,13 +93,15 @@ class SexComputerObjectAffordanceRegistration(AffordanceRegistration):
             while object_tag == GameTag.BUYCATEE_COMPUTER or object_tag == GameTag.INTERACTION_COMPUTER or object_tag == GameTag.FUNC_COMPUTER:
                 return True
         return False
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_add_disabled_sex_interactions_to_phone_tuning():
     if has_game_loaded():
         return
     TurboTunableUtil.Phone.register_disabled_affordances({SimInteraction.WW_ROUTE_TO_SEX_LOCATION, SimInteraction.WW_WAIT_FOR_SEX_PARTNER, SimInteraction.WW_SEX_ANIMATION_DEFAULT})
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_add_sex_satisfaction_rewards():
     if has_game_loaded():
@@ -99,7 +112,8 @@ def _wickedwhims_add_sex_satisfaction_rewards():
     register_satisfaction_reward(5499117134932247707, 3000, TurboTunableUtil.Whims.WhimAwardTypes.TRAIT)
     register_satisfaction_reward(10310333123237709450, 500, TurboTunableUtil.Whims.WhimAwardTypes.TRAIT)
     register_satisfaction_reward(9341398068450238656, 500, TurboTunableUtil.Whims.WhimAwardTypes.TRAIT)
-
+
+
 @register_whim_class()
 class SexPartnerWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexPartnerWhimsRegistration'
@@ -109,7 +123,8 @@ class SexPartnerWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.PARTNERS,)
-
+
+
 @register_whim_class()
 class SexNewRomanceWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexNewRomanceWhimsRegistration'
@@ -119,7 +134,8 @@ class SexNewRomanceWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.NEWROMANCEPLUS,)
-
+
+
 @register_whim_class()
 class SexSomeoneWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexSomeoneWhimsRegistration'
@@ -129,7 +145,8 @@ class SexSomeoneWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.EMOTIONFLIRTY, WhimSet.BASEMENTAL_MDMA)
-
+
+
 @register_whim_class()
 class SexSomeonePublicWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexSomeonePublicWhimsRegistration'
@@ -139,4 +156,4 @@ class SexSomeonePublicWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.EMOTIONFLIRTY, WhimSet.EMOTIONCONFIDENT, WhimSet.BASEMENTAL_MDMA)
-
+

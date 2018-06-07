@@ -1,10 +1,27 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.interactions_enum import SimInteraction
+from enums.situations_enum import SimSituation
+from enums.traits_enum import SimTrait
+from enums.vanues_enum import VenueType
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.main.tick_handler import register_on_game_update_method
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting, NudityAutonomyTypeSetting
+from wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevel
+from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
+from wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionist
+from wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, get_sim_actual_body_state, BodyState
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.sxex_bridge.underwear import set_sim_bottom_underwear_state, set_sim_top_underwear_state
+from wickedwhims.utils_autonomy import is_sim_allowed_for_autonomy
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_situations import has_sim_situations
+from wickedwhims.utils_traits import has_sim_traits
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.interactions_enum import SimInteractionfrom enums.situations_enum import SimSituationfrom enums.traits_enum import SimTraitfrom enums.vanues_enum import VenueTypefrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.main.tick_handler import register_on_game_update_methodfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting, NudityAutonomyTypeSettingfrom wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevelfrom wickedwhims.nudity.permissions.test import has_sim_permission_for_nudityfrom wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionistfrom wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, get_sim_actual_body_state, BodyStatefrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.sxex_bridge.underwear import set_sim_bottom_underwear_state, set_sim_top_underwear_statefrom wickedwhims.utils_autonomy import is_sim_allowed_for_autonomyfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_situations import has_sim_situationsfrom wickedwhims.utils_traits import has_sim_traits
 @register_on_game_update_method(interval=10000)
 def _trigger_nudity_autonomy_on_game_update():
     if not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
@@ -46,7 +63,8 @@ def _trigger_nudity_autonomy_on_game_update():
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 55000
             sim_ev(sim).nudity_autonomy_chance = 0.05
             return
-
+
+
 def _is_sim_ready_to_undress(sim):
     if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
         return False
@@ -61,7 +79,8 @@ def _is_sim_ready_to_undress(sim):
     if not has_sim_permission_for_nudity(sim)[0]:
         return False
     return True
-
+
+
 def trigger_nudity_autonomy(sim):
     if is_sim_naturist(sim):
         if is_sim_outfit_fullbody(sim):
@@ -91,4 +110,4 @@ def trigger_nudity_autonomy(sim):
             set_sim_bottom_underwear_state(sim, False)
             return TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_EXHIBITIONISM_UNDRESS_OUTFIT_BOTTOM, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_AUTONOMY, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, priority=TurboInteractionUtil.Priority.High, run_priority=TurboInteractionUtil.Priority.High, skip_if_running=True)
         return False
-
+

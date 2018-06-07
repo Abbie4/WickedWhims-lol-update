@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.math_util import TurboMathUtil
+from turbolib.object_util import TurboObjectUtil
+from wickedwhims.utils_objects import get_object_fixed_direction
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.math_util import TurboMathUtilfrom turbolib.object_util import TurboObjectUtilfrom wickedwhims.utils_objects import get_object_fixed_direction
+
 class SexInteractionHandler:
     __qualname__ = 'SexInteractionHandler'
 
@@ -129,4 +127,4 @@ class SexInteractionHandler:
 
     def get_string_data(self):
         return 'Creator Sim ID: ' + str(self.get_creator_sim_id()) + '\n Game Object ID: ' + str(self.get_game_object_id()) + '\n Object Identifier Name: ' + str(self._object_identifier[0]) + '\n Object Identifier GUID: ' + str(self._object_identifier[1]) + '\n Object Height: ' + str(self.get_object_height()) + '\n Lot ID: ' + str(self._lot_id) + '\n Location X: ' + str(self.location_x) + '\n Location Y: ' + str(self.location_y) + '\n Location Z: ' + str(self.location_z) + '\n Location Level: ' + str(self.location_level) + '\n Location Angle: ' + str(self.location_angle) + '\n Route X: ' + str(self.route_x) + '\n Route Y: ' + str(self.route_y) + '\n Route Z: ' + str(self.route_z) + '\n Route Level: ' + str(self.route_level) + '\n Animation_identifier: ' + str('' if self.get_animation_instance() is None else self.get_animation_instance().get_identifier())
-
+

@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.events.core import has_game_loaded, register_zone_load_event_method
+from turbolib.resource_util import TurboResourceUtil
+PREGNANCY_IN_LABOR_BUFF = 75271
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.events.core import has_game_loaded, register_zone_load_event_methodfrom turbolib.resource_util import TurboResourceUtilPREGNANCY_IN_LABOR_BUFF = 75271
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_add_water_puddle_to_pregnancy_labor_buff():
     if has_game_loaded():
@@ -16,4 +13,4 @@ def _wickedwhims_add_water_puddle_to_pregnancy_labor_buff():
     loot_actions = list(buff_instance._loot_on_addition)
     loot_actions.append(loot_action_instance)
     buff_instance._loot_on_addition = tuple(loot_actions)
-
+

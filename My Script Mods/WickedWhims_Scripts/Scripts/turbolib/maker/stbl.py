@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.hash_util import FNV
+from turbolib.io_util import Binary
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.hash_util import FNVfrom turbolib.io_util import Binary
+
 class StblBuilder:
     __qualname__ = 'StblBuilder'
 
@@ -35,10 +32,11 @@ class StblBuilder:
             stream.write_16bit_unsigned_int(len(string.encode('utf-8')))
             stream.write_string(string)
         return stream.get_bytes()
-
+
+
 def _get_header(string_header):
     i = 0
     for j in reversed(range(len(string_header))):
         i += ord(string_header[j]) << j*8
     return i
-
+

@@ -1,14 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.statistics_enum import SimCommodity
+from turbolib.manager_util import TurboManagerUtil
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_statistics import set_sim_statistic_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.statistics_enum import SimCommodityfrom turbolib.manager_util import TurboManagerUtilfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_statistics import set_sim_statistic_value
 def clear_sims_sex_extra_data(sims_list, only_active_data=False, only_pre_active_data=False):
     for sim in sims_list:
         clear_sim_sex_extra_data(sim, only_active_data=only_active_data, only_pre_active_data=only_pre_active_data)
-
+
+
 def clear_sim_sex_extra_data(sim_identifier, only_active_data=False, only_pre_active_data=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if only_pre_active_data is False:
@@ -29,7 +30,8 @@ def clear_sim_sex_extra_data(sim_identifier, only_active_data=False, only_pre_ac
         set_sim_statistic_value(sim_info, 0, SimCommodity.WW_IS_SIM_IN_SEX)
         if is_main_debug_flag_enabled():
             display_notification(text='Cleared Sim Pre Sex Data', title='Sex Extra Data Clear', secondary_icon=sim_info)
-
+
+
 def get_all_unique_sex_handlers():
     sex_handlers = dict()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
@@ -37,4 +39,4 @@ def get_all_unique_sex_handlers():
         while sex_handler is not None:
             sex_handlers[sex_handler.get_identifier()] = sex_handler
     return sex_handlers.values()
-
+

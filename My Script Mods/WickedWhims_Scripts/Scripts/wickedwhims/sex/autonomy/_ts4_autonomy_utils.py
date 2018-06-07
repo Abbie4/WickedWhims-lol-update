@@ -1,10 +1,5 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.object_util import TurboObjectUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.object_util import TurboObjectUtil
 def has_game_object_all_free_slots(game_object):
     try:
         game_object = TurboObjectUtil.GameObject.get_parent(game_object)
@@ -14,4 +9,4 @@ def has_game_object_all_free_slots(game_object):
     except:
         return True
     return True
-
+

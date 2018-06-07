@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_current_menstrual_pregnancy_chance
+from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, get_sex_setting, SexSetting
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_current_menstrual_pregnancy_chancefrom wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, get_sex_setting, SexSettingfrom wickedwhims.utils_traits import has_sim_trait
 def get_sim_current_pregnancy_chance(sim_identifier):
     if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) == PregnancyModeSetting.DISABLED:
         return 0.0
@@ -19,4 +19,4 @@ def get_sim_current_pregnancy_chance(sim_identifier):
     elif get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) == PregnancyModeSetting.MENSTRUAL_CYCLE:
         return get_sim_current_menstrual_pregnancy_chance(sim_identifier)*chance_modifier
     return 0.0
-
+

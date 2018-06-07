@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimOutfitChangeReason(TurboEnum):
     __qualname__ = 'SimOutfitChangeReason'
     Invalid = -1
@@ -37,4 +33,4 @@ class SimOutfitChangeReason(TurboEnum):
     EnterToddlerBathing = 26
     ExitToddlerBathing = 27
     EnterPetBathing = 28
-
+

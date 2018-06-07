@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from sims.sim_info import SimInfo
+from enums.traits_enum import SimTrait
+from turbolib.injector_util import inject
+from turbolib.special.custom_exception_watcher import log_custom_exception
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from sims.sim_info import SimInfofrom enums.traits_enum import SimTraitfrom turbolib.injector_util import injectfrom turbolib.special.custom_exception_watcher import log_custom_exceptionfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.utils_traits import has_sim_trait
 @inject(SimInfo, 'incest_prevention_test')
 def _wickedwhims_on_incest_prevention_test(original, self, *args, **kwargs):
     try:
@@ -14,4 +14,4 @@ def _wickedwhims_on_incest_prevention_test(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("Failed to edit incest test at 'SimInfo.incest_prevention_test'.", ex)
     return original(self, *args, **kwargs)
-
+

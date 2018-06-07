@@ -1,10 +1,22 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.buffs_enum import SimBuff
+from enums.interactions_enum import SimInteraction
+from enums.relationship_enum import SimRelationshipBit
+from enums.situations_enum import SimSituation
+from turbolib.events.core import register_zone_load_event_method, is_game_loading
+from turbolib.events.sims import register_sim_info_instance_init_event_method
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sxex_bridge.reactions import register_sim_reaction_function
+from wickedwhims.utils_buffs import add_sim_buff, has_sim_buffs
+from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bit, add_relationsip_bit_with_sim, remove_relationsip_bit_with_sim
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_situations import has_sim_situations
+TEEN_PREGNANCY_REACTION_BUFFS = (SimBuff.PREGNANCY_TRIMESTER2, SimBuff.PREGNANCY_TRIMESTER3, SimBuff.PREGNANCY_TRIMESTER2_HATESCHILDREN, SimBuff.PREGNANCY_TRIMESTER3_HATESCHILDREN, SimBuff.PREGNANCY_TRIMESTER2_MALE, SimBuff.PREGNANCY_TRIMESTER3_MALE)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.buffs_enum import SimBufffrom enums.interactions_enum import SimInteractionfrom enums.relationship_enum import SimRelationshipBitfrom enums.situations_enum import SimSituationfrom turbolib.events.core import register_zone_load_event_method, is_game_loadingfrom turbolib.events.sims import register_sim_info_instance_init_event_methodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sxex_bridge.reactions import register_sim_reaction_functionfrom wickedwhims.utils_buffs import add_sim_buff, has_sim_buffsfrom wickedwhims.utils_relations import has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bit, add_relationsip_bit_with_sim, remove_relationsip_bit_with_simfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_situations import has_sim_situationsTEEN_PREGNANCY_REACTION_BUFFS = (SimBuff.PREGNANCY_TRIMESTER2, SimBuff.PREGNANCY_TRIMESTER3, SimBuff.PREGNANCY_TRIMESTER2_HATESCHILDREN, SimBuff.PREGNANCY_TRIMESTER3_HATESCHILDREN, SimBuff.PREGNANCY_TRIMESTER2_MALE, SimBuff.PREGNANCY_TRIMESTER3_MALE)
 @register_sim_info_instance_init_event_method(unique_id='WickedWhims', priority=1, late=True)
 def _wickedwhims_register_pregnancy_labor_buff_callback_on_new_sim(sim_info):
     if is_game_loading():
@@ -12,13 +24,15 @@ def _wickedwhims_register_pregnancy_labor_buff_callback_on_new_sim(sim_info):
     if TurboSimUtil.Species.is_human(sim_info):
         TurboSimUtil.Buff.register_for_buff_added_callback(sim_info, _clear_teen_sims_pregnancy_reaction_data)
         TurboSimUtil.Buff.register_for_buff_removed_callback(sim_info, _clear_teen_sims_pregnancy_reaction_data)
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=40, late=True)
 def _wickedwhims_register_pregnancy_labor_buff_callback():
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
         TurboSimUtil.Buff.register_for_buff_added_callback(sim_info, _clear_teen_sims_pregnancy_reaction_data)
         TurboSimUtil.Buff.register_for_buff_removed_callback(sim_info, _clear_teen_sims_pregnancy_reaction_data)
-
+
+
 @register_sim_reaction_function(priority=2)
 def _reaction_to_teen_sims_pregnancy(sim):
     if not get_sex_setting(SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE, variable_type=bool):
@@ -63,7 +77,8 @@ def _reaction_to_teen_sims_pregnancy(sim):
         while _reaction_to_pregnancy(target, sim):
             return True
     return False
-
+
+
 def _reaction_to_pregnancy(sim, target):
     si_result = TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_TEEN_PREGNANCY_REACTION, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, priority=TurboInteractionUtil.Priority.Critical, run_priority=TurboInteractionUtil.Priority.Critical)
     if si_result:
@@ -71,7 +86,8 @@ def _reaction_to_pregnancy(sim, target):
         add_sim_buff(sim, SimBuff.WW_ANGRY_AT_TEEN_PREGNANCY)
         return True
     return False
-
+
+
 def _clear_teen_sims_pregnancy_reaction_data(buff_type, sim_id):
     if buff_type is None:
         return
@@ -85,4 +101,4 @@ def _clear_teen_sims_pregnancy_reaction_data(buff_type, sim_id):
             target_sim_info = TurboManagerUtil.Sim.get_sim_info(target_sim_id)
             while target_sim_info is not None:
                 remove_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.WW_KNOWS_ABOUT_TEEN_PREGNANCY)
-
+

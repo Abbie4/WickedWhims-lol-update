@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.results import TestResult
+from interactions.base.interaction import Interaction
+from interactions.interaction_queue import InteractionQueue
+from interactions.utils.outcome_enums import OutcomeResult
+from turbolib.events.events_handler import TurboEventsHandler
+from turbolib.injector_util import inject
+from turbolib.native.enum import TurboEnum
+from turbolib.special.custom_exception_watcher import log_custom_exception
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.results import TestResultfrom interactions.base.interaction import Interactionfrom interactions.interaction_queue import InteractionQueuefrom interactions.utils.outcome_enums import OutcomeResultfrom turbolib.events.events_handler import TurboEventsHandlerfrom turbolib.injector_util import injectfrom turbolib.native.enum import TurboEnumfrom turbolib.special.custom_exception_watcher import log_custom_exception
+
 class InteractionsTurboEventsHandler(TurboEventsHandler):
     __qualname__ = 'InteractionsTurboEventsHandler'
 
@@ -23,13 +26,17 @@ class InteractionsTurboEventsHandler(TurboEventsHandler):
             handlers_list = self._event_handlers[event_type]
             for (_, __, event_method) in handlers_list:
                 yield event_method(*args)
-INTERACTION_EVENTS_HANDLER = InteractionsTurboEventsHandler()
+
+INTERACTION_EVENTS_HANDLER = InteractionsTurboEventsHandler()
+
+
 class InteractionEventType(TurboEnum):
     __qualname__ = 'InteractionEventType'
     INTERACTION_RUN = 1
     INTERACTION_QUEUE = 2
     INTERACTION_OUTCOME = 3
-
+
+
 def register_interaction_run_event_method(unique_id=None, priority=0):
 
     def _method_wrapper(event_method):
@@ -37,10 +44,12 @@ def register_interaction_run_event_method(unique_id=None, priority=0):
         return event_method
 
     return _method_wrapper
-
+
+
 def manual_register_interaction_run_event_method(event_method, unique_id=None, priority=0):
     INTERACTION_EVENTS_HANDLER.register_event_method(priority, unique_id, event_method, event_type=InteractionEventType.INTERACTION_RUN)
-
+
+
 @inject(InteractionQueue, 'run_interaction_gen')
 def _turbolib_interaction_run(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
@@ -53,7 +62,8 @@ def _turbolib_interaction_run(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method '_turbolib_interaction_run' at 'InteractionQueue.run_interaction_gen'.", ex)
     return result
-
+
+
 def register_interaction_queue_event_method(unique_id=None, priority=0):
 
     def _method_wrapper(event_method):
@@ -61,10 +71,12 @@ def register_interaction_queue_event_method(unique_id=None, priority=0):
         return event_method
 
     return _method_wrapper
-
+
+
 def manual_register_interaction_queue_event_method(event_method, unique_id=None, priority=0):
     INTERACTION_EVENTS_HANDLER.register_event_method(priority, unique_id, event_method, event_type=InteractionEventType.INTERACTION_QUEUE)
-
+
+
 @inject(InteractionQueue, 'append')
 def _turbolib_interaction_queue(original, self, *args, **kwargs):
     try:
@@ -77,7 +89,8 @@ def _turbolib_interaction_queue(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method '_turbolib_interaction_queue' at 'InteractionQueue.append'.", ex)
     return original(self, *args, **kwargs)
-
+
+
 def register_interaction_outcome_event_method(unique_id=None, priority=0):
 
     def _method_wrapper(event_method):
@@ -85,10 +98,12 @@ def register_interaction_outcome_event_method(unique_id=None, priority=0):
         return event_method
 
     return _method_wrapper
-
+
+
 def manual_register_interaction_outcome_event_method(event_method, unique_id=None, priority=0):
     INTERACTION_EVENTS_HANDLER.register_event_method(priority, unique_id, event_method, event_type=InteractionEventType.INTERACTION_OUTCOME)
-
+
+
 @inject(Interaction, 'store_result_for_outcome')
 def _turbolib_interaction_outcome_result(original, self, *args, **kwargs):
     try:
@@ -105,4 +120,4 @@ def _turbolib_interaction_outcome_result(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method '_turbolib_interaction_outcome_result' at 'Interaction.store_result_for_outcome'.", ex)
     return original(self, *args, **kwargs)
-
+

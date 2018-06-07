@@ -1,10 +1,23 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import routing
+import routing.connectivity
+from animation.animation_utils import flush_all_animations
+from animation.posture_manifest_constants import STAND_OR_MOVING_STAND_CONSTRAINT, STAND_CONSTRAINT
+from element_utils import build_critical_section
+from event_testing.results import TestResult
+from interactions.base.immediate_interaction import ImmediateSuperInteraction
+from interactions.base.interaction import Interaction
+from interactions.base.mixer_interaction import MixerInteraction
+from interactions.base.super_interaction import SuperInteraction
+from interactions.constraints import Circle
+from interactions.context import InteractionContext
+from interactions.social.social_mixer_interaction import SocialMixerInteraction
+from objects.terrain import TerrainInteractionMixin, TravelMixin
+from server.pick_info import PickType
+from sims4.utils import flexmethod
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.math_util import TurboMathUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import routingimport routing.connectivityfrom animation.animation_utils import flush_all_animationsfrom animation.posture_manifest_constants import STAND_OR_MOVING_STAND_CONSTRAINT, STAND_CONSTRAINTfrom element_utils import build_critical_sectionfrom event_testing.results import TestResultfrom interactions.base.immediate_interaction import ImmediateSuperInteractionfrom interactions.base.interaction import Interactionfrom interactions.base.mixer_interaction import MixerInteractionfrom interactions.base.super_interaction import SuperInteractionfrom interactions.constraints import Circlefrom interactions.context import InteractionContextfrom interactions.social.social_mixer_interaction import SocialMixerInteractionfrom objects.terrain import TerrainInteractionMixin, TravelMixinfrom server.pick_info import PickTypefrom sims4.utils import flexmethodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.math_util import TurboMathUtil
+
 class _TurboBaseInteractionUtil:
     __qualname__ = '_TurboBaseInteractionUtil'
 
@@ -37,7 +50,8 @@ class _TurboBaseInteractionUtil:
     def kill_interaction(cls, interaction_context_or_instance):
         if isinstance(interaction_context_or_instance, Interaction):
             interaction_context_or_instance.kill()
-
+
+
 class _TurboConstraintUtil:
     __qualname__ = '_TurboConstraintUtil'
 
@@ -62,7 +76,8 @@ class _TurboConstraintUtil:
             else:
                 total_constraints.intersect(constraint)
         return total_constraints
-
+
+
 class _TurboInteraction(Interaction, _TurboBaseInteractionUtil):
     __qualname__ = '_TurboInteraction'
 
@@ -97,14 +112,16 @@ class _TurboInteraction(Interaction, _TurboBaseInteractionUtil):
         if issubclass(self.__class__, TurboInteractionFinishMixin):
             self.on_interaction_finish(self)
         return super()._post_perform()
-
+
+
 class TurboBaseSuperInteraction(_TurboInteraction, SuperInteraction):
     __qualname__ = 'TurboBaseSuperInteraction'
 
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         raise NotImplementedError
-
+
+
 class TurboSuperInteraction(TurboBaseSuperInteraction):
     __qualname__ = 'TurboSuperInteraction'
 
@@ -119,14 +136,16 @@ class TurboSuperInteraction(TurboBaseSuperInteraction):
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         raise NotImplementedError
-
+
+
 class TurboImmediateSuperInteraction(_TurboInteraction, ImmediateSuperInteraction):
     __qualname__ = 'TurboImmediateSuperInteraction'
 
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         raise NotImplementedError
-
+
+
 class TurboTerrainImmediateSuperInteraction(_TurboInteraction, TravelMixin, TerrainInteractionMixin, ImmediateSuperInteraction):
     __qualname__ = 'TurboTerrainImmediateSuperInteraction'
 
@@ -147,28 +166,32 @@ class TurboTerrainImmediateSuperInteraction(_TurboInteraction, TravelMixin, Terr
         if not routing.test_connectivity_permissions_for_handle(routing.connectivity.Handle(routing_location), interaction_context.sim.routing_context):
             return False
         return True
-
+
+
 class TurboMixerInteraction(_TurboInteraction, MixerInteraction):
     __qualname__ = 'TurboMixerInteraction'
 
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         raise NotImplementedError
-
+
+
 class TurboSocialMixerInteraction(_TurboInteraction, SocialMixerInteraction):
     __qualname__ = 'TurboSocialMixerInteraction'
 
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         raise NotImplementedError
-
+
+
 class TurboInteractionInitMixin:
     __qualname__ = 'TurboInteractionInitMixin'
 
     @classmethod
     def on_interaction_init(cls, interaction_instance):
         raise NotImplementedError
-
+
+
 class TurboInteractionSetupMixin(Interaction):
     __qualname__ = 'TurboInteractionSetupMixin'
 
@@ -181,7 +204,8 @@ class TurboInteractionSetupMixin(Interaction):
     @classmethod
     def on_interaction_setup(cls, interaction_instance):
         raise NotImplementedError
-
+
+
 class TurboInteractionBasicElementsMixin(SuperInteraction):
     __qualname__ = 'TurboInteractionBasicElementsMixin'
 
@@ -192,7 +216,8 @@ class TurboInteractionBasicElementsMixin(SuperInteraction):
     @classmethod
     def on_building_basic_elements(cls, interaction_instance, sequence):
         raise NotImplementedError
-
+
+
 class TurboInteractionConstraintMixin(SuperInteraction, _TurboConstraintUtil):
     __qualname__ = 'TurboInteractionConstraintMixin'
 
@@ -203,21 +228,24 @@ class TurboInteractionConstraintMixin(SuperInteraction, _TurboConstraintUtil):
     @classmethod
     def on_constraint(cls, interaction_instance, interaction_sim, interaction_target):
         raise NotImplementedError
-
+
+
 class TurboInteractionConstraintResetMixin(SuperInteraction, _TurboConstraintUtil):
     __qualname__ = 'TurboInteractionConstraintResetMixin'
 
     @flexmethod
     def _constraint_gen(self, *args, **kwargs):
         return ()
-
+
+
 class TurboInteractionASMMixin:
     __qualname__ = 'TurboInteractionASMMixin'
 
     @classmethod
     def on_interaction_asm_setup(cls, interaction_instance, interaction_asm):
         raise NotImplementedError
-
+
+
 class TurboInteractionNameMixin:
     __qualname__ = 'TurboInteractionNameMixin'
 
@@ -229,25 +257,28 @@ class TurboInteractionNameMixin:
     @classmethod
     def get_interaction_name(cls, interaction_instance):
         raise NotImplementedError
-
+
+
 class TurboInteractionStartMixin:
     __qualname__ = 'TurboInteractionStartMixin'
 
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         raise NotImplementedError
-
+
+
 class TurboInteractionCancelMixin:
     __qualname__ = 'TurboInteractionCancelMixin'
 
     @classmethod
     def on_interaction_cancel(cls, interaction_instance, finishing_type):
         raise NotImplementedError
-
+
+
 class TurboInteractionFinishMixin:
     __qualname__ = 'TurboInteractionFinishMixin'
 
     @classmethod
     def on_interaction_finish(cls, interaction_instance):
         raise NotImplementedError
-
+

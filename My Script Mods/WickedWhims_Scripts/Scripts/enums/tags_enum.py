@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class GameTag(TurboEnum):
     __qualname__ = 'GameTag'
     MOOD_OPTIMISM = 64
@@ -2628,4 +2624,4 @@ class GameTag(TurboEnum):
     SICKNESS_CUREDBY_EXAMTABLE = 57451
     SICKNESS_CUREDBY_SURGERYSTATION = 57452
     FUNC_CATWAND_RAINBOW = 57453
-
+

@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimWhim(TurboEnum):
     __qualname__ = 'SimWhim'
     WW_SEX_WITH_SIM_IN_PUBLIC = 11561004916990309644
@@ -12,7 +8,8 @@ class SimWhim(TurboEnum):
     WW_SEX_WITH_PARTNER = 18144792039329369821
     WW_SEX_WITH_SIM = 16636620952431474582
     WW_GOAL_SEX_WITH_DATE = 17127167598028976579
-
+
+
 class WhimSet(TurboEnum):
     __qualname__ = 'WhimSet'
     APARTMENTPROBLEMS = 142026
@@ -243,4 +240,4 @@ class WhimSet(TurboEnum):
     WELLNESS = 118587
     WRITING = 35073
     BASEMENTAL_MDMA = 10379202196911048712
-
+

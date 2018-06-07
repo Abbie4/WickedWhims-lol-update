@@ -1,10 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from sims.outfits.outfit_enums import OutfitCategory
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.enums.sex_gender import SexGenderType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexUndressingLevelSetting
+from wickedwhims.sex.strapon.operator import has_loaded_strapon, get_sim_strapon_part_id, is_strapon_on_sim
+from wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, set_sim_top_naked_state, set_sim_bottom_naked_state, get_sim_actual_body_state, BodyState
+from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
+from wickedwhims.sxex_bridge.underwear import is_underwear_outfit, is_sim_top_underwear, set_sim_top_underwear_state, set_sim_bottom_underwear_state
+from wickedwhims.utils_cas import set_bodytype_caspart, get_modified_outfit
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from sims.outfits.outfit_enums import OutfitCategoryfrom enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.enums.sex_gender import SexGenderTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexUndressingLevelSettingfrom wickedwhims.sex.strapon.operator import has_loaded_strapon, get_sim_strapon_part_id, is_strapon_on_simfrom wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, set_sim_top_naked_state, set_sim_bottom_naked_state, get_sim_actual_body_state, BodyStatefrom wickedwhims.sxex_bridge.outfit import StripType, strip_outfitfrom wickedwhims.sxex_bridge.underwear import is_underwear_outfit, is_sim_top_underwear, set_sim_top_underwear_state, set_sim_bottom_underwear_statefrom wickedwhims.utils_cas import set_bodytype_caspart, get_modified_outfitfrom wickedwhims.utils_traits import has_sim_trait
 def update_stapon(sim_identifier, actor_data=None, is_npc_only=False, force_remove=False):
     if not has_loaded_strapon():
         return False
@@ -42,7 +50,8 @@ def update_stapon(sim_identifier, actor_data=None, is_npc_only=False, force_remo
         TurboSimUtil.CAS.refresh_outfit(sim_info)
     except:
         pass
-
+
+
 def _undress_bottom(sim_info):
     has_top_underwear_on = TurboSimUtil.Gender.is_female(sim_info) and (is_underwear_outfit(get_modified_outfit(sim_info)[0]) and is_sim_top_underwear(sim_info))
     strip_type_top = StripType.NONE if not is_sim_outfit_fullbody(sim_info) else StripType.UNDERWEAR if has_top_underwear_on else StripType.NUDE
@@ -51,4 +60,4 @@ def _undress_bottom(sim_info):
     set_sim_bottom_naked_state(sim_info, True)
     set_sim_top_underwear_state(sim_info, strip_type_top == StripType.UNDERWEAR)
     set_sim_bottom_underwear_state(sim_info, False)
-
+

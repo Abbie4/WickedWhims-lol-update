@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from enums.roles_enum import SimRoleState
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.relationship_handler import get_test_relationship_score, apply_asking_for_woohoo_relations, get_relationship_sex_acceptance_threshold
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexInitiationTypeSetting
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.utils_interfaces import display_drama_dialog
+from wickedwhims.utils_rolestates import add_sim_rolestate, remove_sim_rolestate
+from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
+from wickedwhims.utils_situations import create_sim_visit_situation
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom enums.roles_enum import SimRoleStatefrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.relationship_handler import get_test_relationship_score, apply_asking_for_woohoo_relations, get_relationship_sex_acceptance_thresholdfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexInitiationTypeSettingfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.utils_interfaces import display_drama_dialogfrom wickedwhims.utils_rolestates import add_sim_rolestate, remove_sim_rolestatefrom wickedwhims.utils_routes import is_sim_allowed_on_active_lotfrom wickedwhims.utils_situations import create_sim_visit_situation
 def start_sex_interaction_from_pre_sex_handler(pre_sex_handler):
     is_instant = get_sex_setting(SexSetting.ALWAYS_ACCEPT_STATE, variable_type=bool) and get_sex_setting(SexSetting.SEX_INITIATION_TYPE, variable_type=int) == SexInitiationTypeSetting.INSTANT_TELEPORT
     if pre_sex_handler.get_sims_amount() == 1:
@@ -28,12 +38,14 @@ def start_sex_interaction_from_pre_sex_handler(pre_sex_handler):
         if is_instant is True:
             return _start_instant_group_sex_interaction(pre_sex_handler, ask_player_to_start=ask_player_to_start)
         return _start_group_sex_interaction(pre_sex_handler, ask_player_to_start=ask_player_to_start)
-
+
+
 def _start_instant_solo_sex_interaction(pre_sex_handler):
     sim_ev(TurboManagerUtil.Sim.get_sim_info(pre_sex_handler.get_creator_sim_id())).active_pre_sex_handler = pre_sex_handler
     pre_sex_handler.start_sex_interaction()
     return True
-
+
+
 def _start_solo_sex_interaction(pre_sex_handler):
     creator_sim = TurboManagerUtil.Sim.get_sim_instance(pre_sex_handler.get_creator_sim_id())
     if creator_sim is None:
@@ -48,7 +60,8 @@ def _start_solo_sex_interaction(pre_sex_handler):
     if result:
         sim_ev(creator_sim).in_sex_process_interaction = TurboInteractionUtil.get_interaction_from_enqueue_result(result)
     return bool(result)
-
+
+
 def _start_instant_group_sex_interaction(pre_sex_handler, ask_player_to_start=False):
     if ask_player_to_start is True:
         creator_sim = TurboManagerUtil.Sim.get_sim_instance(pre_sex_handler.get_creator_sim_id())
@@ -69,7 +82,8 @@ def _start_instant_group_sex_interaction(pre_sex_handler, ask_player_to_start=Fa
         prepare_npc_sim_to_sex(sim_info)
     pre_sex_handler.start_sex_interaction()
     return True
-
+
+
 def _start_group_sex_interaction(pre_sex_handler, ask_player_to_start=False):
     creator_sim = TurboManagerUtil.Sim.get_sim_instance(pre_sex_handler.get_creator_sim_id())
     target_sim = TurboManagerUtil.Sim.get_sim_instance(pre_sex_handler.get_second_sim_id())
@@ -83,7 +97,8 @@ def _start_group_sex_interaction(pre_sex_handler, ask_player_to_start=False):
         return bool(result)
     result = TurboSimUtil.Interaction.push_affordance(creator_sim, SimInteraction.WW_TRIGGER_SOCIAL_ASK_FOR_SEX_DEFAULT, target=target_sim)
     return bool(result)
-
+
+
 def join_sex_interaction_from_pre_sex_handler(pre_sex_handler, join_sims_list, ask_player_to_join=False, ignore_relationship_check=False, flip_relationship_check=False):
     creator_sim_info = TurboManagerUtil.Sim.get_sim_info(pre_sex_handler.get_creator_sim_id())
     can_sims_join = True
@@ -123,7 +138,8 @@ def join_sex_interaction_from_pre_sex_handler(pre_sex_handler, join_sims_list, a
         display_drama_dialog(creator_sim_info, join_sims_list[0], text=3899042444, text_tokens=(join_sims_list[0], creator_sim_info), ok_text=3398494028, cancel_text=3364226930, callback=ask_for_sex_callback)
         return
     _join_sex_interaction_from_pre_handler(pre_sex_handler, join_sims_list)
-
+
+
 def _join_sex_interaction_from_pre_handler(pre_sex_handler, join_sims_list):
     creator_sim_info = TurboManagerUtil.Sim.get_sim_info(pre_sex_handler.get_creator_sim_id())
     sim_ev(creator_sim_info).active_sex_handler.has_joining_sims = True
@@ -145,7 +161,8 @@ def _join_sex_interaction_from_pre_handler(pre_sex_handler, join_sims_list):
     if is_instant is True:
         sim_ev(creator_sim_info).active_sex_handler.stop(hard_stop=True, no_teleport=True, is_joining_stop=True, stop_reason='On join interaction!')
         pre_sex_handler.start_sex_interaction()
-
+
+
 def prepare_npc_sim_to_sex(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if TurboSimUtil.Sim.is_player(sim_info):
@@ -164,14 +181,16 @@ def prepare_npc_sim_to_sex(sim_identifier):
         add_sim_rolestate(sim, SimRoleState.WW_HOUSE_GUEST_SEX)
         create_sim_visit_situation(sim)
         return
-
+
+
 def unprepare_npc_sim_from_sex(sim_identifier):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if sim is None or TurboSimUtil.Sim.is_player(sim):
         return
     remove_sim_rolestate(sim, SimRoleState.WW_HOUSE_GUEST_SEX)
     remove_sim_rolestate(sim, SimRoleState.WW_OPEN_STREET_SEX)
-
+
+
 def update_sim_to_route_for_sex(sim):
     if sim_ev(sim).is_in_process_to_sex is True:
         if sim_ev(sim).active_pre_sex_handler is not None:
@@ -186,4 +205,4 @@ def update_sim_to_route_for_sex(sim):
         else:
             clear_sim_sex_extra_data(sim, only_pre_active_data=True)
             unprepare_npc_sim_from_sex(sim)
-
+

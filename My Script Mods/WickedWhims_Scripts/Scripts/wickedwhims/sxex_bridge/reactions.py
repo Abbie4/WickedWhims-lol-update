@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from wickedwhims.main.tick_handler import register_on_game_update_method
+SIM_REACTION_FUNCTIONS = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom wickedwhims.main.tick_handler import register_on_game_update_methodSIM_REACTION_FUNCTIONS = list()
 def register_sim_reaction_function(priority=0):
 
     def regiser_to_collection(method):
@@ -14,7 +11,8 @@ def register_sim_reaction_function(priority=0):
         return method
 
     return regiser_to_collection
-
+
+
 @register_on_game_update_method(interval=1500)
 def _trigger_reactions_on_game_update():
     for (priority, execute_function) in SIM_REACTION_FUNCTIONS:
@@ -24,4 +22,4 @@ def _trigger_reactions_on_game_update():
                 stop = True
         while stop is True:
             break
-
+

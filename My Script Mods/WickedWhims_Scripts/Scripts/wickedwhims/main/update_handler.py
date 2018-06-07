@@ -1,14 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import reset_active_sex_handlers
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.version_registry import get_mod_version_str
+HAS_UPDATED_THE_MOD = False
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import reset_active_sex_handlersfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.version_registry import get_mod_version_strHAS_UPDATED_THE_MOD = False
 def set_mod_update_status(status):
     global HAS_UPDATED_THE_MOD
     HAS_UPDATED_THE_MOD = status
-
+
+
 def reset_mod_on_update():
     if HAS_UPDATED_THE_MOD is False:
         return
@@ -30,4 +34,4 @@ def reset_mod_on_update():
                 TurboSimUtil.CAS.set_current_outfit(sim_info, (TurboCASUtil.OutfitCategory.EVERYDAY, 0))
                 TurboSimUtil.CAS.update_previous_outfit(sim_info)
             TurboSimUtil.Sim.reset_sim(sim_info)
-
+

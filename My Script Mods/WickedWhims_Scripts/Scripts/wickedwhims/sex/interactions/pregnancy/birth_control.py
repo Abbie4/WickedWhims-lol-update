@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.pregnancy.birth_control.condoms import give_sim_condoms, try_to_take_and_use_condoms
+from wickedwhims.sex.pregnancy.birth_control.pills import take_birth_control_pill, give_sim_birth_control_pills
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.pregnancy.birth_control.condoms import give_sim_condoms, try_to_take_and_use_condomsfrom wickedwhims.sex.pregnancy.birth_control.pills import take_birth_control_pill, give_sim_birth_control_pillsfrom wickedwhims.utils_traits import has_sim_trait
+
 class UseCondomsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UseCondomsInteraction'
 
@@ -27,7 +30,8 @@ class UseCondomsInteraction(TurboImmediateSuperInteraction, TurboInteractionStar
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return try_to_take_and_use_condoms(cls.get_interaction_sim(interaction_instance))
-
+
+
 class UnpackCondomsBoxInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UnpackCondomsBoxInteraction'
 
@@ -41,7 +45,8 @@ class UnpackCondomsBoxInteraction(TurboImmediateSuperInteraction, TurboInteracti
         TurboSimUtil.Inventory.remove_object_by_id(sim, TurboResourceUtil.Resource.get_id(cls.get_interaction_target(interaction_instance)))
         give_sim_condoms(sim, amount=24)
         return True
-
+
+
 class AllowCondomsAutoUseInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AllowCondomsAutoUseInteraction'
 
@@ -55,7 +60,8 @@ class AllowCondomsAutoUseInteraction(TurboImmediateSuperInteraction, TurboIntera
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_sim(interaction_instance)).auto_use_of_condoms = True
         return True
-
+
+
 class DisallowCondomsAutoUseInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisallowCondomsAutoUseInteraction'
 
@@ -69,7 +75,8 @@ class DisallowCondomsAutoUseInteraction(TurboImmediateSuperInteraction, TurboInt
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_sim(interaction_instance)).auto_use_of_condoms = False
         return True
-
+
+
 class TakeBirthControlPillInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'TakeBirthControlPillInteraction'
 
@@ -80,7 +87,8 @@ class TakeBirthControlPillInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return take_birth_control_pill(cls.get_interaction_sim(interaction_instance))
-
+
+
 class UnpackBirthControlPillsBoxInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UnpackBirthControlPillsBoxInteraction'
 
@@ -94,7 +102,8 @@ class UnpackBirthControlPillsBoxInteraction(TurboImmediateSuperInteraction, Turb
         TurboSimUtil.Inventory.remove_object_by_id(sim, TurboResourceUtil.Resource.get_id(cls.get_interaction_target(interaction_instance)))
         give_sim_birth_control_pills(sim, amount=28)
         return True
-
+
+
 class AllowBirthControlPillsAutoUseInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AllowBirthControlPillsAutoUseInteraction'
 
@@ -108,7 +117,8 @@ class AllowBirthControlPillsAutoUseInteraction(TurboImmediateSuperInteraction, T
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_sim(interaction_instance)).auto_use_of_birth_pills = True
         return True
-
+
+
 class DisallowBirthControlPillsAutoUseInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisallowBirthControlPillsAutoUseInteraction'
 
@@ -122,4 +132,4 @@ class DisallowBirthControlPillsAutoUseInteraction(TurboImmediateSuperInteraction
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_sim(interaction_instance)).auto_use_of_birth_pills = False
         return True
-
+

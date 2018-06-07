@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import camera
+import services
+from event_testing.resolver import DoubleSimResolver
+from sims4.localization import TunableLocalizedStringFactory
+from ui.ui_dialog import UiDialogOk, UiDialogOkCancel, ButtonType
+from ui.ui_dialog_generic import UiDialogTextInputOkCancel
+from ui.ui_dialog_notification import UiDialogNotification
+from ui.ui_dialog_picker import ObjectPickerRow, UiObjectPicker, UiSimPicker, SimPickerRow, OutfitPickerRow, UiOutfitPicker
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.manager_util import TurboManagerUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import cameraimport servicesfrom event_testing.resolver import DoubleSimResolverfrom sims4.localization import TunableLocalizedStringFactoryfrom ui.ui_dialog import UiDialogOk, UiDialogOkCancel, ButtonTypefrom ui.ui_dialog_generic import UiDialogTextInputOkCancelfrom ui.ui_dialog_notification import UiDialogNotificationfrom ui.ui_dialog_picker import ObjectPickerRow, UiObjectPicker, UiSimPicker, SimPickerRow, OutfitPickerRow, UiOutfitPickerfrom turbolib.l18n_util import TurboL18NUtilfrom turbolib.manager_util import TurboManagerUtil
+
 class TurboUIUtil:
     __qualname__ = 'TurboUIUtil'
 
@@ -300,4 +305,4 @@ class TurboUIUtil:
                 information_level = TurboUIUtil.Notification.UiDialogNotificationLevel.SIM
             notification = UiDialogNotification.TunableFactory().default(None, text=lambda *args, **kwargs: text, title=lambda *args, **kwargs: title, visual_type=visual_type, urgency=urgency, information_level=information_level)
             notification.show_dialog(icon_override=icons)
-
+

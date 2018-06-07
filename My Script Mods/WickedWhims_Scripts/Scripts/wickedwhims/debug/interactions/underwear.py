@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.statistics_enum import SimCommodity
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_statistics import get_sim_statistic_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.statistics_enum import SimCommodityfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_statistics import get_sim_statistic_value
+
 class DebugUnderwearMatrixInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugUnderwearMatrixInteraction'
 
@@ -23,4 +25,4 @@ class DebugUnderwearMatrixInteraction(TurboImmediateSuperInteraction, TurboInter
         for (outfit_id, underwear_data) in sim_ev(sim).underwear_outfits_parts.items():
             underwear_debug_info += str(outfit_id) + ' > ' + str(underwear_data) + '\n'
         display_notification(text=underwear_debug_info, title=str(TurboSimUtil.Name.get_name(sim)[0]) + ' ' + str(TurboSimUtil.Name.get_name(sim)[1]) + ' Underwear Debug', secondary_icon=sim)
-
+

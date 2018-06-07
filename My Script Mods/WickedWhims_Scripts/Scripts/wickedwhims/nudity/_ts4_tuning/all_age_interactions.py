@@ -1,10 +1,11 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.tests import CompoundTestList, TestList
+from turbolib.events.core import register_zone_load_event_method, has_game_loaded
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from wickedwhims.utils_tunings import modify_sim_info_test_ages
+NUDITY_AFFORDANCE_LIST = (120455, 120453, 128625, 129163, 117339, 26878)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.tests import CompoundTestList, TestListfrom turbolib.events.core import register_zone_load_event_method, has_game_loadedfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom wickedwhims.utils_tunings import modify_sim_info_test_agesNUDITY_AFFORDANCE_LIST = (120455, 120453, 128625, 129163, 117339, 26878)
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_enable_nudity_interactions_for_teens():
     if has_game_loaded():
@@ -41,4 +42,4 @@ def _wickedwhims_enable_nudity_interactions_for_teens():
                     test_tests_list.append(test)
                 tests_group_list.append(tuple(test_tests_list))
             affordance_instance.tests = CompoundTestList(tests_group_list)
-
+

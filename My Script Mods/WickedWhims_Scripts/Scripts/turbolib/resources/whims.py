@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from sims4.tuning.instance_manager import InstanceManager
+from turbolib.injector_util import inject
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.special.custom_exception_watcher import log_custom_exception
+WHIM_REGISTRATION_CLASSES = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from sims4.tuning.instance_manager import InstanceManagerfrom turbolib.injector_util import injectfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.special.custom_exception_watcher import log_custom_exceptionWHIM_REGISTRATION_CLASSES = list()
+
 def register_whim_class():
     '''
     Use as a decorator on every WhimRegistration class to register it.
@@ -15,7 +15,8 @@ def register_whim_class():
         return whim_class
 
     return _wrapper
-
+
+
 class WhimRegistration:
     __qualname__ = 'WhimRegistration'
 
@@ -65,7 +66,8 @@ class WhimRegistration:
                 pass
             self.whim_sets.append(whimset_instance)
         return tuple(self.whim_sets)
-
+
+
 @inject(InstanceManager, 'load_data_into_class_instances')
 def _turbolib_load_whims_into_whim_sets(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
@@ -78,4 +80,4 @@ def _turbolib_load_whims_into_whim_sets(original, self, *args, **kwargs):
         except Exception as ex:
             log_custom_exception("[TurboLib] Failed to run 'WhimRegistration' class at 'InstanceManager.load_data_into_class_instances'.", ex)
     return result
-
+

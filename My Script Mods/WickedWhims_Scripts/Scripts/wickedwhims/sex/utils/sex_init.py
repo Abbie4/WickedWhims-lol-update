@@ -1,10 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.sex.enums.sex_gender import SexGenderType, get_sim_sex_gender
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting
+from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_traits import has_sim_traits
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.sex.enums.sex_gender import SexGenderType, get_sim_sex_genderfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSettingfrom wickedwhims.sxex_bridge.relationships import is_true_family_relationshipfrom wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sexfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_traits import has_sim_traits
 def get_age_limits_for_sex(sims_list):
     youngest_sim_age = None
     oldest_sim_age = None
@@ -26,7 +33,8 @@ def get_age_limits_for_sex(sims_list):
         if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool):
             return (TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ELDER)
         return (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.ELDER)
-
+
+
 def get_sims_for_sex(skip_males=False, skip_females=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.TEEN, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboManagerUtil.Sim.get_sim_id(sim) in skip_sims_ids:
@@ -56,7 +64,8 @@ def get_sims_for_sex(skip_males=False, skip_females=False, only_npc=False, relat
                     if is_incest is True:
                         pass
                 yield TurboManagerUtil.Sim.get_sim_id(sim)
-
+
+
 def get_nearby_sims_for_sex(position, radius=16, skip_males=False, skip_females=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.TEEN, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
     is_position_at_active_lot = TurboWorldUtil.Lot.is_position_on_active_lot(position)
     for sim in get_sims_for_sex(skip_males=skip_males, skip_females=skip_females, only_npc=only_npc, relative_sims=relative_sims, min_sims_age=min_sims_age, max_sims_age=max_sims_age, skip_sims_ids=skip_sims_ids):
@@ -67,4 +76,4 @@ def get_nearby_sims_for_sex(position, radius=16, skip_males=False, skip_females=
         if is_sim_in_range is False:
             pass
         yield sim
-
+

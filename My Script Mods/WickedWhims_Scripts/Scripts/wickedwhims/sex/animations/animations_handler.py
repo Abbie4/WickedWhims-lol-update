@@ -1,29 +1,47 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.events.core import register_zone_load_event_method
+from turbolib.l18n_util import TurboL18NUtil
+from wickedwhims.sex.animations.animations_cache import cache_animation_instance, clear_animation_data_cache
+from wickedwhims.sex.animations.animations_disabler_handler import apply_disabled_sex_animations_from_dict, is_player_sex_animation_disabled
+from wickedwhims.sex.autonomy.disabled_locations_handler import apply_disabled_autonomy_sex_locations_from_dict
+from wickedwhims.sex.cas_cum_handler import CumLayerType, get_cum_layer_type_by_name
+from wickedwhims.sex.enums.sex_gender import SexGenderType, get_sex_gender_type_by_name
+from wickedwhims.sex.enums.sex_naked_type import get_sex_naked_type_by_name
+from wickedwhims.sex.enums.sex_type import get_sex_category_type_by_name, SexCategoryType
+from wickedwhims.sex.settings.sex_settings import SexSetting, SexGenderTypeSetting, get_sex_setting
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.utils_clips import get_clip_bytes_data, get_clip_duration, get_clip_resource_key
+from wickedwhims.utils_interfaces import get_unselected_icon, get_selected_icon
+from wickedwhims.utils_saves.save_disabled_animations import get_disabled_animations_save_data
+from wickedwhims.utils_saves.save_disabled_locations import get_disabled_locations_save_data
+from wickedwhims.utils_snippets import get_snippets_with_tag
+ALL_ANIMATIONS_LIST = list()
+AVAILABLE_ANIMATIONS_LIST = list()
+AVAILABLE_ANIMATIONS_PER_TYPE = dict()
+HIDDEN_ANIMATIONS_LIST = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.events.core import register_zone_load_event_methodfrom turbolib.l18n_util import TurboL18NUtilfrom wickedwhims.sex.animations.animations_cache import cache_animation_instance, clear_animation_data_cachefrom wickedwhims.sex.animations.animations_disabler_handler import apply_disabled_sex_animations_from_dict, is_player_sex_animation_disabledfrom wickedwhims.sex.autonomy.disabled_locations_handler import apply_disabled_autonomy_sex_locations_from_dictfrom wickedwhims.sex.cas_cum_handler import CumLayerType, get_cum_layer_type_by_namefrom wickedwhims.sex.enums.sex_gender import SexGenderType, get_sex_gender_type_by_namefrom wickedwhims.sex.enums.sex_naked_type import get_sex_naked_type_by_namefrom wickedwhims.sex.enums.sex_type import get_sex_category_type_by_name, SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, SexGenderTypeSetting, get_sex_settingfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.utils_clips import get_clip_bytes_data, get_clip_duration, get_clip_resource_keyfrom wickedwhims.utils_interfaces import get_unselected_icon, get_selected_iconfrom wickedwhims.utils_saves.save_disabled_animations import get_disabled_animations_save_datafrom wickedwhims.utils_saves.save_disabled_locations import get_disabled_locations_save_datafrom wickedwhims.utils_snippets import get_snippets_with_tagALL_ANIMATIONS_LIST = list()AVAILABLE_ANIMATIONS_LIST = list()AVAILABLE_ANIMATIONS_PER_TYPE = dict()HIDDEN_ANIMATIONS_LIST = list()
 def get_all_sex_animations():
     return ALL_ANIMATIONS_LIST
-
+
+
 def get_available_sex_animations(sex_category_type=None):
     if sex_category_type is None:
         return AVAILABLE_ANIMATIONS_LIST
     if sex_category_type in AVAILABLE_ANIMATIONS_PER_TYPE:
         return AVAILABLE_ANIMATIONS_PER_TYPE[sex_category_type]
     return ()
-
+
+
 def get_hidden_animations():
     return HIDDEN_ANIMATIONS_LIST
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=2, late=True)
 def _wickedwhims_load_sex_animations_on_save_load():
     apply_disabled_sex_animations_from_dict(get_disabled_animations_save_data())
     apply_disabled_autonomy_sex_locations_from_dict(get_disabled_locations_save_data())
     recollect_sex_animation_packages()
-
+
+
 class SexAnimationActorActionInstance:
     __qualname__ = 'SexAnimationActorActionInstance'
 
@@ -51,7 +69,8 @@ class SexAnimationActorActionInstance:
             cum_layers_list += cum_layer_name
             cum_layers_list += ', '
         return '\n    Receive Actor ID: ' + str(self.receiving_actor_id) + '\n    Receive Actor Category: ' + str(self.receiving_actor_sex_category.name) + '\n    Receive Actor Cum Layers: ' + str(cum_layers_list) + '\n    Receive Actor Cum Inside:' + str(self.receiving_actor_cum_inside)
-
+
+
 class SexAnimationActorInstance:
     __qualname__ = 'SexAnimationActorInstance'
 
@@ -136,7 +155,8 @@ class SexAnimationActorInstance:
         for interaction in self.actor_actions:
             interactions_display_data += str(interaction)
         return '\n  Actor ID: ' + str(self.actor_id) + '\n  Animation Name: ' + str(self.animation_clip_name) + '\n  Animation Type: ' + str(self.sex_category.name) + '\n  Animation Pref Genders: ' + str(self.preferenced_gender_type.name) + '\n  Animation Genders: ' + str(self.gender_type.name) + '\n  Naked Type: ' + str(self.naked_type.name) + '\n  Froce Nude Hands: ' + str(self.force_nude_hands) + '\n  Froce Nude Feet: ' + str(self.force_nude_feet) + '\n  Allow Strapon Flag: ' + str(self.allow_strapon) + '\n  Y Offset: ' + str(self.y_offset) + '\n  Facing Offset: ' + str(self.facing_offset) + '\n   Interactions:' + interactions_display_data
-
+
+
 class SexAnimationInstance:
     __qualname__ = 'SexAnimationInstance'
 
@@ -306,7 +326,8 @@ class SexAnimationInstance:
         for actor in self.get_actors():
             actors_display_data += str(actor)
         return 'ID: ' + str(self.get_identifier()) + '\nAuthor: ' + str(self.author) + '\nStage Name: ' + str(self.animation_stage_name) + '\nLocations: ' + str(locations_list) + '\nCustom Locations: ' + str(custom_locations_list) + '\nCategory: ' + str(self.sex_category.name) + '\nLength: ' + str(self.duration) + '\nNext Stages: ' + str(self.animation_next_stages) + '\n Actors: ' + actors_display_data
-
+
+
 def collect_sex_animation_packages():
     global ALL_ANIMATIONS_LIST, AVAILABLE_ANIMATIONS_LIST, AVAILABLE_ANIMATIONS_PER_TYPE, HIDDEN_ANIMATIONS_LIST
     animations_packages_list = get_snippets_with_tag('wickedwhims_animations', 'wickedwoohoo_animations')
@@ -383,7 +404,8 @@ def collect_sex_animation_packages():
     AVAILABLE_ANIMATIONS_LIST = available_animations_list
     AVAILABLE_ANIMATIONS_PER_TYPE = available_animations_per_type
     HIDDEN_ANIMATIONS_LIST = hidden_animations_list
-
+
+
 def _fix_animation_actors_order(animation_actors):
     animation_actors = sorted(animation_actors, key=lambda x: int(x.get_gender_type(default_gender=True)))
     new_actor_id = 0
@@ -398,7 +420,8 @@ def _fix_animation_actors_order(animation_actors):
                 pass
             actor_action.receiving_actor_id = actors_id_dict[actor_action.receiving_actor_id]
     return animation_actors
-
+
+
 def recollect_sex_animation_packages():
     global ALL_ANIMATIONS_LIST, AVAILABLE_ANIMATIONS_LIST, AVAILABLE_ANIMATIONS_PER_TYPE
     ALL_ANIMATIONS_LIST = list()
@@ -406,7 +429,8 @@ def recollect_sex_animation_packages():
     AVAILABLE_ANIMATIONS_PER_TYPE = list()
     clear_animation_data_cache()
     collect_sex_animation_packages()
-
+
+
 def get_unique_sex_animations_authors():
     authors_list = list()
     for animation_instance in get_available_sex_animations():
@@ -415,7 +439,8 @@ def get_unique_sex_animations_authors():
     authors_list.sort()
     authors_list_text = ', '.join(authors_list)
     return authors_list_text
-
+
+
 def _parse_sex_animation_locations(locations_names):
     if len(locations_names) <= 0:
         return ()
@@ -436,7 +461,8 @@ def _parse_sex_animation_locations(locations_names):
                 pass
             locations_list.append(location_data)
     return tuple(locations_list)
-
+
+
 def _parse_sex_animation_custom_locations(locations_ids):
     if len(locations_ids) <= 0:
         return ()
@@ -456,7 +482,8 @@ def _parse_sex_animation_custom_locations(locations_ids):
         except ValueError:
             continue
     return tuple(locations_list)
-
+
+
 def _parse_sex_animation_stages_list(stages_names, exclude_stages=()):
     if len(stages_names) <= 0:
         return ()
@@ -475,7 +502,8 @@ def _parse_sex_animation_stages_list(stages_names, exclude_stages=()):
             pass
         stages_list.add(stage_name)
     return tuple(stages_list)
-
+
+
 def _parse_cum_layer_types(names):
     if len(names) <= 0:
         return ()
@@ -492,4 +520,4 @@ def _parse_cum_layer_types(names):
             pass
         cum_layers_list.add(cum_layer_type)
     return tuple(cum_layers_list)
-
+

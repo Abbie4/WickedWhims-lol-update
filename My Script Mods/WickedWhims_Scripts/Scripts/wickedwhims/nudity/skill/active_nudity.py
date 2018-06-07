@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.relationship_enum import SimRelationshipBit, RelationshipTrackType
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevel
+from wickedwhims.nudity.skill.skills_utils import increase_sim_nudity_skill, get_nudity_skill_points_modifier, NuditySkillIncreaseReason, get_sim_nudity_skill_level, apply_nudity_skill_influence, is_sim_naturist
+from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
+from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
+from wickedwhims.utils_sims import is_sim_available
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.relationship_enum import SimRelationshipBit, RelationshipTrackTypefrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevelfrom wickedwhims.nudity.skill.skills_utils import increase_sim_nudity_skill, get_nudity_skill_points_modifier, NuditySkillIncreaseReason, get_sim_nudity_skill_level, apply_nudity_skill_influence, is_sim_naturistfrom wickedwhims.sxex_bridge.relationships import is_true_family_relationshipfrom wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sexfrom wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_simfrom wickedwhims.utils_sims import is_sim_available
 def update_sim_nudity_skill_on_active_nudity(sim_identifier):
     if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return
@@ -26,14 +31,16 @@ def update_sim_nudity_skill_on_active_nudity(sim_identifier):
     elif sim_outfit_level == OutfitLevel.REVEALING or sim_outfit_level == OutfitLevel.UNDERWEAR:
         sim_nudity_skill_level = get_sim_nudity_skill_level(sim_identifier)
         increase_sim_nudity_skill(sim_identifier, sims_around_value*(get_nudity_skill_points_modifier(NuditySkillIncreaseReason.BEING_IN_REVEALING_OUTFIT)/(sim_nudity_skill_level*sim_nudity_skill_level)), extra_fatigue=0.15, reason=NuditySkillIncreaseReason.BEING_IN_REVEALING_OUTFIT)
-
+
+
 def update_sim_nudity_skill_on_seeing_nudity(sim, target):
     skill_points = _get_sim_nudity_value(target, sim)*get_nudity_skill_points_modifier(NuditySkillIncreaseReason.SEEING_NUDITY)
     if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD and is_sim_naturist(target):
         apply_nudity_skill_influence(sim, skill_points, overall_limit=200.0)
         return
     increase_sim_nudity_skill(sim, skill_points, extra_fatigue=0.05, reason=NuditySkillIncreaseReason.SEEING_NUDITY)
-
+
+
 def _get_sims_around_value(sim_identifier, max_sims=6):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     max_sims = max_sims if max_sims % 2 == 0 else max_sims + 1
@@ -53,7 +60,8 @@ def _get_sims_around_value(sim_identifier, max_sims=6):
     high_value = sum(points_collection[:int(max_sims/2)])
     low_value = sum(points_collection[int(-(max_sims/2)):])
     return max(0, (high_value + low_value)/2)
-
+
+
 def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     target_sim_info = TurboManagerUtil.Sim.get_sim_info(target_sim_identifier)
@@ -96,4 +104,4 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     current_friendship_rel_amount = (get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.FRIENDSHIP) + 100)/200*100
     score_collection.append(max(0, 1.0*((100 - current_friendship_rel_amount)/100))*base_modifier)
     return sum(score_collection)/len(score_collection)
-
+

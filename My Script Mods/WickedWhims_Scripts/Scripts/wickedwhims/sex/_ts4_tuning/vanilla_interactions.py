@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import operator
+import sims4.math
+from event_testing.statistic_tests import StatThresholdTest
+from event_testing.tests import TestList
+from enums.statistics_enum import SimCommodity
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.tunable_util import TurboTunableUtil
+from wickedwhims.main.interactions_handler import is_wickedwhims_interaction
+HAS_DISABLED_VANILLA_INTERACTIONS_ACCESS_IN_SEX = False
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import operatorimport sims4.mathfrom event_testing.statistic_tests import StatThresholdTestfrom event_testing.tests import TestListfrom enums.statistics_enum import SimCommodityfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.tunable_util import TurboTunableUtilfrom wickedwhims.main.interactions_handler import is_wickedwhims_interactionHAS_DISABLED_VANILLA_INTERACTIONS_ACCESS_IN_SEX = False
 def set_vanilla_interactions_access_in_sex(value):
     global HAS_DISABLED_VANILLA_INTERACTIONS_ACCESS_IN_SEX
     if value is True or HAS_DISABLED_VANILLA_INTERACTIONS_ACCESS_IN_SEX is True:
@@ -20,4 +23,4 @@ def set_vanilla_interactions_access_in_sex(value):
             tests_list.insert(0, statistic_test)
             affordance_tuning.test_globals = TestList(tests_list)
     HAS_DISABLED_VANILLA_INTERACTIONS_ACCESS_IN_SEX = True
-
+

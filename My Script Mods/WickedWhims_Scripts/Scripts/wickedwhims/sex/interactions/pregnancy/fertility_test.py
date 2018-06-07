@@ -1,10 +1,11 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_current_menstrual_pregnancy_chance, get_sim_days_till_ovulation
+from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chance
+from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting
+from wickedwhims.utils_interfaces import display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_current_menstrual_pregnancy_chance, get_sim_days_till_ovulationfrom wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chancefrom wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_settingfrom wickedwhims.utils_interfaces import display_notification
+
 class PrePregnancyTakeFertilityTestInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'PrePregnancyTakeFertilityTestInteraction'
 
@@ -20,7 +21,8 @@ class PrePregnancyTakeFertilityTestInteraction(TurboImmediateSuperInteraction, T
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return True
-
+
+
 class PregnancyTakeFertilityTestOutcomeInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'PregnancyTakeFertilityTestOutcomeInteraction'
 
@@ -39,4 +41,4 @@ class PregnancyTakeFertilityTestOutcomeInteraction(TurboImmediateSuperInteractio
             pregnancy_chance = int(get_sim_current_pregnancy_chance(sim)*100)
             display_notification(text=72538425, text_tokens=(sim, str(pregnancy_chance)), title=2800719885, secondary_icon=sim)
         return True
-
+

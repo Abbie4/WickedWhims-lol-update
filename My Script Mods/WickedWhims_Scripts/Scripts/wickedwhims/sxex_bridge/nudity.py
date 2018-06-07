@@ -1,15 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytypefrom wickedwhims.utils_traits import has_sim_trait
 def setup_sim_nude_outfit(sim_info):
     if TurboSimUtil.CAS.get_current_outfit(sim_info)[0] != TurboCASUtil.OutfitCategory.BATHING:
         reset_sim_bathing_outfits(sim_info)
     update_nude_body_data(sim_info, force_update=True)
-
+
+
 def update_nude_body_data(sim_identifier, force_update=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
@@ -44,7 +46,8 @@ def update_nude_body_data(sim_identifier, force_update=False):
         sim_ev(sim_info).nude_outfit_parts[TurboCASUtil.BodyType.SHOES] = feet_body_part_cas_id
     if (sim_ev(sim_info).nude_outfit_parts[115] == -1 or force_update is True) and has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
         sim_ev(sim_info).nude_outfit_parts[115] = sim_ev(sim_info).penis_outfit_parts['hard_texture'] if sim_ev(sim_info).is_penis_hard is True else sim_ev(sim_info).penis_outfit_parts['soft_texture']
-
+
+
 def reset_sim_bathing_outfits(sim_identifier, ignore_nudity_assurance_setting=False):
     from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting
     if ignore_nudity_assurance_setting is False and not get_nudity_setting(NuditySetting.NUDITY_ASSURANCE_STATE, variable_type=bool):
@@ -52,7 +55,8 @@ def reset_sim_bathing_outfits(sim_identifier, ignore_nudity_assurance_setting=Fa
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     for occult_sim_info in TurboSimUtil.Occult.get_all_sim_info_occults(sim_info):
         _generate_sim_nude_outfit(occult_sim_info, sim_info)
-
+
+
 def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_assurance=True):
     TurboSimUtil.CAS.generate_outfit(sim_identifier, (TurboCASUtil.OutfitCategory.BATHING, 0))
     try:
@@ -68,7 +72,8 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
             outfit_editor.remove_body_type(bodytype)
     outfit_editor.apply(skip_client_update=True)
     return True
-
+
+
 def get_default_nude_cas_part_id(sim_identifier, bodytype):
     if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
         return 6562
@@ -83,4 +88,4 @@ def get_default_nude_cas_part_id(sim_identifier, bodytype):
     if TurboSimUtil.Gender.is_female(sim_identifier) and bodytype == TurboCASUtil.BodyType.SHOES:
         return 6543
     return -1
-
+

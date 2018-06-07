@@ -1,15 +1,25 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import enum
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.pregnancy.birth_control.birth_control_handler import try_late_assign_birth_control
+from wickedwhims.sex.pregnancy.birth_control.condoms import get_condom_wrapper_object_id
+from wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_get_pregnant
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, PregnancyModeSetting
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_inventory import get_object_amount_in_sim_inventory
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import enumfrom enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.pregnancy.birth_control.birth_control_handler import try_late_assign_birth_controlfrom wickedwhims.sex.pregnancy.birth_control.condoms import get_condom_wrapper_object_idfrom wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_get_pregnantfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, PregnancyModeSettingfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_inventory import get_object_amount_in_sim_inventoryfrom wickedwhims.utils_traits import has_sim_trait
+
 class SexDenialReasonType(enum.Int, export=False):
     __qualname__ = 'SexDenialReasonType'
     NONE = 0
     NO_PROTECTION_HATES_CHILDREN = 1
-
+
+
 class SexDenialReason:
     __qualname__ = 'SexDenialReason'
 
@@ -26,7 +36,9 @@ class SexDenialReason:
 
     def get_sim_info(self):
         return self.sim_info
-POSITIVE_RESULT = SexDenialReason(True, SexDenialReasonType.NONE, None)
+
+POSITIVE_RESULT = SexDenialReason(True, SexDenialReasonType.NONE, None)
+
 def is_sim_allowed_for_animation(sims_list, animation_category, **kwargs):
     allowing_tests = (_test_for_children_hater,)
     sim_info_list = list()
@@ -38,13 +50,15 @@ def is_sim_allowed_for_animation(sims_list, animation_category, **kwargs):
             while not result:
                 return result
     return POSITIVE_RESULT
-
+
+
 def display_not_allowed_message(sex_denial_reason):
     if sex_denial_reason:
         return
     if sex_denial_reason.get_reason() == SexDenialReasonType.NO_PROTECTION_HATES_CHILDREN:
         display_notification(text=866800069, text_tokens=(sex_denial_reason.get_sim_info(),), title=2175203501, secondary_icon=sex_denial_reason.get_sim_info())
-
+
+
 def _test_for_children_hater(sim_info, sim_info_list, animation_category, **args):
     if get_sex_setting(SexSetting.ALWAYS_ACCEPT_STATE, variable_type=bool):
         return True
@@ -90,4 +104,4 @@ def _test_for_children_hater(sim_info, sim_info_list, animation_category, **args
     if has_needed_condoms is False:
         return SexDenialReason(False, SexDenialReasonType.NO_PROTECTION_HATES_CHILDREN, sim_info)
     return True
-
+

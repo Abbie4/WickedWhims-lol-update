@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import traceback
+from datetime import datetime
+from functools import wraps
+from traceback import format_exc
+from turbolib.special.exceptions_feedback import call_exception_feedback
+EXCEPTION_WATCH_CALLBACKS = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import tracebackfrom datetime import datetimefrom functools import wrapsfrom traceback import format_excfrom turbolib.special.exceptions_feedback import call_exception_feedbackEXCEPTION_WATCH_CALLBACKS = list()
 def exception_watch():
 
     def catch_exception(exception_function):
@@ -19,7 +19,8 @@ def exception_watch():
         return wrapper
 
     return catch_exception
-
+
+
 def register_exception_watch_callback():
 
     def _wrapper(method):
@@ -27,12 +28,14 @@ def register_exception_watch_callback():
         return method
 
     return _wrapper
-
+
+
 def log_custom_exception(exception_message, exception=None):
     stack_trace = ''.join(traceback.format_stack())
     stack_trace += 'TurboLib: ' + exception_message + ' -> ' + str(exception) + '\n'
     _log_trackback(stack_trace)
-
+
+
 def _log_trackback(trackback):
     call_exception_feedback()
     exception_trackback_text = '{} {}\n'.format(datetime.now().strftime('%x %X'), trackback)
@@ -45,4 +48,4 @@ def _log_trackback(trackback):
                 log_file.flush()
         except:
             pass
-
+

@@ -1,16 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class RelationshipTrackType(TurboEnum):
     __qualname__ = 'RelationshipTrackType'
     FRIENDSHIP = 16650
     ROMANCE = 16651
     MISCHIEF = 26920
-
+
+
 class ShortTermRelationshipTrackType(TurboEnum):
     __qualname__ = 'ShortTermRelationshipTrackType'
     AWKWARDNESS = 24098
@@ -28,7 +25,8 @@ class ShortTermRelationshipTrackType(TurboEnum):
     INTERROGATION_TABLE_WORRIED = 103620
     RETAIL_PURCHASE_INTEREST = 111598
     ROMANCE = 24101
-
+
+
 class SimRelationshipBit(TurboEnum):
     __qualname__ = 'SimRelationshipBit'
     AUTHORITY_DEFAULT = 161996
@@ -251,4 +249,4 @@ class SimRelationshipBit(TurboEnum):
     WW_KNOWS_ABOUT_TEEN_PREGNANCY = 4092116363
     WW_JUST_HAD_SEX = 297233635
     WW_KNOWS_SEX_FANTASY = 470160556
-
+

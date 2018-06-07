@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_file
+SIMS_SAVE_DATA = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_fileSIMS_SAVE_DATA = dict()
 def load_sims_save_data(slot_id=-1):
     global SIMS_SAVE_DATA
     save_id = get_save_id('sim', slot_id=slot_id)
@@ -14,15 +13,18 @@ def load_sims_save_data(slot_id=-1):
     except:
         set_has_save_loading_error()
         SIMS_SAVE_DATA = dict()
-
+
+
 def save_sims_save_data():
     save_id = get_save_id('sim')
     save_file_path = get_save_dir() + save_id + '.json'
     save_json_file(save_file_path, SIMS_SAVE_DATA)
-
+
+
 def update_sim_save_data(sim_identifier):
     SIMS_SAVE_DATA[str(TurboManagerUtil.Sim.get_sim_id(sim_identifier))] = _get_sim_save_data(sim_identifier)
-
+
+
 def _get_sim_save_data(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     sim_dict = dict()
@@ -76,7 +78,8 @@ def _get_sim_save_data(sim_identifier):
     sim_dict['sex'] = sim_sex_dict
     sim_dict['pre_sex_handler'] = sim_pre_sex_handler_dict
     return sim_dict
-
+
+
 def apply_sim_save_data(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
@@ -129,4 +132,4 @@ def apply_sim_save_data(sim_identifier):
         if sim_pre_sex_handler_dict is not None and len(sim_pre_sex_handler_dict) > 0:
             from wickedwhims.sex.sex_handlers.pre_sex_handler import PreSexInteractionHandler
             sim_ev(sim_info).active_pre_sex_handler = PreSexInteractionHandler.load_from_dict(sim_pre_sex_handler_dict) or sim_ev(sim_info).active_pre_sex_handler
-
+

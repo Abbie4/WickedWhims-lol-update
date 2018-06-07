@@ -1,10 +1,16 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actors
+from wickedwhims.sex.animations.animations_operator import get_random_animation, has_animations_with_params, get_animations_with_params, ChoiceListRandomAnimationPickerRow
+from wickedwhims.sex.dialogs.dialog_utils import get_sex_category_stbl_name, get_sex_category_animations_stbl_name
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handler
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sex
+from wickedwhims.utils_interfaces import display_ok_dialog, display_sim_picker_dialog, display_picker_list_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actorsfrom wickedwhims.sex.animations.animations_operator import get_random_animation, has_animations_with_params, get_animations_with_params, ChoiceListRandomAnimationPickerRowfrom wickedwhims.sex.dialogs.dialog_utils import get_sex_category_stbl_name, get_sex_category_animations_stbl_namefrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handlerfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sexfrom wickedwhims.utils_interfaces import display_ok_dialog, display_sim_picker_dialog, display_picker_list_dialog
 def open_join_sims_picker_dialog(pre_sex_handler, sex_category_type, selected_sims_ids=()):
 
     @exception_watch()
@@ -67,7 +73,8 @@ def open_join_sims_picker_dialog(pre_sex_handler, sex_category_type, selected_si
         display_ok_dialog(text=2721401338, text_tokens=(get_sex_category_stbl_name(sex_category_type), creator_sim), title=get_sex_category_animations_stbl_name(sex_category_type))
         return
     display_sim_picker_dialog(text=747723284, title=get_sex_category_animations_stbl_name(sex_category_type), sims_id_list=sims_list, selected_sims_id_list=selected_sims_ids, selectable_amount=max_amount_of_actors - pre_sex_handler.get_sims_amount(), sim=creator_sim, callback=join_sims_picker_callback)
-
+
+
 def open_join_sex_animations_picker_dialog(pre_sex_handler, joining_sims_list, sex_category_type, flip_relationship_check=False):
 
     @exception_watch()
@@ -91,4 +98,4 @@ def open_join_sex_animations_picker_dialog(pre_sex_handler, joining_sims_list, s
     if len(animations_list) > 1:
         animations_rows.insert(0, ChoiceListRandomAnimationPickerRow(pre_sex_handler, sex_category_type))
     display_picker_list_dialog(title=get_sex_category_animations_stbl_name(sex_category_type), picker_rows=animations_rows, sim=pre_sex_handler.get_creator_sim_id(), callback=join_sex_animation_picker_callback)
-
+

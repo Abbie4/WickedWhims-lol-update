@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import build_buy
+import placement
+import routing
+import services
+from clock import ClockSpeedMode
+from protocolbuffers import Consts_pb2
+from services import terrain_service
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.resource_util import TurboResourceUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import build_buyimport placementimport routingimport servicesfrom clock import ClockSpeedModefrom protocolbuffers import Consts_pb2from services import terrain_servicefrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.resource_util import TurboResourceUtil
+
 class TurboWorldUtil:
     __qualname__ = 'TurboWorldUtil'
 
@@ -276,4 +281,4 @@ class TurboWorldUtil:
             if location is None:
                 location = game_object.location
             game_object.location = TurboMathUtil.Location.apply_offset(location, orientation_offset=orientation_offset, x_offset=x_offset, y_offset=y_offset, z_offset=z_offset)
-
+

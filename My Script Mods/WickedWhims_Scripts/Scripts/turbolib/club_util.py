@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import services
+from turbolib.manager_util import TurboManagerUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import servicesfrom turbolib.manager_util import TurboManagerUtil
+
 class TurboClubUtil:
     __qualname__ = 'TurboClubUtil'
 
@@ -23,4 +20,4 @@ class TurboClubUtil:
     @staticmethod
     def get_sim_club_outfit_parts(sim_info, club, outfit_category_and_index):
         return club.get_club_outfit_parts(sim_info, outfit_category_and_index)
-
+

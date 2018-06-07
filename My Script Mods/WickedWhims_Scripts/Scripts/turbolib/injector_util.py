@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from functools import wraps
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from functools import wraps
+
 def inject(target_object, target_function_name):
 
     def _wrap_original_function(original_function, new_function):
@@ -21,4 +17,4 @@ def inject(target_object, target_function_name):
         return wrap_function
 
     return _injected
-
+

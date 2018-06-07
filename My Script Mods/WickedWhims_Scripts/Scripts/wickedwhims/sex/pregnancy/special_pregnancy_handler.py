@@ -1,17 +1,32 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.relationship_enum import SimRelationshipBit
+from enums.traits_enum import SimTrait
+from turbolib.events.interactions import register_interaction_queue_event_method
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.pregnancy.birth_control.birth_control_handler import try_late_assign_birth_control
+from wickedwhims.sex.pregnancy.birth_control.condoms import try_auto_apply_condoms
+from wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_get_pregnant, set_sim_pregnancy_discovery, apply_sim_pregnancy, can_sim_impregnate
+from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chance
+from wickedwhims.sex.settings.sex_settings import BirthControlModeSetting, get_sex_setting, SexSetting, PregnancyModeSetting
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.utils_relations import add_relationsip_bit_with_sim, has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bit, remove_relationsip_bit_with_sim
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.relationship_enum import SimRelationshipBitfrom enums.traits_enum import SimTraitfrom turbolib.events.interactions import register_interaction_queue_event_methodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.pregnancy.birth_control.birth_control_handler import try_late_assign_birth_controlfrom wickedwhims.sex.pregnancy.birth_control.condoms import try_auto_apply_condomsfrom wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_get_pregnant, set_sim_pregnancy_discovery, apply_sim_pregnancy, can_sim_impregnatefrom wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chancefrom wickedwhims.sex.settings.sex_settings import BirthControlModeSetting, get_sex_setting, SexSetting, PregnancyModeSettingfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.utils_relations import add_relationsip_bit_with_sim, has_relationship_bit_with_sim, get_sim_ids_with_relationsip_bit, remove_relationsip_bit_with_simfrom wickedwhims.utils_traits import has_sim_trait
 def is_sex_handler_allowed_for_pregnancy(sex_handler):
     if sex_handler.get_actors_amount() <= 1:
         return False
     if sex_handler.get_animation_instance().get_sex_category() != SexCategoryType.VAGINAL and sex_handler.get_animation_instance().get_sex_category() != SexCategoryType.CLIMAX:
         return False
     return True
-
+
+
 def try_pregnancy_from_sex_handler(sex_handler, sims_list):
     if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) == PregnancyModeSetting.DISABLED:
         return
@@ -31,7 +46,8 @@ def try_pregnancy_from_sex_handler(sex_handler, sims_list):
             pass
         try_sim_pregnancy_from_sex_handler(sex_handler, sims_list, actor_id, sim_info)
     sex_handler.pregnancy_sex_counter = 0
-
+
+
 def try_sim_pregnancy_from_sex_handler(sex_handler, sims_list, actor_id, sim_info):
     if not can_sim_get_pregnant(sim_info):
         return False
@@ -70,7 +86,8 @@ def try_sim_pregnancy_from_sex_handler(sex_handler, sims_list, actor_id, sim_inf
     if enable_pregnancy_discovery is True and sex_handler.has_displayed_pregnancy_notification is False:
         set_sim_pregnancy_discovery(sim_info, True)
         sex_handler.has_displayed_pregnancy_notification = True
-
+
+
 def _get_possible_partners(sex_handler, sims_list, actor_id, sim_info):
     checked_sim_ids = set()
     pregnancy_pairs = set()
@@ -109,7 +126,8 @@ def _get_possible_partners(sex_handler, sims_list, actor_id, sim_info):
             pregnancy_pairs.add((actor_sim_id, True))
             checked_sim_ids.add(actor_sim_id)
     return pregnancy_pairs
-
+
+
 def _is_sim_on_birth_control(sim_identifier):
     if get_sex_setting(SexSetting.BIRTH_CONTROL_MODE, variable_type=int) == BirthControlModeSetting.PERFECT:
         if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE) and sim_ev(sim_identifier).has_condom_on is True:
@@ -125,7 +143,8 @@ def _is_sim_on_birth_control(sim_identifier):
             return random_inst.uniform(0, 1) < 0.91
         return False
     return False
-
+
+
 def update_sim_coming_pregnancy(sim_identifier, force=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if sim_ev(sim_info).pregnancy_coming_flag is False:
@@ -149,7 +168,8 @@ def update_sim_coming_pregnancy(sim_identifier, force=False):
         return
     random_sim_partner = random.choice(sims_list)
     apply_sim_pregnancy(sim_info, random_sim_partner)
-
+
+
 @register_interaction_queue_event_method(unique_id='WickedWhims')
 def _wickedwhims_on_pregnancy_trigger_interaction_queue(interaction_instance):
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
@@ -158,4 +178,4 @@ def _wickedwhims_on_pregnancy_trigger_interaction_queue(interaction_instance):
         if interaction_guid == 14434 or TurboTypesUtil.Interactions.is_npc_leave_lot_interaction(interaction_instance):
             update_sim_coming_pregnancy(sim, force=True)
     return True
-
+

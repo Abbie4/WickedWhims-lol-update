@@ -1,10 +1,19 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.interactions_enum import SimInteraction
+from enums.traits_enum import SimTrait
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.main.tick_handler import register_on_game_update_method
+from wickedwhims.sex.autonomy.sims import get_available_for_sex_sims
+from wickedwhims.sex.settings.sex_settings import SexAutonomyLevelSetting, SexSetting, get_sex_setting
+from wickedwhims.sex.special.cuckold import start_cuckold_solo_sex_interaction
+from wickedwhims.utils_traits import has_sim_trait
+LAST_CUCKOLD_SOLO_ATTEMPT = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.interactions_enum import SimInteractionfrom enums.traits_enum import SimTraitfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.main.tick_handler import register_on_game_update_methodfrom wickedwhims.sex.autonomy.sims import get_available_for_sex_simsfrom wickedwhims.sex.settings.sex_settings import SexAutonomyLevelSetting, SexSetting, get_sex_settingfrom wickedwhims.sex.special.cuckold import start_cuckold_solo_sex_interactionfrom wickedwhims.utils_traits import has_sim_traitLAST_CUCKOLD_SOLO_ATTEMPT = dict()
 @register_on_game_update_method(interval=7500)
 def _trigger_cuckold_solo_sex_autonomy_on_game_update():
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.DISABLED:
@@ -42,4 +51,4 @@ def _trigger_cuckold_solo_sex_autonomy_on_game_update():
             LAST_CUCKOLD_SOLO_ATTEMPT[sim_id] = TurboWorldUtil.Time.get_absolute_ticks()
         else:
             return True
-
+

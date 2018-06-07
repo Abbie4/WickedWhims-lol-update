@@ -1,16 +1,25 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import enum
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.events.interactions import register_interaction_run_event_method
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sxex_bridge.body import set_sim_top_naked_state, set_sim_bottom_naked_state
+from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
+from wickedwhims.utils_cas import get_modified_outfit, is_sim_in_special_outfit, get_previous_modified_outfit, copy_outfit_to_special
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import enumfrom enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.events.interactions import register_interaction_run_event_methodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sxex_bridge.body import set_sim_top_naked_state, set_sim_bottom_naked_statefrom wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_statefrom wickedwhims.utils_cas import get_modified_outfit, is_sim_in_special_outfit, get_previous_modified_outfit, copy_outfit_to_specialfrom wickedwhims.utils_traits import has_sim_trait
+
 class StripType(enum.Int, export=False):
     __qualname__ = 'StripType'
     NONE = 0
     UNDERWEAR = 1
     NUDE = 2
-
+
+
 def strip_outfit(sim_identifier, strip_type_top=StripType.NONE, strip_type_bottom=StripType.NONE, strip_bodytype=-1, save_original=True, skip_outfit_change=False, allow_stripping_gloves=None, allow_stripping_feet=None, allow_stripping_socks=None, allow_stripping_leggings=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     TurboSimUtil.CAS.reset_appearance_modifiers_owner(sim_info)
@@ -90,7 +99,8 @@ def strip_outfit(sim_identifier, strip_type_top=StripType.NONE, strip_type_botto
     else:
         TurboSimUtil.CAS.set_outfit_category_dirty(sim_info, TurboCASUtil.OutfitCategory.SPECIAL, True)
     return strip_result
-
+
+
 def dress_up_outfit(sim_identifier, override_outfit_category_and_index=None, skip_outfit_change=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     set_sim_top_naked_state(sim_info, False)
@@ -113,10 +123,11 @@ def dress_up_outfit(sim_identifier, override_outfit_category_and_index=None, ski
     sim_ev(sim_info).original_outfit_index = -1
     sim_ev(sim_info).is_flashing = False
     return outfit_category_and_index
-
+
+
 @register_interaction_run_event_method(unique_id='WickedWhims')
 def _wickedwhims_revert_outfit_on_lot_leave(interaction_instance):
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
     if sim_ev(sim).is_ready() and sim_ev(sim).has_original_outfit_modifications is True and TurboTypesUtil.Interactions.is_npc_leave_lot_interaction(interaction_instance):
         dress_up_outfit(sim)
-
+

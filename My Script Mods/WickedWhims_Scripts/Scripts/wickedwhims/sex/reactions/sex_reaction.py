@@ -1,10 +1,32 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.buffs_enum import SimBuff
+from enums.interactions_enum import SimInteraction
+from enums.moods_enum import SimMood
+from enums.relationship_enum import RelationshipTrackType, SimRelationshipBit
+from enums.situations_enum import SimSituation
+from enums.traits_enum import SimTrait
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlers
+from wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_state
+from wickedwhims.sxex_bridge.reactions import register_sim_reaction_function
+from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
+from wickedwhims.utils_buffs import add_sim_buff, has_sim_buff
+from wickedwhims.utils_relations import get_relationship_with_sim, has_relationship_bit_with_sim, change_relationship_with_sim
+from wickedwhims.utils_sims import has_sim_mood, is_sim_available
+from wickedwhims.utils_situations import has_sim_situations
+from wickedwhims.utils_traits import has_sim_trait
+JEALOUSY_WOOHOO_REACTION_LIST = (76431, 76433, 76581, 76564, 76566, 76430)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.buffs_enum import SimBufffrom enums.interactions_enum import SimInteractionfrom enums.moods_enum import SimMoodfrom enums.relationship_enum import RelationshipTrackType, SimRelationshipBitfrom enums.situations_enum import SimSituationfrom enums.traits_enum import SimTraitfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlersfrom wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_statefrom wickedwhims.sxex_bridge.reactions import register_sim_reaction_functionfrom wickedwhims.sxex_bridge.relationships import is_true_family_relationshipfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.sxex_bridge.statistics import increase_sim_ww_statisticfrom wickedwhims.utils_buffs import add_sim_buff, has_sim_bufffrom wickedwhims.utils_relations import get_relationship_with_sim, has_relationship_bit_with_sim, change_relationship_with_simfrom wickedwhims.utils_sims import has_sim_mood, is_sim_availablefrom wickedwhims.utils_situations import has_sim_situationsfrom wickedwhims.utils_traits import has_sim_traitJEALOUSY_WOOHOO_REACTION_LIST = (76431, 76433, 76581, 76564, 76566, 76430)
+
 class SexReactionType(TurboEnum):
     __qualname__ = 'SexReactionType'
     NEUTARL = 0
@@ -17,7 +39,20 @@ class SexReactionType(TurboEnum):
     CUCK = 7
     HORRIFIED = 8
     JEALOUS = 9
-SEX_REACTION_NEUTARL = (SexReactionType.NEUTARL, SimInteraction.WW_SEX_REACTION_NEUTRAL, SimBuff.WW_SEX_REACTION_NEUTRAL)SEX_REACTION_FRIENDLY = (SexReactionType.FRIENDLY, SimInteraction.WW_SEX_REACTION_FRIENDLY, None)SEX_REACTION_EXCITED = (SexReactionType.EXCITED, SimInteraction.WW_SEX_REACTION_EXCITED, SimBuff.WW_SEX_REACTION_EXCITED)SEX_REACTION_FUNNY = (SexReactionType.FUNNY, SimInteraction.WW_SEX_REACTION_FUNNY, SimBuff.WW_SEX_REACTION_FUNNY)SEX_REACTION_FLIRTY_MALE = (SexReactionType.FLIRTY, SimInteraction.WW_SEX_REACTION_FLIRTY_MALE, SimBuff.WW_SEX_REACTION_FLIRTY)SEX_REACTION_FLIRTY_FEMALE = (SexReactionType.FLIRTY, SimInteraction.WW_SEX_REACTION_FLIRTY_FEMALE, SimBuff.WW_SEX_REACTION_FLIRTY)SEX_REACTION_SAD = (SexReactionType.SAD, SimInteraction.WW_SEX_REACTION_SAD, SimBuff.WW_SEX_REACTION_SAD)SEX_REACTION_ANGRY = (SexReactionType.ANGRY, SimInteraction.WW_SEX_REACTION_ANGRY, SimBuff.WW_SEX_REACTION_ANGRY)SEX_REACTION_CUCK_MALE = (SexReactionType.CUCK, SimInteraction.WW_SEX_REACTION_FLIRTY_MALE, SimBuff.WW_SEX_REACTION_CUCK)SEX_REACTION_CUCK_FEMALE = (SexReactionType.CUCK, SimInteraction.WW_SEX_REACTION_FLIRTY_FEMALE, SimBuff.WW_SEX_REACTION_CUCK)SEX_REACTION_HORRIFIED = (SexReactionType.HORRIFIED, SimInteraction.WW_SEX_REACTION_HORRIFIED, SimBuff.WW_SEX_REACTION_HORRIFIED)SEX_REACTION_JEALOUS = (SexReactionType.JEALOUS, None, None)
+
+SEX_REACTION_NEUTARL = (SexReactionType.NEUTARL, SimInteraction.WW_SEX_REACTION_NEUTRAL, SimBuff.WW_SEX_REACTION_NEUTRAL)
+SEX_REACTION_FRIENDLY = (SexReactionType.FRIENDLY, SimInteraction.WW_SEX_REACTION_FRIENDLY, None)
+SEX_REACTION_EXCITED = (SexReactionType.EXCITED, SimInteraction.WW_SEX_REACTION_EXCITED, SimBuff.WW_SEX_REACTION_EXCITED)
+SEX_REACTION_FUNNY = (SexReactionType.FUNNY, SimInteraction.WW_SEX_REACTION_FUNNY, SimBuff.WW_SEX_REACTION_FUNNY)
+SEX_REACTION_FLIRTY_MALE = (SexReactionType.FLIRTY, SimInteraction.WW_SEX_REACTION_FLIRTY_MALE, SimBuff.WW_SEX_REACTION_FLIRTY)
+SEX_REACTION_FLIRTY_FEMALE = (SexReactionType.FLIRTY, SimInteraction.WW_SEX_REACTION_FLIRTY_FEMALE, SimBuff.WW_SEX_REACTION_FLIRTY)
+SEX_REACTION_SAD = (SexReactionType.SAD, SimInteraction.WW_SEX_REACTION_SAD, SimBuff.WW_SEX_REACTION_SAD)
+SEX_REACTION_ANGRY = (SexReactionType.ANGRY, SimInteraction.WW_SEX_REACTION_ANGRY, SimBuff.WW_SEX_REACTION_ANGRY)
+SEX_REACTION_CUCK_MALE = (SexReactionType.CUCK, SimInteraction.WW_SEX_REACTION_FLIRTY_MALE, SimBuff.WW_SEX_REACTION_CUCK)
+SEX_REACTION_CUCK_FEMALE = (SexReactionType.CUCK, SimInteraction.WW_SEX_REACTION_FLIRTY_FEMALE, SimBuff.WW_SEX_REACTION_CUCK)
+SEX_REACTION_HORRIFIED = (SexReactionType.HORRIFIED, SimInteraction.WW_SEX_REACTION_HORRIFIED, SimBuff.WW_SEX_REACTION_HORRIFIED)
+SEX_REACTION_JEALOUS = (SexReactionType.JEALOUS, None, None)
+
 @register_sim_reaction_function(priority=1)
 def _react_to_sims_sex(sim):
     if not get_sex_setting(SexSetting.REACTION_TO_SEX_STATE, variable_type=bool):
@@ -61,7 +96,8 @@ def _react_to_sims_sex(sim):
             if _general_sex_reaction(sim, sex_handler):
                 return True
             return False
-
+
+
 def _general_sex_reaction(sim, sex_handler):
     skip_reaction = False
     if sex_handler.get_actors_amount() == 1 and sex_handler.get_animation_instance().get_sex_category() == SexCategoryType.TEASING:
@@ -100,7 +136,8 @@ def _general_sex_reaction(sim, sex_handler):
         sex_handler.has_reacted_sims_list.add(sim_id)
         return True
     return False
-
+
+
 def get_reaction_type(sim, sex_handler, allow_special_types=False):
     sex_reaction_data = SEX_REACTION_NEUTARL
     sex_reaction_should_left = True
@@ -150,7 +187,8 @@ def get_reaction_type(sim, sex_handler, allow_special_types=False):
             if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_SOULMATES) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_SWEETHEARTS) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_ROMANTICINTEREST) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_SIGNIFICANT_OTHER) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.FRIENDSHIP_BFF) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.FRIENDSHIP_BFF_BROMANTICPARTNER))))) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
                 sex_reaction_should_left = False
     return (sex_reaction_data, sex_reaction_should_left, sex_reaction_target_override)
-
+
+
 def _jealousy_from_sex_reaction(sim, sex_handler):
     if not get_relationship_setting(RelationshipSetting.JEALOUSY_STATE, variable_type=bool):
         return False
@@ -182,7 +220,8 @@ def _jealousy_from_sex_reaction(sim, sex_handler):
                 sim_ev(sim).sex_reaction_cooldown = 5
                 return True
     return False
-
+
+
 def _get_jealousy_sims_from_sex_handler(sim, sex_handler):
     found_lovers = list()
     found_non_lovers = list()
@@ -204,4 +243,4 @@ def _get_jealousy_sims_from_sex_handler(sim, sex_handler):
             found_lovers.append(target)
         found_non_lovers.append(target)
     return (found_lovers, found_non_lovers)
-
+

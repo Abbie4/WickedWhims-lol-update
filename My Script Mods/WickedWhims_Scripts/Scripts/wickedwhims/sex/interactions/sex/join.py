@@ -1,10 +1,19 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actors
+from wickedwhims.sex.animations.animations_operator import has_animations_with_params, get_random_animation
+from wickedwhims.sex.dialogs.sex_join import open_join_sims_picker_dialog, open_join_sex_animations_picker_dialog
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handler
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sex, get_sims_for_sex
+from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
+from wickedwhims.utils_interfaces import display_ok_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actorsfrom wickedwhims.sex.animations.animations_operator import has_animations_with_params, get_random_animationfrom wickedwhims.sex.dialogs.sex_join import open_join_sims_picker_dialog, open_join_sex_animations_picker_dialogfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import join_sex_interaction_from_pre_sex_handlerfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sex, get_sims_for_sexfrom wickedwhims.sxex_bridge.sex import is_sim_ready_for_sexfrom wickedwhims.utils_interfaces import display_ok_dialog
 def _test_join_to_sex_single_interaction(interaction_sim, interaction_target, sex_category_types):
     '''
     :param interaction_sim: Sim that wants to join to an existing sex interaction
@@ -38,7 +47,8 @@ def _test_join_to_sex_single_interaction(interaction_sim, interaction_target, se
         while sim_id == target_sim_id:
             return True
     return False
-
+
+
 def _join_to_sex_single_interaction(sex_category_type, interaction_sim, interaction_target):
     '''
     :param interaction_sim: Sim that is joining to an existing sex interaction
@@ -64,7 +74,8 @@ def _join_to_sex_single_interaction(sex_category_type, interaction_sim, interact
         pre_sex_handler.set_animation_instance(random_animation)
         join_sex_interaction_from_pre_sex_handler(pre_sex_handler, (interaction_sim,), flip_relationship_check=True)
     return True
-
+
+
 class JoinSexSingleTeasingInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleTeasingInteraction'
 
@@ -75,7 +86,8 @@ class JoinSexSingleTeasingInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.TEASING, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleHandjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleHandjobInteraction'
 
@@ -86,7 +98,8 @@ class JoinSexSingleHandjobInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.HANDJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleFootjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleFootjobInteraction'
 
@@ -97,7 +110,8 @@ class JoinSexSingleFootjobInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.FOOTJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleOraljobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleOraljobInteraction'
 
@@ -108,7 +122,8 @@ class JoinSexSingleOraljobInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.ORALJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleVaginalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleVaginalInteraction'
 
@@ -119,7 +134,8 @@ class JoinSexSingleVaginalInteraction(TurboImmediateSuperInteraction, TurboInter
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.VAGINAL, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleAnalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleAnalInteraction'
 
@@ -130,7 +146,8 @@ class JoinSexSingleAnalInteraction(TurboImmediateSuperInteraction, TurboInteract
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(SexCategoryType.ANAL, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexSingleRandomInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexSingleRandomInteraction'
 
@@ -141,7 +158,8 @@ class JoinSexSingleRandomInteraction(TurboImmediateSuperInteraction, TurboIntera
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _join_to_sex_single_interaction(None, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 def _test_join_to_sex_multiple_interaction(interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None or not TurboTypesUtil.Sims.is_sim(interaction_target):
         return False
@@ -166,7 +184,8 @@ def _test_join_to_sex_multiple_interaction(interaction_sim, interaction_target, 
             while get_animation_max_amount_of_actors(sex_category_type, active_sex_handler.get_object_identifier()[0]) > active_sex_handler.get_actors_amount() or get_animation_max_amount_of_actors(sex_category_type, active_sex_handler.get_object_identifier()[1]) > active_sex_handler.get_actors_amount():
                 return True
     return False
-
+
+
 def _open_join_sex_sim_selector(sex_category_type, interaction_sim, interaction_target):
     active_sex_handler = sim_ev(interaction_sim).active_sex_handler
     if active_sex_handler is None:
@@ -175,7 +194,8 @@ def _open_join_sex_sim_selector(sex_category_type, interaction_sim, interaction_
     selected_sims_ids = (TurboManagerUtil.Sim.get_sim_id(interaction_target),) if interaction_target is not None and TurboTypesUtil.Sims.is_sim(interaction_target) else ()
     open_join_sims_picker_dialog(pre_sex_handler, sex_category_type, selected_sims_ids=selected_sims_ids)
     return True
-
+
+
 class JoinSexMultipleTeasingInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleTeasingInteraction'
 
@@ -186,7 +206,8 @@ class JoinSexMultipleTeasingInteraction(TurboImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.TEASING, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleHandjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleHandjobInteraction'
 
@@ -197,7 +218,8 @@ class JoinSexMultipleHandjobInteraction(TurboImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.HANDJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleFootjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleFootjobInteraction'
 
@@ -208,7 +230,8 @@ class JoinSexMultipleFootjobInteraction(TurboImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.FOOTJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleOraljobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleOraljobInteraction'
 
@@ -219,7 +242,8 @@ class JoinSexMultipleOraljobInteraction(TurboImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.ORALJOB, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleVaginalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleVaginalInteraction'
 
@@ -230,7 +254,8 @@ class JoinSexMultipleVaginalInteraction(TurboImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.VAGINAL, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleAnalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleAnalInteraction'
 
@@ -241,7 +266,8 @@ class JoinSexMultipleAnalInteraction(TurboImmediateSuperInteraction, TurboIntera
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(SexCategoryType.ANAL, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+
+
 class JoinSexMultipleRandomInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'JoinSexMultipleRandomInteraction'
 
@@ -252,4 +278,4 @@ class JoinSexMultipleRandomInteraction(TurboImmediateSuperInteraction, TurboInte
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _open_join_sex_sim_selector(None, cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance))
-
+

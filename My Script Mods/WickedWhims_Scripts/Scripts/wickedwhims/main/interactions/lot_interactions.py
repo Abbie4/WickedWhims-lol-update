@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.interactions import TurboSuperInteraction, TurboInteractionConstraintMixin
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.interactions import TurboSuperInteraction, TurboInteractionConstraintMixin
+
 class GoToHouseInteraction(TurboSuperInteraction, TurboInteractionConstraintMixin):
     __qualname__ = 'GoToHouseInteraction'
 
@@ -24,4 +22,4 @@ class GoToHouseInteraction(TurboSuperInteraction, TurboInteractionConstraintMixi
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+

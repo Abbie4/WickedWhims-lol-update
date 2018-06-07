@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from sims.pregnancy.pregnancy_tracker import PregnancyTracker
+from turbolib.injector_util import inject
+from turbolib.sim_util import TurboSimUtil
+from turbolib.special.custom_exception_watcher import log_custom_exception
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from sims.pregnancy.pregnancy_tracker import PregnancyTrackerfrom turbolib.injector_util import injectfrom turbolib.sim_util import TurboSimUtilfrom turbolib.special.custom_exception_watcher import log_custom_exception
 @inject(PregnancyTracker, 'create_sim_info')
 def _wickedwhims_on_pregnancy_create_sim_info(original, self, *args, **kwargs):
     result = None
@@ -28,4 +26,4 @@ def _wickedwhims_on_pregnancy_create_sim_info(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("Failed to create new sim 'PregnancyTracker.create_sim_info'.", ex)
     return result or original(self, *args, **kwargs)
-
+

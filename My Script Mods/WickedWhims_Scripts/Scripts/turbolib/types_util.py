@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from buffs.buff import Buff
+from objects.doors.door import Door
+from objects.game_object import GameObject
+from objects.stairs.stairs import Stairs
+from objects.terrain import Terrain
+from sims.self_interactions import NPCLeaveLotInteraction
+from sims.sim import Sim
+from sims4.math import Location
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from buffs.buff import Bufffrom objects.doors.door import Doorfrom objects.game_object import GameObjectfrom objects.stairs.stairs import Stairsfrom objects.terrain import Terrainfrom sims.self_interactions import NPCLeaveLotInteractionfrom sims.sim import Simfrom sims4.math import Location
+
 class TurboTypesUtil:
     __qualname__ = 'TurboTypesUtil'
 
@@ -51,4 +54,4 @@ class TurboTypesUtil:
         @staticmethod
         def is_npc_leave_lot_interaction(interaction):
             return isinstance(interaction, NPCLeaveLotInteraction)
-
+

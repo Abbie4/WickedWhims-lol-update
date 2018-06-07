@@ -1,10 +1,4 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 class TurboAutonomyUtil:
     __qualname__ = 'TurboAutonomyUtil'
 
@@ -31,4 +25,4 @@ class TurboAutonomyUtil:
         @staticmethod
         def is_rolestate_allowing_npc_sims(role_state_instance):
             return not role_state_instance._portal_disallowance_tags and role_state_instance._allow_npc_routing_on_active_lot
-
+

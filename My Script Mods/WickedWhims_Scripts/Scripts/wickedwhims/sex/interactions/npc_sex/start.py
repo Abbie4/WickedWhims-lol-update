@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.object_util import TurboObjectUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.sex._ts4_sex_utils import is_safe_floor_object_position
+from wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actors
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_operators.sex_init_operator import start_new_npc_sex_interaction
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.object_util import TurboObjectUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.sex._ts4_sex_utils import is_safe_floor_object_positionfrom wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actorsfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.sex_init_operator import start_new_npc_sex_interaction
 def _test_for_npc_sex_start(interaction_context, interaction_target, sex_category_types):
     if not get_sex_setting(SexSetting.MANUAL_NPC_SEX_STATE, variable_type=bool):
         return False
@@ -19,7 +22,8 @@ def _test_for_npc_sex_start(interaction_context, interaction_target, sex_categor
         while get_animation_max_amount_of_actors(sex_category_type, object_identifier[0]) > 0 or get_animation_max_amount_of_actors(sex_category_type, object_identifier[1]) > 0:
             return True
     return False
-
+
+
 class StartNPCSexTeasingInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexTeasingInteraction'
 
@@ -30,7 +34,8 @@ class StartNPCSexTeasingInteraction(TurboTerrainImmediateSuperInteraction, Turbo
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.TEASING, is_manual=True)
-
+
+
 class StartNPCSexHandjobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexHandjobInteraction'
 
@@ -41,7 +46,8 @@ class StartNPCSexHandjobInteraction(TurboTerrainImmediateSuperInteraction, Turbo
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.HANDJOB, is_manual=True)
-
+
+
 class StartNPCSexFootjobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexFootjobInteraction'
 
@@ -52,7 +58,8 @@ class StartNPCSexFootjobInteraction(TurboTerrainImmediateSuperInteraction, Turbo
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.FOOTJOB, is_manual=True)
-
+
+
 class StartNPCSexOraljobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexOraljobInteraction'
 
@@ -63,7 +70,8 @@ class StartNPCSexOraljobInteraction(TurboTerrainImmediateSuperInteraction, Turbo
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.ORALJOB, is_manual=True)
-
+
+
 class StartNPCSexVaginalInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexVaginalInteraction'
 
@@ -74,7 +82,8 @@ class StartNPCSexVaginalInteraction(TurboTerrainImmediateSuperInteraction, Turbo
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.VAGINAL, is_manual=True)
-
+
+
 class StartNPCSexAnalInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexAnalInteraction'
 
@@ -85,7 +94,8 @@ class StartNPCSexAnalInteraction(TurboTerrainImmediateSuperInteraction, TurboInt
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=SexCategoryType.ANAL, is_manual=True)
-
+
+
 class StartNPCSexRandomInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'StartNPCSexRandomInteraction'
 
@@ -96,4 +106,4 @@ class StartNPCSexRandomInteraction(TurboTerrainImmediateSuperInteraction, TurboI
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_npc_sex_interaction(cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=None, is_manual=True)
-
+

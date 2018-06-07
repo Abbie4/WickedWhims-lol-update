@@ -1,24 +1,31 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from collections import OrderedDict
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.settings._ts4_menu_utils import get_menu_sim
+from wickedwhims.sex.animations.animations_disabler_handler import update_disabled_sex_animation_data, is_sex_animation_disabled, switch_disabled_sex_animation
+from wickedwhims.sex.animations.animations_handler import recollect_sex_animation_packages, get_all_sex_animations
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_location_handler import SexLocationType
+from wickedwhims.utils_interfaces import get_arrow_icon, display_picker_list_dialog, get_selected_icon, get_unselected_icon, display_ok_dialog, get_action_icon
+_CURRENT_AUTHOR_NAME = None
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from collections import OrderedDictfrom turbolib.l18n_util import TurboL18NUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.settings._ts4_menu_utils import get_menu_simfrom wickedwhims.sex.animations.animations_disabler_handler import update_disabled_sex_animation_data, is_sex_animation_disabled, switch_disabled_sex_animationfrom wickedwhims.sex.animations.animations_handler import recollect_sex_animation_packages, get_all_sex_animationsfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_location_handler import SexLocationTypefrom wickedwhims.utils_interfaces import get_arrow_icon, display_picker_list_dialog, get_selected_icon, get_unselected_icon, display_ok_dialog, get_action_icon_CURRENT_AUTHOR_NAME = None
 def open_player_animations_disabler():
 
     def ok_dialog_callback(_):
         _open_animation_authors_picker()
 
     display_ok_dialog(text=2011685353, title=1853900111, callback=ok_dialog_callback)
-
+
+
 def open_autonomy_animations_disabler():
 
     def ok_dialog_callback(_):
         _open_animation_authors_picker(autonomy=True)
 
     display_ok_dialog(text=2011685353, title=2284702213, callback=ok_dialog_callback)
-
+
+
 def _open_animation_authors_picker(autonomy=False):
     global _CURRENT_AUTHOR_NAME
     _CURRENT_AUTHOR_NAME = None
@@ -53,7 +60,8 @@ def _open_animation_authors_picker(autonomy=False):
         animation_author_picker_rows.append(picker_row)
         index += 1
     display_picker_list_dialog(text=4285227430, title=1853900111 if autonomy is False else 2284702213, picker_rows=animation_author_picker_rows, sim=get_menu_sim(), callback=animation_authors_callback)
-
+
+
 def _open_animation_category_picker(author_name, autonomy=False):
     global _CURRENT_AUTHOR_NAME
     _CURRENT_AUTHOR_NAME = author_name
@@ -86,7 +94,8 @@ def _open_animation_category_picker(author_name, autonomy=False):
     else:
         title = TurboL18NUtil.get_localized_string(3773354670, (author_name,))
     display_picker_list_dialog(title=title, picker_rows=category_picker_rows, sim=get_menu_sim(), callback=animation_categories_callback)
-
+
+
 def _open_animations_picker(author_name, animation_category, autonomy=False):
 
     @exception_watch()
@@ -143,4 +152,4 @@ def _open_animations_picker(author_name, animation_category, autonomy=False):
     else:
         title = TurboL18NUtil.get_localized_string(3773354670, (author_name,))
     display_picker_list_dialog(title=title, picker_rows=animation_picker_rows, sim=get_menu_sim(), callback=animations_callback)
-
+

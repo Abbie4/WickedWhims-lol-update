@@ -1,13 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_file
+BASIC_SAVE_DATA = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_fileBASIC_SAVE_DATA = dict()
 def get_basic_save_data():
     return BASIC_SAVE_DATA
-
+
+
 def load_basic_save_data(slot_id=-1, load_file_path_override=None):
     global BASIC_SAVE_DATA
     if load_file_path_override is None:
@@ -19,17 +16,19 @@ def load_basic_save_data(slot_id=-1, load_file_path_override=None):
     except:
         set_has_save_loading_error()
         BASIC_SAVE_DATA = dict()
-
+
+
 def save_basic_save_data(save_file_path_override=None):
     if save_file_path_override is None:
         save_file_path = ''.join((get_save_dir(), get_save_id('general'), '.json'))
     else:
         save_file_path = save_file_path_override
     save_json_file(save_file_path, BASIC_SAVE_DATA)
-
+
+
 def update_basic_save_data(general_data):
     global BASIC_SAVE_DATA
     general_save_data_copy = BASIC_SAVE_DATA.copy()
     general_save_data_copy.update(general_data)
     BASIC_SAVE_DATA = general_save_data_copy
-
+

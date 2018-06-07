@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.resource_util import TurboResourceUtil
+from wickedwhims.relationships._ts4_tuning.romance_affordances import get_romance_affordances
+HAS_DISABLED_INTERACTIONS_INCEST_TEST = False
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.resource_util import TurboResourceUtilfrom wickedwhims.relationships._ts4_tuning.romance_affordances import get_romance_affordancesHAS_DISABLED_INTERACTIONS_INCEST_TEST = False
 def unlock_incest_for_interactions(value):
     global HAS_DISABLED_INTERACTIONS_INCEST_TEST
     if value is True or HAS_DISABLED_INTERACTIONS_INCEST_TEST is True:
@@ -17,4 +14,4 @@ def unlock_incest_for_interactions(value):
                 pass
             affordance_instance.test_incest = False
     HAS_DISABLED_INTERACTIONS_INCEST_TEST = True
-
+

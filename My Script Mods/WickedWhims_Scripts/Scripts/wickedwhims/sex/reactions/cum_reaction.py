@@ -1,10 +1,23 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.interactions_enum import SimInteraction
+from enums.relationship_enum import SimRelationshipBit
+from enums.situations_enum import SimSituation
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.cas_cum_handler import get_cum_layer_cas_id, CumLayerType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_state
+from wickedwhims.sxex_bridge.nudity import update_nude_body_data
+from wickedwhims.sxex_bridge.reactions import register_sim_reaction_function
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
+from wickedwhims.utils_cas import has_sim_cas_part_id
+from wickedwhims.utils_relations import has_relationship_bit_with_sim
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_situations import has_sim_situations
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.interactions_enum import SimInteractionfrom enums.relationship_enum import SimRelationshipBitfrom enums.situations_enum import SimSituationfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.cas_cum_handler import get_cum_layer_cas_id, CumLayerTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sxex_bridge.body import BodyState, get_sim_actual_body_statefrom wickedwhims.sxex_bridge.nudity import update_nude_body_datafrom wickedwhims.sxex_bridge.reactions import register_sim_reaction_functionfrom wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sexfrom wickedwhims.utils_cas import has_sim_cas_part_idfrom wickedwhims.utils_relations import has_relationship_bit_with_simfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_situations import has_sim_situations
 @register_sim_reaction_function(priority=4)
 def _reaction_to_sims_cum(sim):
     if not get_sex_setting(SexSetting.REACTION_TO_CUM_STATE, variable_type=bool):
@@ -51,7 +64,8 @@ def _reaction_to_sims_cum(sim):
         if _cum_reaction(sim, target, only_mixer=is_mixer_only):
             return True
     return False
-
+
+
 def _cum_reaction(sim, target, only_mixer=False):
     si_result = TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_SEX_CUM_REACTION, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT) if only_mixer is False else None
     if not si_result and (si_result is None or TurboInteractionUtil.can_interaction_fallback_to_mixer_interaction(sim, si_result.execute_result.interaction)):
@@ -62,7 +76,8 @@ def _cum_reaction(sim, target, only_mixer=False):
         sim_ev(sim).inner_cum_reaction_cooldown = 6 + cooldown_offset
         return True
     return False
-
+
+
 def _is_only_mixer_reaction(sim):
     is_ready_for_inner = sim_ev(sim).inner_cum_reaction_cooldown <= 0
     if is_ready_for_inner is True and has_sim_situations(sim, (SimSituation.BARISTA_VENUE, SimSituation.HIREDNPC_BARISTA, SimSituation.BARBARTENDER, SimSituation.BARTENDER_RESTAURANT, SimSituation.HIREDNPC_BARTENDER, SimSituation.HIREDNPC_CATERER, SimSituation.HIREDNPC_CATERER_VEGETARIAN, SimSituation.HIREDNPC_DJ, SimSituation.HIREDNPC_DJ_LEVEL10, SimSituation.SINGLEJOB_CLUB_DJ, SimSituation.SINGLEJOB_CLUB_DJ_LEVEL10, SimSituation.HIREDNPC_ENTERTAINER_GUITAR, SimSituation.HIREDNPC_ENTERTAINER_MICCOMEDY, SimSituation.HIREDNPC_ENTERTAINER_ORGAN, SimSituation.HIREDNPC_ENTERTAINER_PIANO, SimSituation.HIREDNPC_ENTERTAINER_VIOLIN, SimSituation.BUTLER_SITUATION, SimSituation.GYMTRAINER_VENUE, SimSituation.MAID_SITUATION, SimSituation.MAILMAN_SITUATION, SimSituation.PIZZADELIVERY_NEW, SimSituation.REPAIR_SITUATION, SimSituation.MASSAGETHERAPIST_VENUE, SimSituation.MASSAGETHERAPIST_SERVICECALL, SimSituation.CHEFSITUATION, SimSituation.HOST_1, SimSituation.RESTAURANT_WAITSTAFF, SimSituation.CAREER_DOCTOR_NPC_DOCTOR, SimSituation.CAREER_DOCTOR_NPC_ASSISTANT, SimSituation.CAREER_DOCTOR_NPC_DOCTOR_DIAGNOSER, SimSituation.CAREER_DOCTOR_NPC_NURSE, SimSituation.CAREER_DOCTOR_NPC_PATIENT_ADMITTED, SimSituation.DETECTIVE_APB, SimSituation.DETECTIVE_APBNEUTRAL, SimSituation.CAREER_DETECTIVE_APBPLAYER)):
@@ -71,7 +86,8 @@ def _is_only_mixer_reaction(sim):
     if is_ready_for_full is False:
         return True
     return False
-
+
+
 def _has_sim_visible_cum(sim):
     if has_sim_cas_part_id(sim, get_cum_layer_cas_id(CumLayerType.FACE)):
         return True
@@ -85,4 +101,4 @@ def _has_sim_visible_cum(sim):
         if bottom_state == BodyState.NUDE:
             return True
     return False
-
+

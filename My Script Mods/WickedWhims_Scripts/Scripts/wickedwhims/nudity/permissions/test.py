@@ -1,17 +1,28 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.buffs_enum import SimBuff
+from enums.relationship_enum import SimRelationshipBit, RelationshipTrackType
+from enums.traits_enum import LotTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting
+from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, is_sim_exhibitionist, is_sim_naturist
+from wickedwhims.utils_buffs import has_sim_buff
+from wickedwhims.utils_locations import is_sim_at_home_lot
+from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_traits import has_current_lot_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.buffs_enum import SimBufffrom enums.relationship_enum import SimRelationshipBit, RelationshipTrackTypefrom enums.traits_enum import LotTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySettingfrom wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, is_sim_exhibitionist, is_sim_naturistfrom wickedwhims.utils_buffs import has_sim_bufffrom wickedwhims.utils_locations import is_sim_at_home_lotfrom wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_simfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_traits import has_current_lot_trait
+
 class NudityPermissionDenied(TurboEnum):
     __qualname__ = 'NudityPermissionDenied'
     NOT_AT_HOME = 1
     OUTSIDE = 2
     TOO_MANY_SIMS_AROUND = 3
     IS_UNDERAGED = 4
-
+
+
 def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, extra_skill_level=0, **kwargs):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
@@ -38,19 +49,22 @@ def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, ext
             if score <= 0:
                 return (False, denied_permissions)
     return (True, denied_permissions)
-
+
+
 def _home_test(sim, _, ignore_location_test=False, **__):
     if ignore_location_test is True:
         return
     if not is_sim_at_home_lot(sim, allow_renting=False):
         return (-100 + 12.5*(get_sim_nudity_skill_level(sim) - 1), NudityPermissionDenied.NOT_AT_HOME)
-
+
+
 def _outside_test(sim, _, ignore_location_test=False, **__):
     if ignore_location_test is True:
         return
     if TurboWorldUtil.Lot.is_location_outside(TurboSimUtil.Location.get_location(sim)):
         return (-110 + 15*(get_sim_nudity_skill_level(sim) - 1), NudityPermissionDenied.OUTSIDE)
-
+
+
 def _sims_test(sim, current_score, targets=(), **__):
     penalty_score = 0
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 10.0)
@@ -67,7 +81,8 @@ def _sims_test(sim, current_score, targets=(), **__):
         while current_score + penalty_score <= 0:
             break
     return (penalty_score, NudityPermissionDenied.TOO_MANY_SIMS_AROUND)
-
+
+
 def _get_sim_value(sim, target):
     base_sim_value = 25
     sim_value_modifier = 0
@@ -96,4 +111,4 @@ def _get_sim_value(sim, target):
     if current_relationship_amount < 0:
         return base_sim_value + base_sim_value*(abs(current_relationship_amount)/100) + sim_value_modifier
     return base_sim_value + sim_value_modifier
-
+

@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import objects.system
+import routing
+import services
+import terrain
+from objects.doors.door import Door
+from objects.object_enums import ResetReason
+from objects.puddles import PuddleSize, PuddleLiquid, create_puddle
+from objects.stairs.stairs import Stairs
+from placement import get_accurate_placement_footprint_polygon
+from turbolib.math_util import TurboMathUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import objects.systemimport routingimport servicesimport terrainfrom objects.doors.door import Doorfrom objects.object_enums import ResetReasonfrom objects.puddles import PuddleSize, PuddleLiquid, create_puddlefrom objects.stairs.stairs import Stairsfrom placement import get_accurate_placement_footprint_polygonfrom turbolib.math_util import TurboMathUtil
+
 class TurboObjectUtil:
     __qualname__ = 'TurboObjectUtil'
 
@@ -240,4 +245,4 @@ class TurboObjectUtil:
                 hash_value = eval(hex(1000003*hash_value & 4294967295)[:-1]) ^ item
             hash_value ^= len(ids_collection)
             return abs(hash_value)
-
+

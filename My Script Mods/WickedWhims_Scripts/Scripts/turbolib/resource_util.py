@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import services
+import sims4.collections
+from sims4.collections import FrozenAttributeDict
+from sims4.resources import get_resource_key, Types, ResourceLoader
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import servicesimport sims4.collectionsfrom sims4.collections import FrozenAttributeDictfrom sims4.resources import get_resource_key, Types, ResourceLoader
+
 class TurboResourceUtil:
     __qualname__ = 'TurboResourceUtil'
 
@@ -243,4 +242,4 @@ class TurboResourceUtil:
         @staticmethod
         def get_frozen_attribute_dict(dictionary):
             return FrozenAttributeDict(dictionary)
-
+

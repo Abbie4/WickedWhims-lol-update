@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.components_util import TurboComponentUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.main.tick_handler import register_on_game_update_method
+from wickedwhims.nudity.notifications_handler import nudity_notification
+from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting
+from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, has_sim_reached_max_nudity_skill_level, get_sim_nudity_skill_progress, increase_sim_nudity_skill
+LAST_DAY_VALUE = -1
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.components_util import TurboComponentUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.main.tick_handler import register_on_game_update_methodfrom wickedwhims.nudity.notifications_handler import nudity_notificationfrom wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySettingfrom wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, has_sim_reached_max_nudity_skill_level, get_sim_nudity_skill_progress, increase_sim_nudity_skillLAST_DAY_VALUE = -1
 @register_on_game_update_method(interval=10000)
 def _update_nudity_story_progression_on_game_update():
     global LAST_DAY_VALUE
@@ -18,7 +22,8 @@ def _update_nudity_story_progression_on_game_update():
         return
     LAST_DAY_VALUE = current_day
     trigger_story_progression()
-
+
+
 def trigger_story_progression():
     story_progression_debug_sims_count = 0
     story_progression_debug_data = list()
@@ -41,9 +46,10 @@ def trigger_story_progression():
         for ((sim_first_name, sim_last_name), current_skill_value, influence_amount) in story_progression_debug_data:
             debug_text += '\n' + str(sim_first_name) + ' ' + str(sim_last_name) + ': ' + str('%.2f' % current_skill_value) + ' -> ' + str('%.2f' % (current_skill_value + influence_amount/100))
         nudity_notification(text='Checked Sims: ' + str(story_progression_debug_sims_count) + '\nLeveled Sims:' + debug_text, title='Nudity Story Progression')
-
+
+
 def _update_and_get_influence_score(sim_info):
     influence_score = 7 if sim_ev(sim_info).nudity_skill_influence_score >= 7 else sim_ev(sim_info).nudity_skill_influence_score
     sim_ev(sim_info).nudity_skill_influence_score = max(0, sim_ev(sim_info).nudity_skill_influence_score - influence_score)
     return influence_score
-
+

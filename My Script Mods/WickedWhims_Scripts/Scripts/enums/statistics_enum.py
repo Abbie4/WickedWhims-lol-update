@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimCommodity(TurboEnum):
     __qualname__ = 'SimCommodity'
     AGE_ADULT = 38438
@@ -995,4 +991,4 @@ class SimCommodity(TurboEnum):
     WW_IS_SIM_IN_SEX = 6249265185615422734
     WW_READY_TO_CLIMAX = 165941937285807356
     WW_SEX_MASTER_DESIRE = 1368186405019524405
-
+

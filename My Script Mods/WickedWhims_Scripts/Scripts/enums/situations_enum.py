@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimSituation(TurboEnum):
     __qualname__ = 'SimSituation'
     ALIENBARFLY = 122604
@@ -729,7 +725,8 @@ class SimSituation(TurboEnum):
     YOGACLASS_MINDCONCENTRATING = 118797
     YOGACLASS_POSTHANGOUT = 122121
     YOGAINSTRUCTOR_VENUE = 120186
-
+
+
 class SimSituationJob(TurboEnum):
     __qualname__ = 'SimSituationJob'
     ARTIST_MUSEUM = 29789
@@ -1364,4 +1361,4 @@ class SimSituationJob(TurboEnum):
     YOGA_CLASSMEMBER = 118131
     YOGA_INSTRUCTOR = 118130
     YOGA_INSTRUCTOR_IDLE = 118373
-
+

@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from wickedwhims.sex.enums.sex_gender import SexGenderType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexGenderTypeSetting
+ANIMATIONS_CACHE = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from wickedwhims.sex.enums.sex_gender import SexGenderTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexGenderTypeSettingANIMATIONS_CACHE = dict()
 def has_animation_with_genders(animation_category, object_id, genders):
     if object_id is None:
         return False
@@ -17,7 +14,8 @@ def has_animation_with_genders(animation_category, object_id, genders):
         while compare_sim_genders_with_actor_genders_list(genders, genders_list):
             return True
     return False
-
+
+
 def has_animation_with_amount_of_actors(animation_category, object_id, amount):
     if object_id is None:
         return False
@@ -25,7 +23,8 @@ def has_animation_with_amount_of_actors(animation_category, object_id, amount):
     if animation_cache_category_object_genders_list is None:
         return False
     return True
-
+
+
 def has_animation_with_object(object_id, gender):
     if object_id is None:
         return False
@@ -45,7 +44,8 @@ def has_animation_with_object(object_id, gender):
                 for gender_in_list in genders_list:
                     while gender_in_list == SexGenderType.BOTH or gender_in_list == gender:
                         return True
-
+
+
 def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
     complete_list = list()
     for sim_gender_copy in genders_list:
@@ -63,7 +63,8 @@ def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
         while gender != SexGenderType.BOTH:
             return False
     return True
-
+
+
 def has_animation_with_gender(animation_category, object_id, gender):
     if object_id is None:
         return False
@@ -78,7 +79,8 @@ def has_animation_with_gender(animation_category, object_id, gender):
                 while actor_gender == SexGenderType.BOTH or actor_gender == gender:
                     return True
     return False
-
+
+
 def get_animation_max_amount_of_actors(animation_category, object_id):
     if object_id is None:
         return 0
@@ -89,7 +91,8 @@ def get_animation_max_amount_of_actors(animation_category, object_id):
     if not actors_amount_keys:
         return 0
     return actors_amount_keys[-1]
-
+
+
 def cache_animation_instance(animation_instance):
     animation_category = animation_instance.get_sex_category()
     animation_locations = animation_instance.get_locations()
@@ -108,11 +111,13 @@ def cache_animation_instance(animation_instance):
         if animation_custom_location == -1:
             pass
         get_animation_cache_category_object_genders_list(animation_category, animation_custom_location, animation_genders, create=True)
-
+
+
 def clear_animation_data_cache():
     global ANIMATIONS_CACHE
     ANIMATIONS_CACHE = dict()
-
+
+
 def get_animation_cache_category_object_genders_list(animation_category, object_id, genders, create=False):
     if object_id is None:
         return
@@ -121,7 +126,8 @@ def get_animation_cache_category_object_genders_list(animation_category, object_
         return
     animation_cache_category_object_genders_set.add(genders)
     return animation_cache_category_object_genders_set
-
+
+
 def get_animation_cache_category_object_genders_amount(animation_category, object_id, genders_amount, create=False):
     if object_id is None:
         return
@@ -133,7 +139,8 @@ def get_animation_cache_category_object_genders_amount(animation_category, objec
             return
         animation_cache_category_object_dict[genders_amount] = set()
     return animation_cache_category_object_dict[genders_amount]
-
+
+
 def get_animation_cache_category_object(animation_category, object_id, create=False):
     if object_id is None:
         return
@@ -146,7 +153,8 @@ def get_animation_cache_category_object(animation_category, object_id, create=Fa
             return
         animation_cache_category_dict[object_id] = dict()
     return animation_cache_category_dict[object_id]
-
+
+
 def get_animation_cache_category(animation_category, create=False):
     animation_category = int(animation_category)
     if animation_category not in ANIMATIONS_CACHE:
@@ -154,4 +162,4 @@ def get_animation_cache_category(animation_category, create=False):
             return
         ANIMATIONS_CACHE[animation_category] = dict()
     return ANIMATIONS_CACHE[animation_category]
-
+

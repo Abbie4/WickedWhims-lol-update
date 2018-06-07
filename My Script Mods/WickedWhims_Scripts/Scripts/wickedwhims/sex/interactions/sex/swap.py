@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.dialogs.sex_swap import open_swap_sex_sims_picker_dialog
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.sex.utils.sex_swap import is_compatible_actor
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.dialogs.sex_swap import open_swap_sex_sims_picker_dialogfrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.sex.utils.sex_swap import is_compatible_actor
+
 class SwapActorSexSpotInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SwapActorSexSpotInteraction'
 
@@ -41,4 +43,4 @@ class SwapActorSexSpotInteraction(TurboImmediateSuperInteraction, TurboInteracti
             return False
         open_swap_sex_sims_picker_dialog(active_sex_handler, cls.get_interaction_target(interaction_instance))
         return True
-
+

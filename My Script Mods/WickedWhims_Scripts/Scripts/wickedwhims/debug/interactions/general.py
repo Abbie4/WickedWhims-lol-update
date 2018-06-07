@@ -1,10 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.motives_enum import SimMotive
+from enums.situations_enum import SimSituation
+from turbolib.cas_util import TurboCASUtil
+from turbolib.components_util import TurboComponentUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_cas import get_modified_outfit, get_previous_modified_outfit
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_motives import get_sim_motive_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.motives_enum import SimMotivefrom enums.situations_enum import SimSituationfrom turbolib.cas_util import TurboCASUtilfrom turbolib.components_util import TurboComponentUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_cas import get_modified_outfit, get_previous_modified_outfitfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_motives import get_sim_motive_value
+
 class DebugGeneralInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugGeneralInfoInteraction'
 
@@ -50,4 +57,4 @@ class DebugGeneralInfoInteraction(TurboImmediateSuperInteraction, TurboInteracti
         basic_debug_info += '  PlantSim Water: ' + str(get_sim_motive_value(sim, SimMotive.PLANTSIM_WATER)) + '\n'
         basic_debug_info += 'Is Leaving Lot: ' + str(TurboSimUtil.Spawner.is_leaving(sim)) + '\n'
         display_notification(text=basic_debug_info, title=str(TurboSimUtil.Name.get_name(sim)[0]) + ' ' + str(TurboSimUtil.Name.get_name(sim)[1]) + ' General Debug', secondary_icon=sim)
-
+

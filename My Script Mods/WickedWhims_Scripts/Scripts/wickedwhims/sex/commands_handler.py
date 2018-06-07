@@ -1,20 +1,35 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.commands import TurboCommandType, register_game_command
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.desire_handler import set_sim_desire_level
+from wickedwhims.sex.autonomy.location import get_sex_locations, LocationStyleType, get_sex_location_style_and_chance
+from wickedwhims.sex.autonomy.sims import get_list_of_possible_sex_pairs, get_available_for_sex_sims
+from wickedwhims.sex.autonomy.trigger_random import trigger_random_sex_autonomy
+from wickedwhims.sex.autonomy.trigger_solo import trigger_random_solo_sex_autonomy
+from wickedwhims.sex.autonomy.triggers_handler import get_sims_risk_chance_for_sex_autonomy, get_chance_for_random_sex_autonomy, get_sex_autonomy_location
+from wickedwhims.sex.cas_cum_handler import clean_sim_cum_layers, CumLayerType, get_cum_layer_type_by_name, apply_sim_cum_layer
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlers
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_inventory import add_object_to_sim_inventory
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.commands import TurboCommandType, register_game_commandfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.desire_handler import set_sim_desire_levelfrom wickedwhims.sex.autonomy.location import get_sex_locations, LocationStyleType, get_sex_location_style_and_chancefrom wickedwhims.sex.autonomy.sims import get_list_of_possible_sex_pairs, get_available_for_sex_simsfrom wickedwhims.sex.autonomy.trigger_random import trigger_random_sex_autonomyfrom wickedwhims.sex.autonomy.trigger_solo import trigger_random_solo_sex_autonomyfrom wickedwhims.sex.autonomy.triggers_handler import get_sims_risk_chance_for_sex_autonomy, get_chance_for_random_sex_autonomy, get_sex_autonomy_locationfrom wickedwhims.sex.cas_cum_handler import clean_sim_cum_layers, CumLayerType, get_cum_layer_type_by_name, apply_sim_cum_layerfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlersfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_inventory import add_object_to_sim_inventory
 @register_game_command('ww.force_sex_autonomy', 'ww.forcesexautonomy', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_trigger_sex_autonomy(output=None):
     result = trigger_random_sex_autonomy(force=True)
     output('Forced Sex Autonomy resulted in a ' + ('positive' if result else 'negative') + ' outcome.')
-
+
+
 @register_game_command('ww.force_solo_sex_autonomy', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_trigger_solo_sex_autonomy(output=None):
     result = trigger_random_solo_sex_autonomy(force=True)
     output('Forced Solo Sex Autonomy resulted in a ' + ('positive' if result else 'negative') + ' outcome.')
-
+
+
 @register_game_command('ww.test_sex_autonomy', 'ww.testsexautonomy', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_test_sex_autonomy(output=None):
     output('--- Sex Autonomy Test ---')
@@ -69,7 +84,8 @@ def _wickedwhims_command_test_sex_autonomy(output=None):
     output('Location Test: ' + str('Positive' if location_test else 'Negative'))
     output(' ')
     output('Test Run Positive.' if autonomy_test and location_test and sims_test else 'Test Run Negative.')
-
+
+
 @register_game_command('ww.apply_offset', 'ww.applyoffset', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_apply_offset_to_animation(*args, output=None):
     if len(args) < 4:
@@ -106,7 +122,8 @@ def _wickedwhims_command_apply_offset_to_animation(*args, output=None):
         actor_data.temp_facing_offset = amount
     TurboWorldUtil.Location.move_object_to(sim, active_sex_handler.get_location(), x_offset=actor_data.temp_x_offset, y_offset=actor_data.temp_y_offset, z_offset=actor_data.temp_z_offset, orientation_offset=actor_data.temp_facing_offset)
     output('Offset applied!')
-
+
+
 @register_game_command('ww.restart_sex', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_restart_sex(output=None):
     for sex_handler in get_active_sex_handlers():
@@ -115,7 +132,8 @@ def _wickedwhims_command_restart_sex(output=None):
                 pass
             sex_handler.restart()
     output('All running sex interaction have been restarted.')
-
+
+
 @register_game_command('ww.stop_sex', 'ww.stopsex', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_stop_all_sex(output=None):
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
@@ -134,31 +152,36 @@ def _wickedwhims_command_stop_all_sex(output=None):
         except:
             pass
     output('Sex was stopped. Sad.')
-
+
+
 @register_game_command('ww.give_condom', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_give_condom(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     add_object_to_sim_inventory(sim, 11033454205624062315)
     output('Condom was added to the sim inventory.')
-
+
+
 @register_game_command('ww.give_condoms_box', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_give_condoms_box(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     add_object_to_sim_inventory(sim, 11891109332024626718)
     output('Condom box was added to the sim inventory.')
-
+
+
 @register_game_command('ww.give_birth_pill', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_give_birth_control_pill(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     add_object_to_sim_inventory(sim, 14744913713073164047)
     output('Birth control pill was added to the sim inventory.')
-
+
+
 @register_game_command('ww.give_birth_pills_box', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_give_birth_control_pills_box(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     add_object_to_sim_inventory(sim, 16840089604155629431)
     output('Birth control pills box was added to the sim inventory.')
-
+
+
 @register_game_command('ww.apply_cum', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_clear_cum(*args, output=None):
     args_len = len(args)
@@ -183,13 +206,15 @@ def _wickedwhims_command_clear_cum(*args, output=None):
         return
     apply_sim_cum_layer(sim, (cum_layer,))
     output('Cum applied!')
-
+
+
 @register_game_command('ww.clear_cum', 'ww.clearcum', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_clear_cum(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     clean_sim_cum_layers(sim)
     output('Cleard cum.')
-
+
+
 @register_game_command('ww.set_desire', 'ww.setdesire', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_set_desire_level(*args, output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
@@ -202,4 +227,4 @@ def _wickedwhims_command_set_desire_level(*args, output=None):
         return
     set_sim_desire_level(sim, amount)
     output('Desire level of active sim set to: ' + str(amount))
-
+

@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from _weakrefset import WeakSet
+import services
+from turbolib.manager_util import TurboManagerUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from _weakrefset import WeakSetimport servicesfrom turbolib.manager_util import TurboManagerUtil
+
 class TurboPrivacyUtil:
     __qualname__ = 'TurboPrivacyUtil'
 
@@ -42,4 +40,4 @@ class TurboPrivacyUtil:
             privacy._late_violators = WeakSet()
             for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
                 privacy.handle_late_violator(sim)
-
+

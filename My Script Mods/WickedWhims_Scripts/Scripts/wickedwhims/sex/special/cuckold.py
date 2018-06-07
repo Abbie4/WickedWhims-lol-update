@@ -1,10 +1,16 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.animations.animations_handler import get_hidden_animations
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_handlers.pre_sex_handler import PreSexInteractionHandler
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import start_sex_interaction_from_pre_sex_handler
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.animations.animations_handler import get_hidden_animationsfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_handlers.pre_sex_handler import PreSexInteractionHandlerfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import start_sex_interaction_from_pre_sex_handlerfrom wickedwhims.utils_traits import has_sim_trait
 def start_cuckold_solo_sex_interaction(sim_identifier, active_sex_handler):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if has_sim_trait(sim, SimTrait.GENDEROPTIONS_TOILET_STANDING):
@@ -28,10 +34,11 @@ def start_cuckold_solo_sex_interaction(sim_identifier, active_sex_handler):
     pre_sex_handler.add_sim(TurboManagerUtil.Sim.get_sim_id(sim))
     sim_ev(sim).active_pre_sex_handler = pre_sex_handler
     return start_sex_interaction_from_pre_sex_handler(pre_sex_handler)
-
+
+
 def _get_animation_with_stage_name(animations_list, stage_name):
     stage_name = stage_name.lower()
     for animation_instance in animations_list:
         while animation_instance.get_stage_name() == stage_name:
             return animation_instance
-
+

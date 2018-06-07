@@ -1,10 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboSuperInteraction, TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.sex.sex_handlers.active.utils.strapon import update_stapon
+from wickedwhims.sex.strapon.mannequin import open_strapon_mannequin
+from wickedwhims.sex.strapon.operator import has_loaded_strapon, is_strapon_on_sim
+from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboSuperInteraction, TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.sex.sex_handlers.active.utils.strapon import update_staponfrom wickedwhims.sex.strapon.mannequin import open_strapon_mannequinfrom wickedwhims.sex.strapon.operator import has_loaded_strapon, is_strapon_on_simfrom wickedwhims.sxex_bridge.outfit import StripType, strip_outfitfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.utils_traits import has_sim_trait
+
 class ChangeSimStraponInteraction(TurboSuperInteraction):
     __qualname__ = 'ChangeSimStraponInteraction'
 
@@ -27,7 +35,8 @@ class ChangeSimStraponInteraction(TurboSuperInteraction):
     def on_interaction_run(cls, interaction_instance):
         open_strapon_mannequin(cls.get_interaction_target(interaction_instance))
         return True
-
+
+
 class AllowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AllowStraponInteraction'
 
@@ -57,7 +66,8 @@ class AllowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractionSt
             actor_data = active_sex_handler.get_animation_instance().get_actor(active_sex_handler.get_actor_id_by_sim_id(TurboManagerUtil.Sim.get_sim_id(target)))
             update_stapon(target, actor_data=actor_data)
         return True
-
+
+
 class DisallowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisallowStraponInteraction'
 
@@ -85,4 +95,4 @@ class DisallowStraponInteraction(TurboImmediateSuperInteraction, TurboInteractio
         if is_strapon_on_sim(target):
             strip_outfit(target, strip_type_bottom=StripType.NUDE)
         return True
-
+

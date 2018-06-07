@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.animations.animations_operator import has_animations_with_params, get_random_animation
+from wickedwhims.sex.dialogs.sex_change import open_change_sex_animations_picker_dialog
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_handlers.active.active_sex_handler_updates import try_progress_sex_interaction
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.utils_interfaces import display_ok_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.resource_util import TurboResourceUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.animations.animations_operator import has_animations_with_params, get_random_animationfrom wickedwhims.sex.dialogs.sex_change import open_change_sex_animations_picker_dialogfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_handlers.active.active_sex_handler_updates import try_progress_sex_interactionfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.utils_interfaces import display_ok_dialog
 def _test_for_sex_change(interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
@@ -21,7 +26,8 @@ def _test_for_sex_change(interaction_sim, interaction_target, sex_category_types
             while has_animations_with_params(sex_category_type, active_sex_handler.get_object_identifier(), genders_list):
                 return True
     return False
-
+
+
 def _change_sex(interaction_sim, sex_category_type):
     sex_allowed = is_sim_allowed_for_animation(sim_ev(interaction_sim).active_sex_handler.get_actors_sim_info_gen(), sex_category_type)
     if not sex_allowed:
@@ -29,7 +35,8 @@ def _change_sex(interaction_sim, sex_category_type):
         return False
     open_change_sex_animations_picker_dialog(sim_ev(interaction_sim).active_sex_handler, sex_category_type)
     return True
-
+
+
 class ChangeSexTeasingInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexTeasingInteraction'
 
@@ -40,7 +47,8 @@ class ChangeSexTeasingInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.TEASING)
-
+
+
 class ChangeSexHandjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexHandjobInteraction'
 
@@ -51,7 +59,8 @@ class ChangeSexHandjobInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.HANDJOB)
-
+
+
 class ChangeSexFootjobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexFootjobInteraction'
 
@@ -62,7 +71,8 @@ class ChangeSexFootjobInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.FOOTJOB)
-
+
+
 class ChangeSexOraljobInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexOraljobInteraction'
 
@@ -73,7 +83,8 @@ class ChangeSexOraljobInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.ORALJOB)
-
+
+
 class ChangeSexVaginalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexVaginalInteraction'
 
@@ -84,7 +95,8 @@ class ChangeSexVaginalInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.VAGINAL)
-
+
+
 class ChangeSexAnalInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexAnalInteraction'
 
@@ -95,7 +107,8 @@ class ChangeSexAnalInteraction(TurboImmediateSuperInteraction, TurboInteractionS
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.ANAL)
-
+
+
 class ChangeSexClimaxInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexClimaxInteraction'
 
@@ -106,7 +119,8 @@ class ChangeSexClimaxInteraction(TurboImmediateSuperInteraction, TurboInteractio
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex(cls.get_interaction_sim(interaction_instance), SexCategoryType.CLIMAX)
-
+
+
 class ChangeSexRandomInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexRandomInteraction'
 
@@ -124,7 +138,8 @@ class ChangeSexRandomInteraction(TurboImmediateSuperInteraction, TurboInteractio
         active_sex_handler.set_animation_instance(random_animation, is_animation_change=True, is_manual=True)
         active_sex_handler.play(is_animation_change=True)
         return True
-
+
+
 class ChangeSexNextInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexNextInteraction'
 
@@ -149,4 +164,4 @@ class ChangeSexNextInteraction(TurboImmediateSuperInteraction, TurboInteractionS
             try_progress_sex_interaction(active_sex_handler, is_manual=True)
             return True
         return False
-
+

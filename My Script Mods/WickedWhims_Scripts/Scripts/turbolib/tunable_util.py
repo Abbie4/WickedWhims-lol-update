@@ -1,13 +1,21 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from buffs.buff_ops import BuffOpfrom event_testing.test_variants import UserRunningInteractionTestfrom turbolib.sim_util import TurboSimUtiltry:
+from buffs.buff_ops import BuffOp
+from event_testing.test_variants import UserRunningInteractionTest
+from turbolib.sim_util import TurboSimUtil
+try:
     from sims.sim_info_tests import SimInfoTest, MatchType
 except:
-    from event_testing.test_variants import SimInfoTest, MatchTypefrom filters.tunable import AgeFilterTermfrom interactions import ParticipantTypefrom relationships.relationship_tests import RelationshipTestEvents, RelationshipTestfrom sims.phone_tuning import PhoneTuningfrom sims4.collections import ListSetfrom sims4.localization import TunableLocalizedStringFactoryfrom sims4.tuning.tunable import TunedIntervalfrom whims.whims_tracker import WhimsTrackerfrom turbolib.resource_util import TurboResourceUtil
+    from event_testing.test_variants import SimInfoTest, MatchType
+from filters.tunable import AgeFilterTerm
+from interactions import ParticipantType
+from relationships.relationship_tests import RelationshipTestEvents, RelationshipTest
+from sims.phone_tuning import PhoneTuning
+from sims4.collections import ListSet
+from sims4.localization import TunableLocalizedStringFactory
+from sims4.tuning.tunable import TunedInterval
+from whims.whims_tracker import WhimsTracker
+from turbolib.resource_util import TurboResourceUtil
+
+
 class TurboTunableUtil:
     __qualname__ = 'TurboTunableUtil'
 
@@ -317,4 +325,4 @@ class TurboTunableUtil:
             items_list = list(PhoneTuning.DISABLE_PHONE_TESTS)
             items_list.append(immutable_slots)
             PhoneTuning.DISABLE_PHONE_TESTS = ListSet(items_list)
-
+

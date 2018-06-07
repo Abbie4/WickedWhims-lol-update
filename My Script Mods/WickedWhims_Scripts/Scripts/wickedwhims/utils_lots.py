@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.tags_enum import GameTag
+from turbolib.events.buildbuy import register_buildbuy_state_change_event_method
+from turbolib.events.core import register_zone_load_event_method
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.object_util import TurboObjectUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.utils_objects import get_object_fixed_direction
+LOT_DATA_CACHE = None
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.tags_enum import GameTagfrom turbolib.events.buildbuy import register_buildbuy_state_change_event_methodfrom turbolib.events.core import register_zone_load_event_methodfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.object_util import TurboObjectUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.sex.animations.animations_handler import get_available_sex_animationsfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.utils_objects import get_object_fixed_directionLOT_DATA_CACHE = None
+
 class RoomType(TurboEnum):
     __qualname__ = 'RoomType'
     OUTSIDE = 0
@@ -16,24 +26,29 @@ class RoomType(TurboEnum):
     KIDSROOM = 6
     LOCKER_ROOM = 10
     GYM = 11
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=50, late=True)
 def _update_lot_structure_data_on_zone_load():
     _update_lot_structrue_data()
-
+
+
 @register_buildbuy_state_change_event_method(unique_id='WickedWhims', priority=0, on_exit=True)
 def _update_lot_structure_data_on_buildbuy_exit():
     _update_lot_structrue_data()
-
+
+
 def _update_lot_structrue_data():
     global LOT_DATA_CACHE
     LOT_DATA_CACHE = LotStructureData()
-
+
+
 def get_lot_structure_data():
     if LOT_DATA_CACHE is None:
         _update_lot_structrue_data()
     return LOT_DATA_CACHE
-
+
+
 class LotStructureData:
     __qualname__ = 'LotStructureData'
 
@@ -70,7 +85,8 @@ class LotStructureData:
         debug += '  size: ' + str(self._size) + '\n'
         debug += '  rooms: ' + str(len(self._rooms)) + '\n'
         return debug
-
+
+
 class RoomStructureData:
     __qualname__ = 'RoomStructureData'
 
@@ -187,7 +203,8 @@ class RoomStructureData:
         debug += '  types: ' + str(self._types) + '\n'
         debug += '  objects: ' + str(len(self._objects)) + '\n'
         return debug
-
+
+
 class ObjectStructureData:
     __qualname__ = 'ObjectStructureData'
 
@@ -230,7 +247,8 @@ class ObjectStructureData:
         debug += '  position: ' + str(object_position.x) + '/' + str(object_position.y) + '/' + str(object_position.z) + '\n'
         debug += '  sex_identifier: ' + str(self._sex_identifier) + '\n'
         return debug
-
+
+
 def get_sims_in_room(room_id):
     sims_list = list()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
@@ -242,7 +260,8 @@ def get_sims_in_room(room_id):
                 pass
             sims_list.append(sim)
     return sims_list
-
+
+
 def get_object_association_to_room_type(game_object):
     if game_object is None:
         return ()
@@ -265,4 +284,4 @@ def get_object_association_to_room_type(game_object):
     if GameTag.VENUE_OBJECT_EXERCISE in object_tags:
         object_room_types.add(RoomType.GYM)
     return object_room_types
-
+

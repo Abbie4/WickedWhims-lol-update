@@ -1,15 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import os
+from turbolib.events.core_tick import register_zone_update_event_method, unregister_zone_update_event_method
+from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import osfrom turbolib.events.core_tick import register_zone_update_event_method, unregister_zone_update_event_methodfrom wickedwhims.sex.animations.animations_handler import get_available_sex_animations
 @register_zone_update_event_method(unique_id='WickedWhims', always_run=True)
 def _wickedwhims_create_animations_report_file():
     create_animations_report_file()
     unregister_zone_update_event_method('_wickedwhims_create_animations_report_file', unique_id='WickedWhims')
-
+
+
 def create_animations_report_file():
     file_path = _get_animations_report_file_path()
     if os.path.isfile(file_path):
@@ -31,7 +29,8 @@ def create_animations_report_file():
         log_file.write('Actors Genders: ' + str('+'.join([str(actor.gender_type.name) for actor in animation.get_actors()])) + '\n')
         log_file.write('\n')
     log_file.flush()
-
+
+
 def _get_animations_report_file_path():
     root_dir = ''
     root_file = os.path.normpath(os.path.dirname(os.path.realpath(__file__))).replace(os.sep, '/')
@@ -47,4 +46,4 @@ def _get_animations_report_file_path():
     for index in range(0, len(root_file_split) - exit_index):
         root_dir += str(root_file_split[index]) + '/'
     return root_dir + 'WW_Installed_Animations.txt'
-
+

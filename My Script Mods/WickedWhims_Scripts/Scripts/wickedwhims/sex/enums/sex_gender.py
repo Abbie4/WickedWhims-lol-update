@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSetting
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSettingfrom wickedwhims.utils_traits import has_sim_trait
+
 class SexGenderType(TurboEnum):
     __qualname__ = 'SexGenderType'
     NONE = 0
@@ -20,7 +22,8 @@ class SexGenderType(TurboEnum):
     ALIEN_MALE = 10
     ALIEN_FEMALE = 11
     ALIEN_BOTH = 12
-
+
+
 def get_sim_sex_gender(sim_identifier, ignore_sim_specific_gender=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.SEX_BASED:
@@ -35,7 +38,8 @@ def get_sim_sex_gender(sim_identifier, ignore_sim_specific_gender=False):
         if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
             return SexGenderType.MALE
         return SexGenderType.FEMALE
-
+
+
 def get_sex_gender_type_by_name(name):
     name = name.upper()
     if name == 'MALE':
@@ -45,4 +49,4 @@ def get_sex_gender_type_by_name(name):
     if name == 'BOTH':
         return SexGenderType.BOTH
     return SexGenderType.NONE
-
+

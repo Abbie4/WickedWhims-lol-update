@@ -1,10 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.command_util import TurboCommandUtil
+from turbolib.events.core import register_zone_load_event_method
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.strapon.operator import get_sim_strapon_part_id, has_loaded_strapon
+from wickedwhims.utils_interfaces import display_notification
+STRAPON_MANNEQUIN_IN_USE = False
+STRAPON_MANNEQUIN_SIM_ID = -1
+STRAPON_MANNEQUIN_OBJECT_ID = -1
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.command_util import TurboCommandUtilfrom turbolib.events.core import register_zone_load_event_methodfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.strapon.operator import get_sim_strapon_part_id, has_loaded_straponfrom wickedwhims.utils_interfaces import display_notificationSTRAPON_MANNEQUIN_IN_USE = FalseSTRAPON_MANNEQUIN_SIM_ID = -1STRAPON_MANNEQUIN_OBJECT_ID = -1
 def open_strapon_mannequin(sim=None):
     global STRAPON_MANNEQUIN_IN_USE, STRAPON_MANNEQUIN_SIM_ID, STRAPON_MANNEQUIN_OBJECT_ID
     if sim is None:
@@ -25,7 +33,8 @@ def open_strapon_mannequin(sim=None):
     STRAPON_MANNEQUIN_SIM_ID = TurboManagerUtil.Sim.get_sim_id(sim)
     STRAPON_MANNEQUIN_OBJECT_ID = mannequin_id
     TurboCommandUtil.invoke_command('sims.exit2caswithmannequinid {}'.format(mannequin_id, ''))
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=50, late=True)
 def _wickedwhims_check_for_strapon_mannequin():
     global STRAPON_MANNEQUIN_IN_USE
@@ -47,10 +56,11 @@ def _wickedwhims_check_for_strapon_mannequin():
         sim_ev(sim_info).strapon_part_id = body_parts[TurboCASUtil.BodyType.LOWER_BODY]
     _reset_current_strapon_mannequin_data()
     TurboObjectUtil.GameObject.destroy_object(mannequin, cause='Temporary strapon mannequin.')
-
+
+
 def _reset_current_strapon_mannequin_data():
     global STRAPON_MANNEQUIN_IN_USE, STRAPON_MANNEQUIN_SIM_ID, STRAPON_MANNEQUIN_OBJECT_ID
     STRAPON_MANNEQUIN_IN_USE = False
     STRAPON_MANNEQUIN_SIM_ID = -1
     STRAPON_MANNEQUIN_OBJECT_ID = -1
-
+

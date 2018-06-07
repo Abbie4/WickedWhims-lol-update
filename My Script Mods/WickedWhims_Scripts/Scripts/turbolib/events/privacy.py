@@ -1,16 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from interactions.privacy import Privacy
+from turbolib.events.events_handler import TurboEventsHandler
+from turbolib.injector_util import inject
+from turbolib.native.enum import TurboEnum
+from turbolib.special.custom_exception_watcher import log_custom_exception
+PRIVACY_EVENTS_HANDLER = TurboEventsHandler()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from interactions.privacy import Privacyfrom turbolib.events.events_handler import TurboEventsHandlerfrom turbolib.injector_util import injectfrom turbolib.native.enum import TurboEnumfrom turbolib.special.custom_exception_watcher import log_custom_exceptionPRIVACY_EVENTS_HANDLER = TurboEventsHandler()
+
 class PrivacyResult(TurboEnum):
     __qualname__ = 'PrivacyResult'
     DEFAULT = 1
     ALLOW = 2
     BLOCK = 3
-
+
+
 def register_privacy_sim_test_event_method(unique_id=None, priority=0):
 
     def _method_wrapper(event_method):
@@ -18,7 +20,8 @@ def register_privacy_sim_test_event_method(unique_id=None, priority=0):
         return event_method
 
     return _method_wrapper
-
+
+
 @inject(Privacy, 'evaluate_sim')
 def _turbolib_on_evaluate_sim(original, self, *args, **kwargs):
     try:
@@ -35,10 +38,11 @@ def _turbolib_on_evaluate_sim(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method 'evaluate_sim' at 'Privacy.evaluate_sim'.", ex)
     return original(self, *args, **kwargs)
-
+
+
 def _is_sim_allowed(privacy_instance, tested_sim):
     for execute_result in PRIVACY_EVENTS_HANDLER.execute_event_methods_gen(privacy_instance, tested_sim):
         while execute_result == PrivacyResult.ALLOW or execute_result == PrivacyResult.BLOCK:
             return execute_result
     return PrivacyResult.DEFAULT
-
+

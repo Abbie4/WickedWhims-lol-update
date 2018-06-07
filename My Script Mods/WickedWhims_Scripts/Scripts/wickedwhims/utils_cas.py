@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.club_util import TurboClubUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.club_util import TurboClubUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_ev
 def get_modified_outfit(sim_identifier, override_category_and_index=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     if is_sim_in_special_outfit(sim_info):
@@ -21,13 +20,15 @@ def get_modified_outfit(sim_identifier, override_category_and_index=None):
     if outfit_category_and_index is None or outfit_category_and_index[0] == TurboCASUtil.OutfitCategory.SPECIAL and outfit_category_and_index[1] == 0 or outfit_category_and_index[0] == TurboCASUtil.OutfitCategory.CURRENT_OUTFIT:
         outfit_category_and_index = (TurboCASUtil.OutfitCategory.EVERYDAY, 0)
     return outfit_category_and_index
-
+
+
 def get_previous_modified_outfit(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     if sim_ev(sim_info).previous_outfit_category == -1 or sim_ev(sim_info).previous_outfit_index == -1:
         return (TurboCASUtil.OutfitCategory.EVERYDAY, 0)
     return (TurboCASUtil.OutfitCategory.get_outfit_category(sim_ev(sim_info).previous_outfit_category), int(sim_ev(sim_info).previous_outfit_index))
-
+
+
 def copy_outfit_to_special(sim_identifier, set_special_outfit=False, outfit_category_and_index=None, override_outfit_parts=None, save_original=True):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     current_outfit_category_and_index = get_modified_outfit(sim_info)
@@ -71,7 +72,8 @@ def copy_outfit_to_special(sim_identifier, set_special_outfit=False, outfit_cate
         except:
             pass
     return True
-
+
+
 def set_bodytype_caspart(sim_identifier, outfit_category_and_index, bodytype, cas_id, remove=False):
     if cas_id == -1 and remove is False:
         return False
@@ -84,7 +86,8 @@ def set_bodytype_caspart(sim_identifier, outfit_category_and_index, bodytype, ca
     else:
         outfit_editor.add_cas_part(bodytype, cas_id)
     outfit_editor.apply()
-
+
+
 def set_first_free_skin_overlay_for_every_outfit(sim_identifier, cas_id):
     if cas_id == -1:
         return False
@@ -97,7 +100,8 @@ def set_first_free_skin_overlay_for_every_outfit(sim_identifier, cas_id):
                     if set_first_free_skin_overlay(occult_sim_info, (outfit_category, outfit_index), cas_id):
                         result = True
     return result
-
+
+
 def set_first_free_skin_overlay(sim_identifier, outfit_category_and_index, cas_id):
     if cas_id == -1:
         return False
@@ -117,7 +121,8 @@ def set_first_free_skin_overlay(sim_identifier, outfit_category_and_index, cas_i
     result = outfit_editor.add_cas_part(empty_slot_id, cas_id)
     outfit_editor.apply()
     return result
-
+
+
 def clear_every_skin_overlay_for_every_outfit(sim_identifier, cas_id):
     if cas_id == -1:
         return False
@@ -130,7 +135,8 @@ def clear_every_skin_overlay_for_every_outfit(sim_identifier, cas_id):
                     if clear_every_skin_overlay(occult_sim_info, (outfit_category, outfit_index), cas_id):
                         result = True
     return result
-
+
+
 def clear_every_skin_overlay(sim_identifier, outfit_category_and_index, cas_id):
     if cas_id == -1:
         return False
@@ -141,7 +147,8 @@ def clear_every_skin_overlay(sim_identifier, outfit_category_and_index, cas_id):
     result = outfit_editor.remove_cas_part(cas_id)
     outfit_editor.apply()
     return result
-
+
+
 def get_sim_outfit_parts(sim_identifier, outfit_category_and_index=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     current_outfit_category_and_index = TurboSimUtil.CAS.get_current_outfit(sim_info)
@@ -153,7 +160,8 @@ def get_sim_outfit_parts(sim_identifier, outfit_category_and_index=None):
     outfit_parts = TurboSimUtil.CAS.get_outfit_parts(sim_info, current_outfit_category_and_index)
     sim_ev(sim_info).outfit_parts_cache = outfit_parts
     return outfit_parts
-
+
+
 def get_sim_outfit_cas_part_from_bodytype(sim_identifier, bodytype, outfit_category_and_index=None):
     body_parts = get_sim_outfit_parts(sim_identifier, outfit_category_and_index=outfit_category_and_index)
     if not body_parts:
@@ -162,13 +170,15 @@ def get_sim_outfit_cas_part_from_bodytype(sim_identifier, bodytype, outfit_categ
     if bodytype not in body_parts:
         return -1
     return body_parts[bodytype]
-
+
+
 def has_sim_body_part(sim_or_sim_info, bodypart_id, outfit_category_and_index=None):
     body_parts = get_sim_outfit_parts(sim_or_sim_info, outfit_category_and_index=outfit_category_and_index)
     if not body_parts:
         return False
     return int(bodypart_id) in body_parts
-
+
+
 def has_sim_cas_part_id(sim_or_sim_info, cas_part_id_or_tuple, outfit_category_and_index=None):
     body_parts = get_sim_outfit_parts(sim_or_sim_info, outfit_category_and_index=outfit_category_and_index)
     if not body_parts:
@@ -181,8 +191,9 @@ def has_sim_cas_part_id(sim_or_sim_info, cas_part_id_or_tuple, outfit_category_a
             while cas_id in outfit_part_ids:
                 return True
     return False
-
+
+
 def is_sim_in_special_outfit(sim_info):
     current_outfit = TurboSimUtil.CAS.get_current_outfit(sim_info)
     return current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0
-
+

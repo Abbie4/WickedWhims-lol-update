@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.sex.animations.animations_operator import get_animations_with_params, ChoiceListRandomAnimationPickerRow, has_animations_with_params
+from wickedwhims.sex.dialogs.dialog_utils import get_sex_category_animations_stbl_name
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.utils_interfaces import display_picker_list_dialog, get_arrow_icon
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.l18n_util import TurboL18NUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.sex.animations.animations_operator import get_animations_with_params, ChoiceListRandomAnimationPickerRow, has_animations_with_paramsfrom wickedwhims.sex.dialogs.dialog_utils import get_sex_category_animations_stbl_namefrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.utils_interfaces import display_picker_list_dialog, get_arrow_icon
 def open_change_sex_animations_category_picker_dialog(active_sex_handler):
 
     @exception_watch()
@@ -35,7 +37,8 @@ def open_change_sex_animations_category_picker_dialog(active_sex_handler):
     if len(category_picker_rows) <= 1:
         return
     display_picker_list_dialog(title=2301874612, picker_rows=category_picker_rows, callback=animation_categories_picker_callback)
-
+
+
 def open_change_sex_animations_picker_dialog(active_sex_handler, sex_category_type):
 
     @exception_watch()
@@ -62,7 +65,8 @@ def open_change_sex_animations_picker_dialog(active_sex_handler, sex_category_ty
     if len(animations_rows) > 1:
         animations_rows.insert(0, ChoiceListRandomAnimationPickerRow(active_sex_handler, sex_category_type))
     display_picker_list_dialog(title=get_sex_category_animations_stbl_name(sex_category_type), picker_rows=animations_rows, callback=animation_picker_callback)
-
+
+
 def open_change_sex_location_animations_picker_dialog(active_sex_handler, sex_category_type, new_object_identifier, game_object_id, object_height, location_x, location_y, location_z, location_level, location_angle, route_x, route_y, route_z, route_level):
 
     @exception_watch()
@@ -92,4 +96,4 @@ def open_change_sex_location_animations_picker_dialog(active_sex_handler, sex_ca
     if len(animations_rows) > 1:
         animations_rows.insert(0, ChoiceListRandomAnimationPickerRow(active_sex_handler, sex_category_type, object_identifier=new_object_identifier))
     display_picker_list_dialog(title=get_sex_category_animations_stbl_name(sex_category_type), picker_rows=animations_rows, callback=change_sex_location_animation_picker_callback)
-
+

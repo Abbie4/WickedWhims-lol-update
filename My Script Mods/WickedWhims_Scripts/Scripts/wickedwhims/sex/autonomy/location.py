@@ -1,10 +1,34 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.relationship_enum import RelationshipTrackType
+from enums.situations_enum import SimSituationJob
+from enums.vanues_enum import VenueType
+from turbolib.autonomy_util import TurboAutonomyUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, is_sim_exhibitionist
+from wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animations, get_player_disabled_sex_animations
+from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
+from wickedwhims.sex.animations.animations_operator import get_animations_with_params
+from wickedwhims.sex.autonomy._ts4_autonomy_utils import has_game_object_all_free_slots
+from wickedwhims.sex.autonomy.disabled_locations_handler import is_autonomy_sex_locations_disabled
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSetting
+from wickedwhims.sex.sex_location_handler import SexLocationType, SexInteractionLocationType
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import get_all_unique_sex_handlers
+from wickedwhims.utils_locations import is_sim_at_home_lot, is_sim_at_home_zone
+from wickedwhims.utils_lots import get_lot_structure_data, RoomType, get_sims_in_room
+from wickedwhims.utils_relations import get_relationship_with_sim
+from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
+from wickedwhims.utils_situations import has_sim_situation_jobs
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.relationship_enum import RelationshipTrackTypefrom enums.situations_enum import SimSituationJobfrom enums.vanues_enum import VenueTypefrom turbolib.autonomy_util import TurboAutonomyUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, is_sim_exhibitionistfrom wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animations, get_player_disabled_sex_animationsfrom wickedwhims.sex.animations.animations_handler import get_available_sex_animationsfrom wickedwhims.sex.animations.animations_operator import get_animations_with_paramsfrom wickedwhims.sex.autonomy._ts4_autonomy_utils import has_game_object_all_free_slotsfrom wickedwhims.sex.autonomy.disabled_locations_handler import is_autonomy_sex_locations_disabledfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSettingfrom wickedwhims.sex.sex_location_handler import SexLocationType, SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import get_all_unique_sex_handlersfrom wickedwhims.utils_locations import is_sim_at_home_lot, is_sim_at_home_zonefrom wickedwhims.utils_lots import get_lot_structure_data, RoomType, get_sims_in_roomfrom wickedwhims.utils_relations import get_relationship_with_simfrom wickedwhims.utils_routes import is_sim_allowed_on_active_lotfrom wickedwhims.utils_situations import has_sim_situation_jobs
+
 class LocationStyleType(TurboEnum):
     __qualname__ = 'LocationStyleType'
     NONE = 0
@@ -13,7 +37,8 @@ class LocationStyleType(TurboEnum):
     SEMI_OPEN = 3
     OPEN = 4
     PUBLIC = 5
-
+
+
 def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
     locations_list = list()
     if not sims_list:
@@ -116,7 +141,8 @@ def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
                             overall_score += _get_distance_score(lot_structure_data.get_size(), TurboSimUtil.Location.get_position(sims_list[-1]), TurboMathUtil.Location.get_location_translation(room_structure_data.get_safe_location()))
                             locations_list.append((overall_score, room_structure_data.get_safe_location()))
     return sorted(locations_list, key=lambda x: x[0], reverse=True)
-
+
+
 def _get_room_size_multiplier(room_structure_data, location_style):
     small_room_size = 20
     medium_room_size = 42
@@ -159,7 +185,8 @@ def _get_room_size_multiplier(room_structure_data, location_style):
         if location_style == LocationStyleType.OPEN:
             return 2.0
     return 1.0
-
+
+
 def _get_room_types_score(room_structure_data, location_style):
     room_score = 0
     for (room_type, type_value) in room_structure_data.get_types():
@@ -199,7 +226,8 @@ def _get_room_types_score(room_structure_data, location_style):
                 score += 30
         room_score += score*type_value
     return room_score
-
+
+
 def _get_room_sims_score(sims_list, exclude_sims_ids, location_style):
     if not sims_list:
         return 0
@@ -222,7 +250,8 @@ def _get_room_sims_score(sims_list, exclude_sims_ids, location_style):
             sim_score *= 3
         score += sim_score
     return score
-
+
+
 def _get_room_objects_score(room_structure_data, location_style):
     score = 0
     has_windows = False
@@ -239,7 +268,8 @@ def _get_room_objects_score(room_structure_data, location_style):
     if location_style == LocationStyleType.PRIVACY and (has_windows is False and has_stairs is False) and doors_count <= 1:
         score += 25
     return score
-
+
+
 def _get_object_score(game_object, object_identifier, sims_list, location_style):
     score = 0
     if location_style == LocationStyleType.OPEN and object_identifier[0] != SexLocationType.WINDOW and TurboWorldUtil.Lot.is_location_outside(TurboObjectUtil.Position.get_location(game_object)):
@@ -251,19 +281,22 @@ def _get_object_score(game_object, object_identifier, sims_list, location_style)
             else:
                 score += -10
     return score
-
+
+
 def _get_object_multiplier(object_identifier):
     if object_identifier[0] == SexLocationType.WINDOW:
         return 0.55
     return 1.0
-
+
+
 def _get_distance_score(lot_size, origin_position, destination_position):
     object_distance = TurboMathUtil.Position.get_distance(origin_position, destination_position)
     if abs(origin_position.y - destination_position.y) > 2:
         object_distance += lot_size/4
     distance_score = 100 - int(object_distance/lot_size*100)
     return distance_score
-
+
+
 def _get_objects_outside_lot():
     outside_objects = list()
     for game_object in TurboObjectUtil.GameObject.get_all_gen():
@@ -277,13 +310,15 @@ def _get_objects_outside_lot():
         outside_objects.append(game_object)
     random.shuffle(outside_objects)
     return outside_objects
-
+
+
 def _get_animations_amount_for_object(sims_sex_genders, object_identifier):
     animations_amount = 0
     for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.ORALJOB, SexCategoryType.FOOTJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL):
         animations_amount += len(get_animations_with_params(sex_category_type, object_identifier, sims_sex_genders, ignore_animations=get_autonomy_disabled_sex_animations()))
     return animations_amount
-
+
+
 def _get_sims_in_room(room_id):
     room_sims = set()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
@@ -291,7 +326,8 @@ def _get_sims_in_room(room_id):
         while sim_room_id == room_id:
             room_sims.add(sim)
     return room_sims
-
+
+
 def get_sex_location_style_and_chance(sims_list):
     if not sims_list:
         return (LocationStyleType.NONE, 0.0)
@@ -435,4 +471,4 @@ def get_sex_location_style_and_chance(sims_list):
             if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.LOW:
                 return (LocationStyleType.PRIVACY, base_value + 0.2)
     return (LocationStyleType.NONE, 0.0)
-
+

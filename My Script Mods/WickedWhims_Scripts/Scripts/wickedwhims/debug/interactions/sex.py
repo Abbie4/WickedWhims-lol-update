@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_interfaces import display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_interfaces import display_notification
+
 class DebugSexInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugSexInfoInteraction'
 
@@ -33,4 +33,4 @@ class DebugSexInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionSt
         sex_debug_info += '\n  Pre Sex Handler: ' + (str(sim_ev(sim).active_pre_sex_handler.get_string_data()) if sim_ev(sim).active_pre_sex_handler is not None else str(None)) + '\n'
         sex_debug_info += '  Active Sex Handler: ' + (str(sim_ev(sim).active_sex_handler.get_string_data()) if sim_ev(sim).active_sex_handler is not None else str(None)) + '\n'
         display_notification(text=sex_debug_info, title=str(TurboSimUtil.Name.get_name(sim)[0]) + ' ' + str(TurboSimUtil.Name.get_name(sim)[1]) + ' Sex Debug', secondary_icon=sim)
-
+

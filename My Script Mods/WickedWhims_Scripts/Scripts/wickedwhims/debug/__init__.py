@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.resources.affordances import AffordanceRegistration, register_affordance_class
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.resources.affordances import AffordanceRegistration, register_affordance_classfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtil
 @register_affordance_class()
 class DebugSimsAffordanceRegisterClass(AffordanceRegistration):
     __qualname__ = 'DebugSimsAffordanceRegisterClass'
@@ -14,7 +11,8 @@ class DebugSimsAffordanceRegisterClass(AffordanceRegistration):
 
     def is_script_object(self, script_object):
         return TurboTypesUtil.Sims.is_sim(script_object) and TurboSimUtil.Species.is_human(script_object)
-
+
+
 @register_affordance_class()
 class DebugObjectsAffordanceRegisterClass(AffordanceRegistration):
     __qualname__ = 'DebugObjectsAffordanceRegisterClass'
@@ -24,4 +22,4 @@ class DebugObjectsAffordanceRegisterClass(AffordanceRegistration):
 
     def is_script_object(self, script_object):
         return TurboTypesUtil.Objects.is_game_object(script_object)
-
+

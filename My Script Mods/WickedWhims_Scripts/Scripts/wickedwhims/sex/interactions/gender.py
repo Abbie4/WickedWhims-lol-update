@@ -1,10 +1,11 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSetting
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_planning_for_sex
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSettingfrom wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_planning_for_sex
+
 class SetSimGenderRecognitionAsMaleInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SetSimGenderRecognitionAsMaleInteraction'
 
@@ -26,7 +27,8 @@ class SetSimGenderRecognitionAsMaleInteraction(TurboImmediateSuperInteraction, T
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_target(interaction_instance)).gender_recognition = int(TurboSimUtil.Gender.MALE)
         return True
-
+
+
 class SetSimGenderRecognitionAsFemaleInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SetSimGenderRecognitionAsFemaleInteraction'
 
@@ -48,7 +50,8 @@ class SetSimGenderRecognitionAsFemaleInteraction(TurboImmediateSuperInteraction,
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_target(interaction_instance)).gender_recognition = int(TurboSimUtil.Gender.FEMALE)
         return True
-
+
+
 class SetSimGenderRecognitionAsDefaultInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SetSimGenderRecognitionAsDefaultInteraction'
 
@@ -70,4 +73,4 @@ class SetSimGenderRecognitionAsDefaultInteraction(TurboImmediateSuperInteraction
     def on_interaction_start(cls, interaction_instance):
         sim_ev(cls.get_interaction_target(interaction_instance)).gender_recognition = 0
         return True
-
+

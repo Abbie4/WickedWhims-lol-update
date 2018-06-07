@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import objects.components.types
+from objects.components import ComponentContainer
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import objects.components.typesfrom objects.components import ComponentContainer
+
 class TurboComponentUtil:
     __qualname__ = 'TurboComponentUtil'
 
@@ -97,4 +94,4 @@ class TurboComponentUtil:
         if not isinstance(game_object, ComponentContainer):
             return
         return game_object.get_component(component_type)
-
+

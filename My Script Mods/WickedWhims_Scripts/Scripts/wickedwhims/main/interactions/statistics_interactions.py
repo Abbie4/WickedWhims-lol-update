@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.sxex_bridge.statistics import display_sim_statistics_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.sxex_bridge.statistics import display_sim_statistics_dialog
+
 class DisplaySimStatisticsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisplaySimStatisticsInteraction'
 
@@ -21,4 +20,4 @@ class DisplaySimStatisticsInteraction(TurboImmediateSuperInteraction, TurboInter
     def on_interaction_start(cls, interaction_instance):
         display_sim_statistics_dialog(cls.get_interaction_target(interaction_instance))
         return True
-
+

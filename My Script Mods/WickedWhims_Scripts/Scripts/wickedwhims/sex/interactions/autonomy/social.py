@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from turbolib.wrappers.interactions import TurboInteractionStartMixin, TurboSocialMixerInteraction, TurboInteractionCancelMixin, TurboInteractionInitMixin, TurboImmediateSuperInteraction
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.utils_interfaces import display_drama_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom turbolib.wrappers.interactions import TurboInteractionStartMixin, TurboSocialMixerInteraction, TurboInteractionCancelMixin, TurboInteractionInitMixin, TurboImmediateSuperInteractionfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.utils_interfaces import display_drama_dialog
+
 class AutonomyAskForSexSocialMixerInteraction(TurboSocialMixerInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'AutonomyAskForSexSocialMixerInteraction'
 
@@ -28,7 +31,8 @@ class AutonomyAskForSexSocialMixerInteraction(TurboSocialMixerInteraction, Turbo
                 while True:
                     for sim_info in pre_sex_handler.get_actors_sim_info_gen():
                         clear_sim_sex_extra_data(sim_info)
-
+
+
 class AutonomyAskForSexSocialOutcomeInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AutonomyAskForSexSocialOutcomeInteraction'
 
@@ -57,4 +61,4 @@ class AutonomyAskForSexSocialOutcomeInteraction(TurboImmediateSuperInteraction, 
 
         display_drama_dialog(target, sim, text=1638454846, text_tokens=(sim, target), ok_text=3398494028, cancel_text=3364226930, callback=_ask_for_sex_callback)
         return True
-
+

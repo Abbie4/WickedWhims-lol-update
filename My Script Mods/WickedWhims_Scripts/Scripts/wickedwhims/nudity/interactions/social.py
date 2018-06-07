@@ -1,10 +1,24 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.interactions_enum import SimInteraction
+from enums.traits_enum import SimTrait
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.interactions import TurboSocialMixerInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
+from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, apply_nudity_skill_influence, increase_sim_nudity_skill, get_nudity_skill_points_modifier, NuditySkillIncreaseReason, is_sim_exhibitionist
+from wickedwhims.relationships.desire_handler import change_sim_desire_level
+from wickedwhims.relationships.relationship_utils import get_sim_preferenced_genders
+from wickedwhims.sxex_bridge.body import BodyState, get_sim_body_state, is_sim_outfit_fullbody
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
+from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
+from wickedwhims.utils_traits import add_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.interactions_enum import SimInteractionfrom enums.traits_enum import SimTraitfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.interactions import TurboSocialMixerInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.permissions.test import has_sim_permission_for_nudityfrom wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, apply_nudity_skill_influence, increase_sim_nudity_skill, get_nudity_skill_points_modifier, NuditySkillIncreaseReason, is_sim_exhibitionistfrom wickedwhims.relationships.desire_handler import change_sim_desire_levelfrom wickedwhims.relationships.relationship_utils import get_sim_preferenced_gendersfrom wickedwhims.sxex_bridge.body import BodyState, get_sim_body_state, is_sim_outfit_fullbodyfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.sxex_bridge.statistics import increase_sim_ww_statisticfrom wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_statefrom wickedwhims.utils_traits import add_sim_trait
+
 class _NuditySocialComplimentSexyBodyInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialComplimentSexyBodyInteraction'
 
@@ -33,7 +47,8 @@ class _NuditySocialComplimentSexyBodyInteraction(TurboSocialMixerInteraction, Tu
             change_sim_desire_level(sim, 5)
         increase_sim_ww_statistic(sim, 'times_talked_exhibitionism')
         return True
-
+
+
 class NaturismSocialComplimentSexyBodyInteraction(_NuditySocialComplimentSexyBodyInteraction):
     __qualname__ = 'NaturismSocialComplimentSexyBodyInteraction'
 
@@ -43,7 +58,8 @@ class NaturismSocialComplimentSexyBodyInteraction(_NuditySocialComplimentSexyBod
         if is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismSocialComplimentSexyBodyInteraction(_NuditySocialComplimentSexyBodyInteraction):
     __qualname__ = 'ExhibitionismSocialComplimentSexyBodyInteraction'
 
@@ -53,7 +69,8 @@ class ExhibitionismSocialComplimentSexyBodyInteraction(_NuditySocialComplimentSe
         if not is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NuditySocialTalkAboutNudityInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialTalkAboutNudityInteraction'
 
@@ -89,7 +106,8 @@ class _NuditySocialTalkAboutNudityInteraction(TurboSocialMixerInteraction, Turbo
         increase_sim_ww_statistic(sim, 'times_talked_exhibitionism')
         increase_sim_ww_statistic(target, 'times_talked_exhibitionism')
         return True
-
+
+
 class NaturismSocialTalkAboutNudityInteraction(_NuditySocialTalkAboutNudityInteraction):
     __qualname__ = 'NaturismSocialTalkAboutNudityInteraction'
 
@@ -99,7 +117,8 @@ class NaturismSocialTalkAboutNudityInteraction(_NuditySocialTalkAboutNudityInter
         if is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismSocialTalkAboutNudityInteraction(_NuditySocialTalkAboutNudityInteraction):
     __qualname__ = 'ExhibitionismSocialTalkAboutNudityInteraction'
 
@@ -109,7 +128,8 @@ class ExhibitionismSocialTalkAboutNudityInteraction(_NuditySocialTalkAboutNudity
         if not is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NuditySocialConvinceToNudityInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialConvinceToNudityInteraction'
 
@@ -142,7 +162,8 @@ class _NuditySocialConvinceToNudityInteraction(TurboSocialMixerInteraction, Turb
         increase_sim_ww_statistic(sim, 'times_talked_exhibitionism')
         increase_sim_ww_statistic(target, 'times_talked_exhibitionism')
         return True
-
+
+
 class NaturismSocialConvinceToNudityInteraction(_NuditySocialConvinceToNudityInteraction):
     __qualname__ = 'NaturismSocialConvinceToNudityInteraction'
 
@@ -152,7 +173,8 @@ class NaturismSocialConvinceToNudityInteraction(_NuditySocialConvinceToNudityInt
         if is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismSocialConvinceToNudityInteraction(_NuditySocialConvinceToNudityInteraction):
     __qualname__ = 'ExhibitionismSocialConvinceToNudityInteraction'
 
@@ -162,7 +184,8 @@ class ExhibitionismSocialConvinceToNudityInteraction(_NuditySocialConvinceToNudi
         if not is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NuditySocialAskToGetNakedInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialAskToGetNakedInteraction'
 
@@ -208,7 +231,8 @@ class _NuditySocialAskToGetNakedInteraction(TurboSocialMixerInteraction, TurboIn
             TurboSimUtil.Interaction.push_affordance(target, SimInteraction.WW_EXHIBITIONISM_UNDRESS_OUTFIT_BOTTOM if is_sim_exhibitionist(target) else SimInteraction.WW_NATURISM_UNDRESS_OUTFIT_BOTTOM, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, must_run_next=True, priority=TurboInteractionUtil.Priority.High)
             return True
         return False
-
+
+
 class NaturismSocialAskToGetNakedInteraction(_NuditySocialAskToGetNakedInteraction):
     __qualname__ = 'NaturismSocialAskToGetNakedInteraction'
 
@@ -218,7 +242,8 @@ class NaturismSocialAskToGetNakedInteraction(_NuditySocialAskToGetNakedInteracti
         if is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismSocialAskToGetNakedInteraction(_NuditySocialAskToGetNakedInteraction):
     __qualname__ = 'ExhibitionismSocialAskToGetNakedInteraction'
 
@@ -228,7 +253,8 @@ class ExhibitionismSocialAskToGetNakedInteraction(_NuditySocialAskToGetNakedInte
         if not is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NuditySocialAskToDressUpInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialAskToDressUpInteraction'
 
@@ -252,7 +278,8 @@ class _NuditySocialAskToDressUpInteraction(TurboSocialMixerInteraction, TurboInt
         if result:
             sim_ev(target).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 360000
         return True
-
+
+
 class NaturismSocialAskToDressUpInteraction(_NuditySocialAskToDressUpInteraction):
     __qualname__ = 'NaturismSocialAskToDressUpInteraction'
 
@@ -262,7 +289,8 @@ class NaturismSocialAskToDressUpInteraction(_NuditySocialAskToDressUpInteraction
         if is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismSocialAskToDressUpInteraction(_NuditySocialAskToDressUpInteraction):
     __qualname__ = 'ExhibitionismSocialAskToDressUpInteraction'
 
@@ -272,4 +300,4 @@ class ExhibitionismSocialAskToDressUpInteraction(_NuditySocialAskToDressUpIntera
         if not is_sim_exhibitionist(sim):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+

@@ -1,17 +1,23 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from enums.tags_enum import GameTag
+from enums.whims_enum import WhimSet
+from turbolib.events.core import register_zone_load_event_method, has_game_loaded
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resources.affordances import AffordanceRegistration, register_affordance_class
+from turbolib.resources.whims import WhimRegistration, register_whim_class
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from turbolib.types_util import TurboTypesUtil
+from wickedwhims.utils_rewards import register_satisfaction_reward
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom enums.tags_enum import GameTagfrom enums.whims_enum import WhimSetfrom turbolib.events.core import register_zone_load_event_method, has_game_loadedfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resources.affordances import AffordanceRegistration, register_affordance_classfrom turbolib.resources.whims import WhimRegistration, register_whim_classfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom turbolib.types_util import TurboTypesUtilfrom wickedwhims.utils_rewards import register_satisfaction_reward
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_add_nudity_satisfaction_rewards():
     if has_game_loaded():
         return
     register_satisfaction_reward(15267048880004589952, 250, TurboTunableUtil.Whims.WhimAwardTypes.TRAIT)
     register_satisfaction_reward(12422920560197330477, 500, TurboTunableUtil.Whims.WhimAwardTypes.TRAIT)
-
+
+
 @register_affordance_class()
 class NuditySimsAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'NuditySimsAffordanceRegistration'
@@ -24,7 +30,8 @@ class NuditySimsAffordanceRegistration(AffordanceRegistration):
 
     def is_relationship_panel(self):
         return False
-
+
+
 @register_affordance_class()
 class NuditySimsSocialMixerAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'NuditySimsSocialMixerAffordanceRegistration'
@@ -34,7 +41,8 @@ class NuditySimsSocialMixerAffordanceRegistration(AffordanceRegistration):
 
     def is_social_mixer(self):
         return True
-
+
+
 @register_affordance_class()
 class NuditySteamRoomObjectAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'NuditySteamRoomObjectAffordanceRegistration'
@@ -50,7 +58,8 @@ class NuditySteamRoomObjectAffordanceRegistration(AffordanceRegistration):
             while object_tag == GameTag.FUNC_STEAMROOM:
                 return True
         return False
-
+
+
 @register_affordance_class()
 class NudityMirrorObjectAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'NudityMirrorObjectAffordanceRegistration'
@@ -66,7 +75,8 @@ class NudityMirrorObjectAffordanceRegistration(AffordanceRegistration):
             while object_tag == GameTag.BUYCATLD_MIRROR:
                 return True
         return False
-
+
+
 @register_affordance_class()
 class NudityDresserObjectAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'NudityDresserObjectAffordanceRegistration'
@@ -85,7 +95,8 @@ class NudityDresserObjectAffordanceRegistration(AffordanceRegistration):
             while object_tag == GameTag.BUYCATSS_DRESSER:
                 return True
         return False
-
+
+
 @register_whim_class()
 class NudityWhimsRegistration(WhimRegistration):
     __qualname__ = 'NudityWhimsRegistration'
@@ -95,7 +106,8 @@ class NudityWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.EMOTIONFLIRTY, WhimSet.EMOTIONCONFIDENT, WhimSet.EMOTIONPLAYFUL)
-
+
+
 @register_whim_class()
 class NudityBasementalWhimsRegistration(WhimRegistration):
     __qualname__ = 'NudityBasementalWhimsRegistration'
@@ -105,4 +117,4 @@ class NudityBasementalWhimsRegistration(WhimRegistration):
 
     def get_whim_set_references(self):
         return (WhimSet.BASEMENTAL_MDMA,)
-
+

@@ -1,10 +1,31 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.buffs_enum import SimBuff
+from enums.moods_enum import SimMood
+from enums.relationship_enum import RelationshipTrackType, SimRelationshipBit
+from enums.skills_enum import SimSkill
+from enums.traits_enum import SimTrait
+from enums.vanues_enum import VenueType
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.native.enum import TurboEnum
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.commands import register_game_command, TurboCommandType
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex._ts4_sex_buffs import set_buff_timeout
+from wickedwhims.sex.reactions.sex_reaction import SexReactionType, get_reaction_type
+from wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshot
+from wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff
+from wickedwhims.utils_relations import get_relationship_with_sim, has_relationship_bit_with_sim
+from wickedwhims.utils_skills import get_sim_skill_level
+from wickedwhims.utils_traits import has_sim_trait
+POSITIVE_MOODS = (SimMood.CONFIDENT, SimMood.FLIRTY, SimMood.ENERGIZED, SimMood.FOCUSED, SimMood.HAPPY, SimMood.PLAYFUL, SimMood.INSPIRED)
+NEGATIVE_MOODS = (SimMood.STRESSED, SimMood.EMBARRASSED, SimMood.ANGRY, SimMood.UNCOMFORTABLE, SimMood.SAD)
+POSITIVE_REACTIONS = (SexReactionType.FRIENDLY, SexReactionType.EXCITED, SexReactionType.FLIRTY)
+NEGATIVE_REACTIONS = (SexReactionType.SAD, SexReactionType.ANGRY, SexReactionType.HORRIFIED, SexReactionType.JEALOUS)
+AGE_INDEX = (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.buffs_enum import SimBufffrom enums.moods_enum import SimMoodfrom enums.relationship_enum import RelationshipTrackType, SimRelationshipBitfrom enums.skills_enum import SimSkillfrom enums.traits_enum import SimTraitfrom enums.vanues_enum import VenueTypefrom turbolib.manager_util import TurboManagerUtilfrom turbolib.native.enum import TurboEnumfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.commands import register_game_command, TurboCommandTypefrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex._ts4_sex_buffs import set_buff_timeoutfrom wickedwhims.sex.reactions.sex_reaction import SexReactionType, get_reaction_typefrom wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshotfrom wickedwhims.utils_buffs import add_sim_buff, remove_sim_bufffrom wickedwhims.utils_relations import get_relationship_with_sim, has_relationship_bit_with_simfrom wickedwhims.utils_skills import get_sim_skill_levelfrom wickedwhims.utils_traits import has_sim_traitPOSITIVE_MOODS = (SimMood.CONFIDENT, SimMood.FLIRTY, SimMood.ENERGIZED, SimMood.FOCUSED, SimMood.HAPPY, SimMood.PLAYFUL, SimMood.INSPIRED)NEGATIVE_MOODS = (SimMood.STRESSED, SimMood.EMBARRASSED, SimMood.ANGRY, SimMood.UNCOMFORTABLE, SimMood.SAD)POSITIVE_REACTIONS = (SexReactionType.FRIENDLY, SexReactionType.EXCITED, SexReactionType.FLIRTY)NEGATIVE_REACTIONS = (SexReactionType.SAD, SexReactionType.ANGRY, SexReactionType.HORRIFIED, SexReactionType.JEALOUS)AGE_INDEX = (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
+
 class SexSatisfactionType(TurboEnum):
     __qualname__ = 'SexSatisfactionType'
     STRANGER_SEX = 1
@@ -15,13 +36,18 @@ class SexSatisfactionType(TurboEnum):
     GHOST_SEX = 11
     GROUP_SEX = 98
     GENERIC = 99
-SEX_SATISFACTION_BUFFS = {SexSatisfactionType.STRANGER_SEX: SimBuff.WW_SEX_SATISFACTION_STRANGER_SEX, SexSatisfactionType.YOUNG_SEX: SimBuff.WW_SEX_SATISFACTION_YOUNG_SEX, SexSatisfactionType.PUBLIC_SEX: SimBuff.WW_SEX_SATISFACTION_PUBLIC_SEX, SexSatisfactionType.AUDIENCE: SimBuff.WW_SEX_SATISFACTION_AUDIENCE, SexSatisfactionType.FAMILY_SEX: SimBuff.WW_SEX_SATISFACTION_FAMILY_SEX, SexSatisfactionType.GHOST_SEX: SimBuff.WW_SEX_SATISFACTION_GHOST_SEX, SexSatisfactionType.GROUP_SEX: SimBuff.WW_SEX_SATISFACTION_GROUP_SEX, SexSatisfactionType.GENERIC: SimBuff.WW_SEX_SATISFACTION_GENERIC}
+
+SEX_SATISFACTION_BUFFS = {SexSatisfactionType.STRANGER_SEX: SimBuff.WW_SEX_SATISFACTION_STRANGER_SEX, SexSatisfactionType.YOUNG_SEX: SimBuff.WW_SEX_SATISFACTION_YOUNG_SEX, SexSatisfactionType.PUBLIC_SEX: SimBuff.WW_SEX_SATISFACTION_PUBLIC_SEX, SexSatisfactionType.AUDIENCE: SimBuff.WW_SEX_SATISFACTION_AUDIENCE, SexSatisfactionType.FAMILY_SEX: SimBuff.WW_SEX_SATISFACTION_FAMILY_SEX, SexSatisfactionType.GHOST_SEX: SimBuff.WW_SEX_SATISFACTION_GHOST_SEX, SexSatisfactionType.GROUP_SEX: SimBuff.WW_SEX_SATISFACTION_GROUP_SEX, SexSatisfactionType.GENERIC: SimBuff.WW_SEX_SATISFACTION_GENERIC}
+
+
 class SexUnsatisfactionType(TurboEnum):
     __qualname__ = 'SexUnsatisfactionType'
     BAD_EXPERIENICE = 1
     BAD_PERFORMANCE = 2
     GENERIC = 99
-SEX_UNSATISFACTION_BUFFS = {SexUnsatisfactionType.BAD_EXPERIENICE: SimBuff.WW_SEX_UNSATISFACTION_BAD_EXPERIENCE, SexUnsatisfactionType.BAD_PERFORMANCE: SimBuff.WW_SEX_UNSATISFACTION_BAD_PERFORMANCE, SexUnsatisfactionType.GENERIC: SimBuff.WW_SEX_UNSATISFACTION_GENERIC}
+
+SEX_UNSATISFACTION_BUFFS = {SexUnsatisfactionType.BAD_EXPERIENICE: SimBuff.WW_SEX_UNSATISFACTION_BAD_EXPERIENCE, SexUnsatisfactionType.BAD_PERFORMANCE: SimBuff.WW_SEX_UNSATISFACTION_BAD_PERFORMANCE, SexUnsatisfactionType.GENERIC: SimBuff.WW_SEX_UNSATISFACTION_GENERIC}
+
 def apply_after_sex_satisfaction(sims_list, sex_handler):
     if len(sims_list) == 1:
         return
@@ -29,7 +55,8 @@ def apply_after_sex_satisfaction(sims_list, sex_handler):
         satisfaction_level = _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=sex_handler)
         satisfaction_type = _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_handler=sex_handler)
         _apply_sim_sex_satisfaction_moodlet(sim_info, satisfaction_type, satisfaction_level)
-
+
+
 def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
     sim_state_snapshot = sim_ev(sim_info).sim_immutable_sex_state_snapshot
     satisfaction_threshold = 0.0
@@ -181,7 +208,8 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
             return 1.0
         return 0.0
     return round(satisfaction_level_value)
-
+
+
 def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_handler=None):
     sim_state_snapshot = sim_ev(sim_info).sim_immutable_sex_state_snapshot
     if satisfaction_level <= 0:
@@ -260,7 +288,8 @@ def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_hand
         if SexSatisfactionType.GROUP_SEX < satisfaction_type and len(sims_list) > 2:
             satisfaction_type = SexSatisfactionType.GROUP_SEX
     return satisfaction_type
-
+
+
 def _apply_sim_sex_satisfaction_moodlet(sim_info, satisfaction_type, satisfaction_level):
     satisfaction_moodlet_timeout = 60*max(1, satisfaction_level)
     satisfaction_moodlet = None
@@ -275,14 +304,16 @@ def _apply_sim_sex_satisfaction_moodlet(sim_info, satisfaction_type, satisfactio
     if set_buff_timeout(satisfaction_moodlet, satisfaction_moodlet_timeout):
         add_sim_buff(sim_info, satisfaction_moodlet, reason=4052013031)
     set_buff_timeout(satisfaction_moodlet, 600)
-
+
+
 def clear_all_satifaction_data(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     for buff_id in SEX_SATISFACTION_BUFFS.values():
         remove_sim_buff(sim_info, buff_id)
     for buff_id in SEX_UNSATISFACTION_BUFFS.values():
         remove_sim_buff(sim_info, buff_id)
-
+
+
 @register_game_command('ww.test_sex_satisfaction', command_type=TurboCommandType.LIVE)
 def test_sex_satifaction_outcome(output=None):
     sims_count = 0
@@ -334,7 +365,8 @@ def test_sex_satifaction_outcome(output=None):
     output('Negative Satisfaction Types:')
     for (satisfaction_type, count) in satisfaction_negative_types.items():
         output('Type {}: {} times'.format(str(satisfaction_type.name), str(count)))
-
+
+
 @register_game_command('ww.test_sex_satisfaction_moodlets', command_type=TurboCommandType.LIVE)
 def test_sex_satifaction_moodlets(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
@@ -347,4 +379,4 @@ def test_sex_satifaction_moodlets(output=None):
             add_sim_buff(sim, buff_id, reason=4052013031)
             set_buff_timeout(buff_id, 600)
     output('Sex Satisfaction moodlets applied.')
-
+

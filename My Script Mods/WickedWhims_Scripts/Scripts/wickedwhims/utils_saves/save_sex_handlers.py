@@ -1,13 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_file
+SEX_HANDLERS_SAVE_DATA = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_fileSEX_HANDLERS_SAVE_DATA = dict()
 def get_sex_handlers_save_data():
     return SEX_HANDLERS_SAVE_DATA
-
+
+
 def load_sex_handlers_save_data(slot_id=-1):
     global SEX_HANDLERS_SAVE_DATA
     save_id = get_save_id('sex_handlers', slot_id=slot_id)
@@ -17,13 +14,15 @@ def load_sex_handlers_save_data(slot_id=-1):
     except:
         set_has_save_loading_error()
         SEX_HANDLERS_SAVE_DATA = dict()
-
+
+
 def save_sex_handlers_save_data():
     save_id = get_save_id('sex_handlers')
     save_file_path = get_save_dir() + save_id + '.json'
     save_json_file(save_file_path, SEX_HANDLERS_SAVE_DATA)
-
+
+
 def update_sex_handlers_save_data(sex_handlers_data):
     global SEX_HANDLERS_SAVE_DATA
     SEX_HANDLERS_SAVE_DATA = sex_handlers_data.copy()
-
+

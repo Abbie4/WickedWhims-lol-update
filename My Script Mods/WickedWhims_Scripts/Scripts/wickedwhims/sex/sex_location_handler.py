@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from collections import OrderedDict
+from enums.tags_enum import GameTag
+from turbolib.object_util import TurboObjectUtil
+from turbolib.types_util import TurboTypesUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from collections import OrderedDictfrom enums.tags_enum import GameTagfrom turbolib.object_util import TurboObjectUtilfrom turbolib.types_util import TurboTypesUtil
+
 class SexLocationType:
     __qualname__ = 'SexLocationType'
     FLOOR = 'FLOOR'
@@ -115,7 +114,8 @@ class SexLocationType:
         if sex_location_type == SexLocationType.MIRROR:
             return 'Mirror'
         return str(sex_location_type)
-
+
+
 class SexInteractionLocationType:
     __qualname__ = 'SexInteractionLocationType'
     LOCATION_TYPES = OrderedDict()
@@ -181,4 +181,4 @@ class SexInteractionLocationType:
                 while tags_count == len(location_tags):
                     return (location_type, object_wwid)
         return (None, object_wwid)
-
+

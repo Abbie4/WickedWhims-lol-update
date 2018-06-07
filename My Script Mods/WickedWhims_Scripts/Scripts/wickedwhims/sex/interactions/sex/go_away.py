@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex._ts4_sex_utils import route_sim_away_from_interaction
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex._ts4_sex_utils import route_sim_away_from_interaction
+
 class GoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'GoAwayInteraction'
 
@@ -15,7 +19,8 @@ class GoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMix
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return route_sim_away_from_interaction(interaction_instance, cls.get_interaction_sim(interaction_instance))
-
+
+
 class AskToGoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'AskToGoAwayInteraction'
 
@@ -40,4 +45,4 @@ class AskToGoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionSta
         sim_ev(cls.get_interaction_sim(interaction_instance)).active_sex_handler.go_away_sims_list.add(TurboManagerUtil.Sim.get_sim_id(cls.get_interaction_target(interaction_instance)))
         result = TurboSimUtil.Interaction.push_affordance(cls.get_interaction_target(interaction_instance), SimInteraction.WW_GO_AWAY_FROM_SEX, target=cls.get_interaction_sim(interaction_instance), interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, must_run_next=True, priority=TurboInteractionUtil.Priority.High, run_priority=TurboInteractionUtil.Priority.High)
         return bool(result)
-
+

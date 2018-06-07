@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from sims.household import Household
+from sims.outfits.outfit_enums import BodyType
+from sims.sim_spawner import SimCreator, SimSpawner
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.tick_handler import register_on_game_update_method
+MENU_SIM_ID = None
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from sims.household import Householdfrom sims.outfits.outfit_enums import BodyTypefrom sims.sim_spawner import SimCreator, SimSpawnerfrom turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.tick_handler import register_on_game_update_methodMENU_SIM_ID = None
 def get_menu_sim():
     global MENU_SIM_ID
     if MENU_SIM_ID is None:
@@ -17,7 +19,8 @@ def get_menu_sim():
             _prepare_sim_outfit(sim_info)
     if MENU_SIM_ID is not None:
         return TurboManagerUtil.Sim.get_sim_info(MENU_SIM_ID)
-
+
+
 def _prepare_sim_outfit(sim_info):
     TurboSimUtil.CAS.set_current_outfit(sim_info, (TurboCASUtil.OutfitCategory.EVERYDAY, 0))
     try:
@@ -29,7 +32,8 @@ def _prepare_sim_outfit(sim_info):
     outfit_editor.add_cas_part(BodyType.HAT, 11863322015736229112)
     outfit_editor.apply()
     TurboSimUtil.CAS.set_current_outfit(sim_info, (TurboCASUtil.OutfitCategory.EVERYDAY, 0))
-
+
+
 def clear_menu_sim():
     global MENU_SIM_ID
     if MENU_SIM_ID is not None:
@@ -37,8 +41,9 @@ def clear_menu_sim():
         if sim_info is not None:
             TurboManagerUtil.Sim.remove_sim_info(sim_info)
         MENU_SIM_ID = None
-
+
+
 @register_on_game_update_method(interval=12000)
 def _clear_stuck_menu_sim_on_game_update():
     clear_menu_sim()
-
+

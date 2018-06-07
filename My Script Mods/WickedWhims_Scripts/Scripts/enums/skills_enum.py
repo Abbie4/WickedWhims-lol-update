@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimSkill(TurboEnum):
     __qualname__ = 'SimSkill'
     ADULTMAJOR_BAKING = 104198
@@ -55,4 +51,4 @@ class SimSkill(TurboEnum):
     TODDLER_THINKING = 140504
     WW_NATURISM = 13681797894157322134
     WW_EXHIBITIONISM = 15755652231701198849
-
+

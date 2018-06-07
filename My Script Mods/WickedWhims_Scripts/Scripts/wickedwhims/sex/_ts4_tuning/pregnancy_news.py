@@ -1,10 +1,12 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.tests import TestList
+from interactions.utils.outcome import InteractionOutcomeNone
+from turbolib.events.core import has_game_loaded, register_zone_load_event_method
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from wickedwhims.utils_tunings import modify_sim_info_test_ages
+SHARE_PREGNANCY_NEWS_INTERACTION = 28831
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.tests import TestListfrom interactions.utils.outcome import InteractionOutcomeNonefrom turbolib.events.core import has_game_loaded, register_zone_load_event_methodfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom wickedwhims.utils_tunings import modify_sim_info_test_agesSHARE_PREGNANCY_NEWS_INTERACTION = 28831
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_disable_share_pregnancy_news_interaction_for_teens():
     if has_game_loaded():
@@ -19,7 +21,9 @@ def _wickedwhims_disable_share_pregnancy_news_interaction_for_teens():
                 test = modify_sim_info_test_ages(test, remove_ages=(TurboSimUtil.Age.TEEN,))
             tests_list.append(test)
         affordance_instance.test_globals = TestList(tests_list)
-PREGNANCY_START_SHOWING_INTERACTION = 13831
+
+PREGNANCY_START_SHOWING_INTERACTION = 13831
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_disable_pregnancy_start_interaction_outcome():
     if has_game_loaded():
@@ -29,7 +33,9 @@ def _wickedwhims_disable_pregnancy_start_interaction_outcome():
         return
     if hasattr(affordance_instance, 'outcome'):
         affordance_instance.outcome = InteractionOutcomeNone()
-PREGNANCY_FAMILY_LEAVE_NOTIFICATION_LOOT = 110613
+
+PREGNANCY_FAMILY_LEAVE_NOTIFICATION_LOOT = 110613
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_disable_pregnancy_family_leave_notification_loot():
     if has_game_loaded():
@@ -39,4 +45,4 @@ def _wickedwhims_disable_pregnancy_family_leave_notification_loot():
         return
     if hasattr(action_instance, 'loot_actions'):
         action_instance.loot_actions = ()
-
+

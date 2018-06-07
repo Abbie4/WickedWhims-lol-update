@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.tests import TestList
+from relationships.relationship_tests import RelationshipTest
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.tunable_util import TurboTunableUtil
+POLYGAMY_AFFORDANCE_LIST = ((25913, (15825, 15816, 15818, 15822)), (25914, (15825, 15816, 15818, 15822)), (25915, (15825, 15816, 15818, 15822)), (26165, (15825, 15816, 15818, 15822)), (25871, (15825, 15816, 15818, 15822)), (26164, (15825, 15816, 15818, 15822)), (130878, (15822, 15818, 15816, 15825)), (26130, (99429, 15825, 15818, 15816, 15822)), (26129, (99429, 15825, 15818, 15816, 15822)), (26159, (15825, 15816, 15818, 15822)), (26139, (15822,)), (145628, (15822,)), (99655, (15816, 15822, 99429)), (14091, (15822,)), (14092, (15822,)), (14093, (15822,)), (14094, (15822,)), (14552, (15822,)), (14554, (15822,)), (14553, (15822,)), (14555, (15822,)))
+HAS_DISABLED_INTERACTIONS_POLYGAMY_TESTS = False
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.tests import TestListfrom relationships.relationship_tests import RelationshipTestfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.tunable_util import TurboTunableUtilPOLYGAMY_AFFORDANCE_LIST = ((25913, (15825, 15816, 15818, 15822)), (25914, (15825, 15816, 15818, 15822)), (25915, (15825, 15816, 15818, 15822)), (26165, (15825, 15816, 15818, 15822)), (25871, (15825, 15816, 15818, 15822)), (26164, (15825, 15816, 15818, 15822)), (130878, (15822, 15818, 15816, 15825)), (26130, (99429, 15825, 15818, 15816, 15822)), (26129, (99429, 15825, 15818, 15816, 15822)), (26159, (15825, 15816, 15818, 15822)), (26139, (15822,)), (145628, (15822,)), (99655, (15816, 15822, 99429)), (14091, (15822,)), (14092, (15822,)), (14093, (15822,)), (14094, (15822,)), (14552, (15822,)), (14554, (15822,)), (14553, (15822,)), (14555, (15822,)))HAS_DISABLED_INTERACTIONS_POLYGAMY_TESTS = False
 def unlock_polygamy_for_interactions(value):
     global HAS_DISABLED_INTERACTIONS_POLYGAMY_TESTS
     if value is False or HAS_DISABLED_INTERACTIONS_POLYGAMY_TESTS is True:
@@ -41,4 +41,4 @@ def unlock_polygamy_for_interactions(value):
             tests_list.append(TurboTunableUtil.Tests.Relationship.get_relationship_test(prohibited_relationship_bits=dict(match_all=frozenset(), match_any=frozenset(prohibited_match_any))))
         affordance_instance.test_globals = TestList(tests_list)
     HAS_DISABLED_INTERACTIONS_POLYGAMY_TESTS = True
-
+

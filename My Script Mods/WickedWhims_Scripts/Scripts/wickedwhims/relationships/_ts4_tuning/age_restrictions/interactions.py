@@ -1,10 +1,16 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.tests import TestList, CompoundTestList
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from wickedwhims.relationships._ts4_tuning.age_restrictions.buffs import unlock_buffs_for_teens
+from wickedwhims.relationships._ts4_tuning.age_restrictions.disable_interactions import disable_duplicate_interactions
+from wickedwhims.relationships._ts4_tuning.age_restrictions.sims_filters import unlock_sims_filters_for_teens
+from wickedwhims.relationships._ts4_tuning.age_restrictions.situations import unlock_situations_for_teens
+from wickedwhims.relationships._ts4_tuning.age_restrictions.test_sets import unlock_testsets_for_teens
+from wickedwhims.relationships._ts4_tuning.romance_affordances import get_romance_affordances
+from wickedwhims.utils_tunings import modify_sim_info_test_ages
+HAS_DISABLED_ROMANCE_AGE_RESTRICTION_TESTS = False
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.tests import TestList, CompoundTestListfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom wickedwhims.relationships._ts4_tuning.age_restrictions.buffs import unlock_buffs_for_teensfrom wickedwhims.relationships._ts4_tuning.age_restrictions.disable_interactions import disable_duplicate_interactionsfrom wickedwhims.relationships._ts4_tuning.age_restrictions.sims_filters import unlock_sims_filters_for_teensfrom wickedwhims.relationships._ts4_tuning.age_restrictions.situations import unlock_situations_for_teensfrom wickedwhims.relationships._ts4_tuning.age_restrictions.test_sets import unlock_testsets_for_teensfrom wickedwhims.relationships._ts4_tuning.romance_affordances import get_romance_affordancesfrom wickedwhims.utils_tunings import modify_sim_info_test_agesHAS_DISABLED_ROMANCE_AGE_RESTRICTION_TESTS = False
 def remove_romance_age_restrictions(value):
     global HAS_DISABLED_ROMANCE_AGE_RESTRICTION_TESTS
     if value is False or HAS_DISABLED_ROMANCE_AGE_RESTRICTION_TESTS is True:
@@ -49,4 +55,4 @@ def remove_romance_age_restrictions(value):
     unlock_situations_for_teens()
     disable_duplicate_interactions()
     HAS_DISABLED_ROMANCE_AGE_RESTRICTION_TESTS = True
-
+

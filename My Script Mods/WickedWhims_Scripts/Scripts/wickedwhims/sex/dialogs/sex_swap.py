@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.sex.utils.sex_swap import is_compatible_actor
+from wickedwhims.utils_interfaces import display_sim_picker_dialog, display_ok_dialog
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.sex.utils.sex_swap import is_compatible_actorfrom wickedwhims.utils_interfaces import display_sim_picker_dialog, display_ok_dialog
 def open_swap_sex_sims_picker_dialog(active_sex_handler, swap_sim):
 
     @exception_watch()
@@ -46,4 +45,4 @@ def open_swap_sex_sims_picker_dialog(active_sex_handler, swap_sim):
         display_ok_dialog(text=4051936639, title=465151699, title_tokens=(swap_sim,))
         return
     display_sim_picker_dialog(text=4149247255, text_tokens=(swap_sim,), title=465151699, title_tokens=(swap_sim,), sims_id_list=sims_list, sim=swap_sim, callback=swap_sim_picker_callback)
-
+

@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.settings._ts4_menu_utils import get_menu_sim
+from wickedwhims.utils_interfaces import get_arrow_icon, display_picker_list_dialog, get_selected_icon, get_unselected_icon, display_text_input_dialog, get_action_icon
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.settings._ts4_menu_utils import get_menu_simfrom wickedwhims.utils_interfaces import get_arrow_icon, display_picker_list_dialog, get_selected_icon, get_unselected_icon, display_text_input_dialog, get_action_icon
+
 class SettingsWindow:
     __qualname__ = 'SettingsWindow'
 
@@ -42,7 +41,8 @@ class SettingsWindow:
     def add_settings_option(self, settings_option):
         self.window_picker_rows.append(settings_option.select_picker_row(len(self.window_options)))
         self.window_options.append(settings_option)
-
+
+
 class _SettingsOption:
     __qualname__ = '_SettingsOption'
 
@@ -55,7 +55,8 @@ class _SettingsOption:
 
     def select_callback(self):
         raise NotImplementedError
-
+
+
 class SettingsBranchOption(_SettingsOption):
     __qualname__ = 'SettingsBranchOption'
 
@@ -71,7 +72,8 @@ class SettingsBranchOption(_SettingsOption):
     def select_callback(self):
         branch_settings_window = self.branch_settings_window_function()
         branch_settings_window.open_window(allow_open_callback=self.allow_open_callback)
-
+
+
 class SettingsCallbackOption(_SettingsOption):
     __qualname__ = 'SettingsCallbackOption'
 
@@ -84,7 +86,8 @@ class SettingsCallbackOption(_SettingsOption):
 
     def select_callback(self):
         self.callback_function()
-
+
+
 class SettingsSelectorOption(_SettingsOption):
     __qualname__ = 'SettingsSelectorOption'
 
@@ -104,7 +107,8 @@ class SettingsSelectorOption(_SettingsOption):
         self.settings_dict[self.settings_dict_id] = int(self.target_state)
         return_settings_window = self.return_settings_window_function()
         return_settings_window.open_window(allow_open_callback=self.allow_open_callback, allow_change_callback=self.allow_change_callback)
-
+
+
 class SettingsSwitchOption(_SettingsOption):
     __qualname__ = 'SettingsSwitchOption'
 
@@ -124,7 +128,8 @@ class SettingsSwitchOption(_SettingsOption):
         self.settings_dict[self.settings_dict_id] = int(not current_state)
         return_settings_window = self.return_settings_window_function()
         return_settings_window.open_window(allow_open_callback=self.allow_open_callback, allow_change_callback=self.allow_change_callback)
-
+
+
 class SettingsInputOption(_SettingsOption):
     __qualname__ = 'SettingsInputOption'
 
@@ -157,4 +162,4 @@ class SettingsInputOption(_SettingsOption):
             return True
 
         display_text_input_dialog(text=self.option_description, title=self.option_name, initial_text=str(self.initial_value), callback=_input_callback)
-
+

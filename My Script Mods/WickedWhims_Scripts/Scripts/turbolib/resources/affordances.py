@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import services
+from objects.script_object import ScriptObject
+from services.terrain_service import TerrainService
+from sims4.tuning.instance_manager import InstanceManager
+from turbolib.events.core import has_game_loaded, register_zone_load_event_method
+from turbolib.injector_util import inject
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.special.custom_exception_watcher import log_custom_exception
+AFFORDANCE_REGISTRATION_CLASSES = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import servicesfrom objects.script_object import ScriptObjectfrom services.terrain_service import TerrainServicefrom sims4.tuning.instance_manager import InstanceManagerfrom turbolib.events.core import has_game_loaded, register_zone_load_event_methodfrom turbolib.injector_util import injectfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.special.custom_exception_watcher import log_custom_exceptionAFFORDANCE_REGISTRATION_CLASSES = list()
+
 def register_affordance_class():
     '''
     Use as a decorator on every AffordanceRegistration class to register it.
@@ -15,7 +19,8 @@ def register_affordance_class():
         return affordance_class
 
     return _wrapper
-
+
+
 class AffordanceRegistration:
     __qualname__ = 'AffordanceRegistration'
 
@@ -94,7 +99,8 @@ class AffordanceRegistration:
         :return: bool -> if affordences should be injected into sim relationship panel
         '''
         return False
-
+
+
 @register_zone_load_event_method(unique_id='WickedWhims', priority=-1, late=True)
 def _turbolib_add_affordances_to_terrain():
     if has_game_loaded():
@@ -120,7 +126,8 @@ def _turbolib_add_affordances_to_terrain():
         services.terrain_service.create_terrain_object()
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run 'AffordanceRegistration' class at affordances injection to the Terrain object.", ex)
-
+
+
 @inject(ScriptObject, 'on_add')
 def _turbolib_add_affordances_to_script_objects(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
@@ -166,7 +173,8 @@ def _turbolib_add_affordances_to_script_objects(original, self, *args, **kwargs)
         except Exception as ex:
             log_custom_exception("[TurboLib] Failed to run 'AffordanceRegistration' class at 'ScriptObject.on_add'.", ex)
     return result
-
+
+
 @inject(InstanceManager, 'load_data_into_class_instances')
 def _turbolib_add_affordances_to_social_mixer_affordance_list_snippets(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
@@ -192,4 +200,4 @@ def _turbolib_add_affordances_to_social_mixer_affordance_list_snippets(original,
         except Exception as ex:
             log_custom_exception("[TurboLib] Failed to run 'AffordanceRegistration' class at 'InstanceManager.load_data_into_class_instances'.", ex)
     return result
-
+

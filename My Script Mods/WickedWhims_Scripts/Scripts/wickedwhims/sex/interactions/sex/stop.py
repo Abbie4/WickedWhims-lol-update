@@ -1,10 +1,8 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboSuperInteraction
+from wickedwhims.main.sim_ev_handler import sim_ev
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboSuperInteractionfrom wickedwhims.main.sim_ev_handler import sim_ev
+
 class StopSexInteraction(TurboSuperInteraction):
     __qualname__ = 'StopSexInteraction'
 
@@ -24,4 +22,4 @@ class StopSexInteraction(TurboSuperInteraction):
         sim_ev(target_sim).active_sex_handler.is_canceled = True
         sim_ev(target_sim).active_sex_handler.stop(is_end=True, stop_reason='On Normal Sex Stop Interaction.')
         return True
-
+

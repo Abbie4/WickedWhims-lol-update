@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevel
+from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
+from wickedwhims.nudity.skill.skills_utils import is_sim_exhibitionist
+from wickedwhims.utils_cas import is_sim_in_special_outfit
+from wickedwhims.utils_sims import is_sim_available
+NUDITY_EXCEPTION_INTERACTIONS = (SimInteraction.WW_EXHIBITIONISM_DRESS_UP, SimInteraction.WW_EXHIBITIONISM_FORCE_DRESS_UP, SimInteraction.WW_NATURISM_DRESS_UP, SimInteraction.WW_NATURISM_FORCE_DRESS_UP, SimInteraction.WW_SEX_ANIMATION_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_AUTONOMY_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_ROUTE_TO_SEX_LOCATION, 13825701230762267064)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevelfrom wickedwhims.nudity.permissions.test import has_sim_permission_for_nudityfrom wickedwhims.nudity.skill.skills_utils import is_sim_exhibitionistfrom wickedwhims.utils_cas import is_sim_in_special_outfitfrom wickedwhims.utils_sims import is_sim_availableNUDITY_EXCEPTION_INTERACTIONS = (SimInteraction.WW_EXHIBITIONISM_DRESS_UP, SimInteraction.WW_EXHIBITIONISM_FORCE_DRESS_UP, SimInteraction.WW_NATURISM_DRESS_UP, SimInteraction.WW_NATURISM_FORCE_DRESS_UP, SimInteraction.WW_SEX_ANIMATION_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_SOCIAL_MIXER_AUTONOMY_ASK_FOR_SEX_DEFAULT, SimInteraction.WW_ROUTE_TO_SEX_LOCATION, 13825701230762267064)
 def test_sim_nudity_permission(sim):
     if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
         return False
@@ -35,4 +40,4 @@ def test_sim_nudity_permission(sim):
         dress_up_interaction = SimInteraction.WW_NATURISM_FORCE_DRESS_UP
     TurboSimUtil.Interaction.push_affordance(sim, dress_up_interaction, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_AUTONOMY, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, must_run_next=True, run_priority=TurboInteractionUtil.Priority.High, priority=TurboInteractionUtil.Priority.High, skip_if_running=True)
     return True
-
+

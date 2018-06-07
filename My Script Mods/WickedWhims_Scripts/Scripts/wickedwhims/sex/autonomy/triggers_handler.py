@@ -1,10 +1,27 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animations
+from wickedwhims.sex.animations.animations_operator import get_random_animation_of_type
+from wickedwhims.sex.autonomy.location import LocationStyleType, get_sex_locations
+from wickedwhims.sex.autonomy.sims import get_available_for_sex_sims, sort_sex_pairs_for_lowest_distance, get_list_of_possible_sex_pairs, is_sims_list_at_hypersexual_lot
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.settings.sex_settings import SexAutonomyLevelSetting, SexSetting, get_sex_setting
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_operators.sex_init_operator import start_new_direct_sex_interaction
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_saves.save_game_events import get_game_events_save_data, update_game_events_save_data
+from wickedwhims.utils_traits import has_sim_trait
+SEX_AUTONOMY_HIGH_LEVEL_BASE_CHANCE = 0.056
+SEX_AUTONOMY_NORMAL_LEVEL_BASE_CHANCE = 0.035
+SEX_AUTONOMY_LOW_LEVEL_BASE_CHANCE = 0.03
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.sex.animations.animations_disabler_handler import get_autonomy_disabled_sex_animationsfrom wickedwhims.sex.animations.animations_operator import get_random_animation_of_typefrom wickedwhims.sex.autonomy.location import LocationStyleType, get_sex_locationsfrom wickedwhims.sex.autonomy.sims import get_available_for_sex_sims, sort_sex_pairs_for_lowest_distance, get_list_of_possible_sex_pairs, is_sims_list_at_hypersexual_lotfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import SexAutonomyLevelSetting, SexSetting, get_sex_settingfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.sex_init_operator import start_new_direct_sex_interactionfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animationfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_saves.save_game_events import get_game_events_save_data, update_game_events_save_datafrom wickedwhims.utils_traits import has_sim_traitSEX_AUTONOMY_HIGH_LEVEL_BASE_CHANCE = 0.056SEX_AUTONOMY_NORMAL_LEVEL_BASE_CHANCE = 0.035SEX_AUTONOMY_LOW_LEVEL_BASE_CHANCE = 0.03
 def trigger_sex_autonomy_interaction(sims_pair, sex_location, sex_category_types=(SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.TEASING)):
     object_identifier = SexInteractionLocationType.get_location_identifier(sex_location)
     genders = list()
@@ -27,11 +44,13 @@ def trigger_sex_autonomy_interaction(sims_pair, sex_location, sex_category_types
             display_notification(title='Autonomy Triggered', text=str(animation_instance.get_sex_category()), secondary_icon=sex_location)
         TurboWorldUtil.Time.set_current_time_speed(TurboWorldUtil.Time.ClockSpeedMode.PAUSED)
     return start_new_direct_sex_interaction(sims_pair, sex_location, animation_instance, is_autonomy=True)
-
+
+
 def get_sex_autonomy_failure_chance():
     game_events_data = get_game_events_save_data()
     return game_events_data.get('sex_autonomy_failure_chance', 0.0)
-
+
+
 def update_sex_autonomy_failure_chance(result):
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
         failure_chance_modifier = SEX_AUTONOMY_HIGH_LEVEL_BASE_CHANCE/2
@@ -44,10 +63,12 @@ def update_sex_autonomy_failure_chance(result):
         set_sex_autonomy_failure_chance(min(current_autonomy_failure_chance + failure_chance_modifier, 1))
     else:
         set_sex_autonomy_failure_chance(max(0, current_autonomy_failure_chance - failure_chance_modifier))
-
+
+
 def set_sex_autonomy_failure_chance(value):
     update_game_events_save_data({'sex_autonomy_failure_chance': value})
-
+
+
 def get_chance_for_random_sex_autonomy(sims_list, skip_hypersexual_lot_check=False):
     if skip_hypersexual_lot_check and False and is_sims_list_at_hypersexual_lot(sims_list):
         return 1.0
@@ -59,7 +80,8 @@ def get_chance_for_random_sex_autonomy(sims_list, skip_hypersexual_lot_check=Fal
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.NORMAL:
         return SEX_AUTONOMY_NORMAL_LEVEL_BASE_CHANCE + (0.015 if is_at_weekend else 0.0) + (0.003 if is_at_night else 0.0) + 0.002*self_assured_multiplier + get_sex_autonomy_failure_chance()
     return SEX_AUTONOMY_LOW_LEVEL_BASE_CHANCE + (0.015 if is_at_weekend else 0.0) + (0.003 if is_at_night else 0.0) + 0.002*self_assured_multiplier + get_sex_autonomy_failure_chance()
-
+
+
 def get_sims_risk_chance_for_sex_autonomy(sims_list, location_style):
     risk_chance = 1.0
     for sim in sims_list:
@@ -74,7 +96,8 @@ def get_sims_risk_chance_for_sex_autonomy(sims_list, location_style):
             while TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
                 risk_chance -= 0.05
     return risk_chance
-
+
+
 def get_sims_pair_for_sex_autonomy(only_on_hypersexual_lot=False):
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
         sims_pairs_sample = 10
@@ -89,7 +112,8 @@ def get_sims_pair_for_sex_autonomy(only_on_hypersexual_lot=False):
     picked_sims_pair = random.choice(sims_pairs)[:2]
     picked_sims_pair = sorted(picked_sims_pair, key=lambda x: bool(TurboSimUtil.Sim.is_npc(x)), reverse=True)
     return picked_sims_pair
-
+
+
 def apply_sex_autonomy_location_style_chance_bonus(location_style, sims_list):
     if location_style[0] == LocationStyleType.NONE or location_style[1] <= 0.0:
         return location_style
@@ -103,7 +127,8 @@ def apply_sex_autonomy_location_style_chance_bonus(location_style, sims_list):
         elif get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.LOW:
             location_chance += 0.3
     return (location_style[0], location_chance)
-
+
+
 def get_sex_autonomy_location(sims_pair, location_style=LocationStyleType.NONE, sex_locations_override=None):
     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
         sex_locations_sample = 8
@@ -115,4 +140,4 @@ def get_sex_autonomy_location(sims_pair, location_style=LocationStyleType.NONE, 
     if not sex_locations:
         return
     return random.choice(sex_locations)[1]
-
+

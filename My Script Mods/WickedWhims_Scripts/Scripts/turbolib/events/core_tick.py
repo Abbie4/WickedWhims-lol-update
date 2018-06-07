@@ -1,16 +1,22 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import math
+from zone import Zone
+from turbolib.injector_util import inject
+from turbolib.special.custom_exception_watcher import log_custom_exception, exception_watch
+from turbolib.world_util import TurboWorldUtil
+LAST_ABSOLUTE_TICKS = 0
+CURRENT_DIFF_TICKS = 0
+DIFF_TICKS_ERROR = 0
+ON_ZONE_UPDATE_METHODS = list()
+ON_ZONE_UPDATE_REGISTER_METHODS_QUEUE = list()
+ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE = list()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import mathfrom zone import Zonefrom turbolib.injector_util import injectfrom turbolib.special.custom_exception_watcher import log_custom_exception, exception_watchfrom turbolib.world_util import TurboWorldUtilLAST_ABSOLUTE_TICKS = 0CURRENT_DIFF_TICKS = 0DIFF_TICKS_ERROR = 0ON_ZONE_UPDATE_METHODS = list()ON_ZONE_UPDATE_REGISTER_METHODS_QUEUE = list()ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE = list()
 def get_current_diff_ticks():
     '''
     :return: int -> number of ticks between each zone update
     '''
     return CURRENT_DIFF_TICKS
-
+
+
 def register_zone_update_event_method(unique_id=None, always_run=False):
     '''
     Registers method for the Zone Update Event.
@@ -25,7 +31,8 @@ def register_zone_update_event_method(unique_id=None, always_run=False):
         return event_method
 
     return _method_wrapper
-
+
+
 def manual_register_zone_update_event_method(update_method, unique_id=None, always_run=False):
     '''
     Registers argument method for the Zone Update Event.
@@ -35,7 +42,8 @@ def manual_register_zone_update_event_method(update_method, unique_id=None, alwa
     :param always_run: bool -> if the registered method should be triggered even if the in-game time is paused
     '''
     ON_ZONE_UPDATE_REGISTER_METHODS_QUEUE.append(ZoneUpdateHandler(unique_id, update_method, always_run=always_run))
-
+
+
 def unregister_zone_update_event_method(event_method_or_name, unique_id=None):
     '''
     Unregisters an existing method used for the Zone Update Event by its name.
@@ -45,7 +53,8 @@ def unregister_zone_update_event_method(event_method_or_name, unique_id=None):
     if not isinstance(event_method_or_name, str):
         event_method_or_name = event_method_or_name.__name__
     ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE.append((unique_id, event_method_or_name))
-
+
+
 class ZoneUpdateHandler:
     __qualname__ = 'ZoneUpdateHandler'
 
@@ -66,7 +75,8 @@ class ZoneUpdateHandler:
 
     def is_always_running(self):
         return self._always_run
-
+
+
 @inject(Zone, 'update')
 def _turbolib_zone_game_update(original, self, *args, **kwargs):
     global DIFF_TICKS_ERROR, CURRENT_DIFF_TICKS, LAST_ABSOLUTE_TICKS
@@ -91,7 +101,8 @@ def _turbolib_zone_game_update(original, self, *args, **kwargs):
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method '_turbolib_zone_game_update' at 'Zone.update'.", ex)
     return result
-
+
+
 def _on_zone_update_event(is_paused):
     global ON_ZONE_UPDATE_REGISTER_METHODS_QUEUE, ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE
     if ON_ZONE_UPDATE_REGISTER_METHODS_QUEUE:
@@ -111,4 +122,4 @@ def _on_zone_update_event(is_paused):
                 zone_update_handler()
         except Exception as ex:
             log_custom_exception("[TurboLib] Failed to run '" + str(zone_update_handler.get_update_method_name()) + "' method from '" + str(zone_update_handler.get_unique_id()) + "'.", ex)
-
+

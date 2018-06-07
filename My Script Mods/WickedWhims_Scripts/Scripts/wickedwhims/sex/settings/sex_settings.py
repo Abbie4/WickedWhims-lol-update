@@ -1,10 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.native.enum import TurboEnum
+from wickedwhims.main.basemental_handler import is_basemental_drugs_installed
+from wickedwhims.main.settings.builder import SettingsBranchOption, SettingsWindow, SettingsSwitchOption, SettingsSelectorOption, SettingsInputOption, SettingsCallbackOption
+from wickedwhims.main.settings.main_settings import register_main_settings_option, open_main_settings
+from wickedwhims.sex._ts4_tuning.vanilla_interactions import set_vanilla_interactions_access_in_sex
+from wickedwhims.sex._ts4_tuning.woohoo_interactions import disable_woohoo_interactions
+from wickedwhims.sex.pregnancy._ts4_pregnancy_utils import set_pregnancy_duration
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlers
+from wickedwhims.utils_interfaces import display_ok_dialog
+from wickedwhims.utils_saves.save_basics import get_basic_save_data, update_basic_save_data
+SEX_SETTINGS_DICT = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.l18n_util import TurboL18NUtilfrom turbolib.native.enum import TurboEnumfrom wickedwhims.main.basemental_handler import is_basemental_drugs_installedfrom wickedwhims.main.settings.builder import SettingsBranchOption, SettingsWindow, SettingsSwitchOption, SettingsSelectorOption, SettingsInputOption, SettingsCallbackOptionfrom wickedwhims.main.settings.main_settings import register_main_settings_option, open_main_settingsfrom wickedwhims.sex._ts4_tuning.vanilla_interactions import set_vanilla_interactions_access_in_sexfrom wickedwhims.sex._ts4_tuning.woohoo_interactions import disable_woohoo_interactionsfrom wickedwhims.sex.pregnancy._ts4_pregnancy_utils import set_pregnancy_durationfrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_active_sex_handlersfrom wickedwhims.utils_interfaces import display_ok_dialogfrom wickedwhims.utils_saves.save_basics import get_basic_save_data, update_basic_save_dataSEX_SETTINGS_DICT = dict()
+
 class SexSetting:
     __qualname__ = 'SexSetting'
     AUTONOMY_NOTIFICATIONS_STATE = 'sex_autonomy_notification'
@@ -63,14 +70,17 @@ class SexSetting:
     REACTION_TO_SEX_STATE = 'reactions_to_sex'
     REACTION_TO_CUM_STATE = 'reactions_to_cum'
     REACTION_TO_TEEN_PREGNANCY_STATE = 'reactions_to_teen_pregnancy'
-
+
+
 @register_main_settings_option()
 def _register_sex_settings():
     return _get_sex_settings().get_window_picker_row()
-
+
+
 def _open_sex_settings():
     _get_sex_settings(show_warning=False).open_window()
-
+
+
 def _get_sex_settings(show_warning=True):
 
     def _open_warning_message():
@@ -93,7 +103,8 @@ def _get_sex_settings(show_warning=True):
     from wickedwhims.sex.settings.animation_disabler_settings import open_player_animations_disabler
     sex_settings_window.add_settings_option(SettingsCallbackOption(1853900111, 115716611, open_player_animations_disabler))
     return sex_settings_window
-
+
+
 def _setup_settings_variables():
     _setup_settings_variable(SexSetting.AUTONOMY_NOTIFICATIONS_STATE, 1)
     _setup_settings_variable(SexSetting.PREGNENCY_NOTIFICATIONS_STATE, 1)
@@ -151,23 +162,27 @@ def _setup_settings_variables():
     _setup_settings_variable(SexSetting.REACTION_TO_SEX_STATE, 1)
     _setup_settings_variable(SexSetting.REACTION_TO_CUM_STATE, 1)
     _setup_settings_variable(SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE, 1)
-
+
+
 def _notification_settings():
     settings_option_window = SettingsWindow(0, 3942521497, 2390465803, cancel_callback=_open_sex_settings)
     settings_option_window.add_settings_option(SettingsSwitchOption(3366624962, 3419421543, _notification_settings, SEX_SETTINGS_DICT, SexSetting.AUTONOMY_NOTIFICATIONS_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(2850533999, 3244791546, _notification_settings, SEX_SETTINGS_DICT, SexSetting.PREGNENCY_NOTIFICATIONS_STATE))
     return settings_option_window
-
+
+
 class SexAutonomyLevelSetting(TurboEnum):
     __qualname__ = 'SexAutonomyLevelSetting'
     DISABLED = 0
     LOW = 1
     NORMAL = 2
     HIGH = 3
-
+
+
 def _open_sex_autonomy_settings():
     _autonomy_settings().open_window()
-
+
+
 def _autonomy_settings():
 
     def _open_autonomy_settings():
@@ -212,19 +227,22 @@ def _autonomy_settings():
     from wickedwhims.sex.settings.animation_disabler_settings import open_autonomy_animations_disabler
     settings_option_window.add_settings_option(SettingsCallbackOption(2284702213, 2444846310, open_autonomy_animations_disabler))
     return settings_option_window
-
+
+
 class SexProgressionLevelSetting(TurboEnum):
     __qualname__ = 'SexProgressionLevelSetting'
     DISABLED = 0
     STAGE_ONLY = 1
     FULL = 2
     RANDOM = 3
-
+
+
 class SexInteractionDurationTypeSetting(TurboEnum):
     __qualname__ = 'SexInteractionDurationTypeSetting'
     TIME_LIMIT = 0
     CLIMAX = 1
-
+
+
 def _interaction_settings():
 
     def _open_interaction_settings():
@@ -253,13 +271,15 @@ def _interaction_settings():
     settings_option_window.add_settings_option(SettingsBranchOption(_sex_duration_settings, allow_open_callback=False))
     settings_option_window.add_settings_option(SettingsSwitchOption(3424533837, 878801550, _interaction_settings, SEX_SETTINGS_DICT, SexSetting.CLIMAX_SEX_PROGRESSION_STATE))
     return settings_option_window
-
+
+
 class SexUndressingLevelSetting(TurboEnum):
     __qualname__ = 'SexUndressingLevelSetting'
     DISABLED = 0
     AUTO = 1
     COMPLETE = 2
-
+
+
 def _outfit_settings():
 
     def _open_interaction_settings():
@@ -287,13 +307,15 @@ def _outfit_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(3237215331, 1958038349, _outfit_settings, SEX_SETTINGS_DICT, SexSetting.OUTFIT_AUTO_DRESS_UP_AFTER_SEX_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(2301375032, 1690045821, _outfit_settings, SEX_SETTINGS_DICT, SexSetting.STRAPON_AUTO_REMOVE_STATE))
     return settings_option_window
-
+
+
 class SexGenderTypeSetting(TurboEnum):
     __qualname__ = 'SexGenderTypeSetting'
     SEX_BASED = 0
     GENDER_BASED = 1
     ANY_BASED = 2
-
+
+
 def _gender_settings():
 
     def _open_gender_settings():
@@ -313,13 +335,15 @@ def _gender_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(1983215653, 108985975, _gender_settings, SEX_SETTINGS_DICT, SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(491871453, 4192011344, _gender_settings, SEX_SETTINGS_DICT, SexSetting.GENDER_RECOGNITION_SIM_SPECIFIC_STATE))
     return settings_option_window
-
+
+
 class PregnancyModeSetting(TurboEnum):
     __qualname__ = 'PregnancyModeSetting'
     DISABLED = 0
     MENSTRUAL_CYCLE = 1
     SIMPLE = 2
-
+
+
 class MenstrualCycleDurationSetting(TurboEnum):
     __qualname__ = 'MenstrualCycleDurationSetting'
     AUTO = 0
@@ -327,18 +351,21 @@ class MenstrualCycleDurationSetting(TurboEnum):
     NORMAL = 2
     LONG = 3
     VERY_LONG = 4
-
+
+
 class BirthControlModeSetting(TurboEnum):
     __qualname__ = 'BirthControlModeSetting'
     PERFECT = 0
     REALISTIC = 1
-
+
+
 class NPCBirthControlModeSetting(TurboEnum):
     __qualname__ = 'NPCBirthControlModeSetting'
     SAFE = 0
     MODERATE = 1
     UNSAFE = 2
-
+
+
 def _pregnancy_settings():
 
     def _open_pregnancy_settings():
@@ -424,17 +451,20 @@ def _pregnancy_settings():
     if is_basemental_drugs_installed():
         settings_option_window.add_settings_option(SettingsSwitchOption(2235486711, 4073427182, _pregnancy_settings, SEX_SETTINGS_DICT, SexSetting.MISCARRIAGE_SWITCH))
     return settings_option_window
-
+
+
 class SexInitiationTypeSetting(TurboEnum):
     __qualname__ = 'SexInitiationTypeSetting'
     TALK_AND_WALK = 0
     INSTANT_TELEPORT = 1
-
+
+
 class SexAnimationDurationOverrideType(TurboEnum):
     __qualname__ = 'SexAnimationDurationOverrideType'
     DEFAULT = 0
     OVERRIDE = 1
-
+
+
 def _other_settings():
 
     def _open_other_settings():
@@ -475,7 +505,8 @@ def _other_settings():
 
     settings_option_window.add_settings_option(SettingsBranchOption(_sex_animation_duration_override, allow_open_callback=False))
     return settings_option_window
-
+
+
 def _cheats_settings():
     settings_option_window = SettingsWindow(0, 2605472072, 654545057, cancel_callback=_open_sex_settings)
     settings_option_window.add_settings_option(SettingsSwitchOption(3188897533, 1973509205, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.ALWAYS_ACCEPT_STATE))
@@ -488,11 +519,13 @@ def _cheats_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(634015514, 1608028199, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.REACTION_TO_CUM_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(2657851670, 1137427362, _cheats_settings, SEX_SETTINGS_DICT, SexSetting.REACTION_TO_TEEN_PREGNANCY_STATE))
     return settings_option_window
-
+
+
 def _setup_settings_variable(variable, default_state):
     if variable not in SEX_SETTINGS_DICT:
         SEX_SETTINGS_DICT[variable] = default_state
-
+
+
 def apply_sex_settings_from_basic_save_data():
     _setup_settings_variables()
     basic_save_data = get_basic_save_data()
@@ -507,14 +540,16 @@ def apply_sex_settings_from_basic_save_data():
     if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) != PregnancyModeSetting.DISABLED:
         set_pregnancy_duration(get_sex_setting(SexSetting.PREGNANCY_DURATION, variable_type=int))
     update_sex_settings_to_basic_save_data()
-
+
+
 def update_sex_settings_to_basic_save_data():
     set_vanilla_interactions_access_in_sex(get_sex_setting(SexSetting.VANILLA_INTERACTIONS_SWITCH, variable_type=bool))
     disable_woohoo_interactions(get_sex_setting(SexSetting.DEFAULT_WOOHOO_SWITCH, variable_type=bool))
     general_dict = dict()
     general_dict['woohoo'] = SEX_SETTINGS_DICT
     update_basic_save_data(general_dict)
-
+
+
 def get_sex_setting(variable, variable_type=bool):
     return variable_type(SEX_SETTINGS_DICT[variable])
-
+

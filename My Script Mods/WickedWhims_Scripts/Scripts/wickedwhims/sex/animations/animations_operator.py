@@ -1,13 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.sex.animations.animations_cache import has_animation_with_genders, has_animation_with_object, has_animation_with_gender, compare_sim_genders_with_actor_genders_list, get_animation_max_amount_of_actors
+from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.settings.sex_settings import SexGenderTypeSetting, SexSetting, get_sex_setting
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation
+from wickedwhims.utils_interfaces import get_random_icon, display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom turbolib.l18n_util import TurboL18NUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.sex.animations.animations_cache import has_animation_with_genders, has_animation_with_object, has_animation_with_gender, compare_sim_genders_with_actor_genders_list, get_animation_max_amount_of_actorsfrom wickedwhims.sex.animations.animations_handler import get_available_sex_animationsfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.settings.sex_settings import SexGenderTypeSetting, SexSetting, get_sex_settingfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animationfrom wickedwhims.utils_interfaces import get_random_icon, display_notification
 def has_animations_with_params(interaction_type, object_identifier, genders):
     return has_animation_with_genders(interaction_type, object_identifier[0], genders) or has_animation_with_genders(interaction_type, object_identifier[1], genders)
-
+
+
 def get_animations_with_params(interaction_type, object_identifier, genders, ignore_animations=()):
     collected_animations = list()
     for animation_instance in get_available_sex_animations(sex_category_type=interaction_type):
@@ -22,7 +29,8 @@ def get_animations_with_params(interaction_type, object_identifier, genders, ign
             if compare_sim_genders_with_actor_genders_list(genders, actors_genders_list):
                 collected_animations.append(animation_instance)
     return collected_animations
-
+
+
 def get_animations_max_amount_of_actors(object_identifier):
     max_actors_amount = 0
     for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.CLIMAX):
@@ -30,7 +38,8 @@ def get_animations_max_amount_of_actors(object_identifier):
         while actors_amount > max_actors_amount:
             max_actors_amount = actors_amount
     return max_actors_amount
-
+
+
 def get_animations_for_object(object_identifier, genders, excluded_sex_category_types=(), ignore_animations_ids=(), ignore_animations=()):
     collected_animations = list()
     for animation_instance in get_available_sex_animations():
@@ -50,16 +59,19 @@ def get_animations_for_object(object_identifier, genders, excluded_sex_category_
                         if compare_sim_genders_with_actor_genders_list(genders, actors_genders_list):
                             collected_animations.append(animation_instance)
     return collected_animations
-
+
+
 def has_object_any_animations(game_object, req_gender):
     object_identifier = SexInteractionLocationType.get_location_identifier(game_object)
     return has_animation_with_object(object_identifier[0], req_gender) or has_animation_with_object(object_identifier[1], req_gender)
-
+
+
 def has_object_identifier_animations(object_identifier, sex_category_type, req_gender):
     if sex_category_type == SexCategoryType.NONE:
         return False
     return has_animation_with_gender(sex_category_type, object_identifier[0], req_gender) or has_animation_with_gender(sex_category_type, object_identifier[1], req_gender)
-
+
+
 def get_next_stage_animation(current_animation_instance):
     animation_stages = list()
     for animation_instance in get_available_sex_animations():
@@ -68,7 +80,8 @@ def get_next_stage_animation(current_animation_instance):
     if not animation_stages:
         return
     return random.choice(animation_stages)
-
+
+
 def get_random_animation(object_identifier, sims_info_list):
     genders = list()
     for sim_info in sims_info_list:
@@ -87,7 +100,8 @@ def get_random_animation(object_identifier, sims_info_list):
         while animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(animation)
     return random.choice(allowed_for_random_animations_list or animations_list)
-
+
+
 def get_random_sex_category_type(object_identifier, sims_info_list):
     genders = list()
     for sim_info in sims_info_list:
@@ -111,7 +125,8 @@ def get_random_sex_category_type(object_identifier, sims_info_list):
     if len(allowed_sex_category_types) == 0:
         return
     return random.choice(allowed_sex_category_types)
-
+
+
 def get_random_animation_of_type(sex_category_type, object_identifier, genders, ignore_animations_ids=(), ignore_animations=()):
     excluded_sex_category_types = [SexCategoryType.HANDJOB, SexCategoryType.ORALJOB, SexCategoryType.TEASING, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.FOOTJOB, SexCategoryType.CLIMAX]
     if sex_category_type in excluded_sex_category_types:
@@ -126,7 +141,8 @@ def get_random_animation_of_type(sex_category_type, object_identifier, genders, 
         while animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(animation)
     return random.choice(allowed_for_random_animations_list or animations_list)
-
+
+
 def get_next_random_animation(object_identifier, genders, prev_sex_category_type, allow_climax=False, ignore_animations=()):
     main_animations_list = get_animations_for_object(object_identifier, genders, ignore_animations=ignore_animations)
     if not main_animations_list:
@@ -190,19 +206,22 @@ def get_next_random_animation(object_identifier, genders, prev_sex_category_type
         return _get_random_animation_of_category(allowed_for_random_animations_list, next_sex_category_type)
     if prev_sex_type_animations_count > 1:
         return _get_random_animation_of_category(allowed_for_random_animations_list, prev_sex_category_type)
-
+
+
 def get_animation_from_identifier(identifier):
     for animation in get_available_sex_animations():
         while animation.get_identifier() == str(identifier):
             return animation
-
+
+
 class ListAnimationPickerRow(TurboUIUtil.ObjectPickerDialog.ListPickerRow):
     __qualname__ = 'ListAnimationPickerRow'
 
     def __init__(self, option_id, name, description, is_random=False, **kwargs):
         self.is_random = is_random
         super().__init__(option_id, name, description, **kwargs)
-
+
+
 class ChoiceListRandomAnimationPickerRow(ListAnimationPickerRow):
     __qualname__ = 'ChoiceListRandomAnimationPickerRow'
 
@@ -222,4 +241,4 @@ class ChoiceListRandomAnimationPickerRow(ListAnimationPickerRow):
             display_notification(text=1395546180, title=1890248379, secondary_icon=TurboManagerUtil.Sim.get_sim_info(self.sex_handler.get_creator_sim_id()))
             return
         return random_animation
-
+

@@ -1,10 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.situations_enum import SimSituation
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.tick_handler import register_on_game_update_method
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.outfit_utils import OutfitLevel, get_sim_outfit_level
+from wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionist
+from wickedwhims.relationships.desire_handler import get_sim_desire_level, change_sim_desire_level
+from wickedwhims.relationships.relationship_utils import get_sim_preferenced_genders
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.utils_sims import is_sim_available
+from wickedwhims.utils_situations import has_sim_situations
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.situations_enum import SimSituationfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.tick_handler import register_on_game_update_methodfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.outfit_utils import OutfitLevel, get_sim_outfit_levelfrom wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionistfrom wickedwhims.relationships.desire_handler import get_sim_desire_level, change_sim_desire_levelfrom wickedwhims.relationships.relationship_utils import get_sim_preferenced_gendersfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.utils_sims import is_sim_availablefrom wickedwhims.utils_situations import has_sim_situations
 @register_on_game_update_method(interval=2500)
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
@@ -42,7 +49,8 @@ def _trigger_desire_reaction_on_game_update():
                     if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
                         pass
                     change_sim_desire_level(sim, desire_increase)
-
+
+
 def _has_reaction_to_nudity(sim, target):
     if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
         return True
@@ -51,7 +59,8 @@ def _has_reaction_to_nudity(sim, target):
     if is_sim_exhibitionist(sim):
         return True
     return False
-
+
+
 def _get_desire_nudity_value(target):
     target_outfit_level = get_sim_outfit_level(target)
     if target_outfit_level == OutfitLevel.REVEALING:
@@ -69,4 +78,4 @@ def _get_desire_nudity_value(target):
         desire_limit /= 3
         desire_increase /= 3
     return (desire_limit, desire_increase)
-
+

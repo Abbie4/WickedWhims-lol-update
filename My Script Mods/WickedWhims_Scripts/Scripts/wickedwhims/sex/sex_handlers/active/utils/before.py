@@ -1,10 +1,21 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.buffs_enum import SimBuff
+from enums.relationship_enum import SimRelationshipBit
+from enums.statistics_enum import SimCommodity
+from enums.whims_enum import SimWhim
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.relationships.desire_handler import set_sim_desire_level
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting
+from wickedwhims.sex.sex_handlers.active.utils.outfit import undress_sim
+from wickedwhims.sex.sex_handlers.active.utils.strapon import update_stapon
+from wickedwhims.sxex_bridge.penis import set_sim_penis_state
+from wickedwhims.utils_buffs import remove_sim_buff
+from wickedwhims.utils_goals import complete_sim_whim, complete_sim_situation_goal
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_relations import has_relationship_bit_with_sim
+from wickedwhims.utils_statistics import set_sim_statistic_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.buffs_enum import SimBufffrom enums.relationship_enum import SimRelationshipBitfrom enums.statistics_enum import SimCommodityfrom enums.whims_enum import SimWhimfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.relationships.desire_handler import set_sim_desire_levelfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSettingfrom wickedwhims.sex.sex_handlers.active.utils.outfit import undress_simfrom wickedwhims.sex.sex_handlers.active.utils.strapon import update_staponfrom wickedwhims.sxex_bridge.penis import set_sim_penis_statefrom wickedwhims.utils_buffs import remove_sim_bufffrom wickedwhims.utils_goals import complete_sim_whim, complete_sim_situation_goalfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_relations import has_relationship_bit_with_simfrom wickedwhims.utils_statistics import set_sim_statistic_value
 def apply_before_sex_functions(sex_handler, sims_list, is_fresh_start):
     if is_fresh_start is True:
         if sex_handler.is_autonomy_sex():
@@ -35,12 +46,14 @@ def apply_before_sex_functions(sex_handler, sims_list, is_fresh_start):
                         complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_NEW_ROMANCE, target_sim_identifier=other_sim_info)
                         while has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT) and has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT):
                             complete_sim_situation_goal(sim_info, SimWhim.WW_GOAL_SEX_WITH_DATE, target_sim_identifier=other_sim_info)
-
+
+
 def _before_autonomy_sex(sims_list, sex_handler):
     _before_autonomy_sex_notification(sims_list, sex_handler)
     from wickedwhims.sex.autonomy.triggers_handler import set_sex_autonomy_failure_chance
     set_sex_autonomy_failure_chance(0.0)
-
+
+
 def _before_autonomy_sex_notification(sims_list, sex_handler):
     if get_sex_setting(SexSetting.AUTONOMY_NOTIFICATIONS_STATE, variable_type=bool):
         if sex_handler.get_actors_amount() == 1:
@@ -70,4 +83,4 @@ def _before_autonomy_sex_notification(sims_list, sex_handler):
             for (_, sim_info) in sims_list:
                 text_tokens.append(' '.join(TurboSimUtil.Name.get_name(sim_info)) if TurboSimUtil.Name.has_name(sim_info) else TurboSimUtil.Name.get_full_name_key(sim_info))
             display_notification(text=text, text_tokens=text_tokens, title=2175203501, secondary_icon=next(iter(sex_handler.get_actors_sim_info_gen())))
-
+

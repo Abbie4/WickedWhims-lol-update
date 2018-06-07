@@ -1,10 +1,29 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import itertools
+import random
+from enums.buffs_enum import SimBuff
+from enums.interactions_enum import SimInteraction
+from enums.relationship_enum import RelationshipTrackType, SimRelationshipBit
+from enums.situations_enum import SimSituation
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.desire_handler import set_sim_desire_level
+from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
+from wickedwhims.sex.cas_cum_handler import get_cum_layer_from_sex_category, CumLayerType, apply_sim_cum_layer
+from wickedwhims.sex.relationship_handler import get_sim_relationship_sims
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting
+from wickedwhims.sex.sex_handlers.active.utils.satisfaction import apply_after_sex_satisfaction
+from wickedwhims.sex.sex_handlers.active.utils.strapon import update_stapon
+from wickedwhims.sxex_bridge.outfit import dress_up_outfit
+from wickedwhims.sxex_bridge.penis import set_sim_penis_state
+from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
+from wickedwhims.utils_buffs import remove_sim_buff, add_sim_buff
+from wickedwhims.utils_relations import get_relationship_with_sim, change_relationship_with_sim, add_relationsip_bit_with_sim, has_relationship_bit_with_sim
+from wickedwhims.utils_situations import has_sim_situations
+from wickedwhims.utils_traits import has_sim_trait, add_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import itertoolsimport randomfrom enums.buffs_enum import SimBufffrom enums.interactions_enum import SimInteractionfrom enums.relationship_enum import RelationshipTrackType, SimRelationshipBitfrom enums.situations_enum import SimSituationfrom enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.desire_handler import set_sim_desire_levelfrom wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSettingfrom wickedwhims.sex.cas_cum_handler import get_cum_layer_from_sex_category, CumLayerType, apply_sim_cum_layerfrom wickedwhims.sex.relationship_handler import get_sim_relationship_simsfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSettingfrom wickedwhims.sex.sex_handlers.active.utils.satisfaction import apply_after_sex_satisfactionfrom wickedwhims.sex.sex_handlers.active.utils.strapon import update_staponfrom wickedwhims.sxex_bridge.outfit import dress_up_outfitfrom wickedwhims.sxex_bridge.penis import set_sim_penis_statefrom wickedwhims.sxex_bridge.statistics import increase_sim_ww_statisticfrom wickedwhims.utils_buffs import remove_sim_buff, add_sim_bufffrom wickedwhims.utils_relations import get_relationship_with_sim, change_relationship_with_sim, add_relationsip_bit_with_sim, has_relationship_bit_with_simfrom wickedwhims.utils_situations import has_sim_situationsfrom wickedwhims.utils_traits import has_sim_trait, add_sim_trait
 def apply_after_sex_functions(sex_handler, sims_list, is_ending=False):
     is_full_interaction = sex_handler.sim_minute_counter > 5
     if is_ending is True:
@@ -28,7 +47,8 @@ def apply_after_sex_functions(sex_handler, sims_list, is_ending=False):
                     increase_sim_ww_statistic(sim_info, 'times_had_incest_sex')
                 else:
                     increase_sim_ww_statistic(sim_info, 'times_had_solo_sex')
-
+
+
 def apply_after_sex_relationship(sex_handler, sims_list):
     if len(sims_list) <= 1:
         return
@@ -81,7 +101,8 @@ def apply_after_sex_relationship(sex_handler, sims_list):
             add_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO_RECENTLY)
         while not has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.WW_JUST_HAD_SEX):
             add_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.WW_JUST_HAD_SEX)
-
+
+
 def apply_after_sex_late_functions(sex_handler, sims_list, is_ending=False):
     if is_ending is True:
         creator_sim_info = TurboManagerUtil.Sim.get_sim_info(sex_handler.get_creator_sim_id())
@@ -91,13 +112,15 @@ def apply_after_sex_late_functions(sex_handler, sims_list, is_ending=False):
             target_sim = TurboManagerUtil.Sim.get_sim_instance(sim_info)
             while target_sim is not None:
                 TurboSimUtil.Interaction.push_affordance(creator_sim_info, SimInteraction.WW_TRIGGER_SOCIAL_CHAT_AFTER_SEX, target=target_sim)
-
+
+
 def _after_sex_dress_up(sim_info):
     if get_sex_setting(SexSetting.OUTFIT_AUTO_DRESS_UP_AFTER_SEX_STATE, variable_type=bool):
         dress_up_outfit(sim_info)
     elif TurboSimUtil.Sim.is_npc(sim_info) and has_sim_situations(sim_info, (SimSituation.LEAVE, SimSituation.LEAVE_NOW_MUST_RUN, SimSituation.SINGLESIMLEAVE)):
         dress_up_outfit(sim_info)
-
+
+
 def _after_sex_cum(sex_handler, actor_id, sim_info):
     if sex_handler.get_animation_instance() is None or not get_sex_setting(SexSetting.CUM_VISIBILITY_STATE, variable_type=bool):
         return
@@ -120,7 +143,8 @@ def _after_sex_cum(sex_handler, actor_id, sim_info):
         if not get_sex_setting(SexSetting.CUM_VISIBILITY_WITH_CONDOM_STATE, variable_type=bool) and sim_ev(action_actor_sim_info).has_condom_on is True:
             pass
         apply_sim_cum_layer(sim_info, cum_layer_types)
-
+
+
 def _after_sex_buffs(sims_list):
     if len(sims_list) > 1:
         for (_, sim_info) in sims_list:
@@ -131,4 +155,4 @@ def _after_sex_buffs(sims_list):
                         while sim_info is not target_sim_info and TurboSimUtil.Occult.is_ghost(target_sim_info):
                             add_sim_buff(sim_info, SimBuff.WOOHOO_WITH_GHOST)
                             break
-
+

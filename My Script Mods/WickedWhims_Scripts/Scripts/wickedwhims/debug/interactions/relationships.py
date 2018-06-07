@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.statistics_enum import SimCommodity
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.sex.autonomy.sims import get_sex_pair_score
+from wickedwhims.sex.relationship_handler import get_relationship_score
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_statistics import get_sim_statistic_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.statistics_enum import SimCommodityfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.sex.autonomy.sims import get_sex_pair_scorefrom wickedwhims.sex.relationship_handler import get_relationship_scorefrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_statistics import get_sim_statistic_value
+
 class DebugRelationshipInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugRelationshipInfoInteraction'
 
@@ -25,4 +28,4 @@ class DebugRelationshipInfoInteraction(TurboImmediateSuperInteraction, TurboInte
             rel_score_b = get_relationship_score(target, sim)
             relationship_debug_info += '\n  Relationship Score: ' + str(rel_score_a) + ' / ' + str(rel_score_b) + ' / ' + str(get_sex_pair_score(sim, target))
         display_notification(text=relationship_debug_info, title=str(TurboSimUtil.Name.get_name(target)[0]) + ' ' + str(TurboSimUtil.Name.get_name(target)[1]) + ' Relationship Debug', secondary_icon=target)
-
+

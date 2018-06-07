@@ -1,10 +1,30 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from math import cos, sin
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex._ts4_sex_utils import apply_pressure_to_interactions_queue
+from wickedwhims.sex.animations.animations_operator import get_animation_from_identifier, get_animations_max_amount_of_actors
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender, SexGenderType
+from wickedwhims.sex.settings.sex_settings import SexGenderTypeSetting, SexSetting, get_sex_setting, SexAutonomyLevelSetting
+from wickedwhims.sex.sex_handlers.active.active_sex_handler_updates import update_active_sex_handler
+from wickedwhims.sex.sex_handlers.active.utils.after import apply_after_sex_functions, apply_after_sex_relationship
+from wickedwhims.sex.sex_handlers.active.utils.before import apply_before_sex_functions
+from wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandler
+from wickedwhims.sex.sex_operators.active_sex_handlers_operator import queue_unregister_active_sex_handler, register_active_sex_handler, get_active_sex_handlers
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sex
+from wickedwhims.sxex_bridge.body import update_sim_body_flags
+from wickedwhims.sxex_bridge.underwear import update_sim_underwear_data
+from wickedwhims.utils_interfaces import display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom math import cos, sinfrom enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex._ts4_sex_utils import apply_pressure_to_interactions_queuefrom wickedwhims.sex.animations.animations_operator import get_animation_from_identifier, get_animations_max_amount_of_actorsfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_gender, SexGenderTypefrom wickedwhims.sex.settings.sex_settings import SexGenderTypeSetting, SexSetting, get_sex_setting, SexAutonomyLevelSettingfrom wickedwhims.sex.sex_handlers.active.active_sex_handler_updates import update_active_sex_handlerfrom wickedwhims.sex.sex_handlers.active.utils.after import apply_after_sex_functions, apply_after_sex_relationshipfrom wickedwhims.sex.sex_handlers.active.utils.before import apply_before_sex_functionsfrom wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandlerfrom wickedwhims.sex.sex_operators.active_sex_handlers_operator import queue_unregister_active_sex_handler, register_active_sex_handler, get_active_sex_handlersfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sexfrom wickedwhims.sxex_bridge.body import update_sim_body_flagsfrom wickedwhims.sxex_bridge.underwear import update_sim_underwear_datafrom wickedwhims.utils_interfaces import display_notification
+
 class ActiveSexInteractionHandler(SexInteractionHandler):
     __qualname__ = 'ActiveSexInteractionHandler'
 
@@ -381,4 +401,4 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
     def get_string_data(self):
         basic_data = super().get_string_data()
         return basic_data + '\n Identifier: ' + str(self.get_identifier()) + '\n Is Playing: ' + str(self.is_playing) + '\n Is Prepared To Play: ' + str(self.is_prepared_to_play) + '\n Prepare To Play Count: ' + str(self._prepare_to_play_count) + '\n Counter: ' + str(self.animation_counter) + '\n Overall Counter: ' + str(self.overall_counter) + '\n Is Animation Paused: ' + str(self.is_animation_paused) + '\n Is Timer Paused: ' + str(self.is_timer_paused) + '\n Is Registered: ' + str(self.is_registered) + '\n Is Ready To Unregistered: ' + str(self.is_ready_to_unregister) + '\n Is Restarting: ' + str(self._is_restarting) + '\n Force Position Count: ' + str(self.force_positioning_count) + '\n Pregnancy Counter: ' + str(self.pregnancy_sex_counter) + '\n Autonomy Actors Limit: ' + str(self.autonomy_actors_limit) + '\n Is At Climaxed: ' + str(self.is_at_climax) + '\n Climax Counter: ' + str(self.climax_counter) + '\n Unsilence Phone After Sex: ' + str(self.unsilence_phone_after_sex) + '\n Forced From Privacy Sims List: ' + str(self.go_away_sims_list)
-
+

@@ -1,10 +1,15 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from turbolib.math_util import TurboMathUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.types_util import TurboTypesUtil
+from wickedwhims.sex._ts4_sex_utils import get_floor_object_position, get_floor_object_level
+from wickedwhims.sex.animations.animations_operator import get_random_animation
+from wickedwhims.sex.dialogs.sex_change import open_change_sex_location_animations_picker_dialog
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.utils_interfaces import display_ok_dialog
+from wickedwhims.utils_objects import get_object_fixed_position, get_object_fixed_direction
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom turbolib.math_util import TurboMathUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.types_util import TurboTypesUtilfrom wickedwhims.sex._ts4_sex_utils import get_floor_object_position, get_floor_object_levelfrom wickedwhims.sex.animations.animations_operator import get_random_animationfrom wickedwhims.sex.dialogs.sex_change import open_change_sex_location_animations_picker_dialogfrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.utils_interfaces import display_ok_dialogfrom wickedwhims.utils_objects import get_object_fixed_position, get_object_fixed_direction
 def change_player_sex_interaction_location(active_sex_handler, location_object, interaction_context=None, interaction_type=None):
     object_identifier = SexInteractionLocationType.get_location_identifier(location_object)
     if TurboTypesUtil.Objects.is_game_object(location_object):
@@ -37,4 +42,4 @@ def change_player_sex_interaction_location(active_sex_handler, location_object, 
         active_sex_handler.set_route_position(location_route_position.x, location_route_position.y, location_route_position.z, location_level)
         active_sex_handler.reassign_actors()
         active_sex_handler.restart()
-
+

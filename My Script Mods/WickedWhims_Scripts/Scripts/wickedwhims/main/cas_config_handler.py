@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import json
+import os.path
+from turbolib.cas_util import TurboCASUtil
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.utils_interfaces import get_unselected_icon, get_selected_icon, display_notification
+CAS_PARTS_DICT = None
+DEFAULT_CAS_PARTS_DICT = None
+PENIS_CAS_PART_IDS_LIST = None
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import jsonimport os.pathfrom turbolib.cas_util import TurboCASUtilfrom turbolib.l18n_util import TurboL18NUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.utils_interfaces import get_unselected_icon, get_selected_icon, display_notificationCAS_PARTS_DICT = NoneDEFAULT_CAS_PARTS_DICT = NonePENIS_CAS_PART_IDS_LIST = None
 def get_pre_cas_parts_dict():
     main_dict = dict()
     main_dict['_PENIS_LIST'] = [[0, 'Penis_WickedWhims_Old_Default', 'Original Default', 'WickedWhims'], [100, 'Penis_Untraditional_NERD_1', 'Untraditional NERD 1', 'Untraditional NERD'], [101, 'Penis_Untraditional_NERD_2', 'Untraditional NERD 2', 'Untraditional NERD'], [102, 'Penis_Untraditional_NERD_3', 'Untraditional NERD 3', 'Untraditional NERD'], [103, 'Penis_Untraditional_NERD_Uncut', 'Untraditional NERD Uncut', 'Untraditional NERD'], [200, 'Penis_LunarEclipse', 'LunarEclipse', 'LunariEclipse'], [300, 'Penis_BetterBody', 'Better Body Penis', 'Hiroki'], [301, 'Penis_BetterBody_2', 'Better Body Penis 2', 'Hiroki'], [400, 'Penis_PornstarCock_Small', 'Pornstar Cock Small', 'Noir and Dark Sims'], [401, 'Penis_PornstarCock_Small_Uncut', 'Pornstar Cock Small Uncut', 'Noir and Dark Sims'], [402, 'Penis_PornstarCock_Average', 'Pornstar Cock Average', 'Noir and Dark Sims'], [403, 'Penis_PornstarCock_Average_Uncut', 'Pornstar Cock Average Uncut', 'Noir and Dark Sims'], [404, 'Penis_PornstarCock_Big', 'Pornstar Cock Big', 'Noir and Dark Sims'], [405, 'Penis_PornstarCock_Big_Uncut', 'Pornstar Cock Big Uncut', 'Noir and Dark Sims'], [406, 'Penis_PornstarCock_ExtraBig', 'Pornstar Cock Extra Big', 'Noir and Dark Sims'], [407, 'Penis_PornstarCock_ExtraBig_Uncut', 'Pornstar Cock Extra Big Uncut', 'Noir and Dark Sims'], [408, 'Penis_PornstarCock_Huge', 'Pornstar Cock Huge', 'Noir and Dark Sims'], [409, 'Penis_PornstarCock_Huge_Uncut', 'Pornstar Cock Huge Uncut', 'Noir and Dark Sims'], [450, 'Penis_Futanari_Small_Cut', 'Futanari Penis Small Cut', 'Noir and Dark Sims'], [451, 'Penis_Futanari_Small_Uncut', 'Futanari Penis Small Uncut', 'Noir and Dark Sims'], [452, 'Penis_Futanari_Average_Cut', 'Futanari Penis Average Cut', 'Noir and Dark Sims'], [453, 'Penis_Futanari_Average_Uncut', 'Futanari Penis Average Uncut', 'Noir and Dark Sims'], [454, 'Penis_Futanari_Big_Cut', 'Futanari Penis Big Cut', 'Noir and Dark Sims'], [455, 'Penis_Futanari_Big_Uncut', 'Futanari Penis Big Uncut', 'Noir and Dark Sims'], [456, 'Penis_Futanari_ExtraBig_Cut', 'Futanari Penis Extra Big Cut', 'Noir and Dark Sims'], [457, 'Penis_Futanari_ExtraBig_Uncut', 'Futanari Penis Extra Big Uncut', 'Noir and Dark Sims'], [458, 'Penis_Futanari_Huge_Cut', 'Futanari Penis Huge Cut', 'Noir and Dark Sims'], [459, 'Penis_Futanari_Huge_Uncut', 'Futanari Penis Huge Uncut', 'Noir and Dark Sims'], [460, 'Penis_Futanari_Vagina_Small_Cut', 'Futanari Penis without Testicles Small Cut', 'Noir and Dark Sims'], [461, 'Penis_Futanari_Vagina_Small_Uncut', 'Futanari Penis without Testicles Small Uncut', 'Noir and Dark Sims'], [462, 'Penis_Futanari_Vagina_Average_Cut', 'Futanari Penis without Testicles Average Cut', 'Noir and Dark Sims'], [463, 'Penis_Futanari_Vagina_Average_Uncut', 'Futanari Penis without Testicles Average Uncut', 'Noir and Dark Sims'], [464, 'Penis_Futanari_Vagina_Big_Cut', 'Futanari Penis without Testicles Big Cut', 'Noir and Dark Sims'], [465, 'Penis_Futanari_Vagina_Big_Uncut', 'Futanari Penis without Testicles Big Uncut', 'Noir and Dark Sims'], [466, 'Penis_Futanari_Vagina_ExtraBig_Cut', 'Futanari Penis without Testicles Extra Big Cut', 'Noir and Dark Sims'], [467, 'Penis_Futanari_Vagina_ExtraBig_Uncut', 'Futanari Penis without Testicles Extra Big Uncut', 'Noir and Dark Sims'], [468, 'Penis_Futanari_Vagina_Huge_Cut', 'Futanari Penis without Testicles Huge Cut', 'Noir and Dark Sims'], [469, 'Penis_Futanari_Vagina_Huge_Uncut', 'Futanari Penis without Testicles Huge Uncut', 'Noir and Dark Sims']]
@@ -57,7 +61,8 @@ def get_pre_cas_parts_dict():
     strapon_parts['Strapon_Azmodan22_Female'] = [12809811016933154869, 9720214040714755941, 10854472850203600612, 11554976338356644811, 17982268356138628121, 13267899183187519679, 17916907420887639294, 12872118224779588270, 17031009722235732838, 10043057261028104391, 15796471725877477912, 12083312791141021895, 13523698017766118783, 14875424974616572780, 14458140897810102808, 10115566520094726204, 17564824903314514029, 11701898016962346052, 12256572452638468176]
     main_dict['_STRAPON_PARTS'] = strapon_parts
     return main_dict
-
+
+
 def get_default_cas_parts_dict():
     global DEFAULT_CAS_PARTS_DICT
     if DEFAULT_CAS_PARTS_DICT is not None:
@@ -72,7 +77,8 @@ def get_default_cas_parts_dict():
     main_dict['_UNDERWEAR_FEMALE_PARTS'] = female_underwear_parts
     DEFAULT_CAS_PARTS_DICT = main_dict
     return DEFAULT_CAS_PARTS_DICT
-
+
+
 def save_default_cas_parts_file():
     global CAS_PARTS_DICT
     save_file_path = _get_file_path()
@@ -80,7 +86,8 @@ def save_default_cas_parts_file():
     CAS_PARTS_DICT = get_pre_cas_parts_dict()
     json.dump(CAS_PARTS_DICT, save_file_open)
     save_file_open.close()
-
+
+
 def load_cas_parts_from_file():
     global CAS_PARTS_DICT
     load_file_path = _get_file_path()
@@ -96,7 +103,8 @@ def load_cas_parts_from_file():
         display_notification(text=2149295956, title=953840858, urgency=TurboUIUtil.Notification.UiDialogNotificationUrgency.URGENT)
         return
     CAS_PARTS_DICT = json_data
-
+
+
 def get_penis_part_ids():
     global CAS_PARTS_DICT, PENIS_CAS_PART_IDS_LIST
     if PENIS_CAS_PART_IDS_LIST is not None:
@@ -122,7 +130,8 @@ def get_penis_part_ids():
             penis_part_ids_list.append(cas_id)
     PENIS_CAS_PART_IDS_LIST = penis_part_ids_list
     return PENIS_CAS_PART_IDS_LIST
-
+
+
 def get_penis_author_keys(include_default_author_key=False):
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
@@ -147,7 +156,8 @@ def get_penis_author_keys(include_default_author_key=False):
     if include_default_author_key is True:
         penis_author_key_list.append('Penis_Default')
     return penis_author_key_list
-
+
+
 def get_soft_penis_picker_rows(selected_part=None, specific_part_type=None):
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
@@ -169,7 +179,8 @@ def get_soft_penis_picker_rows(selected_part=None, specific_part_type=None):
             picker_rows.append(TurboUIUtil.ObjectPickerDialog.ListPickerRow(priority, name, TurboL18NUtil.get_localized_string(776669783, tokens=(author_name,)), skip_tooltip=True, icon=get_selected_icon() if selected_part is not None and selected_part == author_key else get_unselected_icon(), tag=author_key))
     picker_rows.append(default_picker_row)
     return picker_rows
-
+
+
 def get_hard_penis_picker_rows(selected_part=None, specific_part_type=None):
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
@@ -191,7 +202,8 @@ def get_hard_penis_picker_rows(selected_part=None, specific_part_type=None):
             picker_rows.append(TurboUIUtil.ObjectPickerDialog.ListPickerRow(priority, name, TurboL18NUtil.get_localized_string(776669783, tokens=(author_name,)), skip_tooltip=True, icon=get_selected_icon() if selected_part is not None and selected_part == author_key else get_unselected_icon(), tag=author_key))
     picker_rows.append(default_picker_row)
     return picker_rows
-
+
+
 def get_penis_cas_part(author_key, type_key, exclude_default=False):
     global CAS_PARTS_DICT
     if author_key == 'Penis_Default':
@@ -214,7 +226,8 @@ def get_penis_cas_part(author_key, type_key, exclude_default=False):
     if exclude_default is True:
         return -1
     return default_penis_parts['Penis_Default'][type_key]
-
+
+
 def get_underwear_part_sets(sim_gender):
     global CAS_PARTS_DICT
     underwear_key = '_UNDERWEAR_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_FEMALE_PARTS'
@@ -238,7 +251,8 @@ def get_underwear_part_sets(sim_gender):
             while TurboCASUtil.Outfit.is_cas_part_loaded(int(top_part)) and TurboCASUtil.Outfit.is_cas_part_loaded(int(bottom_part)):
                 valid_underwear_sets.append([top_part, bottom_part])
     return valid_underwear_sets
-
+
+
 def get_strapon_part_ids():
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
@@ -257,7 +271,8 @@ def get_strapon_part_ids():
                         while cas_id not in strapon_part_ids_list:
                             strapon_part_ids_list.append(cas_id)
     return strapon_part_ids_list
-
+
+
 def _get_file_path():
     root_dir = ''
     root_file = os.path.normpath(os.path.dirname(os.path.realpath(__file__))).replace(os.sep, '/')
@@ -273,4 +288,4 @@ def _get_file_path():
     for index in range(0, len(root_file_split) - exit_index):
         root_dir += str(root_file_split[index]) + '/'
     return root_dir + 'ww_cas_parts.json'
-
+

@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboBaseSuperInteraction, TurboInteractionCancelMixin, TurboInteractionNameMixin, TurboInteractionASMMixin, TurboInteractionConstraintMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.utils_interfaces import display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.interaction_util import TurboInteractionUtilfrom turbolib.l18n_util import TurboL18NUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboBaseSuperInteraction, TurboInteractionCancelMixin, TurboInteractionNameMixin, TurboInteractionASMMixin, TurboInteractionConstraintMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.utils_interfaces import display_notification
+
 class DefaultAnimationsInteraction(TurboBaseSuperInteraction, TurboInteractionCancelMixin, TurboInteractionASMMixin, TurboInteractionNameMixin, TurboInteractionConstraintMixin):
     __qualname__ = 'DefaultAnimationsInteraction'
 
@@ -59,4 +62,4 @@ class DefaultAnimationsInteraction(TurboBaseSuperInteraction, TurboInteractionCa
         elif finishing_type == TurboInteractionUtil.FinishingType.NATURAL and sim_ev(sim).active_sex_handler is not None:
             if sim_ev(sim).active_sex_handler.is_canceled is True:
                 sim_ev(sim).active_sex_handler.stop(is_end=True, stop_reason='On interaction cancel: ' + finishing_type.name)
-
+

@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_ev
 def init_nudity_sim_ev_data(sim_identifier):
     sim_ev(sim_identifier).nude_outfit_parts = {6: -1, 7: -1, 8: -1, 115: -1}
     sim_ev(sim_identifier).penis_outfit_parts = {'soft': -1, 'hard': -1, 'soft_texture': -1, 'hard_texture': -1}
@@ -32,4 +28,4 @@ def init_nudity_sim_ev_data(sim_identifier):
     sim_ev(sim_identifier).on_toilet_outfit_state = -1
     sim_ev(sim_identifier).on_breast_feeding_outfit_state = -1
     sim_ev(sim_identifier).is_flashing = False
-
+

@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.statistics_enum import SimCommodity
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionist, get_sim_nudity_skill_level, get_sim_nudity_skill_progress
+from wickedwhims.sxex_bridge.body import get_sim_body_state, get_sim_additional_body_state, get_sim_actual_body_state, has_sim_outfit_top, has_sim_outfit_bottom, is_sim_outfit_fullbody
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_statistics import get_sim_statistic_value
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.statistics_enum import SimCommodityfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibitionist, get_sim_nudity_skill_level, get_sim_nudity_skill_progressfrom wickedwhims.sxex_bridge.body import get_sim_body_state, get_sim_additional_body_state, get_sim_actual_body_state, has_sim_outfit_top, has_sim_outfit_bottom, is_sim_outfit_fullbodyfrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_statistics import get_sim_statistic_value
+
 class DebugNudityInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugNudityInfoInteraction'
 
@@ -61,4 +65,4 @@ class DebugNudityInfoInteraction(TurboImmediateSuperInteraction, TurboInteractio
         nudity_debug_info += '  Toilet Use Outfit State: ' + str(sim_ev(sim).on_toilet_outfit_state) + '\n'
         nudity_debug_info += '  Breast Feeding Outfit State: ' + str(sim_ev(sim).on_breast_feeding_outfit_state) + '\n'
         display_notification(text=nudity_debug_info, title=str(TurboSimUtil.Name.get_name(sim)[0]) + ' ' + str(TurboSimUtil.Name.get_name(sim)[1]) + ' Nudity Debug', secondary_icon=sim)
-
+

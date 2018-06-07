@@ -1,10 +1,16 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting, CompleteUndressingTypeSetting
+from wickedwhims.sex.enums.sex_naked_type import SexNakedType
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexUndressingLevelSetting
+from wickedwhims.sxex_bridge.body import BodyState, is_sim_outfit_fullbody, set_sim_top_naked_state, set_sim_bottom_naked_state, get_sim_actual_body_state
+from wickedwhims.sxex_bridge.nudity import update_nude_body_data, reset_sim_bathing_outfits
+from wickedwhims.sxex_bridge.outfit import strip_outfit, StripType
+from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfit
+from wickedwhims.utils_cas import copy_outfit_to_special, get_modified_outfit
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting, CompleteUndressingTypeSettingfrom wickedwhims.sex.enums.sex_naked_type import SexNakedTypefrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexUndressingLevelSettingfrom wickedwhims.sxex_bridge.body import BodyState, is_sim_outfit_fullbody, set_sim_top_naked_state, set_sim_bottom_naked_state, get_sim_actual_body_statefrom wickedwhims.sxex_bridge.nudity import update_nude_body_data, reset_sim_bathing_outfitsfrom wickedwhims.sxex_bridge.outfit import strip_outfit, StripTypefrom wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfitfrom wickedwhims.utils_cas import copy_outfit_to_special, get_modified_outfit
 def undress_sim(sim_identifier, actor_data, is_npc_only=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if is_npc_only is False:
@@ -63,4 +69,4 @@ def undress_sim(sim_identifier, actor_data, is_npc_only=False):
         set_sim_bottom_naked_state(sim_info, True)
         set_sim_top_underwear_state(sim_info, strip_type_top == StripType.UNDERWEAR)
         set_sim_bottom_underwear_state(sim_info, False)
-
+

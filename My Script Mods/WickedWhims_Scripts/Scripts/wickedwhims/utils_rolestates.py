@@ -1,10 +1,9 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.autonomy_util import TurboAutonomyUtil
+from turbolib.components_util import TurboComponentUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.autonomy_util import TurboAutonomyUtilfrom turbolib.components_util import TurboComponentUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtil
 def has_sim_full_permission_role(sim_identifier):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if sim is None:
@@ -21,7 +20,8 @@ def has_sim_full_permission_role(sim_identifier):
             while not TurboAutonomyUtil.RoleStates.is_rolestate_allowing_player_sims(role):
                 return False
     return True
-
+
+
 def add_sim_rolestate(sim_identifier, sim_rolestate):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if sim is None:
@@ -32,7 +32,8 @@ def add_sim_rolestate(sim_identifier, sim_rolestate):
     if role_instance is None:
         return
     TurboSimUtil.Autonomy.add_rolestate(sim, role_instance)
-
+
+
 def remove_sim_rolestate(sim_identifier, sim_rolestate):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if sim is None:
@@ -43,4 +44,4 @@ def remove_sim_rolestate(sim_identifier, sim_rolestate):
     if role_instance is None:
         return
     TurboSimUtil.Autonomy.remove_rolestate(sim, role_instance)
-
+

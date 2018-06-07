@@ -1,10 +1,36 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import inspect
+import build_buy
+import routing
+import routing.connectivity
+import services
+from animation.posture_manifest import Hand
+from autonomy.content_sets import get_valid_aops_gen
+from autonomy.settings import AutonomyState
+from buffs.buff import Buff
+from cas.cas import get_tags_from_outfit
+from interactions.aop import AffordanceObjectPair
+from interactions.context import InteractionContext, QueueInsertStrategy
+from interactions.interaction_finisher import FinishingType
+from interactions.priority import Priority
+from interactions.si_state import SIState
+from objects import HiddenReasonFlag
+from objects.object_enums import ResetReason
+from postures import posture_graph
+from postures.posture_specs import get_origin_spec, PostureSpecVariable
+from postures.posture_state import PostureState
+from protocolbuffers import S4Common_pb2, Outfits_pb2, PersistenceBlobs_pb2
+from sims.aging.aging_tuning import AgeSpeeds
+from sims.occult.occult_enums import OccultType
+from sims.sim_info_types import Gender, Age, Species
+from situations.situation_goal_targeted_sim import SituationGoalTargetedSim
+from turbolib.cas_util import TurboCASUtil
+from turbolib.components_util import TurboComponentUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import inspectimport build_buyimport routingimport routing.connectivityimport servicesfrom animation.posture_manifest import Handfrom autonomy.content_sets import get_valid_aops_genfrom autonomy.settings import AutonomyStatefrom buffs.buff import Bufffrom cas.cas import get_tags_from_outfitfrom interactions.aop import AffordanceObjectPairfrom interactions.context import InteractionContext, QueueInsertStrategyfrom interactions.interaction_finisher import FinishingTypefrom interactions.priority import Priorityfrom interactions.si_state import SIStatefrom objects import HiddenReasonFlagfrom objects.object_enums import ResetReasonfrom postures import posture_graphfrom postures.posture_specs import get_origin_spec, PostureSpecVariablefrom postures.posture_state import PostureStatefrom protocolbuffers import S4Common_pb2, Outfits_pb2, PersistenceBlobs_pb2from sims.aging.aging_tuning import AgeSpeedsfrom sims.occult.occult_enums import OccultTypefrom sims.sim_info_types import Gender, Age, Speciesfrom situations.situation_goal_targeted_sim import SituationGoalTargetedSimfrom turbolib.cas_util import TurboCASUtilfrom turbolib.components_util import TurboComponentUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtil
+
 class TurboSimUtil:
     __qualname__ = 'TurboSimUtil'
 
@@ -1339,4 +1365,4 @@ class TurboSimUtil:
             if sim is None:
                 return False
             return services.sim_spawner_service().sim_is_leaving(sim)
-
+

@@ -1,10 +1,5 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from wickedwhims.main.sim_ev_handler import sim_ev
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from wickedwhims.main.sim_ev_handler import sim_ev
 def init_sex_sim_ev_data(sim_info):
     sim_ev(sim_info).gender_recognition = 0
     sim_ev(sim_info).is_ready_to_sex = False
@@ -36,4 +31,4 @@ def init_sex_sim_ev_data(sim_info):
     sim_ev(sim_info).sex_reaction_cooldown = 0
     sim_ev(sim_info).sex_reaction_handlers_list = list()
     sim_ev(sim_info).watching_sim_id = -1
-
+

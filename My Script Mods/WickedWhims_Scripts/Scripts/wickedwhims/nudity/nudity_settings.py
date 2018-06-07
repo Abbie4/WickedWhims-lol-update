@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
+from wickedwhims.main.settings.builder import SettingsBranchOption, SettingsWindow, SettingsSwitchOption, SettingsSelectorOption
+from wickedwhims.main.settings.main_settings import open_main_settings, register_main_settings_option
+from wickedwhims.utils_saves.save_basics import update_basic_save_data, get_basic_save_data
+NUDITY_SETTINGS_DICT = dict()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnumfrom wickedwhims.main.settings.builder import SettingsBranchOption, SettingsWindow, SettingsSwitchOption, SettingsSelectorOptionfrom wickedwhims.main.settings.main_settings import open_main_settings, register_main_settings_optionfrom wickedwhims.utils_saves.save_basics import update_basic_save_data, get_basic_save_dataNUDITY_SETTINGS_DICT = dict()
+
 class NuditySetting:
     __qualname__ = 'NuditySetting'
     NUDITY_SWITCH_STATE = 'exhibitionism_switch'
@@ -25,14 +25,17 @@ class NuditySetting:
     BREAST_FEEDING_UNDRESS_STATE = 'breast_feed_undress_flag'
     NUDITY_PRIVACY = 'nudity_privacy'
     REACTION_TO_NUDITY_STATE = 'nudity_reactions'
-
+
+
 @register_main_settings_option()
 def _register_nudity_settings():
     return _get_nudity_settings().get_window_picker_row()
-
+
+
 def _open_nudity_settings():
     _get_nudity_settings().open_window()
-
+
+
 def _get_nudity_settings():
 
     def _exit_setting_update():
@@ -49,7 +52,8 @@ def _get_nudity_settings():
     nudity_settings_window.add_settings_option(SettingsBranchOption(_other_settings, allow_open_callback=False))
     nudity_settings_window.add_settings_option(SettingsBranchOption(_cheats_settings, allow_open_callback=False))
     return nudity_settings_window
-
+
+
 def _setup_settings_variables():
     _setup_settings_variable(NuditySetting.NUDITY_SWITCH_STATE, 1)
     _setup_settings_variable(NuditySetting.UNDERWEAR_SWITCH_STATE, 1)
@@ -69,12 +73,14 @@ def _setup_settings_variables():
     _setup_settings_variable(NuditySetting.BREAST_FEEDING_UNDRESS_STATE, 1)
     _setup_settings_variable(NuditySetting.NUDITY_PRIVACY, 1)
     _setup_settings_variable(NuditySetting.REACTION_TO_NUDITY_STATE, 1)
-
+
+
 class CompleteUndressingTypeSetting(TurboEnum):
     __qualname__ = 'CompleteUndressingTypeSetting'
     DEFAULT = 0
     SPECIAL = 1
-
+
+
 def _outfit_settings():
 
     def _open_outfit_settings():
@@ -94,13 +100,15 @@ def _outfit_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(2384648499, 2997894284, _outfit_settings, NUDITY_SETTINGS_DICT, NuditySetting.OUTFIT_AUTO_UNDRESS_SOCKS_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(3473641235, 2662606901, _outfit_settings, NUDITY_SETTINGS_DICT, NuditySetting.OUTFIT_AUTO_UNDRESS_LEGGINGS_STATE))
     return settings_option_window
-
+
+
 class NudityNotificationsTypeSetting(TurboEnum):
     __qualname__ = 'NudityNotificationsTypeSetting'
     DISABLED = 0
     AUTONOMY = 1
     ALL = 2
-
+
+
 def _notification_settings():
 
     def _open_notification_settings():
@@ -118,19 +126,22 @@ def _notification_settings():
     settings_option_window.add_settings_option(SettingsBranchOption(_notifications_visibility_type, allow_open_callback=False))
     settings_option_window.add_settings_option(SettingsSwitchOption(2284366757, 2211369900, _notification_settings, NUDITY_SETTINGS_DICT, NuditySetting.NOTIFICATIONS_HOUSEHOLD_LIMIT_STATE))
     return settings_option_window
-
+
+
 class NudityAutonomyTypeSetting(TurboEnum):
     __qualname__ = 'NudityAutonomyTypeSetting'
     DISABLED = 0
     NPC_ONLY = 1
     FULL = 2
-
+
+
 class NudityAutonomyUndressLevelSetting(TurboEnum):
     __qualname__ = 'NudityAutonomyUndressLevelSetting'
     DISABLED = 0
     RANDOM = 1
     ALWAYS = 2
-
+
+
 def _autonomy_settings():
 
     def _open_autonomy_settings():
@@ -156,12 +167,14 @@ def _autonomy_settings():
 
     settings_option_window.add_settings_option(SettingsBranchOption(_interaction_undressing_autonomy_type, allow_open_callback=False))
     return settings_option_window
-
+
+
 def _story_progression_settings():
     settings_option_window = SettingsWindow(0, 1581732742, 1949040668, cancel_callback=_open_nudity_settings)
     settings_option_window.add_settings_option(SettingsSwitchOption(2988386393, 787091191, _story_progression_settings, NUDITY_SETTINGS_DICT, NuditySetting.STORY_PROGRESSION_STATE))
     return settings_option_window
-
+
+
 def _other_settings():
     settings_option_window = SettingsWindow(0, 3347767978, 3482441299, cancel_callback=_open_nudity_settings)
     settings_option_window.add_settings_option(SettingsSwitchOption(4036248285, 1543833768, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.TEENS_NUDITY_STATE))
@@ -169,17 +182,20 @@ def _other_settings():
     settings_option_window.add_settings_option(SettingsSwitchOption(1521332630, 2094981913, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.TOILET_USE_UNDRESS_STATE))
     settings_option_window.add_settings_option(SettingsSwitchOption(3872449146, 2574151234, _other_settings, NUDITY_SETTINGS_DICT, NuditySetting.BREAST_FEEDING_UNDRESS_STATE))
     return settings_option_window
-
+
+
 def _cheats_settings():
     settings_option_window = SettingsWindow(0, 3316653451, 1790619680, cancel_callback=_open_nudity_settings)
     settings_option_window.add_settings_option(SettingsSwitchOption(2493503338, 2379427991, _cheats_settings, NUDITY_SETTINGS_DICT, NuditySetting.NUDITY_PRIVACY))
     settings_option_window.add_settings_option(SettingsSwitchOption(3276318383, 3542627219, _cheats_settings, NUDITY_SETTINGS_DICT, NuditySetting.REACTION_TO_NUDITY_STATE))
     return settings_option_window
-
+
+
 def _setup_settings_variable(variable, default_state):
     if variable not in NUDITY_SETTINGS_DICT:
         NUDITY_SETTINGS_DICT[variable] = default_state
-
+
+
 def apply_nudity_settings_from_basic_save_data():
     _setup_settings_variables()
     basic_save_data = get_basic_save_data()
@@ -192,12 +208,14 @@ def apply_nudity_settings_from_basic_save_data():
                 except ValueError:
                     pass
     update_nudity_settings_to_basic_save_data()
-
+
+
 def update_nudity_settings_to_basic_save_data():
     general_dict = dict()
     general_dict['exhibitionism'] = NUDITY_SETTINGS_DICT
     update_basic_save_data(general_dict)
-
+
+
 def get_nudity_setting(variable, variable_type=bool):
     return variable_type(NUDITY_SETTINGS_DICT[variable])
-
+

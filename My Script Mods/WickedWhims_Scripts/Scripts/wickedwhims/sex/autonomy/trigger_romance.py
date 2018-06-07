@@ -1,10 +1,23 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.interactions_enum import SimInteraction
+from enums.moods_enum import SimMood
+from enums.tags_enum import GameTag
+from turbolib.events.interactions import register_interaction_outcome_event_method
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.relationships.desire_handler import get_sim_desire_level
+from wickedwhims.sex.autonomy.disabled_locations_handler import is_autonomy_sex_locations_disabled
+from wickedwhims.sex.autonomy.location import get_sex_location_style_and_chance, LocationStyleType
+from wickedwhims.sex.autonomy.sims import get_time_between_sex_autonomy_attempts, get_sex_pair_score
+from wickedwhims.sex.autonomy.triggers_handler import get_sex_autonomy_location, trigger_sex_autonomy_interaction
+from wickedwhims.sex.relationship_handler import get_relationship_sex_acceptance_threshold
+from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSetting
+from wickedwhims.utils_autonomy import is_sim_allowed_for_autonomy
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.interactions_enum import SimInteractionfrom enums.moods_enum import SimMoodfrom enums.tags_enum import GameTagfrom turbolib.events.interactions import register_interaction_outcome_event_methodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.relationships.desire_handler import get_sim_desire_levelfrom wickedwhims.sex.autonomy.disabled_locations_handler import is_autonomy_sex_locations_disabledfrom wickedwhims.sex.autonomy.location import get_sex_location_style_and_chance, LocationStyleTypefrom wickedwhims.sex.autonomy.sims import get_time_between_sex_autonomy_attempts, get_sex_pair_scorefrom wickedwhims.sex.autonomy.triggers_handler import get_sex_autonomy_location, trigger_sex_autonomy_interactionfrom wickedwhims.sex.relationship_handler import get_relationship_sex_acceptance_thresholdfrom wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexAutonomyLevelSettingfrom wickedwhims.utils_autonomy import is_sim_allowed_for_autonomy
 @register_interaction_outcome_event_method(unique_id='WickedWhims')
 def _wickedwhims_on_sex_autonomy_romance_interactions_outcome(interaction_instance, outcome_result):
     if outcome_result is False:
@@ -57,4 +70,4 @@ def _wickedwhims_on_sex_autonomy_romance_interactions_outcome(interaction_instan
             sex_location = get_sex_autonomy_location(sims_pair, location_style=location_style_and_delay[0])
             if sex_location is not None:
                 trigger_sex_autonomy_interaction(sims_pair, sex_location)
-
+

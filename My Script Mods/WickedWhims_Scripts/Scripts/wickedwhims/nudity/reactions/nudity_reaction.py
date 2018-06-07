@@ -1,10 +1,31 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.buffs_enum import SimBuff
+from enums.interactions_enum import SimInteraction
+from enums.moods_enum import SimMood
+from enums.relationship_enum import SimRelationshipBit, RelationshipTrackType
+from enums.situations_enum import SimSituation
+from enums.traits_enum import SimTrait
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevel
+from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
+from wickedwhims.nudity.skill.active_nudity import update_sim_nudity_skill_on_seeing_nudity
+from wickedwhims.relationships.relationship_utils import get_sim_preferenced_genders
+from wickedwhims.sxex_bridge.penis import set_sim_penis_state
+from wickedwhims.sxex_bridge.reactions import register_sim_reaction_function
+from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
+from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
+from wickedwhims.utils_buffs import add_sim_buff
+from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
+from wickedwhims.utils_sims import is_sim_available, has_sim_mood
+from wickedwhims.utils_situations import has_sim_situations
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.buffs_enum import SimBufffrom enums.interactions_enum import SimInteractionfrom enums.moods_enum import SimMoodfrom enums.relationship_enum import SimRelationshipBit, RelationshipTrackTypefrom enums.situations_enum import SimSituationfrom enums.traits_enum import SimTraitfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevelfrom wickedwhims.nudity.permissions.test import has_sim_permission_for_nudityfrom wickedwhims.nudity.skill.active_nudity import update_sim_nudity_skill_on_seeing_nudityfrom wickedwhims.relationships.relationship_utils import get_sim_preferenced_gendersfrom wickedwhims.sxex_bridge.penis import set_sim_penis_statefrom wickedwhims.sxex_bridge.reactions import register_sim_reaction_functionfrom wickedwhims.sxex_bridge.relationships import is_true_family_relationshipfrom wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sexfrom wickedwhims.sxex_bridge.statistics import increase_sim_ww_statisticfrom wickedwhims.utils_buffs import add_sim_bufffrom wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_simfrom wickedwhims.utils_sims import is_sim_available, has_sim_moodfrom wickedwhims.utils_situations import has_sim_situationsfrom wickedwhims.utils_traits import has_sim_trait
 @register_sim_reaction_function(priority=3)
 def react_to_sims_nudity(sim):
     if not get_nudity_setting(NuditySetting.REACTION_TO_NUDITY_STATE, variable_type=bool):
@@ -65,12 +86,14 @@ def react_to_sims_nudity(sim):
         if _nudity_reaction(sim, target, only_mixer=is_mixer_only):
             return True
     return False
-
+
+
 def force_nudity_reaction(sim, target):
     sim_ev(sim).full_nudity_reaction_cooldown = 0
     sim_ev(sim).inner_nudity_reaction_cooldown = 0
     _nudity_reaction(sim, target, force=True)
-
+
+
 def _nudity_reaction(sim, target, only_mixer=False, force=False):
     increase_sim_ww_statistic(sim, 'times_reacted_to_nudity')
     increase_sim_ww_statistic(target, 'times_been_seen_nude')
@@ -90,7 +113,8 @@ def _nudity_reaction(sim, target, only_mixer=False, force=False):
         set_sim_penis_state(sim, True, 8, set_if_nude=True)
         return True
     return False
-
+
+
 def _is_only_mixer_reaction(sim):
     is_ready_for_inner = sim_ev(sim).inner_nudity_reaction_cooldown <= 0
     if is_ready_for_inner is True and has_sim_situations(sim, (SimSituation.BARISTA_VENUE, SimSituation.HIREDNPC_BARISTA, SimSituation.BARBARTENDER, SimSituation.BARTENDER_RESTAURANT, SimSituation.HIREDNPC_BARTENDER, SimSituation.HIREDNPC_CATERER, SimSituation.HIREDNPC_CATERER_VEGETARIAN, SimSituation.HIREDNPC_DJ, SimSituation.HIREDNPC_DJ_LEVEL10, SimSituation.SINGLEJOB_CLUB_DJ, SimSituation.SINGLEJOB_CLUB_DJ_LEVEL10, SimSituation.HIREDNPC_ENTERTAINER_GUITAR, SimSituation.HIREDNPC_ENTERTAINER_MICCOMEDY, SimSituation.HIREDNPC_ENTERTAINER_ORGAN, SimSituation.HIREDNPC_ENTERTAINER_PIANO, SimSituation.HIREDNPC_ENTERTAINER_VIOLIN, SimSituation.BUTLER_SITUATION, SimSituation.GYMTRAINER_VENUE, SimSituation.MAID_SITUATION, SimSituation.MAILMAN_SITUATION, SimSituation.PIZZADELIVERY_NEW, SimSituation.REPAIR_SITUATION, SimSituation.MASSAGETHERAPIST_VENUE, SimSituation.MASSAGETHERAPIST_SERVICECALL, SimSituation.CHEFSITUATION, SimSituation.HOST_1, SimSituation.RESTAURANT_WAITSTAFF, SimSituation.CAREER_DOCTOR_NPC_DOCTOR, SimSituation.CAREER_DOCTOR_NPC_ASSISTANT, SimSituation.CAREER_DOCTOR_NPC_DOCTOR_DIAGNOSER, SimSituation.CAREER_DOCTOR_NPC_NURSE, SimSituation.CAREER_DOCTOR_NPC_PATIENT_ADMITTED, SimSituation.DETECTIVE_APB, SimSituation.DETECTIVE_APBNEUTRAL, SimSituation.CAREER_DETECTIVE_APBPLAYER)):
@@ -99,7 +123,8 @@ def _is_only_mixer_reaction(sim):
     if is_ready_for_full is False:
         return True
     return False
-
+
+
 def _is_positive_to_sim_nudity(sim, target):
     if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD, or_equal=True):
         return False
@@ -127,4 +152,4 @@ def _is_positive_to_sim_nudity(sim, target):
             chance += 0.025
         return chance >= 1.0 or random.Random(TurboManagerUtil.Sim.get_sim_id(sim)).uniform(0, 1) <= chance
     return False
-
+

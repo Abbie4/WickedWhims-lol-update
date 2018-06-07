@@ -1,10 +1,14 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.interactions_enum import SimInteraction
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.math_util import TurboMathUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.wrappers.interactions import TurboInteractionStartMixin, TurboInteractionCancelMixin, TurboInteractionConstraintMixin, TurboSuperInteraction, TurboBaseSuperInteraction, TurboInteractionInitMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sex
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.interactions_enum import SimInteractionfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.math_util import TurboMathUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.wrappers.interactions import TurboInteractionStartMixin, TurboInteractionCancelMixin, TurboInteractionConstraintMixin, TurboSuperInteraction, TurboBaseSuperInteraction, TurboInteractionInitMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sex
+
 class WaitForSexPartnerInteraction(TurboBaseSuperInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'WaitForSexPartnerInteraction'
 
@@ -45,7 +49,8 @@ class WaitForSexPartnerInteraction(TurboBaseSuperInteraction, TurboInteractionIn
                 clear_sim_sex_extra_data(actor_sim_info, only_pre_active_data=True)
                 while sim_ev(actor_sim_info).active_sex_handler is None:
                     unprepare_npc_sim_from_sex(actor_sim_info)
-
+
+
 class RouteToSexDestinationInteraction(TurboSuperInteraction, TurboInteractionInitMixin, TurboInteractionConstraintMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'RouteToSexDestinationInteraction'
 
@@ -105,7 +110,8 @@ class RouteToSexDestinationInteraction(TurboSuperInteraction, TurboInteractionIn
                 clear_sim_sex_extra_data(actor_sim_info, only_pre_active_data=True)
                 while sim_ev(actor_sim_info).active_sex_handler is None:
                     unprepare_npc_sim_from_sex(actor_sim_info)
-
+
+
 def _attempt_sex_init(pre_sex_handler):
     if pre_sex_handler.get_sims_amount() == 1:
         pre_sex_handler.start_sex_interaction()
@@ -125,4 +131,4 @@ def _attempt_sex_init(pre_sex_handler):
         pre_sex_handler.start_sex_interaction()
         return True
     return False
-
+

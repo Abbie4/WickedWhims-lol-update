@@ -1,10 +1,11 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from buffs.appearance_modifier.appearance_modifier import AppearanceModifierType
+from cas.cas import get_caspart_bodytype, get_buff_from_part_ids
+from protocolbuffers import Outfits_pb2, S4Common_pb2
+from sims.outfits.outfit_enums import OutfitCategory, BodyType
+from sims.outfits.outfit_utils import get_maximum_outfits_for_category
+from turbolib.manager_util import TurboManagerUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from buffs.appearance_modifier.appearance_modifier import AppearanceModifierTypefrom cas.cas import get_caspart_bodytype, get_buff_from_part_idsfrom protocolbuffers import Outfits_pb2, S4Common_pb2from sims.outfits.outfit_enums import OutfitCategory, BodyTypefrom sims.outfits.outfit_utils import get_maximum_outfits_for_categoryfrom turbolib.manager_util import TurboManagerUtil
+
 class TurboCASUtil:
     __qualname__ = 'TurboCASUtil'
     __doc__ = '\n    TurboCASUtil class is used for any CAS related functions outside direct Sim object manipulation or for special CAS related tools.\n    '
@@ -382,4 +383,4 @@ class TurboCASUtil:
                 body_types.append(body_type)
                 cas_parts.append(cas_part)
             return (body_types, cas_parts)
-
+

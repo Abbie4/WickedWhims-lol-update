@@ -1,10 +1,10 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.test_based_score import TestBasedScore
+from interactions import ParticipantType
+from sims4.sim_irq_service import yield_to_irq
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.relationship_handler import get_test_relationship_score
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.test_based_score import TestBasedScorefrom interactions import ParticipantTypefrom sims4.sim_irq_service import yield_to_irqfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.relationship_handler import get_test_relationship_score
+
 class RelationshipSexTestBasedScore(TestBasedScore):
     __qualname__ = 'RelationshipSexTestBasedScore'
 
@@ -25,4 +25,4 @@ class RelationshipSexTestBasedScore(TestBasedScore):
         if pre_sex_handler is not None and pre_sex_handler.is_success_sex():
             return 1000
         return get_test_relationship_score((sim, target))
-
+

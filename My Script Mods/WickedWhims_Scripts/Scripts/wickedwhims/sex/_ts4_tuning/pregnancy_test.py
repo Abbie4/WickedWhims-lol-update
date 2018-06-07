@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.events.core import has_game_loaded, register_zone_load_event_method
+from turbolib.resource_util import TurboResourceUtil
+PREGNANCY_TEST_LOOT = 11087
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.events.core import has_game_loaded, register_zone_load_event_methodfrom turbolib.resource_util import TurboResourceUtilPREGNANCY_TEST_LOOT = 11087
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_replace_pregnancy_test_loot():
     if has_game_loaded():
@@ -14,4 +11,4 @@ def _wickedwhims_replace_pregnancy_test_loot():
     if old_loot_actions_instance is None or new_loot_actions_instance is None:
         return
     old_loot_actions_instance.loot_actions = new_loot_actions_instance.loot_actions
-
+

@@ -1,17 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import inspect
+from functools import wraps
+import sims4
+from sims4.commands import Command, CommandType
+from turbolib.special.custom_exception_watcher import exception_watch
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import inspectfrom functools import wrapsimport sims4from sims4.commands import Command, CommandTypefrom turbolib.special.custom_exception_watcher import exception_watch
+
 class TurboCommandType:
     __qualname__ = 'TurboCommandType'
     DEBUG = CommandType.DebugOnly
     AUTOMATION = CommandType.Automation
     CHEAT = CommandType.Cheat
     LIVE = CommandType.Live
-
+
+
 def register_game_command(*aliases, command_type=TurboCommandType.LIVE):
 
     def regiser_in_game(method):
@@ -34,4 +35,4 @@ def register_game_command(*aliases, command_type=TurboCommandType.LIVE):
         return method
 
     return regiser_in_game
-
+

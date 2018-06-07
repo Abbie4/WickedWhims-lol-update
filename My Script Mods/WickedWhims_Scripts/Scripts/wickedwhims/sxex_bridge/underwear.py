@@ -1,31 +1,40 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.statistics_enum import SimCommodity
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sxex_bridge.body import get_sim_body_state, BodyState
+from wickedwhims.utils_statistics import set_sim_statistic_value
+from wickedwhims.utils_traits import has_sim_trait
+UNDERWEAR_OUTFITS = (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.statistics_enum import SimCommodityfrom enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sxex_bridge.body import get_sim_body_state, BodyStatefrom wickedwhims.utils_statistics import set_sim_statistic_valuefrom wickedwhims.utils_traits import has_sim_traitUNDERWEAR_OUTFITS = (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL)
 def is_underwear_outfit(outfit_category):
     return outfit_category in UNDERWEAR_OUTFITS
-
+
+
 def set_sim_top_underwear_state(sim_identifier, state):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     set_sim_statistic_value(sim_info, 1 if state is True else 0, SimCommodity.WW_NUDITY_IS_TOP_UNDERWEAR)
     sim_ev(sim_info).underwear_flags['top'] = state
-
+
+
 def set_sim_bottom_underwear_state(sim_identifier, state):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     set_sim_statistic_value(sim_info, 1 if state is True else 0, SimCommodity.WW_NUDITY_IS_BOTTOM_UNDERWEAR)
     sim_ev(sim_info).underwear_flags['bottom'] = state
-
+
+
 def is_sim_top_underwear(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     return sim_ev(sim_info).underwear_flags['top']
-
+
+
 def is_sim_bottom_underwear(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     return sim_ev(sim_info).underwear_flags['bottom']
-
+
+
 def update_sim_underwear_data(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     current_outfit_category = TurboSimUtil.CAS.get_current_outfit(sim_info)[0]
@@ -48,4 +57,4 @@ def update_sim_underwear_data(sim_identifier):
     else:
         set_sim_top_underwear_state(sim_info, False)
         set_sim_bottom_underwear_state(sim_info, False)
-
+

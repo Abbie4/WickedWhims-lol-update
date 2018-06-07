@@ -1,10 +1,17 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.animations.animations_operator import get_animation_from_identifier
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import get_sex_category_type_by_name
+from wickedwhims.sex.sex_handlers.active.active_sex_handler import ActiveSexInteractionHandler
+from wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandler
+from wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshot
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
+from wickedwhims.utils_interfaces import display_notification
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.animations.animations_operator import get_animation_from_identifierfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import get_sex_category_type_by_namefrom wickedwhims.sex.sex_handlers.active.active_sex_handler import ActiveSexInteractionHandlerfrom wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandlerfrom wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshotfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_datafrom wickedwhims.utils_interfaces import display_notification
+
 class PreSexInteractionHandler(SexInteractionHandler):
     __qualname__ = 'PreSexInteractionHandler'
 
@@ -214,4 +221,4 @@ class PreSexInteractionHandler(SexInteractionHandler):
     def get_string_data(self):
         basic_data = super().get_string_data()
         return basic_data + '\n Interaction Type: ' + str(self._interaction_type.name) + '\n Sims List: ' + str(', '.join(str(v) for v in self._sims_ids_list))
-
+

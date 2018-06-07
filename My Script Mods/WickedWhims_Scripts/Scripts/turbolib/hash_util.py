@@ -1,10 +1,4 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 class FNV:
     __qualname__ = 'FNV'
 
@@ -25,4 +19,4 @@ class FNV:
     @staticmethod
     def fnv64(string, hval_init=14695981039346656037):
         return FNV.fnv(string, hval_init, 1099511628211, 18446744073709551616)
-
+

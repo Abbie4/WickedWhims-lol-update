@@ -1,10 +1,18 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.relationship_enum import SimRelationshipBit
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_menstrual_cycle_days, get_sim_days_till_ovulation, apply_period_related_buffs, get_fertility_days_data, get_cycle_durations, get_sim_menstrual_pregnancy_chance_matrix
+from wickedwhims.sex.pregnancy.native_pregnancy_handler import get_sim_pregnancy_discovery_state
+from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chance
+from wickedwhims.utils_interfaces import display_notification
+from wickedwhims.utils_relations import get_sim_ids_with_relationsip_bit
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.relationship_enum import SimRelationshipBitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.debug.debug_controller import is_main_debug_flag_enabledfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_menstrual_cycle_days, get_sim_days_till_ovulation, apply_period_related_buffs, get_fertility_days_data, get_cycle_durations, get_sim_menstrual_pregnancy_chance_matrixfrom wickedwhims.sex.pregnancy.native_pregnancy_handler import get_sim_pregnancy_discovery_statefrom wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chancefrom wickedwhims.utils_interfaces import display_notificationfrom wickedwhims.utils_relations import get_sim_ids_with_relationsip_bit
+
 class DebugPregnancyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugPregnancyInteraction'
 
@@ -60,4 +68,4 @@ class DebugPregnancyInteraction(TurboImmediateSuperInteraction, TurboInteraction
             pregnancy_debug_info += '  Day ' + str(key) + ': ' + str(value) + '\n'
         display_notification(text=pregnancy_debug_info, title=str(TurboSimUtil.Name.get_name(sim)[0]) + ' ' + str(TurboSimUtil.Name.get_name(sim)[1]) + ' Pregnancy Debug', secondary_icon=sim)
         apply_period_related_buffs(sim)
-
+

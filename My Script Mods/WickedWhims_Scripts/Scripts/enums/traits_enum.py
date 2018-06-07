@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimTrait(TurboEnum):
     __qualname__ = 'SimTrait'
     ACTIVE = 27419
@@ -539,7 +535,8 @@ class SimTrait(TurboEnum):
     BASEMENTAL_IS_A_COCAINE_DRUG_DEALER = 8759528480332356916
     BASEMENTAL_IS_A_AMPHETAMINE_DRUG_DEALER = 8022434622278476051
     BASEMENTAL_AYAHUASCA_SHAMAN = 18039815909629776645
-
+
+
 class LotTrait(TurboEnum):
     __qualname__ = 'LotTrait'
     CON_CURSED = 137285
@@ -591,4 +588,4 @@ class LotTrait(TurboEnum):
     PRO_SERVICEDAPARTMENT = 137274
     WW_LOTTRAIT_HYPERSEXUAL = 10219680229030329585
     WW_LOTTRAIT_NUDIST = 11700746558866762464
-
+

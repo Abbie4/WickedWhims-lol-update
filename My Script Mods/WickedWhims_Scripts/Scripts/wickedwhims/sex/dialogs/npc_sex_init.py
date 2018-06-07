@@ -1,10 +1,22 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.l18n_util import TurboL18NUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.ui_util import TurboUIUtil
+from wickedwhims.main.settings._ts4_menu_utils import get_menu_sim, clear_menu_sim
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actors
+from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
+from wickedwhims.sex.animations.animations_operator import get_random_animation, get_animations_with_params, ChoiceListRandomAnimationPickerRow
+from wickedwhims.sex.dialogs.dialog_utils import get_sex_category_animations_stbl_name, get_sex_category_stbl_name
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_handlers.pre_sex_handler import PreSexInteractionHandler
+from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sims_sex_extra_data
+from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import start_sex_interaction_from_pre_sex_handler
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.sex.utils.sex_init import get_nearby_sims_for_sex
+from wickedwhims.utils_interfaces import display_picker_list_dialog, display_sim_picker_dialog, display_ok_dialog, get_arrow_icon
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.l18n_util import TurboL18NUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.special.custom_exception_watcher import exception_watchfrom turbolib.ui_util import TurboUIUtilfrom wickedwhims.main.settings._ts4_menu_utils import get_menu_sim, clear_menu_simfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.animations.animations_cache import get_animation_max_amount_of_actorsfrom wickedwhims.sex.animations.animations_handler import get_available_sex_animationsfrom wickedwhims.sex.animations.animations_operator import get_random_animation, get_animations_with_params, ChoiceListRandomAnimationPickerRowfrom wickedwhims.sex.dialogs.dialog_utils import get_sex_category_animations_stbl_name, get_sex_category_stbl_namefrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_handlers.pre_sex_handler import PreSexInteractionHandlerfrom wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sims_sex_extra_datafrom wickedwhims.sex.sex_operators.pre_sex_handlers_operator import start_sex_interaction_from_pre_sex_handlerfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.sex.utils.sex_init import get_nearby_sims_for_sexfrom wickedwhims.utils_interfaces import display_picker_list_dialog, display_sim_picker_dialog, display_ok_dialog, get_arrow_icon
 def open_sex_npc_sims_picker_dialog(origin_position, sex_category_type, location_identifier, game_object_id, object_height, lot_id, location_position, location_level, location_angle, location_route_position, route_level, is_manual=False):
 
     @exception_watch()
@@ -41,7 +53,8 @@ def open_sex_npc_sims_picker_dialog(origin_position, sex_category_type, location
         display_ok_dialog(text=3288282583, text_tokens=(get_sex_category_stbl_name(sex_category_type),), title=get_sex_category_animations_stbl_name(sex_category_type))
         return
     display_sim_picker_dialog(text=389626746, title=get_sex_category_animations_stbl_name(sex_category_type), sims_id_list=sims_list, selectable_amount=max_amount_of_actors, sim=get_menu_sim(), callback=npc_sims_picker_callback)
-
+
+
 def open_random_sex_npc_sims_picker_dialog(origin_position, location_identifier, game_object_id, object_height, lot_id, location_position, location_level, location_angle, location_route_position, route_level, is_manual=False):
 
     @exception_watch()
@@ -75,7 +88,8 @@ def open_random_sex_npc_sims_picker_dialog(origin_position, location_identifier,
         display_ok_dialog(text=3288282583, title=1890248379)
         return
     display_sim_picker_dialog(text=389626746, title=1890248379, sims_id_list=sims_list, selectable_amount=48, sim=get_menu_sim(), callback=random_sex_npc_sims_picker_callback)
-
+
+
 def open_start_npc_sex_animations_category_picker_dialog(pre_sex_handler):
 
     @exception_watch()
@@ -102,7 +116,8 @@ def open_start_npc_sex_animations_category_picker_dialog(pre_sex_handler):
         picker_row = TurboUIUtil.ObjectPickerDialog.ListPickerRow(index, animation_sex_category_name, TurboL18NUtil.get_localized_string(3166569584, tokens=(str(len(animations_list)),)), skip_tooltip=True, icon=get_arrow_icon(), tag=animation_sex_category_type)
         category_picker_rows.append(picker_row)
     display_picker_list_dialog(title=2301874612, picker_rows=category_picker_rows, callback=animation_categories_picker_callback)
-
+
+
 def open_start_npc_sex_animations_picker_dialog(pre_sex_handler):
 
     @exception_watch()
@@ -129,4 +144,4 @@ def open_start_npc_sex_animations_picker_dialog(pre_sex_handler):
     if len(get_available_sex_animations()) <= 4:
         display_ok_dialog(text=1066517691, title=3113927949)
     display_picker_list_dialog(title=get_sex_category_animations_stbl_name(pre_sex_handler.get_interaction_type()), picker_rows=animations_rows, sim=next(iter(pre_sex_handler.get_actors_sim_info_gen())), callback=animations_picker_callback)
-
+

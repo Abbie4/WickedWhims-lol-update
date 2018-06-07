@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.buffs_enum import SimBuff
+from turbolib.cas_util import TurboCASUtil
+from turbolib.events.interactions import register_interaction_run_event_method
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
+from wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, BodyState, get_sim_body_state, set_sim_bottom_naked_state, set_sim_top_naked_state
+from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
+from wickedwhims.utils_buffs import add_sim_buff
+from wickedwhims.utils_cas import get_modified_outfit
+from wickedwhims.utils_interfaces import display_notification
+JUMPING_INTERACTIONS = (128702, 128703, 128704, 128705)
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.buffs_enum import SimBufffrom turbolib.cas_util import TurboCASUtilfrom turbolib.events.interactions import register_interaction_run_event_methodfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.nudity.permissions.test import has_sim_permission_for_nudityfrom wickedwhims.sxex_bridge.body import is_sim_outfit_fullbody, BodyState, get_sim_body_state, set_sim_bottom_naked_state, set_sim_top_naked_statefrom wickedwhims.sxex_bridge.outfit import StripType, strip_outfitfrom wickedwhims.utils_buffs import add_sim_bufffrom wickedwhims.utils_cas import get_modified_outfitfrom wickedwhims.utils_interfaces import display_notificationJUMPING_INTERACTIONS = (128702, 128703, 128704, 128705)
 @register_interaction_run_event_method(unique_id='WickedWhims')
 def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):
     if not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
@@ -61,4 +71,4 @@ def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):
             add_sim_buff(sim_info, SimBuff.OBJECT_JUMPSTAND_SWIMSUITMALFUNCTION)
         if random.uniform(0, 1) <= 0.45:
             add_sim_buff(sim_info, SimBuff.WW_NUDITY_TEMPORARY_BRAVE)
-
+

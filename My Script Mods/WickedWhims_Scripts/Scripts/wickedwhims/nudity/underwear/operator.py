@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+import random
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.sim_util import TurboSimUtil
+from wickedwhims.main.cas_config_handler import get_underwear_part_sets
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
+from wickedwhims.sxex_bridge.nudity import get_default_nude_cas_part_id
+from wickedwhims.utils_cas import get_modified_outfit, get_sim_outfit_cas_part_from_bodytype
+from wickedwhims.utils_traits import has_sim_trait
+DEFAULT_UNDERWEAR_TOP_FEMALE = 24426
+DEFAULT_UNDERWEAR_BOTTOM_FEMALE = 24434
+DEFAULT_UNDERWEAR_BOTTOM_MALE = 24742
+MALE_UNDERWEAR_SETS_CACHE = ()
+FEMALE_UNDERWEAR_SETS_CACHE = ()
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''import randomfrom enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.sim_util import TurboSimUtilfrom wickedwhims.main.cas_config_handler import get_underwear_part_setsfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_settingfrom wickedwhims.sxex_bridge.nudity import get_default_nude_cas_part_idfrom wickedwhims.utils_cas import get_modified_outfit, get_sim_outfit_cas_part_from_bodytypefrom wickedwhims.utils_traits import has_sim_traitDEFAULT_UNDERWEAR_TOP_FEMALE = 24426DEFAULT_UNDERWEAR_BOTTOM_FEMALE = 24434DEFAULT_UNDERWEAR_BOTTOM_MALE = 24742MALE_UNDERWEAR_SETS_CACHE = ()FEMALE_UNDERWEAR_SETS_CACHE = ()
 def has_sim_underwear_data(sim_identifier, outfit_category_and_index):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     outfit_code = _get_outfit_category_and_index_code(outfit_category_and_index)
@@ -14,7 +24,8 @@ def has_sim_underwear_data(sim_identifier, outfit_category_and_index):
     if (underwear_data[0] == -1 or underwear_data[0] == DEFAULT_UNDERWEAR_TOP_FEMALE) and (underwear_data[1] == -1 or underwear_data[1] == DEFAULT_UNDERWEAR_BOTTOM_MALE or underwear_data[1] == DEFAULT_UNDERWEAR_BOTTOM_FEMALE):
         return False
     return True
-
+
+
 def get_sim_underwear_data(sim_identifier, outfit_category_and_index):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if not get_nudity_setting(NuditySetting.UNDERWEAR_SWITCH_STATE, variable_type=bool) or has_sim_trait(sim_info, SimTrait.WW_NO_UNDERWEAR):
@@ -45,7 +56,8 @@ def get_sim_underwear_data(sim_identifier, outfit_category_and_index):
             underwear_data[1] = DEFAULT_UNDERWEAR_BOTTOM_FEMALE
     set_sim_underwear_data(sim_info, underwear_data, outfit_category_and_index)
     return underwear_data
-
+
+
 def set_sim_underwear_data(sim_identifier, underwear_cas_ids, outfit_category_and_index):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     underwear_cas_ids = list(underwear_cas_ids)
@@ -54,7 +66,8 @@ def set_sim_underwear_data(sim_identifier, underwear_cas_ids, outfit_category_an
     if underwear_cas_ids[1] == get_default_nude_cas_part_id(sim_info, 7):
         underwear_cas_ids[1] = -1
     sim_ev(sim_info).underwear_outfits_parts[_get_outfit_category_and_index_code(outfit_category_and_index)] = underwear_cas_ids
-
+
+
 def get_random_underwear_set(sim_identifier):
     global MALE_UNDERWEAR_SETS_CACHE, FEMALE_UNDERWEAR_SETS_CACHE
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
@@ -75,7 +88,8 @@ def get_random_underwear_set(sim_identifier):
         FEMALE_UNDERWEAR_SETS_CACHE = underwear_sets_list
     random_int = random.Random(TurboManagerUtil.Sim.get_sim_id(sim_info))
     return random_int.choice(underwear_sets_list)
-
+
+
 def validate_outfit_underwear(sim_identifier, outfit_category_and_index):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     underwear_data = get_sim_underwear_data(sim_info, outfit_category_and_index)
@@ -88,7 +102,8 @@ def validate_outfit_underwear(sim_identifier, outfit_category_and_index):
         outfit_bottom_part = get_sim_outfit_cas_part_from_bodytype(sim_info, 7, outfit_category_and_index=outfit_category_and_index)
         if underwear_data[0] == outfit_top_part or underwear_data[1] == outfit_bottom_part:
             set_sim_underwear_data(sim_info, [DEFAULT_UNDERWEAR_TOP_FEMALE, DEFAULT_UNDERWEAR_BOTTOM_FEMALE], outfit_category_and_index)
-
+
+
 def _get_outfit_category_and_index_code(outfit_category_and_index):
     return str(int(outfit_category_and_index[0])) + str(int(outfit_category_and_index[1]))
-
+

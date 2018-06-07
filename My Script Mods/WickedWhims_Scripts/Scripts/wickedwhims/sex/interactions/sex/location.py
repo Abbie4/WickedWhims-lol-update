@@ -1,10 +1,20 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.math_util import TurboMathUtil
+from turbolib.object_util import TurboObjectUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.interactions import TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex._ts4_sex_utils import is_safe_floor_object_position, get_floor_object_position, get_floor_object_level
+from wickedwhims.sex.animations.animations_operator import has_animations_with_params
+from wickedwhims.sex.enums.sex_gender import get_sim_sex_gender
+from wickedwhims.sex.enums.sex_type import SexCategoryType
+from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
+from wickedwhims.sex.sex_operators.sex_change_location_operator import change_player_sex_interaction_location
+from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_message
+from wickedwhims.utils_objects import get_object_fixed_direction
+from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.math_util import TurboMathUtilfrom turbolib.object_util import TurboObjectUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.interactions import TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex._ts4_sex_utils import is_safe_floor_object_position, get_floor_object_position, get_floor_object_levelfrom wickedwhims.sex.animations.animations_operator import has_animations_with_paramsfrom wickedwhims.sex.enums.sex_gender import get_sim_sex_genderfrom wickedwhims.sex.enums.sex_type import SexCategoryTypefrom wickedwhims.sex.sex_location_handler import SexInteractionLocationTypefrom wickedwhims.sex.sex_operators.sex_change_location_operator import change_player_sex_interaction_locationfrom wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display_not_allowed_messagefrom wickedwhims.utils_objects import get_object_fixed_directionfrom wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 def _test_for_change_sex_location(interaction_context, interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
@@ -45,7 +55,8 @@ def _test_for_change_sex_location(interaction_context, interaction_sim, interact
     if has_animations is False:
         return False
     return True
-
+
+
 def _change_sex_location(interaction_sim, interaction_target, interaction_context, sex_category_type):
     if sex_category_type is not None:
         sex_allowed = is_sim_allowed_for_animation(sim_ev(interaction_sim).active_sex_handler.get_actors_sim_info_gen(), sex_category_type)
@@ -57,7 +68,8 @@ def _change_sex_location(interaction_sim, interaction_target, interaction_contex
         return False
     change_player_sex_interaction_location(active_sex_handler, interaction_target, interaction_context=interaction_context, interaction_type=sex_category_type)
     return True
-
+
+
 class ChangeSexLocationTeasingInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationTeasingInteraction'
 
@@ -68,7 +80,8 @@ class ChangeSexLocationTeasingInteraction(TurboTerrainImmediateSuperInteraction,
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.TEASING)
-
+
+
 class ChangeSexLocationHandjobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationHandjobInteraction'
 
@@ -79,7 +92,8 @@ class ChangeSexLocationHandjobInteraction(TurboTerrainImmediateSuperInteraction,
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.HANDJOB)
-
+
+
 class ChangeSexLocationFootjobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationFootjobInteraction'
 
@@ -90,7 +104,8 @@ class ChangeSexLocationFootjobInteraction(TurboTerrainImmediateSuperInteraction,
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.FOOTJOB)
-
+
+
 class ChangeSexLocationOraljobInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationOraljobInteraction'
 
@@ -101,7 +116,8 @@ class ChangeSexLocationOraljobInteraction(TurboTerrainImmediateSuperInteraction,
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.ORALJOB)
-
+
+
 class ChangeSexLocationVaginalInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationVaginalInteraction'
 
@@ -112,7 +128,8 @@ class ChangeSexLocationVaginalInteraction(TurboTerrainImmediateSuperInteraction,
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.VAGINAL)
-
+
+
 class ChangeSexLocationAnalInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationAnalInteraction'
 
@@ -123,7 +140,8 @@ class ChangeSexLocationAnalInteraction(TurboTerrainImmediateSuperInteraction, Tu
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=SexCategoryType.ANAL)
-
+
+
 class ChangeSexLocationRandomInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeSexLocationRandomInteraction'
 
@@ -134,4 +152,4 @@ class ChangeSexLocationRandomInteraction(TurboTerrainImmediateSuperInteraction, 
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return _change_sex_location(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), cls.get_interaction_context(interaction_instance), sex_category_type=None)
-
+

@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimBuff(TurboEnum):
     __qualname__ = 'SimBuff'
     ADOPTION = 40069
@@ -5591,4 +5587,4 @@ class SimBuff(TurboEnum):
     BASEMENTAL_ALCOHOL_PASSED_OUT = 13888433996875208800
     BASEMENTAL_ALCOHOL_ADDICTED = 9360245194106694749
     BASEMENTAL_REHAB_COMPLETED = 17761345243028184615
-
+

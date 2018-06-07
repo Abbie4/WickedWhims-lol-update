@@ -1,10 +1,11 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from event_testing.tests import CompoundTestList
+from turbolib.events.core import register_zone_load_event_method, has_game_loaded
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.tunable_util import TurboTunableUtil
+from wickedwhims.utils_tunings import modify_sim_info_test_ages
+SKINNY_DIPPING_TESTSET = 129064
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from event_testing.tests import CompoundTestListfrom turbolib.events.core import register_zone_load_event_method, has_game_loadedfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.tunable_util import TurboTunableUtilfrom wickedwhims.utils_tunings import modify_sim_info_test_agesSKINNY_DIPPING_TESTSET = 129064
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_allow_skinny_dipping_for_all_age():
     if has_game_loaded():
@@ -21,4 +22,4 @@ def _wickedwhims_allow_skinny_dipping_for_all_age():
             testset_test_list.append(test)
         testset_group_list.append(tuple(testset_test_list))
     snippet_instance.test = CompoundTestList(list(testset_group_list))
-
+

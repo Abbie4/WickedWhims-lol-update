@@ -1,10 +1,7 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.resource_util import TurboResourceUtil
+from turbolib.sim_util import TurboSimUtil
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.manager_util import TurboManagerUtilfrom turbolib.resource_util import TurboResourceUtilfrom turbolib.sim_util import TurboSimUtil
 def complete_sim_whim(sim_identifier, sim_whim, target_sim_identifier=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if not TurboSimUtil.Whim.has_whim_tracker(sim_info):
@@ -13,7 +10,8 @@ def complete_sim_whim(sim_identifier, sim_whim, target_sim_identifier=None):
         while TurboResourceUtil.Resource.get_guid64(whim) == int(sim_whim):
             return TurboSimUtil.Whim.complete_whim(whim, target_sim_identifier=target_sim_identifier)
     return False
-
+
+
 def complete_sim_situation_goal(sim_identifier, sim_sitaution_goal, target_sim_identifier=None):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if sim is None:
@@ -31,4 +29,4 @@ def complete_sim_situation_goal(sim_identifier, sim_sitaution_goal, target_sim_i
         for goal in goals_list:
             while TurboResourceUtil.Resource.get_guid64(goal) == int(sim_sitaution_goal):
                 return TurboSimUtil.Whim.complete_whim(goal, target_sim_identifier=target_sim_identifier)
-
+

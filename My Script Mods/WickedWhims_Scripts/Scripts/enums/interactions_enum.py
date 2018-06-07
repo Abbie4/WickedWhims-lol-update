@@ -1,10 +1,6 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from turbolib.native.enum import TurboEnum
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from turbolib.native.enum import TurboEnum
+
 class SimInteraction(TurboEnum):
     __qualname__ = 'SimInteraction'
     SIM_STAND = 13983
@@ -85,4 +81,4 @@ class SimInteraction(TurboEnum):
     WW_TRIGGER_SEX_WATCH_DEFAULT = 17752684933312513668
     WW_SEX_CUM_REACTION = 17682319684629947260
     WW_SEX_CUM_REACTION_MIXER = 17122417833985501002
-
+

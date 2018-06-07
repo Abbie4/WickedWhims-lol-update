@@ -1,10 +1,22 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.cas_util import TurboCASUtil
+from turbolib.interaction_util import TurboInteractionUtil
+from turbolib.sim_util import TurboSimUtil
+from turbolib.world_util import TurboWorldUtil
+from turbolib.wrappers.interactions import TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.nudity.notifications_handler import nudity_notification
+from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting, CompleteUndressingTypeSetting
+from wickedwhims.nudity.permissions.test import NudityPermissionDenied, has_sim_permission_for_nudity
+from wickedwhims.sxex_bridge.body import BodyState, set_sim_top_naked_state, set_sim_bottom_naked_state, is_sim_outfit_fullbody, get_sim_actual_body_state, get_sim_body_state
+from wickedwhims.sxex_bridge.nudity import reset_sim_bathing_outfits
+from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit, dress_up_outfit
+from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
+from wickedwhims.sxex_bridge.underwear import is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfit, set_sim_top_underwear_state, set_sim_bottom_underwear_state
+from wickedwhims.utils_cas import get_modified_outfit, copy_outfit_to_special
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.cas_util import TurboCASUtilfrom turbolib.interaction_util import TurboInteractionUtilfrom turbolib.sim_util import TurboSimUtilfrom turbolib.world_util import TurboWorldUtilfrom turbolib.wrappers.interactions import TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.nudity.notifications_handler import nudity_notificationfrom wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting, CompleteUndressingTypeSettingfrom wickedwhims.nudity.permissions.test import NudityPermissionDenied, has_sim_permission_for_nudityfrom wickedwhims.sxex_bridge.body import BodyState, set_sim_top_naked_state, set_sim_bottom_naked_state, is_sim_outfit_fullbody, get_sim_actual_body_state, get_sim_body_statefrom wickedwhims.sxex_bridge.nudity import reset_sim_bathing_outfitsfrom wickedwhims.sxex_bridge.outfit import StripType, strip_outfit, dress_up_outfitfrom wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sexfrom wickedwhims.sxex_bridge.underwear import is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfit, set_sim_top_underwear_state, set_sim_bottom_underwear_statefrom wickedwhims.utils_cas import get_modified_outfit, copy_outfit_to_specialfrom wickedwhims.utils_traits import has_sim_trait
+
 class _NudityUndressOutfitTopInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressOutfitTopInteraction'
 
@@ -47,7 +59,8 @@ class _NudityUndressOutfitTopInteraction(TurboSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+
+
 class NaturismUndressOutfitTopInteraction(_NudityUndressOutfitTopInteraction):
     __qualname__ = 'NaturismUndressOutfitTopInteraction'
 
@@ -57,7 +70,8 @@ class NaturismUndressOutfitTopInteraction(_NudityUndressOutfitTopInteraction):
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismUndressOutfitTopInteraction(_NudityUndressOutfitTopInteraction):
     __qualname__ = 'ExhibitionismUndressOutfitTopInteraction'
 
@@ -67,7 +81,8 @@ class ExhibitionismUndressOutfitTopInteraction(_NudityUndressOutfitTopInteractio
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NudityUndressOutfitBottomInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressOutfitBottomInteraction'
 
@@ -110,7 +125,8 @@ class _NudityUndressOutfitBottomInteraction(TurboSuperInteraction, TurboInteract
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+
+
 class NaturismUndressOutfitBottomInteraction(_NudityUndressOutfitBottomInteraction):
     __qualname__ = 'NaturismUndressOutfitBottomInteraction'
 
@@ -120,7 +136,8 @@ class NaturismUndressOutfitBottomInteraction(_NudityUndressOutfitBottomInteracti
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismUndressOutfitBottomInteraction(_NudityUndressOutfitBottomInteraction):
     __qualname__ = 'ExhibitionismUndressOutfitBottomInteraction'
 
@@ -130,7 +147,8 @@ class ExhibitionismUndressOutfitBottomInteraction(_NudityUndressOutfitBottomInte
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NudityUndressOutfitShoesInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressOutfitShoesInteraction'
 
@@ -162,7 +180,8 @@ class _NudityUndressOutfitShoesInteraction(TurboSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+
+
 class NaturismUndressOutfitShoesInteraction(_NudityUndressOutfitShoesInteraction):
     __qualname__ = 'NaturismUndressOutfitShoesInteraction'
 
@@ -172,7 +191,8 @@ class NaturismUndressOutfitShoesInteraction(_NudityUndressOutfitShoesInteraction
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismUndressOutfitShoesInteraction(_NudityUndressOutfitShoesInteraction):
     __qualname__ = 'ExhibitionismUndressOutfitShoesInteraction'
 
@@ -182,7 +202,8 @@ class ExhibitionismUndressOutfitShoesInteraction(_NudityUndressOutfitShoesIntera
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NudityUndressOutfitInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressOutfitInteraction'
 
@@ -229,7 +250,8 @@ class _NudityUndressOutfitInteraction(TurboSuperInteraction, TurboInteractionSet
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+
+
 class NaturismUndressOutfitInteraction(_NudityUndressOutfitInteraction):
     __qualname__ = 'NaturismUndressOutfitInteraction'
 
@@ -239,7 +261,8 @@ class NaturismUndressOutfitInteraction(_NudityUndressOutfitInteraction):
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismUndressOutfitInteraction(_NudityUndressOutfitInteraction):
     __qualname__ = 'ExhibitionismUndressOutfitInteraction'
 
@@ -249,7 +272,8 @@ class ExhibitionismUndressOutfitInteraction(_NudityUndressOutfitInteraction):
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class _NudityUndressToNudeInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressToNudeInteraction'
 
@@ -296,7 +320,8 @@ class _NudityUndressToNudeInteraction(TurboSuperInteraction, TurboInteractionSet
     @classmethod
     def on_interaction_run(cls, interaction_instance):
         return True
-
+
+
 class NaturismUndressToNudeInteraction(_NudityUndressToNudeInteraction):
     __qualname__ = 'NaturismUndressToNudeInteraction'
 
@@ -306,7 +331,8 @@ class NaturismUndressToNudeInteraction(_NudityUndressToNudeInteraction):
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismUndressToNudeInteraction(_NudityUndressToNudeInteraction):
     __qualname__ = 'ExhibitionismUndressToNudeInteraction'
 
@@ -316,7 +342,8 @@ class ExhibitionismUndressToNudeInteraction(_NudityUndressToNudeInteraction):
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 def _has_permission_to_undress(interaction_sim, interaction_context):
     (has_permission, denied_permissions) = has_sim_permission_for_nudity(interaction_sim, nudity_setting_test=True)
     if has_permission is True:
@@ -337,7 +364,8 @@ def _has_permission_to_undress(interaction_sim, interaction_context):
         text_tokens.append(0)
     nudity_notification(text=3224264085, text_tokens=text_tokens, icon=interaction_sim, sims=(interaction_sim,), is_autonomy=is_autonomy)
     return False
-
+
+
 class _NudityDressUpOutfitInteraction(TurboSuperInteraction, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityDressUpOutfitInteraction'
 
@@ -385,7 +413,8 @@ class _NudityDressUpOutfitInteraction(TurboSuperInteraction, TurboInteractionCon
         sim = cls.get_interaction_sim(interaction_instance)
         sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 360000
         return True
-
+
+
 class NaturismDressUpOutfitInteraction(_NudityDressUpOutfitInteraction):
     __qualname__ = 'NaturismDressUpOutfitInteraction'
 
@@ -395,7 +424,8 @@ class NaturismDressUpOutfitInteraction(_NudityDressUpOutfitInteraction):
         if has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+
+
 class ExhibitionismDressUpOutfitInteraction(_NudityDressUpOutfitInteraction):
     __qualname__ = 'ExhibitionismDressUpOutfitInteraction'
 
@@ -405,4 +435,4 @@ class ExhibitionismDressUpOutfitInteraction(_NudityDressUpOutfitInteraction):
         if not has_sim_trait(sim, SimTrait.WW_EXHIBITIONIST):
             return False
         return super().on_interaction_test(interaction_context, interaction_target)
-
+

@@ -1,10 +1,13 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+from enums.traits_enum import SimTrait
+from turbolib.manager_util import TurboManagerUtil
+from turbolib.types_util import TurboTypesUtil
+from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
+from wickedwhims.main.sim_ev_handler import sim_ev
+from wickedwhims.sex.cas_cum_handler import get_cum_layer_cas_id, apply_sim_cum_layer, CumLayerType
+from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
+from wickedwhims.utils_cas import has_sim_cas_part_id
+from wickedwhims.utils_traits import has_sim_trait
 
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''from enums.traits_enum import SimTraitfrom turbolib.manager_util import TurboManagerUtilfrom turbolib.types_util import TurboTypesUtilfrom turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixinfrom wickedwhims.main.sim_ev_handler import sim_evfrom wickedwhims.sex.cas_cum_handler import get_cum_layer_cas_id, apply_sim_cum_layer, CumLayerTypefrom wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_settingfrom wickedwhims.utils_cas import has_sim_cas_part_idfrom wickedwhims.utils_traits import has_sim_trait
 def _can_sim_receive_cum(interaction_sim, interaction_target, cum_type):
     if interaction_target is None or not TurboTypesUtil.Sims.is_sim(interaction_target):
         return False
@@ -33,7 +36,8 @@ def _can_sim_receive_cum(interaction_sim, interaction_target, cum_type):
     if has_sim_cas_part_id(interaction_target, get_cum_layer_cas_id(cum_type)):
         return False
     return True
-
+
+
 class CumApplyOnFaceInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnFaceInteraction'
 
@@ -44,7 +48,8 @@ class CumApplyOnFaceInteraction(TurboImmediateSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.FACE,), force=True)
-
+
+
 class CumApplyOnChestInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnChestInteraction'
 
@@ -55,7 +60,8 @@ class CumApplyOnChestInteraction(TurboImmediateSuperInteraction, TurboInteractio
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.CHEST,), force=True)
-
+
+
 class CumApplyOnBackInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnBackInteraction'
 
@@ -66,7 +72,8 @@ class CumApplyOnBackInteraction(TurboImmediateSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.BACK,), force=True)
-
+
+
 class CumApplyOnVaginaInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnVaginaInteraction'
 
@@ -77,7 +84,8 @@ class CumApplyOnVaginaInteraction(TurboImmediateSuperInteraction, TurboInteracti
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.VAGINA,), force=True)
-
+
+
 class CumApplyOnButtInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnButtInteraction'
 
@@ -88,7 +96,8 @@ class CumApplyOnButtInteraction(TurboImmediateSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.BUTT,), force=True)
-
+
+
 class CumApplyOnFeetInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CumApplyOnFeetInteraction'
 
@@ -99,4 +108,4 @@ class CumApplyOnFeetInteraction(TurboImmediateSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return apply_sim_cum_layer(cls.get_interaction_target(interaction_instance), (CumLayerType.FEET,), force=True)
-
+
