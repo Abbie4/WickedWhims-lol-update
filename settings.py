@@ -1,6 +1,6 @@
 import os
 
-creator_name = 'ColonolNutty'
+creator_name = 'TURBODRIVER'
 mods_folder = os.path.expanduser(
     os.path.join('~', 'Documents', 'Electronic Arts', 'The Sims 4', 'Mods')
 )
