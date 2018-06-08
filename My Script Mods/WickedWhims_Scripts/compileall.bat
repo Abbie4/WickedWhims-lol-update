@@ -1,5 +1,4 @@
 python -O -m compileall Scripts > compilelog.txt
-pause
 if exist ..\Wickedwhims_compiled\compiled del /y ..\Wickedwhims_compiled\compiled
 SETLOCAL ENABLEDELAYEDEXPANSION
 set FROMDIR=Scripts
