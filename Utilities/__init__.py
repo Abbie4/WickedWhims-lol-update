@@ -56,15 +56,11 @@ def compile_module(creator_name, root, mods_folder,mod_name=None):
     ts4script_mods = os.path.join(os.path.join(mods_folder), mod_name + '.ts4script')
 
     zf = PyZipFile(ts4script, mode='w', compression=ZIP_STORED, allowZip64=True, optimize=2)
-    basePath=os.path.join("C:\\", "Work", "WickedWhims-lol-update", "My Script Mods", "WickedWhims_Scripts", "Scripts\\")
-    for folder, subs, files in os.walk(src):
-        if folder == basePath:
-            continue
-        print(folder.replace(basePath, ""))
-        resultingPath = folder.replace(basePath, "")
-        if "\\" in resultingPath:
-            zf.writepy(folder, folder.replace(basePath, ""))
-        else:
-            zf.writepy(folder)
+    for folder in get_child_directories(src):
+        zf.writepy(folder)
     zf.close()
     #shutil.copyfile(ts4script, ts4script_mods)
+
+
+def get_child_directories(d):
+    return filter(os.path.isdir, [os.path.join(d,f) for f in os.listdir(d)])
