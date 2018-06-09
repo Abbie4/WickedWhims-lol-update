@@ -30,9 +30,9 @@ def _trigger_nudity_autonomy_on_game_update():
         return
     is_special_lot = TurboWorldUtil.Venue.get_current_venue_type() in (VenueType.BAR, VenueType.LOUNGE, VenueType.CLUB)
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             pass
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             pass
         if TurboWorldUtil.Time.get_absolute_ticks() <= sim_ev(sim).last_nudity_autonomy:
             pass
@@ -47,10 +47,10 @@ def _trigger_nudity_autonomy_on_game_update():
         for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
             if sim is target:
                 pass
-            if is_special_lot is False and TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+            if is_special_lot is False and TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
                 has_child_sims_on_lot = True
                 break
-            while get_sim_outfit_level(target) == OutfitLevel.NUDE:
+            if get_sim_outfit_level(target) == OutfitLevel.NUDE:
                 if is_sim_on_lot is True and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(target)) or TurboMathUtil.Position.get_distance(TurboSimUtil.Location.get_position(sim), TurboSimUtil.Location.get_position(target)) <= 12:
                     pass
         if has_child_sims_on_lot is True:
@@ -59,7 +59,7 @@ def _trigger_nudity_autonomy_on_game_update():
             pass
         if random.uniform(0, 1) > sim_ev(sim).nudity_autonomy_chance:
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 25000
-        while trigger_nudity_autonomy(sim):
+        if trigger_nudity_autonomy(sim):
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 55000
             sim_ev(sim).nudity_autonomy_chance = 0.05
             return
