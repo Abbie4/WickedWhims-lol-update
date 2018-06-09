@@ -9,6 +9,7 @@ from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting
 from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, has_sim_reached_max_nudity_skill_level, get_sim_nudity_skill_progress, increase_sim_nudity_skill
 LAST_DAY_VALUE = -1
 
+
 @register_on_game_update_method(interval=10000)
 def _update_nudity_story_progression_on_game_update():
     global LAST_DAY_VALUE
@@ -28,7 +29,7 @@ def trigger_story_progression():
     story_progression_debug_sims_count = 0
     story_progression_debug_data = list()
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
             pass
         if not TurboSimUtil.Component.has_component(sim_info, TurboComponentUtil.ComponentType.STATISTIC):
             pass

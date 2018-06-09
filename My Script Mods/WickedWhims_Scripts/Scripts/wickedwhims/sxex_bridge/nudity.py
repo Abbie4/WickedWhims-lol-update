@@ -7,12 +7,14 @@ from wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype
 from wickedwhims.utils_traits import has_sim_trait
 from turbolib.special.custom_exception_watcher import log_message
 
+
 def setup_sim_nude_outfit(sim_info):
     if TurboSimUtil.CAS.get_current_outfit(sim_info)[0] != TurboCASUtil.OutfitCategory.BATHING:
         reset_sim_bathing_outfits(sim_info)
     update_nude_body_data(sim_info, force_update=True)
 
 
+# Sets up the nude outfit (skin, top, bottom, penis texture)
 def update_nude_body_data(sim_identifier, force_update=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
@@ -62,9 +64,10 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
     TurboSimUtil.CAS.generate_outfit(sim_identifier, (TurboCASUtil.OutfitCategory.BATHING, 0))
     try:
         outfit_editor = TurboCASUtil.OutfitEditor(sim_identifier, outfit_category_and_index=(TurboCASUtil.OutfitCategory.BATHING, 0))
-    except RuntimeError:
+    except RuntimeError as ex:
+        log_message("Problem occurred while loading outfit editor")
         return False
-    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD, or_equal=True):
         for bodytype in (TurboCASUtil.BodyType.UPPER_BODY, TurboCASUtil.BodyType.LOWER_BODY, TurboCASUtil.BodyType.SHOES):
             outfit_editor.add_cas_part(bodytype, get_default_nude_cas_part_id(sim_identifier, bodytype))
         if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_TOILET_STANDING) and sim_ev(data_holder_sim_info).nude_outfit_parts[TurboCASUtil.BodyType.LOWER_BODY] != -1:

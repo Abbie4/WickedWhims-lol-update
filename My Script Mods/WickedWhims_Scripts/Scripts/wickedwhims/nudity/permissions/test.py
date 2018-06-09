@@ -78,7 +78,7 @@ def _sims_test(sim, current_score, targets=(), **__):
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
             pass
         penalty_score -= _get_sim_value(sim, target)*(6 - get_sim_nudity_skill_level(sim))
-        while current_score + penalty_score <= 0:
+        if current_score + penalty_score <= 0:
             break
     return (penalty_score, NudityPermissionDenied.TOO_MANY_SIMS_AROUND)
 

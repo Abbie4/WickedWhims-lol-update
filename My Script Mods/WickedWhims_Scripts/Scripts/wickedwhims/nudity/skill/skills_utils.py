@@ -32,7 +32,9 @@ class NuditySkillIncreaseReason(TurboEnum):
     SHAMELESS_BONUS_BONUS = 11
     LONER_BONUS = 12
 
+
 NUDITY_SKILL_EXP = {NuditySkillIncreaseReason.BEING_IN_NAKED_OUTFIT: 0.85, NuditySkillIncreaseReason.BEING_IN_BATHING_OUTFIT: 0.25, NuditySkillIncreaseReason.BEING_IN_REVEALING_OUTFIT: 0.1, NuditySkillIncreaseReason.SEEING_NUDITY: 0.1, NuditySkillIncreaseReason.MIRROR_NAKED_OUTFIT: 0.4, NuditySkillIncreaseReason.MIRROR_REVEALING_OUTFIT: 0.15, NuditySkillIncreaseReason.FLASHING_BODY: 5.5, NuditySkillIncreaseReason.SOCIAL_COMPLIMENT: 4.0, NuditySkillIncreaseReason.SOCIAL_CONVINCE: 6.0, NuditySkillIncreaseReason.CONFIDENCE_BONUS: 0.1, NuditySkillIncreaseReason.SHAMELESS_BONUS_BONUS: 0.25, NuditySkillIncreaseReason.LONER_BONUS: 0.15}
+
 
 def get_nudity_skill_points_modifier(nudity_skill_increase_reason):
     return NUDITY_SKILL_EXP[nudity_skill_increase_reason]
@@ -59,7 +61,7 @@ def get_nudity_nudity_skill_type(sim_identifier):
 def increase_sim_nudity_skill(sim_identifier, amount, extra_fatigue=0.0, reason=NuditySkillIncreaseReason.NONE):
     if amount <= 0:
         return
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return
     if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN, or_equal=True):
         return

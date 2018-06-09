@@ -57,7 +57,7 @@ def react_to_sims_nudity(sim):
             pass
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
             pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
             pass
         if is_sim_in_sex(target):
             pass

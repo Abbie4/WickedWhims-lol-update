@@ -29,7 +29,7 @@ class NudityChangeUnderwearInteraction(TurboSuperInteraction, TurboInteractionSt
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
             return False
         return True
 
@@ -62,7 +62,7 @@ class _NudityUndressUnderwearTopInteraction(TurboSuperInteraction, TurboInteract
         sim = cls.get_interaction_sim(interaction_context)
         if not get_nudity_setting(NuditySetting.UNDERWEAR_SWITCH_STATE, variable_type=bool) or has_sim_trait(sim, SimTrait.WW_NO_UNDERWEAR):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -128,7 +128,7 @@ class _NudityUndressUnderwearBottomInteraction(TurboSuperInteraction, TurboInter
         sim = cls.get_interaction_sim(interaction_context)
         if not get_nudity_setting(NuditySetting.UNDERWEAR_SWITCH_STATE, variable_type=bool) or has_sim_trait(sim, SimTrait.WW_NO_UNDERWEAR):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -194,7 +194,7 @@ class _NudityUndressUnderwearInteraction(TurboSuperInteraction, TurboInteraction
         sim = cls.get_interaction_sim(interaction_context)
         if not get_nudity_setting(NuditySetting.UNDERWEAR_SWITCH_STATE, variable_type=bool) or has_sim_trait(sim, SimTrait.WW_NO_UNDERWEAR):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -317,7 +317,7 @@ def _has_permission_to_undress(interaction_sim, interaction_context):
         elif denied_permission == NudityPermissionDenied.OUTSIDE:
             text_tokens.append(14125364)
         else:
-            while denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
+            if denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
                 text_tokens.append(902300171)
     for _ in range(11 - len(text_tokens)):
         text_tokens.append(0)
