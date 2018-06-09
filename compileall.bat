@@ -1,4 +1,5 @@
 python -O -m compileall decompiled > compilelog.txt
+pause
 if exist compiled del /y compiled
 SETLOCAL ENABLEDELAYEDEXPANSION
 set FROMDIR=decompiled

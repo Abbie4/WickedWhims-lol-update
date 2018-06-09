@@ -9,7 +9,7 @@ Decompile a module or a function using the decompile() function
 ...        if z == i + j or args[i] == j:
 ...            g = i, j
 ...            return
-...
+...    
 >>> print(decompile(foo))
 
 def foo(x, y, z=3, *args):
@@ -80,7 +80,7 @@ for_jump_opcodes = (
 
 
 def read_code(stream):
-    # This helper is needed in order for the PEP 302 emulation to
+    # This helper is needed in order for the PEP 302 emulation to 
     # correctly handle compiled files
     # Note: stream must be opened in "rb" mode
     import marshal
@@ -672,7 +672,7 @@ class FunctionDefinition:
     def getparams(self):
         code_obj = self.code.code_obj
         l = code_obj.co_argcount
-        params = list(code_obj.co_varnames[:l])
+        params = list(code_obj.co_varnames[:l])   
         if self.defaults:
             for i, arg in enumerate(reversed(self.defaults)):
                 name = params[-i - 1]
@@ -700,9 +700,9 @@ class FunctionDefinition:
         params.extend(kwparams)
         if code_obj.co_flags & VARKEYWORDS:
             params.append("**" + code_obj.co_varnames[l])
-
+            
         return params
-
+        
     def getreturn(self):
         if self.paramobjs and 'return' in self.paramobjs:
             return self.paramobjs['return']
@@ -1926,9 +1926,9 @@ class SuiteDecompiler:
         paramcount = (argc >> 16) & 0x7FFF
         if paramcount:
             paramobjs = dict(zip(self.stack.pop().val, self.stack.pop(paramcount - 1)))
-        # default argument objects in positional order
+        # default argument objects in positional order 
         defaults = self.stack.pop(argc & 0xFF)
-        # pairs of name and default argument, with the name just below the object on the stack, for keyword-only parameters
+        # pairs of name and default argument, with the name just below the object on the stack, for keyword-only parameters 
         kwdefaults = {}
         for i in range((argc >> 8) & 0xFF):
             k, v = self.stack.pop(2)
