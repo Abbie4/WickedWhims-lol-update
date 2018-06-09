@@ -33,7 +33,7 @@ def _wickedwhims_undress_bottom_on_toilet_use(interaction_instance):
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
     if sim_ev(sim).on_toilet_outfit_state != OutfitStateBeforeToiletUse.NONE:
         return
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return
     if has_sim_outfit_bottom(sim):
         bottom_body_state = get_sim_body_state(sim, 7)
@@ -62,7 +62,7 @@ def _update_dress_up_after_toilet_use_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.NONE:
             pass
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             pass
         is_using_toilet = False
         for affordance_id in TOILET_USE_INTERACTIONS:

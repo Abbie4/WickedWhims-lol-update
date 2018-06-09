@@ -22,7 +22,7 @@ def _wickedwhims_on_sims_talking_desire_interactions_outcome(interaction_instanc
     target_sim_info = TurboManagerUtil.Sim.get_sim_info(TurboInteractionUtil.get_interaction_target(interaction_instance))
     if target_sim_info is None:
         return
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN) or TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD) or TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.TEEN) or TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD) or TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.CHILD):
         return
     if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD):
         return

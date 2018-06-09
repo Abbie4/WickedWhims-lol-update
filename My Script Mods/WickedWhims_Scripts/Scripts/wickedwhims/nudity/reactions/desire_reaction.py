@@ -15,9 +15,9 @@ from wickedwhims.utils_situations import has_sim_situations
 @register_on_game_update_method(interval=2500)
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             pass
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             pass
         while not is_sim_in_sex(sim):
             if is_sim_going_to_sex(sim):
@@ -30,7 +30,7 @@ def _trigger_desire_reaction_on_game_update():
             for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
                 if sim is target:
                     pass
-                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
                     pass
                 if not _has_reaction_to_nudity(sim, target):
                     pass
@@ -41,20 +41,18 @@ def _trigger_desire_reaction_on_game_update():
                 if TurboSimUtil.Spawner.is_leaving(target):
                     pass
                 (desire_limit, desire_increase) = _get_desire_nudity_value(target)
-                while not desire_limit <= 0:
-                    if desire_increase <= 0:
-                        pass
+                if desire_limit > 0 and desire_increase > 0:
                     if get_sim_desire_level(sim) > desire_limit:
-                        pass
+                        continue
                     if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-                        pass
+                        continue
                     change_sim_desire_level(sim, desire_increase)
 
 
 def _has_reaction_to_nudity(sim, target):
-    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD:
         return True
-    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN:
+    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and (TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.CHILD):
         return True
     if is_sim_exhibitionist(sim):
         return True

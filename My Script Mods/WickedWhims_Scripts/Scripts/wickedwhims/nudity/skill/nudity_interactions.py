@@ -19,7 +19,7 @@ def _wickedwhims_increase_sim_nudity_skill_on_related_interactions(interaction_i
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
     for (interaction_id, direct_target, skill_points) in NUDE_REWARD_INTERACTION_IDS:
         if interaction_id != interaction_guid:
-            pass
+            continue
         if direct_target is True:
             target_sim = TurboInteractionUtil.get_interaction_target(interaction_instance)
             if target_sim is None:

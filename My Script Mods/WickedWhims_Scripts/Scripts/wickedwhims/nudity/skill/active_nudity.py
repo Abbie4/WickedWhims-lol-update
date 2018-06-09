@@ -49,13 +49,13 @@ def _get_sims_around_value(sim_identifier, max_sims=6):
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            pass
+            continue
         if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.BABY, or_equal=True):
-            pass
+            continue
         if not is_sim_available(target):
-            pass
+            continue
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            pass
+            continue
         points_collection.append(_get_sim_nudity_value(sim, target))
     points_collection = sorted(points_collection, reverse=True)
     high_value = sum(points_collection[:int(max_sims/2)])

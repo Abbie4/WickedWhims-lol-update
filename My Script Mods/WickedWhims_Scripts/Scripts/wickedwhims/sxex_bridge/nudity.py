@@ -83,8 +83,20 @@ def get_default_nude_cas_part_id(sim_identifier, bodytype):
     if sim_info is None:
         sim_info = TurboManagerUtil.Sim.get_active_sim()
     sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
-    if sim_is_child and bodytype == TurboCASUtil.BodyType.SHOES:
+    if sim_is_child:
+        if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
+            if TurboSimUtil.Gender.is_male(sim_identifier):
+                return 22069
+            else:
+                return 62394
+        if bodytype == TurboCASUtil.BodyType.LOWER_BODY:
+            if TurboSimUtil.Gender.is_male(sim_identifier):
+                return 11128915431855097336
+            else:
+                return 22074
+        if bodytype == TurboCASUtil.BodyType.SHOES:
             return 22018
+        return -1
     if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
         return 6562
     if bodytype == TurboCASUtil.BodyType.LOWER_BODY:

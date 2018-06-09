@@ -62,7 +62,7 @@ def _update_dress_up_after_breast_feeding_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.NONE:
             pass
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             pass
         if TurboSimUtil.Interaction.is_running_interaction(sim, BREAST_FEEDING_INTERACTIONS):
             return
