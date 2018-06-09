@@ -15,6 +15,7 @@ UNDERWEAR_MANNEQUIN_IN_USE = False
 UNDERWEAR_MANNEQUIN_SIM_ID = -1
 UNDERWEAR_MANNEQUIN_OBJECT_ID = -1
 
+
 def open_underwear_mannequin(sim=None):
     global UNDERWEAR_MANNEQUIN_IN_USE, UNDERWEAR_MANNEQUIN_SIM_ID, UNDERWEAR_MANNEQUIN_OBJECT_ID
     if sim is None:
@@ -36,7 +37,7 @@ def open_underwear_mannequin(sim=None):
     TurboObjectUtil.Mannequin.remove_mannequin_protocol_buffer(mannequin)
     for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR):
         for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
-            while TurboSimUtil.CAS.has_outfit(sim, (outfit_category, outfit_index)):
+            if TurboSimUtil.CAS.has_outfit(sim, (outfit_category, outfit_index)):
                 underwear_parts = get_sim_underwear_data(sim, (outfit_category, outfit_index))
                 if sim_is_child:
                     if TurboSimUtil.Gender.is_male(sim):
@@ -84,7 +85,7 @@ def _wickedwhims_check_for_underwear_mannequin():
     mannequin_sim_info = TurboObjectUtil.Mannequin.get_mannequin_component_sim_info(mannequin_component)
     for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY):
         for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
-            while TurboSimUtil.CAS.has_outfit(sim_info, (outfit_category, outfit_index)) and TurboSimUtil.CAS.has_outfit(mannequin_sim_info, (outfit_category, outfit_index)):
+            if TurboSimUtil.CAS.has_outfit(sim_info, (outfit_category, outfit_index)) and TurboSimUtil.CAS.has_outfit(mannequin_sim_info, (outfit_category, outfit_index)):
                 body_parts = TurboSimUtil.CAS.get_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index))
                 if TurboSimUtil.Gender.is_male(sim_info):
                     if TurboCASUtil.BodyType.LOWER_BODY in body_parts:
@@ -113,7 +114,7 @@ def _wickedwhims_command_clean_up_mannequins(output=None):
     female_mannequin = TurboObjectUtil.Definition.get(14110242915816833432)
     for game_object in TurboObjectUtil.GameObject.get_all_gen():
         object_definition = TurboObjectUtil.GameObject.get_object_definition(game_object)
-        while object_definition == male_mannequin or object_definition == female_mannequin:
+        if object_definition == male_mannequin or object_definition == female_mannequin:
             TurboObjectUtil.GameObject.destroy_object(game_object, cause='Temporary underwear mannequin.')
     output('Cleaned up WickedWhims mannequins.')
 
