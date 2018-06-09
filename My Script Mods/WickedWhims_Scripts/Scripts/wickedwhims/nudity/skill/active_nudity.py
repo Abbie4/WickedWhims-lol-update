@@ -70,7 +70,7 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TODDLER:
         base_modifier = -0.5
     elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
-        base_modifier = -1.0
+        base_modifier = 1.0
     else:
         sim_outfit_level = get_sim_outfit_level(sim_info)
         target_outfit_level = get_sim_outfit_level(target_sim_info)

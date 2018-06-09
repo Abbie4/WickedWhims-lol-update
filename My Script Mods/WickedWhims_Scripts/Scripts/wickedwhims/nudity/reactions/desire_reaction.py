@@ -16,32 +16,34 @@ from wickedwhims.utils_situations import has_sim_situations
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            pass
+            continue
         if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
-            pass
-        while not is_sim_in_sex(sim):
+            continue
+        if not is_sim_in_sex(sim):
             if is_sim_going_to_sex(sim):
-                pass
+                continue
             if has_sim_situations(sim, (SimSituation.GRIMREAPER, SimSituation.FIRE, SimSituation.BABYBIRTH_HOSPITAL)):
-                pass
+                continue
             if not is_sim_available(sim):
-                pass
+                continue
             line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
             for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
                 if sim is target:
-                    pass
+                    continue
                 if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
-                    pass
+                    continue
                 if not _has_reaction_to_nudity(sim, target):
-                    pass
+                    continue
                 if TurboSimUtil.Gender.get_gender(target) not in get_sim_preferenced_genders(sim):
-                    pass
+                    continue
                 if not TurboSimUtil.Location.is_visible(target):
-                    pass
+                    continue
                 if TurboSimUtil.Spawner.is_leaving(target):
-                    pass
+                    continue
                 (desire_limit, desire_increase) = _get_desire_nudity_value(target)
-                if desire_limit > 0 and desire_increase > 0:
+                if not desire_limit <= 0 and desire_increase > 0:
+                    if desire_increase <= 0:
+                        break
                     if get_sim_desire_level(sim) > desire_limit:
                         continue
                     if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):

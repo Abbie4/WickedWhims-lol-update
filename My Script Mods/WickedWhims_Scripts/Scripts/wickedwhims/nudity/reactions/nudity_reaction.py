@@ -26,7 +26,6 @@ from wickedwhims.utils_sims import is_sim_available, has_sim_mood
 from wickedwhims.utils_situations import has_sim_situations
 from wickedwhims.utils_traits import has_sim_trait
 
-
 @register_sim_reaction_function(priority=3)
 def react_to_sims_nudity(sim):
     if not get_nudity_setting(NuditySetting.REACTION_TO_NUDITY_STATE, variable_type=bool):
@@ -127,7 +126,7 @@ def _is_only_mixer_reaction(sim):
 
 
 def _is_positive_to_sim_nudity(sim, target):
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TODDLER, or_equal=True):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return False
     if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
         return True
