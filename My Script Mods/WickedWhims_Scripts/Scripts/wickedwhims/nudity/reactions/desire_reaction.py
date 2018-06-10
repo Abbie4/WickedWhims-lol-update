@@ -42,8 +42,6 @@ def _trigger_desire_reaction_on_game_update():
                     continue
                 (desire_limit, desire_increase) = _get_desire_nudity_value(target)
                 if not desire_limit <= 0 and desire_increase > 0:
-                    if desire_increase <= 0:
-                        break
                     if get_sim_desire_level(sim) > desire_limit:
                         continue
                     if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):

@@ -38,7 +38,7 @@ def log_message(message):
 
 
 def _log_message_text(message):
-    msg = '{} {}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), message)
+    msg = '{} {}\n'.format(datetime.now().strftime('%x %X'), message)
     try:
         file_path = _get_ww_message_file_path()
         if file_path is not None:
@@ -61,7 +61,7 @@ def _get_ww_message_file_path():
     file_path = root_path + 'WickedWhims_' + str(mod_version) + '_Message.txt'
     if os.path.exists(file_path) and os.path.getsize(file_path) >> 20 >= 5:
         current_date = str(datetime.datetime.today().day) + '_' + str(datetime.datetime.today().strftime('%B')) + '_' + str(datetime.datetime.today().year)
-        os.rename(file_path, root_path + 'Old_WickedWhims_' + str(mod_version) + '_Message_' + current_date + '.txt')
+        os.rename(file_path, root_path + 'Old_WickedWhims_' + str(mod_version) + '_Exception_' + current_date + '.txt')
     return file_path
 
 
@@ -73,7 +73,7 @@ def log_custom_exception(exception_message, exception=None):
 
 def _log_trackback(trackback):
     call_exception_feedback()
-    exception_trackback_text = '{} {}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), trackback)
+    exception_trackback_text = '{} {}\n'.format(datetime.now().strftime('%x %X'), trackback)
     for exception_watch_callback in EXCEPTION_WATCH_CALLBACKS:
         try:
             file_path = exception_watch_callback()

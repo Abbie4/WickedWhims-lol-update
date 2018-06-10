@@ -4,7 +4,7 @@ from turbolib.cas_util import TurboCASUtil
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
-from turbolib.special.custom_exception_watcher import exception_watch, log_message
+from turbolib.special.custom_exception_watcher import exception_watch
 from turbolib.types_util import TurboTypesUtil
 from turbolib.ui_util import TurboUIUtil
 from turbolib.world_util import TurboWorldUtil
@@ -31,7 +31,6 @@ def get_sim_soft_penis_author_key(sim_identifier):
     penis_outfit_author = sim_ev(sim_info).outfit_soft_penis_author
     if not penis_outfit_author:
         if sim_is_child:
-            log_message("using soft child author")
             penis_outfit_author = 'PENIS_lillithv2soft'
         else:
             if is_default_penis_random():
@@ -42,7 +41,6 @@ def get_sim_soft_penis_author_key(sim_identifier):
                     penis_outfit_author = get_default_soft_penis_setting()
             else:
                 penis_outfit_author = get_default_soft_penis_setting()
-        log_message("using soft author: " + penis_outfit_author)
         sim_ev(sim_info).outfit_soft_penis_author = penis_outfit_author
     return penis_outfit_author
 
