@@ -76,26 +76,26 @@ def _react_to_sims_sex(sim):
     if not is_sim_available(sim):
         return False
     for interaction_id in TurboSimUtil.Interaction.get_running_interactions_ids(sim):
-        while interaction_id == SimInteraction.WW_STOP_SEX:
+        if interaction_id == SimInteraction.WW_STOP_SEX:
             return True
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
     for sex_handler in registered_sex_handlers:
-        if not sex_handler.is_playing is False:
+        if sex_handler.is_playing is not False:
             if sex_handler.is_ready_to_unregister is True:
-                pass
+                continue
             if sex_handler.get_identifier() in sim_ev(sim).sex_reaction_handlers_list:
-                pass
+                continue
             if sex_handler.get_creator_sim_id() == TurboManagerUtil.Sim.get_sim_id(sim):
-                pass
+                continue
             sex_interaction_los_position = sex_handler.get_los_position()
             if not TurboMathUtil.LineOfSight.test(line_of_sight, sex_interaction_los_position):
-                pass
+                continue
             sim_ev(sim).sex_reaction_attempt_cooldown = 2
             if _jealousy_from_sex_reaction(sim, sex_handler):
                 return True
             if _general_sex_reaction(sim, sex_handler):
                 return True
-            return False
+    return False
 
 
 def _general_sex_reaction(sim, sex_handler):
@@ -144,13 +144,13 @@ def get_reaction_type(sim, sex_handler, allow_special_types=False):
     sex_reaction_target_override = None
     for target in sex_handler.get_actors_sim_instance_gen():
         if target is None:
-            pass
+            continue
         if allow_special_types is True and (SEX_REACTION_JEALOUS[0] > sex_reaction_data[0] and (get_relationship_setting(RelationshipSetting.JEALOUSY_STATE, variable_type=bool) and (sex_handler.get_actors_amount() > 1 and not has_sim_trait(sim, SimTrait.WW_POLYAMOROUS)))) and not has_sim_trait(sim, SimTrait.WW_CUCKOLD):
             (found_lovers, found_non_lovers) = _get_jealousy_sims_from_sex_handler(sim, sex_handler)
             if found_lovers and found_non_lovers:
                 sex_reaction_data = SEX_REACTION_JEALOUS
                 sex_reaction_should_left = True
-        if SEX_REACTION_HORRIFIED[0] > sex_reaction_data[0] and (TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) or is_true_family_relationship(sim, target)):
+        if SEX_REACTION_HORRIFIED[0] > sex_reaction_data[0] and (TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD) or is_true_family_relationship(sim, target)):
             sex_reaction_data = SEX_REACTION_HORRIFIED
             sex_reaction_should_left = True
         if SEX_REACTION_CUCK_MALE[0] > sex_reaction_data[0] and has_sim_trait(sim, SimTrait.WW_CUCKOLD):
@@ -183,7 +183,7 @@ def get_reaction_type(sim, sex_handler, allow_special_types=False):
         if SEX_REACTION_FRIENDLY[0] > sex_reaction_data[0] and get_relationship_with_sim(sim, target, RelationshipTrackType.FRIENDSHIP) > 40:
             sex_reaction_data = SEX_REACTION_FRIENDLY
             sex_reaction_should_left = True
-        while sex_reaction_data == SEX_REACTION_NEUTARL:
+        if sex_reaction_data == SEX_REACTION_NEUTARL:
             if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_SOULMATES) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_SWEETHEARTS) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTICCOMBO_ROMANTICINTEREST) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_SIGNIFICANT_OTHER) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.FRIENDSHIP_BFF) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.FRIENDSHIP_BFF_BROMANTICPARTNER))))) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
                 sex_reaction_should_left = False
     return (sex_reaction_data, sex_reaction_should_left, sex_reaction_target_override)
@@ -194,7 +194,7 @@ def _jealousy_from_sex_reaction(sim, sex_handler):
         return False
     if sex_handler.get_actors_amount() <= 1:
         return False
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return False
     if has_sim_trait(sim, SimTrait.WW_POLYAMOROUS) or has_sim_trait(sim, SimTrait.WW_CUCKOLD):
         return False
@@ -203,20 +203,20 @@ def _jealousy_from_sex_reaction(sim, sex_handler):
         for target in found_non_lovers:
             relationship_amount_modifier = -3 if not has_sim_trait(sim, SimTrait.JEALOUS) else -6
             change_relationship_with_sim(sim, target, RelationshipTrackType.FRIENDSHIP, relationship_amount_modifier)
-            while get_relationship_with_sim(sim, target, RelationshipTrackType.ROMANCE) > 0:
+            if get_relationship_with_sim(sim, target, RelationshipTrackType.ROMANCE) > 0:
                 change_relationship_with_sim(sim, target, RelationshipTrackType.ROMANCE, relationship_amount_modifier)
         for target in found_lovers:
             jealousy_success = False
             for jealousy_interaction in JEALOUSY_WOOHOO_REACTION_LIST:
                 result = TurboSimUtil.Interaction.push_affordance(sim, jealousy_interaction, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, must_run_next=True, priority=TurboInteractionUtil.Priority.High, run_priority=TurboInteractionUtil.Priority.High)
-                while result:
+                if result:
                     jealousy_success = True
                     break
             if has_sim_buff(sim, SimBuff.JEALOUSY_CHEATER):
                 current_romance_rel_amount = get_relationship_with_sim(sim, target, RelationshipTrackType.ROMANCE)
                 if current_romance_rel_amount >= 30 and has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_ENGAGED) or (has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_MARRIED) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_GETTINGMARRIED)) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_SIGNIFICANT_OTHER):
                     add_sim_buff(sim, SimBuff.JEALOUSY_HIDDEN_WITNESSEDCHEATING)
-            while jealousy_success is True:
+            if jealousy_success is True:
                 sim_ev(sim).sex_reaction_cooldown = 5
                 return True
     return False
@@ -227,9 +227,9 @@ def _get_jealousy_sims_from_sex_handler(sim, sex_handler):
     found_non_lovers = list()
     for target in sex_handler.get_actors_sim_instance_gen():
         if target is None:
-            pass
+            continue
         if has_sim_trait(target, SimTrait.PLAYER):
-            pass
+            continue
         current_romance_rel_amount = get_relationship_with_sim(sim, target, RelationshipTrackType.ROMANCE)
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_ENGAGED) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_MARRIED) or has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_GETTINGMARRIED):
             found_lovers.append(target)

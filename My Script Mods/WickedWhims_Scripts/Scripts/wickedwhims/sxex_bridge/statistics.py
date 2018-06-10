@@ -105,9 +105,9 @@ def _update_sim_statistics(sim_identifier):
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_adult', 0)
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_elder', 0)
     for target_sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        while sim_info is not target_sim_info and has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
+        if sim_info is not target_sim_info and has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
             increase_sim_ww_statistic(sim_info, 'unique_sex_partners')
-            if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN:
+            if (TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD):
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_teen')
             elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.YOUNGADULT:
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult')

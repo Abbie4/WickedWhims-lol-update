@@ -83,7 +83,7 @@ def get_default_cas_parts_dict():
         return DEFAULT_CAS_PARTS_DICT
     main_dict = dict()
     penis_parts = dict()
-    penis_parts['Penis_Default'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_MFF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_CHILD': 11128915431855097336, 'PENIS_HARD_CAS_PART_ID_CHILD': 11526689609482198578}
+    penis_parts['Penis_Default'] = {'PENIS_SOFT_CAS_PART_ID_MMF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_MFF': 9223372039695072858, 'PENIS_SOFT_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_SOFT_CAS_PART_ID_FMF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_SOFT_CAS_PART_ID_FFF': 9223372039739191033, 'PENIS_SOFT_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_MMF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MMF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_MFF': 9223372040574114633, 'PENIS_HARD_CAS_TEXTURE_ID_MFF': 9223372038173725631, 'PENIS_HARD_CAS_PART_ID_FMF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FMF': 9223372041025717268, 'PENIS_HARD_CAS_PART_ID_FFF': 9223372041073438302, 'PENIS_HARD_CAS_TEXTURE_ID_FFF': 9223372041025717268, 'PENIS_SOFT_CAS_TEXTURE_ID_CHILD': -1, 'PENIS_HARD_CAS_TEXTURE_ID_CHILD': -1}
     main_dict['_PENIS_PARTS'] = penis_parts
     male_underwear_parts = [(-1, 24742)]
     female_underwear_parts = [(24426, 24434)]
@@ -279,35 +279,41 @@ def get_underwear_part_sets(sim_gender, is_sim_child=False):
     return valid_underwear_sets
 
 
-def get_strapon_part_ids(is_sim_child=False):
+def get_child_strapon_part_ids():
     global CAS_PARTS_DICT
     if CAS_PARTS_DICT is None:
         CAS_PARTS_DICT = get_pre_cas_parts_dict()
     cas_parts = CAS_PARTS_DICT
-    if is_sim_child:
-        if '_CHILD_STRAPON_LIST' not in cas_parts or '_CHILD_STRAPON_PARTS' not in cas_parts:
-            cas_parts = get_pre_cas_parts_dict()
-        strapon_part_ids_list = list()
-        if '_CHILD_STRAPON_LIST' in cas_parts and '_CHILD_STRAPON_PARTS' in cas_parts:
-            strapon_list = cas_parts['_CHILD_STRAPON_LIST']
-            if strapon_list:
-                for (priority, author_key, name, author_name) in strapon_list:
-                    strapon_parts_list = cas_parts['_CHILD_STRAPON_PARTS'][author_key]
-                    for cas_id in strapon_parts_list:
-                        if cas_id not in strapon_part_ids_list:
-                            strapon_part_ids_list.append(cas_id)
-    else:
-        if '_STRAPON_LIST' not in cas_parts or '_STRAPON_PARTS' not in cas_parts:
-            cas_parts = get_pre_cas_parts_dict()
-        strapon_part_ids_list = list()
-        if '_STRAPON_LIST' in cas_parts and '_STRAPON_PARTS' in cas_parts:
-            strapon_list = cas_parts['_STRAPON_LIST']
-            if strapon_list:
-                for (priority, author_key, name, author_name) in strapon_list:
-                    strapon_parts_list = cas_parts['_STRAPON_PARTS'][author_key]
-                    for cas_id in strapon_parts_list:
-                        if cas_id not in strapon_part_ids_list:
-                            strapon_part_ids_list.append(cas_id)
+    if '_CHILD_STRAPON_LIST' not in cas_parts or '_CHILD_STRAPON_PARTS' not in cas_parts:
+        cas_parts = get_pre_cas_parts_dict()
+    strapon_part_ids_list = list()
+    if '_CHILD_STRAPON_LIST' in cas_parts and '_CHILD_STRAPON_PARTS' in cas_parts:
+        strapon_list = cas_parts['_CHILD_STRAPON_LIST']
+        if strapon_list:
+            for (priority, author_key, name, author_name) in strapon_list:
+                strapon_parts_list = cas_parts['_CHILD_STRAPON_PARTS'][author_key]
+                for cas_id in strapon_parts_list:
+                    if cas_id not in strapon_part_ids_list:
+                        strapon_part_ids_list.append(cas_id)
+    return strapon_part_ids_list
+
+
+def get_strapon_part_ids():
+    global CAS_PARTS_DICT
+    if CAS_PARTS_DICT is None:
+        CAS_PARTS_DICT = get_pre_cas_parts_dict()
+    cas_parts = CAS_PARTS_DICT
+    if '_STRAPON_LIST' not in cas_parts or '_STRAPON_PARTS' not in cas_parts:
+        cas_parts = get_pre_cas_parts_dict()
+    strapon_part_ids_list = list()
+    if '_STRAPON_LIST' in cas_parts and '_STRAPON_PARTS' in cas_parts:
+        strapon_list = cas_parts['_STRAPON_LIST']
+        if strapon_list:
+            for (priority, author_key, name, author_name) in strapon_list:
+                strapon_parts_list = cas_parts['_STRAPON_PARTS'][author_key]
+                for cas_id in strapon_parts_list:
+                    if cas_id not in strapon_part_ids_list:
+                        strapon_part_ids_list.append(cas_id)
     return strapon_part_ids_list
 
 

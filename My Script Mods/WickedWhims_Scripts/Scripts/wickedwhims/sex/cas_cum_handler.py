@@ -93,14 +93,14 @@ def apply_sim_cum_layer(sim_identifier, cum_layer_types, force=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     has_applied = False
     for cum_layer_type in cum_layer_types:
-        while not cum_layer_type == CumLayerType.DISABLED:
+        if not cum_layer_type == CumLayerType.DISABLED:
             if cum_layer_type == CumLayerType.NONE:
-                pass
+                continue
             if cum_layer_type == CumLayerType.VAGINA and has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
                 cum_layer_type = CumLayerType.BUTT
             cum_cas_id = get_cum_layer_cas_id(cum_layer_type)
             if has_sim_cas_part_id(sim_info, cum_cas_id) and force is False:
-                pass
+                continue
             set_first_free_skin_overlay_for_every_outfit(sim_info, cum_cas_id)
             increase_sim_ww_statistic(sim_info, 'times_received_cum_' + str(cum_layer_type.name).lower())
             has_applied = True
@@ -118,7 +118,7 @@ def clean_sim_cum_layers(sim_identifier, layers_to_clean=(CumLayerType.FACE, Cum
     has_cleaned = False
     for cum_layer_type in layers_to_clean:
         cum_cas_id = get_cum_layer_cas_id(cum_layer_type)
-        while cum_cas_id != -1 and has_sim_cas_part_id(sim_info, cum_cas_id):
+        if cum_cas_id != -1 and has_sim_cas_part_id(sim_info, cum_cas_id):
             if clear_every_skin_overlay_for_every_outfit(sim_info, cum_cas_id):
                 has_cleaned = True
     if has_cleaned is True:
@@ -148,7 +148,7 @@ def _on_sim_outfit_change(sim_info, category_and_index):
 
 
 def update_cum_buffs(sim_info, outfit_category_and_index=None):
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
         return
     has_positive_buff = has_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_POSITIVE)
     has_negative_buff = has_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_NEGATIVE)
@@ -157,7 +157,7 @@ def update_cum_buffs(sim_info, outfit_category_and_index=None):
             if has_sim_trait(sim_info, SimTrait.WW_CUMSLUT) or has_sim_trait(sim_info, SimTrait.ROMANTIC):
                 add_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_POSITIVE)
             elif has_sim_trait(sim_info, SimTrait.HATESCHILDREN):
-                pass
+                return
             else:
                 add_sim_buff(sim_info, SimBuff.WW_CUM_ON_BODY_NEGATIVE)
         return

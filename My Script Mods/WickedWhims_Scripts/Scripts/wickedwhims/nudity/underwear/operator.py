@@ -99,14 +99,14 @@ def get_random_underwear_set(sim_identifier):
             if CHILD_MALE_UNDERWEAR_SETS_CACHE:
                 underwear_sets_list = CHILD_MALE_UNDERWEAR_SETS_CACHE
             else:
-                underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info))
+                underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info, sim_is_child))
                 if not underwear_sets_list:
                     underwear_sets_list = [[-1, DEFAULT_UNDERWEAR_BOTTOM_CHILD_MALE]]
                     CHILD_MALE_UNDERWEAR_SETS_CACHE = underwear_sets_list
         elif CHILD_FEMALE_UNDERWEAR_SETS_CACHE:
             underwear_sets_list = CHILD_FEMALE_UNDERWEAR_SETS_CACHE
         else:
-            underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info))
+            underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info, sim_is_child))
             if not underwear_sets_list:
                 underwear_sets_list = [[DEFAULT_UNDERWEAR_TOP_CHILD_FEMALE, DEFAULT_UNDERWEAR_BOTTOM_CHILD_FEMALE]]
                 CHILD_FEMALE_UNDERWEAR_SETS_CACHE = underwear_sets_list
@@ -115,14 +115,14 @@ def get_random_underwear_set(sim_identifier):
             if MALE_UNDERWEAR_SETS_CACHE:
                 underwear_sets_list = MALE_UNDERWEAR_SETS_CACHE
             else:
-                underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info))
+                underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info, sim_is_child))
                 if not underwear_sets_list:
                     underwear_sets_list = [[-1, DEFAULT_UNDERWEAR_BOTTOM_MALE]]
                 MALE_UNDERWEAR_SETS_CACHE = underwear_sets_list
         elif FEMALE_UNDERWEAR_SETS_CACHE:
             underwear_sets_list = FEMALE_UNDERWEAR_SETS_CACHE
         else:
-            underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info))
+            underwear_sets_list = get_underwear_part_sets(TurboSimUtil.Gender.get_gender(sim_info, sim_is_child))
             if not underwear_sets_list:
                 underwear_sets_list = [[DEFAULT_UNDERWEAR_TOP_FEMALE, DEFAULT_UNDERWEAR_BOTTOM_FEMALE]]
             FEMALE_UNDERWEAR_SETS_CACHE = underwear_sets_list

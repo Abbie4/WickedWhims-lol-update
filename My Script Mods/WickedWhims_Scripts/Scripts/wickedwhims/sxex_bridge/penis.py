@@ -27,7 +27,7 @@ PENIS_SETTING_RANDOM_INCLUDE_DEFAULT = True
 
 def get_sim_soft_penis_author_key(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = sim_ev(sim_info).outfit_soft_penis_author
     if not penis_outfit_author:
         if sim_is_child:
@@ -47,10 +47,10 @@ def get_sim_soft_penis_author_key(sim_identifier):
 
 def get_penis_soft_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = get_sim_soft_penis_author_key(sim_info)
     if sim_is_child:
-        penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_PART_ID_CHILD')
+        penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_PART_ID_CHILD', sim_is_child)
     else:
         if TurboSimUtil.Gender.is_male(sim_info):
             if TurboSimUtil.Gender.is_male_frame(sim_info):
@@ -66,7 +66,7 @@ def get_penis_soft_cas_id(sim_identifier):
 
 def get_penis_soft_texture_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = get_sim_soft_penis_author_key(sim_info)
     if sim_is_child:
         penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_SOFT_CAS_TEXTURE_ID_CHILD')
@@ -85,7 +85,7 @@ def get_penis_soft_texture_cas_id(sim_identifier):
 
 def get_sim_hard_penis_author_key(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = sim_ev(sim_info).outfit_hard_penis_author
     if not penis_outfit_author:
         if sim_is_child:
@@ -105,7 +105,7 @@ def get_sim_hard_penis_author_key(sim_identifier):
 
 def get_penis_hard_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = get_sim_hard_penis_author_key(sim_info)
     if sim_is_child:
         penis_cas_part = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_PART_ID_CHILD')
@@ -124,7 +124,7 @@ def get_penis_hard_cas_id(sim_identifier):
 
 def get_penis_hard_texture_cas_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     penis_outfit_author = get_sim_hard_penis_author_key(sim_info)
     if sim_is_child:
         penis_cas_texture = get_penis_cas_part(penis_outfit_author, 'PENIS_HARD_CAS_TEXTURE_ID_CHILD')
@@ -143,7 +143,7 @@ def get_penis_hard_texture_cas_id(sim_identifier):
 
 def _get_sim_soft_penis_type(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     if sim_is_child:
         return 'PENIS_SOFT_CAS_PART_ID_CHILD'
     else:
@@ -159,7 +159,7 @@ def _get_sim_soft_penis_type(sim_identifier):
 
 def _get_sim_hard_penis_type(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     if sim_is_child:
         return 'PENIS_HARD_CAS_PART_ID_CHILD'
     else:
@@ -388,7 +388,7 @@ def randomized_all_sims_penis_models(sim_identifier, include_default_penis=False
         return
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
         if sim_info is None:
-            pass
+            continue
         random_penis_author = random.choice(penis_author_keys)
         sim_ev(sim_info).outfit_soft_penis_author = random_penis_author
         sim_ev(sim_info).outfit_hard_penis_author = random_penis_author

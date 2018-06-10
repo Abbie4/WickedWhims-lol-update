@@ -23,7 +23,7 @@ POSITIVE_MOODS = (SimMood.CONFIDENT, SimMood.FLIRTY, SimMood.ENERGIZED, SimMood.
 NEGATIVE_MOODS = (SimMood.STRESSED, SimMood.EMBARRASSED, SimMood.ANGRY, SimMood.UNCOMFORTABLE, SimMood.SAD)
 POSITIVE_REACTIONS = (SexReactionType.FRIENDLY, SexReactionType.EXCITED, SexReactionType.FLIRTY)
 NEGATIVE_REACTIONS = (SexReactionType.SAD, SexReactionType.ANGRY, SexReactionType.HORRIFIED, SexReactionType.JEALOUS)
-AGE_INDEX = (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
+AGE_INDEX = (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
 
 
 class SexSatisfactionType(TurboEnum):
@@ -37,6 +37,7 @@ class SexSatisfactionType(TurboEnum):
     GROUP_SEX = 98
     GENERIC = 99
 
+
 SEX_SATISFACTION_BUFFS = {SexSatisfactionType.STRANGER_SEX: SimBuff.WW_SEX_SATISFACTION_STRANGER_SEX, SexSatisfactionType.YOUNG_SEX: SimBuff.WW_SEX_SATISFACTION_YOUNG_SEX, SexSatisfactionType.PUBLIC_SEX: SimBuff.WW_SEX_SATISFACTION_PUBLIC_SEX, SexSatisfactionType.AUDIENCE: SimBuff.WW_SEX_SATISFACTION_AUDIENCE, SexSatisfactionType.FAMILY_SEX: SimBuff.WW_SEX_SATISFACTION_FAMILY_SEX, SexSatisfactionType.GHOST_SEX: SimBuff.WW_SEX_SATISFACTION_GHOST_SEX, SexSatisfactionType.GROUP_SEX: SimBuff.WW_SEX_SATISFACTION_GROUP_SEX, SexSatisfactionType.GENERIC: SimBuff.WW_SEX_SATISFACTION_GENERIC}
 
 
@@ -45,6 +46,7 @@ class SexUnsatisfactionType(TurboEnum):
     BAD_EXPERIENICE = 1
     BAD_PERFORMANCE = 2
     GENERIC = 99
+
 
 SEX_UNSATISFACTION_BUFFS = {SexUnsatisfactionType.BAD_EXPERIENICE: SimBuff.WW_SEX_UNSATISFACTION_BAD_EXPERIENCE, SexUnsatisfactionType.BAD_PERFORMANCE: SimBuff.WW_SEX_UNSATISFACTION_BAD_PERFORMANCE, SexUnsatisfactionType.GENERIC: SimBuff.WW_SEX_UNSATISFACTION_GENERIC}
 
@@ -62,7 +64,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
     satisfaction_threshold = 0.0
     for (_, target_sim_info) in sims_list:
         if sim_info is target_sim_info:
-            pass
+            continue
         sim_satisfaction_threshold = 1.0
         if (get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.FRIENDSHIP) + get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.ROMANCE))/2 >= 40:
             sim_satisfaction_threshold = 0.85
@@ -83,7 +85,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
     satisfaction_value = 0.0
     for (_, target_sim_info) in sims_list:
         if sim_info is target_sim_info:
-            pass
+            continue
         target_state_snapshot = sim_ev(target_sim_info).sim_immutable_sex_state_snapshot
         if 'motive_hygiene' in target_state_snapshot:
             hygiene_motive_snapshot = target_state_snapshot['motive_hygiene']
@@ -131,7 +133,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
             satisfaction_value += 0.15
         if TurboSimUtil.Gender.is_female(sim_info) and TurboSimUtil.Gender.is_male(target_sim_info):
             target_sim_age = TurboSimUtil.Age.get_age(target_sim_info)
-            if target_sim_age == TurboSimUtil.Age.TEEN and random.uniform(0, 1) < 0.25:
+            if (target_sim_age == TurboSimUtil.Age.TEEN or target_sim_age == TurboSimUtil.Age.CHILD) and random.uniform(0, 1) < 0.25:
                 satisfaction_value += -0.05
             elif target_sim_age == TurboSimUtil.Age.YOUNGADULT and random.uniform(0, 1) < 0.1:
                 satisfaction_value += -0.1
@@ -157,7 +159,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
             satisfaction_value += 0.1
         if has_sim_trait(sim_info, SimTrait.ROMANTIC) and has_sim_trait(target_sim_info, SimTrait.ALLURING):
             satisfaction_value += 0.05
-        while get_sim_skill_level(target_sim_info, SimSkill.FITNESS) >= 7:
+        if get_sim_skill_level(target_sim_info, SimSkill.FITNESS) >= 7:
             satisfaction_value += 0.05
     satisfaction_value /= max(1, len(sims_list) - 1)
     if 'motive_energy' in sim_state_snapshot:
@@ -189,7 +191,7 @@ def _get_sex_satisfaction_level(sim_info, sims_list, sex_handler=None):
         reactions_satisfaction_value = 0.0
         for reacted_sim_id in sex_handler.has_reacted_sims_list:
             reacted_sim_info = TurboManagerUtil.Sim.get_sim_info(reacted_sim_id)
-            while reacted_sim_info is not None:
+            if reacted_sim_info is not None:
                 (sex_reaction_data, _, _) = get_reaction_type(reacted_sim_info, sex_handler, allow_special_types=True)
                 if sex_reaction_data[0] in POSITIVE_REACTIONS:
                     reactions_satisfaction_value += 0.05 if not has_sim_trait(sim_info, SimTrait.WW_EXHIBITIONIST) else 0.1
@@ -218,11 +220,11 @@ def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_hand
             sim_mood = sim_state_snapshot['mood'] if 'mood' in sim_state_snapshot else TurboResourceUtil.Resource.get_guid64(TurboSimUtil.Mood.get_mood(sim_info))
             for (_, target_sim_info) in sims_list:
                 if sim_info is target_sim_info:
-                    pass
+                    continue
                 if (sim_mood == SimMood.FLIRTY or has_sim_trait(sim_info, SimTrait.ROMANTIC) or has_sim_trait(sim_info, SimTrait.JEALOUS)) and (get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.FRIENDSHIP) + get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.ROMANCE))/2 >= 40:
                     satisfaction_type = SexUnsatisfactionType.BAD_EXPERIENICE
                     break
-                while has_sim_trait(sim_info, SimTrait.FAMILYORIENTED) or has_sim_trait(sim_info, SimTrait.FAMILYSIM):
+                if has_sim_trait(sim_info, SimTrait.FAMILYORIENTED) or has_sim_trait(sim_info, SimTrait.FAMILYSIM):
                     if has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_ENGAGED) or (has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_GETTINGMARRIED) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_MARRIED)) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_SIGNIFICANT_OTHER):
                         satisfaction_type = SexUnsatisfactionType.BAD_EXPERIENICE
                         break
@@ -232,20 +234,19 @@ def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_hand
     else:
         satisfaction_type = SexSatisfactionType.GENERIC
         if not (SexSatisfactionType.STRANGER_SEX < satisfaction_type and has_sim_trait(sim_info, SimTrait.LONER)):
-            while True:
-                for (_, target_sim_info) in sims_list:
-                    if sim_info is target_sim_info:
-                        pass
-                    friendship_track_score = get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.FRIENDSHIP)
-                    romance_track_score = get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.ROMANCE)
-                    while friendship_track_score < 30 and romance_track_score < 10:
-                        satisfaction_type = SexSatisfactionType.STRANGER_SEX
-                        break
+            for (_, target_sim_info) in sims_list:
+                if sim_info is target_sim_info:
+                    continue
+                friendship_track_score = get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.FRIENDSHIP)
+                romance_track_score = get_relationship_with_sim(sim_info, target_sim_info, RelationshipTrackType.ROMANCE)
+                if friendship_track_score < 30 and romance_track_score < 10:
+                    satisfaction_type = SexSatisfactionType.STRANGER_SEX
+                    break
         if SexSatisfactionType.YOUNG_SEX < satisfaction_type:
             for (_, target_sim_info) in sims_list:
                 if sim_info is target_sim_info:
-                    pass
-                while TurboSimUtil.Age.get_age(target_sim_info) < TurboSimUtil.Age.get_age(sim_info) and abs(AGE_INDEX.index(TurboSimUtil.Age.get_age(sim_info)) - AGE_INDEX.index(TurboSimUtil.Age.get_age(target_sim_info))) >= 2:
+                    continue
+                if TurboSimUtil.Age.get_age(target_sim_info) < TurboSimUtil.Age.get_age(sim_info) and abs(AGE_INDEX.index(TurboSimUtil.Age.get_age(sim_info)) - AGE_INDEX.index(TurboSimUtil.Age.get_age(target_sim_info))) >= 2:
                     satisfaction_type = SexSatisfactionType.YOUNG_SEX
                     break
         if has_sim_trait(sim_info, SimTrait.WW_EXHIBITIONIST) and TurboWorldUtil.Venue.get_current_venue_type() not in (VenueType.RESIDENTIAL, VenueType.PENTHOUSE, VenueType.RENTABLE_CABIN) and not TurboWorldUtil.Lot.is_sim_on_home_lot(sim_info):
@@ -258,7 +259,7 @@ def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_hand
             reactions_count = 0
             for reacted_sim_id in reaction_sims_list:
                 reacted_sim_info = TurboManagerUtil.Sim.get_sim_info(reacted_sim_id)
-                while reacted_sim_info is not None:
+                if reacted_sim_info is not None:
                     (sex_reaction_data, _, _) = get_reaction_type(reacted_sim_info, sex_handler)
                     if sex_reaction_data[0] in POSITIVE_REACTIONS:
                         reactions_count += 1
@@ -271,18 +272,17 @@ def _get_sim_satisfaction_type(sim_info, sims_list, satisfaction_level, sex_hand
             if reactions_count > 0:
                 satisfaction_type = SexSatisfactionType.AUDIENCE
         if SexSatisfactionType.FAMILY_SEX < satisfaction_type and (has_sim_trait(sim_info, SimTrait.FAMILYORIENTED) or has_sim_trait(sim_info, SimTrait.FAMILYSIM)):
-            while True:
-                for (_, target_sim_info) in sims_list:
-                    if sim_info is target_sim_info:
-                        pass
-                    while has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_ENGAGED) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_GETTINGMARRIED) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_MARRIED):
-                        satisfaction_type = SexSatisfactionType.FAMILY_SEX
-                        break
+            for (_, target_sim_info) in sims_list:
+                if sim_info is target_sim_info:
+                    continue
+                if has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_ENGAGED) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_GETTINGMARRIED) or has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_MARRIED):
+                    satisfaction_type = SexSatisfactionType.FAMILY_SEX
+                    break
         if SexSatisfactionType.GHOST_SEX < satisfaction_type:
             for (_, target_sim_info) in sims_list:
                 if sim_info is target_sim_info:
-                    pass
-                while TurboSimUtil.Sim.is_npc(target_sim_info) and TurboSimUtil.Occult.is_ghost(target_sim_info):
+                    continue
+                if TurboSimUtil.Sim.is_npc(target_sim_info) and TurboSimUtil.Occult.is_ghost(target_sim_info):
                     satisfaction_type = SexSatisfactionType.GHOST_SEX
                     break
         if SexSatisfactionType.GROUP_SEX < satisfaction_type and len(sims_list) > 2:
@@ -322,14 +322,14 @@ def test_sex_satifaction_outcome(output=None):
     satisfaction_positive_types = dict()
     satisfaction_negative_types = dict()
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
-            pass
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+            continue
         sims_count += 1
         for target_sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
             if sim_info is target_sim_info:
-                pass
-            if TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.TEEN):
-                pass
+                continue
+            if TurboSimUtil.Age.is_younger_than(target_sim_info, TurboSimUtil.Age.CHILD):
+                continue
             sims_pairs += 1
             sim_ev(sim_info).sim_immutable_sex_state_snapshot = get_sim_sex_state_snapshot(sim_info)
             sim_ev(sim_info).sim_immutable_sex_state_snapshot['mood'] = int(SimMood.HAPPY)
@@ -371,11 +371,11 @@ def test_sex_satifaction_outcome(output=None):
 def test_sex_satifaction_moodlets(output=None):
     sim = TurboManagerUtil.Sim.get_active_sim()
     for buff_id in SEX_SATISFACTION_BUFFS.values():
-        while set_buff_timeout(buff_id, 60):
+        if set_buff_timeout(buff_id, 60):
             add_sim_buff(sim, buff_id, reason=4052013031)
             set_buff_timeout(buff_id, 600)
     for buff_id in SEX_UNSATISFACTION_BUFFS.values():
-        while set_buff_timeout(buff_id, 60):
+        if set_buff_timeout(buff_id, 60):
             add_sim_buff(sim, buff_id, reason=4052013031)
             set_buff_timeout(buff_id, 600)
     output('Sex Satisfaction moodlets applied.')

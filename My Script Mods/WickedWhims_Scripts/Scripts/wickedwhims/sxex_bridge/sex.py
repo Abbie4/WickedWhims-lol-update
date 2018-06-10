@@ -22,7 +22,7 @@ def is_sim_ready_for_sex(sim_identifier):
         return False
     if sim_ev(sim).is_ready_to_sex is True:
         return False
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return False
     if not is_sim_available(sim):
         return False

@@ -30,13 +30,13 @@ def get_list_of_possible_sex_pairs(sims_list):
     for sim in sims_list:
         for target_sim in sims_list:
             if sim is target_sim:
-                pass
+                continue
             sims_pair = {TurboManagerUtil.Sim.get_sim_id(sim), TurboManagerUtil.Sim.get_sim_id(target_sim)}
             if sims_pair in checked_sims_pairs:
-                pass
+                continue
             checked_sims_pairs.append(sims_pair)
             sex_pair_score = get_sex_pair_score(sim, target_sim)
-            while sex_pair_score >= get_relationship_sex_acceptance_threshold():
+            if sex_pair_score >= get_relationship_sex_acceptance_threshold():
                 relationships_list.append((sim, target_sim, sex_pair_score))
     return sorted(relationships_list, key=lambda x: x[2], reverse=True)
 
@@ -76,36 +76,36 @@ def get_sex_pair_score(sim_identifier, target_sim_identifier):
 def get_available_for_sex_sims(only_on_hypersexual_lot=False, forbidden_traits=()):
     sims_list = set()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
-            pass
-        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
-            pass
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+            continue
+        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+            continue
         if not get_sex_setting(SexSetting.PLAYER_AUTONOMY_STATE, variable_type=bool) and TurboSimUtil.Sim.is_player(sim):
-            pass
+            continue
         object_id = TurboResourceUtil.Resource.get_id(sim)
         if is_autonomy_sex_locations_disabled(object_id):
-            pass
+            continue
         if TurboWorldUtil.Time.get_absolute_ticks() < sim_ev(sim).last_sex_autonomy + get_time_between_sex_autonomy_attempts():
-            pass
-        while not sim_ev(sim).active_sex_handler is not None:
+            continue
+        if not sim_ev(sim).active_sex_handler is not None:
             if sim_ev(sim).active_pre_sex_handler is not None:
-                pass
+                continue
             if not is_sim_allowed_for_autonomy(sim):
-                pass
+                continue
             if not _is_sim_needs_fine(sim):
-                pass
+                continue
             if _is_sim_fearing_possible_pregnancy(sim):
-                pass
+                continue
             if not is_sim_available(sim):
-                pass
+                continue
             if _has_sim_sex_forbidden_traits(sim, forbidden_traits=forbidden_traits):
-                pass
+                continue
             if _has_sim_sex_forbidden_buffs(sim):
-                pass
+                continue
             if _is_sim_in_sex_forbidden_situation(sim):
-                pass
+                continue
             if only_on_hypersexual_lot is True and not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
-                pass
+                continue
             sims_list.add(sim)
     return sims_list
 
@@ -127,7 +127,7 @@ def sort_sex_pairs_for_lowest_distance(sims_pairs):
 def is_sims_list_at_hypersexual_lot(sims_list):
     if has_current_lot_trait(LotTrait.WW_LOTTRAIT_HYPERSEXUAL):
         for sim in sims_list:
-            while not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
+            if not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
                 return False
         return True
     return False
@@ -148,10 +148,10 @@ def _has_sim_sex_forbidden_buffs(sim_identifier):
 def _is_sim_running_sex_forbidden_interactions(sim_identifier):
     forbidden_interactions = (106223,)
     for interaction_id in TurboSimUtil.Interaction.get_running_interactions_ids(sim_identifier):
-        while interaction_id in forbidden_interactions:
+        if interaction_id in forbidden_interactions:
             return True
     for interaction_id in TurboSimUtil.Interaction.get_queued_interactions_ids(sim_identifier):
-        while interaction_id in forbidden_interactions:
+        if interaction_id in forbidden_interactions:
             return True
     return False
 

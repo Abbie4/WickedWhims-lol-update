@@ -20,7 +20,7 @@ def try_sim_pregnancy(sim_identifier, partner_sim_identifier):
 
 
 def can_sim_get_pregnant(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return False
     if TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.ADULT):
         return False
@@ -37,7 +37,7 @@ def can_sim_get_pregnant(sim_identifier):
 
 
 def can_sim_impregnate(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return False
     if not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE) or has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANNOTIMPREGNATE):
         return False

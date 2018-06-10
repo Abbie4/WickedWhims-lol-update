@@ -33,7 +33,7 @@ def _wickedwhims_undress_top_on_breast_feeding(interaction_instance):
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
     if sim_ev(sim).on_breast_feeding_outfit_state != OutfitStateBeforeBreastFeeding.NONE:
         return
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return
     if has_sim_outfit_top(sim):
         top_body_state = get_sim_body_state(sim, 6)
@@ -61,15 +61,15 @@ def _update_dress_up_after_breast_feeding_on_game_update():
         return
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.NONE:
-            pass
+            continue
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            pass
+            continue
         if TurboSimUtil.Interaction.is_running_interaction(sim, BREAST_FEEDING_INTERACTIONS):
             return
         sim_ev(sim).on_breast_feeding_outfit_state = int(OutfitStateBeforeBreastFeeding.NONE)
         current_outfit = TurboSimUtil.CAS.get_current_outfit(sim)
         if not (current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0):
-            pass
+            continue
         current_outfit = get_modified_outfit(sim)
         if sim_ev(sim).on_breast_feeding_outfit_state != -1 and has_sim_outfit_top(sim, outfit_category_and_index=current_outfit):
             if sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.OUTFIT:
@@ -80,7 +80,7 @@ def _update_dress_up_after_breast_feeding_on_game_update():
             try:
                 TurboSimUtil.CAS.refresh_outfit(sim)
             except:
-                pass
+                continue
         elif is_sim_outfit_fullbody(sim, outfit_category_and_index=current_outfit):
             dress_up_outfit(sim)
         else:

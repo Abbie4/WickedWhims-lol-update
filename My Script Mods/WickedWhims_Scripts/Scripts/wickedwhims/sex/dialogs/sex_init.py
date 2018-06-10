@@ -14,6 +14,7 @@ from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display
 from wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sex
 from wickedwhims.utils_interfaces import display_sim_picker_dialog, display_ok_dialog, display_picker_list_dialog, get_arrow_icon
 
+
 def open_start_sex_sims_picker_dialog(origin_position, pre_sex_handler):
 
     @exception_watch()
@@ -45,7 +46,9 @@ def open_start_sex_sims_picker_dialog(origin_position, pre_sex_handler):
     (min_age_limit, max_age_limit) = get_age_limits_for_sex((creator_sim_info,))
     skip_males = not has_animations_with_params(pre_sex_handler.get_interaction_type(), pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.MALE))
     skip_females = not has_animations_with_params(pre_sex_handler.get_interaction_type(), pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.FEMALE))
-    sims_list = list(get_nearby_sims_for_sex(origin_position, radius=16, relative_sims=test_incest_of_sims, min_sims_age=min_age_limit, max_sims_age=max_age_limit, skip_males=skip_males, skip_females=skip_females, skip_sims_ids=(pre_sex_handler.get_creator_sim_id(),)))
+    skip_cmales = not has_animations_with_params(pre_sex_handler.get_interaction_type(), pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.CMALE))
+    skip_cfemales = not has_animations_with_params(pre_sex_handler.get_interaction_type(), pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.CFEMALE))
+    sims_list = list(get_nearby_sims_for_sex(origin_position, radius=16, relative_sims=test_incest_of_sims, min_sims_age=min_age_limit, max_sims_age=max_age_limit, skip_males=skip_males, skip_females=skip_females, skip_cmales=skip_cmales, skip_cfemales=skip_cfemales, skip_sims_ids=(pre_sex_handler.get_creator_sim_id(),)))
     if has_animations_with_params(pre_sex_handler.get_interaction_type(), pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info),)):
         sims_list.insert(0, pre_sex_handler.get_creator_sim_id())
     if not sims_list:
@@ -86,17 +89,27 @@ def open_start_random_sex_sims_picker_dialog(origin_position, pre_sex_handler):
     (min_age_limit, max_age_limit) = get_age_limits_for_sex((creator_sim_info,))
     skip_males = True
     skip_females = True
+    skip_cmales = True
+    skip_cfemales = True
     for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL):
         skip_males = not has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.MALE))
-        while skip_males is False:
+        if skip_males is False:
             break
     for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL):
         skip_females = not has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.FEMALE))
-        while skip_females is False:
+        if skip_females is False:
             break
-    sims_list = list(get_nearby_sims_for_sex(origin_position, radius=16, relative_sims=test_incest_of_sims, min_sims_age=min_age_limit, max_sims_age=max_age_limit, skip_males=skip_males, skip_females=skip_females, skip_sims_ids=(pre_sex_handler.get_creator_sim_id(),)))
+    for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL):
+        skip_cmales = not has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.CMALE))
+        if skip_cmales is False:
+            break
+    for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL):
+        skip_cfemales = not has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info), SexGenderType.CFEMALE))
+        if skip_cfemales is False:
+            break
+    sims_list = list(get_nearby_sims_for_sex(origin_position, radius=16, relative_sims=test_incest_of_sims, min_sims_age=min_age_limit, max_sims_age=max_age_limit, skip_males=skip_males, skip_females=skip_females, skip_cmales=skip_cmales, skip_cfemales=skip_cfemales, skip_sims_ids=(pre_sex_handler.get_creator_sim_id(),)))
     for sex_category_type in (SexCategoryType.HANDJOB, SexCategoryType.ORALJOB, SexCategoryType.TEASING, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.FOOTJOB):
-        while has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info),)):
+        if has_animations_with_params(sex_category_type, pre_sex_handler.get_object_identifier(), (get_sim_sex_gender(creator_sim_info),)):
             sims_list.insert(0, pre_sex_handler.get_creator_sim_id())
             break
     if not sims_list:
