@@ -14,6 +14,7 @@ from wickedwhims.sex.sex_operators.sex_init_operator import start_new_player_sex
 from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 
+
 def _test_for_sex_start(interaction_context, interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
@@ -33,6 +34,8 @@ def _test_for_sex_start(interaction_context, interaction_sim, interaction_target
     object_identifier = SexInteractionLocationType.get_location_identifier(interaction_target)
     sim_gender = get_sim_sex_gender(interaction_sim)
     for sex_category_type in sex_category_types:
+        if sex_category_type is None:
+            continue
         if has_object_identifier_animations(object_identifier, sex_category_type, sim_gender):
             return True
     return False

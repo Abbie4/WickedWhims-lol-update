@@ -65,7 +65,7 @@ class PreSexInteractionHandler(SexInteractionHandler):
 
     def get_second_sim_id(self):
         for sim_id in self._sims_ids_list:
-            while sim_id != self.get_creator_sim_id():
+            if sim_id != self.get_creator_sim_id():
                 return int(sim_id)
         return -1
 
@@ -79,13 +79,13 @@ class PreSexInteractionHandler(SexInteractionHandler):
 
     def is_npc_only(self):
         for sim_info in self.get_actors_sim_info_gen():
-            while TurboSimUtil.Sim.is_player(sim_info):
+            if TurboSimUtil.Sim.is_player(sim_info):
                 return False
         return True
 
     def are_all_sims_ready(self):
         for sim_info in self.get_actors_sim_info_gen():
-            while sim_ev(sim_info).is_ready_to_sex is False:
+            if sim_ev(sim_info).is_ready_to_sex is False:
                 return False
         return True
 

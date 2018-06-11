@@ -5,7 +5,6 @@ from turbolib.sim_util import TurboSimUtil
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype
 from wickedwhims.utils_traits import has_sim_trait
-from turbolib.special.custom_exception_watcher import log_message
 
 
 def setup_sim_nude_outfit(sim_info):
@@ -65,7 +64,6 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
     try:
         outfit_editor = TurboCASUtil.OutfitEditor(sim_identifier, outfit_category_and_index=(TurboCASUtil.OutfitCategory.BATHING, 0))
     except RuntimeError as ex:
-        log_message("Problem occurred while loading outfit editor")
         return False
     if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD, or_equal=True):
         for bodytype in (TurboCASUtil.BodyType.UPPER_BODY, TurboCASUtil.BodyType.LOWER_BODY, TurboCASUtil.BodyType.SHOES):

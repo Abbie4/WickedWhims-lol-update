@@ -1,5 +1,6 @@
 from wickedwhims.sex.enums.sex_gender import SexGenderType
 from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexGenderTypeSetting
+
 ANIMATIONS_CACHE = dict()
 
 
