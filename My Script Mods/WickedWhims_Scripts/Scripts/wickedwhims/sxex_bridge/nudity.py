@@ -63,7 +63,7 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
     TurboSimUtil.CAS.generate_outfit(sim_identifier, (TurboCASUtil.OutfitCategory.BATHING, 0))
     try:
         outfit_editor = TurboCASUtil.OutfitEditor(sim_identifier, outfit_category_and_index=(TurboCASUtil.OutfitCategory.BATHING, 0))
-    except RuntimeError as ex:
+    except:
         return False
     if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD, or_equal=True):
         for bodytype in (TurboCASUtil.BodyType.UPPER_BODY, TurboCASUtil.BodyType.LOWER_BODY, TurboCASUtil.BodyType.SHOES):

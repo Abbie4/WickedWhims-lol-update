@@ -55,9 +55,9 @@ def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
             complete_list.append(SexGenderType.CBOTH)
         if sim_gender_copy == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.CBOTH)
-        if sim_gender_copy == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
-            complete_list.append(SexGenderType.BOTH)
         if sim_gender_copy == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
+            complete_list.append(SexGenderType.BOTH)
+        if sim_gender_copy == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.BOTH)
         complete_list.append(sim_gender_copy)
     for sim_gender in sim_genders:
@@ -77,7 +77,7 @@ def has_animation_with_gender(animation_category, object_id, gender):
     animation_cache_category_object_dict = get_animation_cache_category_object(animation_category, object_id, create=False)
     if animation_cache_category_object_dict is None:
         return False
-    if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
+    if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED and gender != SexGenderType.CBOTH and gender != SexGenderType.CMALE and gender != SexGenderType.CFEMALE:
         return True
     for (genders_amount, animation_cache_category_object_genders_list) in animation_cache_category_object_dict.items():
         for genders_list in animation_cache_category_object_genders_list:
@@ -168,4 +168,3 @@ def get_animation_cache_category(animation_category, create=False):
             return
         ANIMATIONS_CACHE[animation_category] = dict()
     return ANIMATIONS_CACHE[animation_category]
-

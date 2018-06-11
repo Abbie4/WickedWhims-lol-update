@@ -1,5 +1,6 @@
 import json
 import os.path
+from turbolib.special.custom_exception_watcher import log_message
 from turbolib.cas_util import TurboCASUtil
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.sim_util import TurboSimUtil
@@ -189,7 +190,7 @@ def get_soft_penis_picker_rows(selected_part=None, specific_part_type=None):
     for (priority, author_key, name, author_name) in penis_list:
         penis_parts = cas_parts['_PENIS_PARTS'][author_key]
         add_picker_row = False
-        if TurboCASUtil.Outfit.is_cas_part_loaded(penis_parts[specific_part_type]):
+        if specific_part_type is not None and specific_part_type in penis_parts and TurboCASUtil.Outfit.is_cas_part_loaded(penis_parts[specific_part_type]):
             add_picker_row = True
         if specific_part_type is not None and specific_part_type in penis_parts and add_picker_row is True:
             picker_rows.append(TurboUIUtil.ObjectPickerDialog.ListPickerRow(priority, name, TurboL18NUtil.get_localized_string(776669783, tokens=(author_name,)), skip_tooltip=True, icon=get_selected_icon() if selected_part is not None and selected_part == author_key else get_unselected_icon(), tag=author_key))
@@ -212,7 +213,7 @@ def get_hard_penis_picker_rows(selected_part=None, specific_part_type=None):
     for (priority, author_key, name, author_name) in penis_list:
         penis_parts = cas_parts['_PENIS_PARTS'][author_key]
         add_picker_row = False
-        if TurboCASUtil.Outfit.is_cas_part_loaded(penis_parts[specific_part_type]):
+        if specific_part_type is not None and specific_part_type in penis_parts and TurboCASUtil.Outfit.is_cas_part_loaded(penis_parts[specific_part_type]):
             add_picker_row = True
         if specific_part_type is not None and specific_part_type in penis_parts and add_picker_row is True:
             picker_rows.append(TurboUIUtil.ObjectPickerDialog.ListPickerRow(priority, name, TurboL18NUtil.get_localized_string(776669783, tokens=(author_name,)), skip_tooltip=True, icon=get_selected_icon() if selected_part is not None and selected_part == author_key else get_unselected_icon(), tag=author_key))

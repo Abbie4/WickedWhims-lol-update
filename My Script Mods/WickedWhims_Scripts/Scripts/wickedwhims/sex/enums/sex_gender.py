@@ -30,33 +30,27 @@ class SexGenderType(TurboEnum):
 def get_sim_sex_gender(sim_identifier, ignore_sim_specific_gender=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
-    is_gender_recognized_male = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.MALE
-    is_gender_recognized_female = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.FEMALE
-    is_gender_specific_to_sims = get_sex_setting(SexSetting.GENDER_RECOGNITION_SIM_SPECIFIC_STATE, variable_type=bool)
     if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.SEX_BASED:
+        is_male = TurboSimUtil.Gender.get_gender(sim_info) == TurboSimUtil.Gender.MALE
         if sim_is_child:
-            if is_gender_recognized_male:
-                return SexGenderType.CMALE
-            if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
-                return SexGenderType.CFEMALE
-            if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
+            if is_male:
                 return SexGenderType.CMALE
             return SexGenderType.CFEMALE
         else:
-            if is_gender_recognized_male:
-                return SexGenderType.MALE
-            if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
-                return SexGenderType.FEMALE
-            if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
+            if is_male:
                 return SexGenderType.MALE
             return SexGenderType.FEMALE
     else:
+        is_gender_recognized_male = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.MALE
+        is_gender_recognized_female = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.FEMALE
+        is_gender_specific_to_sims = get_sex_setting(SexSetting.GENDER_RECOGNITION_SIM_SPECIFIC_STATE, variable_type=bool)
+        has_toilet_standing_trait = has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING)
         if sim_is_child:
             if is_gender_recognized_male:
                 return SexGenderType.CMALE
             if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
                 return SexGenderType.CFEMALE
-            if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
+            if has_toilet_standing_trait:
                 return SexGenderType.CMALE
             return SexGenderType.CFEMALE
         else:
@@ -64,7 +58,7 @@ def get_sim_sex_gender(sim_identifier, ignore_sim_specific_gender=False):
                 return SexGenderType.MALE
             if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
                 return SexGenderType.FEMALE
-            if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
+            if has_toilet_standing_trait:
                 return SexGenderType.MALE
             return SexGenderType.FEMALE
 

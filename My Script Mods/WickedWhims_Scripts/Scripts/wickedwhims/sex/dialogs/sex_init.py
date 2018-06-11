@@ -1,6 +1,6 @@
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.manager_util import TurboManagerUtil
-from turbolib.special.custom_exception_watcher import exception_watch
+from turbolib.special.custom_exception_watcher import exception_watch, log_message
 from turbolib.ui_util import TurboUIUtil
 from wickedwhims.relationships.relationship_settings import get_relationship_setting, RelationshipSetting
 from wickedwhims.sex.animations.animations_handler import get_available_sex_animations
@@ -38,6 +38,7 @@ def open_start_sex_sims_picker_dialog(origin_position, pre_sex_handler):
             clear_sims_sex_extra_data(tuple(pre_sex_handler.get_actors_sim_info_gen()))
             return False
         pre_sex_handler.add_sim(selected_sim_id)
+        log_message("Opening start sex animations picker dialog")
         open_start_sex_animations_picker_dialog(pre_sex_handler)
         return True
 
@@ -76,6 +77,7 @@ def open_start_random_sex_sims_picker_dialog(origin_position, pre_sex_handler):
             clear_sims_sex_extra_data(tuple(pre_sex_handler.get_actors_sim_info_gen()))
             return False
         pre_sex_handler.add_sim(picked_sim)
+        log_message("Picking random animation random_sex_sim_picker_callback")
         random_animation = get_random_animation(pre_sex_handler.get_object_identifier(), tuple(pre_sex_handler.get_actors_sim_info_gen()))
         if random_animation is None:
             display_ok_dialog(text=2459296019, title=1890248379)
@@ -137,7 +139,8 @@ def open_start_sex_animations_category_picker_dialog(pre_sex_handler):
 
     genders_list = list()
     for sim_info in pre_sex_handler.get_actors_sim_info_gen():
-        genders_list.append(get_sim_sex_gender(sim_info))
+        sim_gender = get_sim_sex_gender(sim_info)
+        genders_list.append(sim_gender)
     category_picker_rows = list()
     animation_categories = ((0, SexCategoryType.TEASING, 77458156), (1, SexCategoryType.HANDJOB, 1425559843), (3, SexCategoryType.FOOTJOB, 223939754), (4, SexCategoryType.ORALJOB, 2747124438), (5, SexCategoryType.VAGINAL, 574589211), (6, SexCategoryType.ANAL, 1610085053))
     for (index, animation_sex_category_type, animation_sex_category_name) in animation_categories:
