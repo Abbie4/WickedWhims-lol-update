@@ -38,7 +38,7 @@ def log_message(message):
 
 
 def _log_message_text(message):
-    msg = '{} {}\n'.format(datetime.now().strftime('%x %X'), message)
+    msg = '{} {}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), message)
     try:
         file_path = _get_ww_message_file_path()
         if file_path is not None:
@@ -73,7 +73,7 @@ def log_custom_exception(exception_message, exception=None):
 
 def _log_trackback(trackback):
     call_exception_feedback()
-    exception_trackback_text = '{} {}\n'.format(datetime.now().strftime('%x %X'), trackback)
+    exception_trackback_text = '{} {}\n'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), trackback)
     for exception_watch_callback in EXCEPTION_WATCH_CALLBACKS:
         try:
             file_path = exception_watch_callback()
