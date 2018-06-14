@@ -105,15 +105,17 @@ class SexAnimationActorInstance:
         if default_gender is True:
             return self.gender_type
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
+            if self.gender_type == SexGenderType.CMALE or self.gender_type == SexGenderType.CFEMALE or self.gender_type == SexGenderType.CBOTH:
+                return SexGenderType.CBOTH
+            return SexGenderType.BOTH
+        if self.gender_type == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
+            return SexGenderType.BOTH
+        if self.gender_type == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.BOTH
         if self.gender_type == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.CBOTH
         if self.gender_type == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.CBOTH
-        if self.gender_type == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
-            return SexGenderType.BOTH
-        if self.gender_type == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
-            return SexGenderType.BOTH
         return self.gender_type
 
     def get_preferenced_gender_type(self):

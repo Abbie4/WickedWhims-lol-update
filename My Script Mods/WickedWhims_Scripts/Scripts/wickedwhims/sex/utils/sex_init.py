@@ -73,7 +73,8 @@ def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, sk
                 if has_sim_traits(sim, (SimTrait.HIDDEN_ISEVENTNPC_CHALLENGE, SimTrait.ISGRIMREAPER)):
                     continue
                 if not is_sim_available(sim):
-                    log_message("Sim is not available")
+                    sim_name = TurboSimUtil.Name.get_name(sim)
+                    log_message("Sim is not available " + sim_name[0] + " " + sim_name[1])
                     continue
                 if relative_sims:
                     log_message("Sim is relative")
