@@ -106,7 +106,7 @@ def has_animation_with_gender(animation_category, object_id, gender):
     animation_cache_category_object_dict = get_animation_cache_category_object(animation_category, object_id, create=False)
     if animation_cache_category_object_dict is None:
         return False
-    if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED and gender != SexGenderType.CBOTH and gender != SexGenderType.CMALE and gender != SexGenderType.CFEMALE:
+    if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
         return True
     for (genders_amount, animation_cache_category_object_genders_list) in animation_cache_category_object_dict.items():
         for genders_list in animation_cache_category_object_genders_list:

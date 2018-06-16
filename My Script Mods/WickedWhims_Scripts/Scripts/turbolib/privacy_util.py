@@ -1,7 +1,6 @@
 from _weakrefset import WeakSet
 import services
 from turbolib.manager_util import TurboManagerUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class TurboPrivacyUtil:
@@ -25,7 +24,6 @@ class TurboPrivacyUtil:
     def reevaluate_privacy_violator(privacy_owner, violator_sim):
         for privacy in services.privacy_service().privacy_instances:
             while privacy.interaction is not None and privacy.interaction.sim is not None and privacy.interaction.sim is privacy_owner:
-                log_message("doing reevaluate_privacy_violator")
                 if violator_sim in privacy.allowed_sims:
                     privacy.allowed_sims.discard(violator_sim)
                 if violator_sim in privacy.disallowed_sims:

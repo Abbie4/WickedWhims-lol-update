@@ -1,7 +1,7 @@
 import math
 from zone import Zone
 from turbolib.injector_util import inject
-from turbolib.special.custom_exception_watcher import log_custom_exception, exception_watch, log_message
+from turbolib.special.custom_exception_watcher import log_custom_exception, exception_watch
 from turbolib.world_util import TurboWorldUtil
 LAST_ABSOLUTE_TICKS = 0
 CURRENT_DIFF_TICKS = 0
@@ -83,7 +83,6 @@ def _turbolib_zone_game_update(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
     try:
         while self.is_zone_running:
-            log_message("doing is_zone_running")
             absolute_ticks = args[0]
             is_paused = TurboWorldUtil.Time.get_current_time_speed() == TurboWorldUtil.Time.ClockSpeedMode.PAUSED
             if is_paused is False:
@@ -114,14 +113,12 @@ def _on_zone_update_event(is_paused):
         for (unique_id, update_method_name) in ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE:
             for zone_update_handler in ON_ZONE_UPDATE_METHODS:
                 while unique_id == zone_update_handler.get_unique_id() and update_method_name == zone_update_handler.get_update_method_name():
-                    log_message("doing unique_id zone_update_handler get_unique_id update_method_name")
                     ON_ZONE_UPDATE_METHODS.remove(zone_update_handler)
                     break
         ON_ZONE_UPDATE_UNREGISTER_METHODS_QUEUE = list()
     for zone_update_handler in ON_ZONE_UPDATE_METHODS:
         try:
             while is_paused is False or zone_update_handler.is_always_running():
-                log_message("doing is_paused zone_update_handler is_always_running")
                 zone_update_handler()
         except Exception as ex:
             log_custom_exception("[TurboLib] Failed to run '" + str(zone_update_handler.get_update_method_name()) + "' method from '" + str(zone_update_handler.get_unique_id()) + "'.", ex)

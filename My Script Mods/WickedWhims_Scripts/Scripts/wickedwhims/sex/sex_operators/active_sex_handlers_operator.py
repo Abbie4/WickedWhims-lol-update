@@ -12,6 +12,7 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.sxex_bridge.outfit import dress_up_outfit
 from wickedwhims.utils_saves.save_sex_handlers import get_sex_handlers_save_data, update_sex_handlers_save_data
+
 ACTIVE_SEX_HANDLERS_LIST = list()
 CHECK_ACTIVE_SEX_HANDLERS_TO_UNREGISTER = True
 
@@ -69,7 +70,7 @@ def register_loaded_active_sex_handlers():
             active_sex_handler = ActiveSexInteractionHandler.load_from_dict(sex_handler_data)
             register_active_sex_handler(active_sex_handler, skip_save_data_update=True)
         except:
-            pass
+            continue
 
 
 def apply_active_sex_handler_to_sim(sim_identifier):
@@ -80,7 +81,7 @@ def apply_active_sex_handler_to_sim(sim_identifier):
         return
     active_sex_handler = None
     for sex_handler in ACTIVE_SEX_HANDLERS_LIST:
-        while sex_handler.get_identifier() == sex_handler_identifier:
+        if sex_handler.get_identifier() == sex_handler_identifier:
             active_sex_handler = sex_handler
             break
     if active_sex_handler is None:
@@ -99,8 +100,8 @@ def update_active_sex_handlers(ticks):
         if not sex_handler.is_valid(skip_actors=True):
             queue_unregister_active_sex_handler(sex_handler)
         if sex_handler.is_ready_to_unregister is True:
-            pass
-        while sex_handler.is_prepared_to_play is True:
+            continue
+        if sex_handler.is_prepared_to_play is True:
             if sex_handler.is_playing is False:
                 sex_handler.pre_update(ticks)
             else:
@@ -112,7 +113,7 @@ def _wickedwhims_restart_sex_handlers_on_first_load():
     if has_game_loaded():
         return
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        while sim_ev(sim).active_sex_handler is not None:
+        if sim_ev(sim).active_sex_handler is not None:
             sim_ev(sim).active_sex_handler.restart()
 
 
@@ -123,7 +124,7 @@ def _wickedwhims_neutralize_sims_active_sex_data_on_zone_move():
     for sex_handler in ACTIVE_SEX_HANDLERS_LIST:
         for sim_info in sex_handler.get_actors_sim_info_gen():
             if sim_info is None:
-                pass
+                continue
             clear_sim_sex_extra_data(sim_info)
             dress_up_outfit(sim_info)
     reset_active_sex_handlers()
@@ -141,7 +142,7 @@ def _wickedwhims_reset_sex_handler_on_sim_stand_posture(interaction_instance):
 @register_buildbuy_state_change_event_method(unique_id='WickedWhims', priority=0, on_exit=True)
 def _wickedwhims_on_buildbuy_exit_reset_sex_interactions():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        while sim_ev(sim).is_ready():
+        if sim_ev(sim).is_ready():
             if sim_ev(sim).active_sex_handler is not None and not TurboSimUtil.Interaction.is_running_interaction(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT):
                 sim_ev(sim).active_sex_handler.reset()
 

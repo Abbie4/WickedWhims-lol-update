@@ -10,7 +10,6 @@ from wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandler
 from wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshot
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.utils_interfaces import display_notification
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class PreSexInteractionHandler(SexInteractionHandler):
@@ -116,26 +115,16 @@ class PreSexInteractionHandler(SexInteractionHandler):
 
     def start_sex_interaction(self):
         active_sex_handler = self._get_active_sex_handler()
-        log_message("Grabbed active sex handler")
         for sim_info in self.get_actors_sim_info_gen():
-            sim_name = TurboSimUtil.Name.get_name(sim_info)
-            log_message("doing a get_actors_sim_info_gen for sim: " + sim_name[0] + " " + sim_name[1])
             if active_sex_handler is None:
-                log_message("active_sex_handlerdsfdsafd was none")
                 clear_sim_sex_extra_data(sim_info)
-            log_message("getting active_sex_handler idnentifier")
             sim_ev(sim_info).active_sex_handler_identifier = active_sex_handler.get_identifier()
             sim_ev(sim_info).active_sex_handler = active_sex_handler
-            log_message("checking is autonomy")
             if self.is_autonomy_sex():
-                log_message("is autonomy")
                 sim_ev(sim_info).last_sex_autonomy = TurboWorldUtil.Time.get_absolute_ticks()
-            log_message("clearing extra sim data")
             clear_sim_sex_extra_data(sim_info, only_pre_active_data=True)
-            log_message("resetting sim")
             TurboSimUtil.Sim.reset_sim(sim_info)
             sim_ev(sim_info).has_setup_sex = True
-            log_message("playing if everyone is ready")
             active_sex_handler.play_if_everyone_ready()
 
     def is_valid(self):

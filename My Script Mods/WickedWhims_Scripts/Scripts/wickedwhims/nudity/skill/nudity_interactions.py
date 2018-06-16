@@ -4,7 +4,6 @@ from turbolib.resource_util import TurboResourceUtil
 from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting
 from wickedwhims.nudity.outfit_utils import get_sim_outfit_level, OutfitLevel
 from wickedwhims.nudity.skill.skills_utils import increase_sim_nudity_skill, get_sim_nudity_skill_level
-from turbolib.special.custom_exception_watcher import log_message
 from turbolib.manager_util import TurboManagerUtil
 
 

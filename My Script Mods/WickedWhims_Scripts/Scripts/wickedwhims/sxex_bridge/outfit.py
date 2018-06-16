@@ -11,6 +11,7 @@ from wickedwhims.sxex_bridge.body import set_sim_top_naked_state, set_sim_bottom
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
 from wickedwhims.utils_cas import get_modified_outfit, is_sim_in_special_outfit, get_previous_modified_outfit, copy_outfit_to_special
 from wickedwhims.utils_traits import has_sim_trait
+from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 
 
 class StripType(enum.Int, export=False):
@@ -27,8 +28,7 @@ def strip_outfit(sim_identifier, strip_type_top=StripType.NONE, strip_type_botto
     from wickedwhims.sxex_bridge.nudity import update_nude_body_data
     update_nude_body_data(sim_info)
     if not is_sim_in_special_outfit(sim_info):
-        outfit_prepare_result = copy_outfit_to_special(sim_info, set_special_outfit=False)
-        return False
+        copy_outfit_to_special(sim_info, set_special_outfit=False)
     else:
         save_original = False
     try:
@@ -102,6 +102,9 @@ def strip_outfit(sim_identifier, strip_type_top=StripType.NONE, strip_type_botto
 
 
 def dress_up_outfit(sim_identifier, override_outfit_category_and_index=None, skip_outfit_change=False):
+    sim_name = TurboSimUtil.Name.get_name(sim_identifier)
+    if is_sim_in_sex(sim_identifier) or is_sim_going_to_sex(sim_identifier):
+        return -1
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     set_sim_top_naked_state(sim_info, False)
     set_sim_bottom_naked_state(sim_info, False)

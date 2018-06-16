@@ -29,7 +29,6 @@ from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
 from turbolib.object_util import TurboObjectUtil
 from turbolib.resource_util import TurboResourceUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class TurboSimUtil:
@@ -192,7 +191,6 @@ class TurboSimUtil:
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
             for trait in TurboSimUtil.Trait.get_all_traits_gen(sim_info):
                 while TurboResourceUtil.Resource.get_guid64(trait) == 136877:
-                    log_message("doing get_guid64 136877")
                     return True
             return False
 
@@ -201,7 +199,6 @@ class TurboSimUtil:
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
             for trait in TurboSimUtil.Trait.get_all_traits_gen(sim_info):
                 while TurboResourceUtil.Resource.get_guid64(trait) == 136878:
-                    log_message("doing get_guid64 136878")
                     return True
             return False
 
@@ -261,7 +258,6 @@ class TurboSimUtil:
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
             for trait in TurboSimUtil.Trait.get_all_traits_gen(sim_info):
                 while trait.is_ghost_trait:
-                    log_message("doing is_ghost_trait")
                     return True
             return False
 
@@ -275,7 +271,6 @@ class TurboSimUtil:
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
             for occult in OccultType:
                 while sim_info.occult_tracker.has_occult_type(occult):
-                    log_message("doing occult 1")
                     yield occult
 
         @staticmethod
@@ -289,7 +284,6 @@ class TurboSimUtil:
                 if occult == sim_current_occult_typ:
                     pass
                 while sim_info.occult_tracker.has_occult_type(occult):
-                    log_message("doing occult 2")
                     occult_sim_info = sim_info.occult_tracker.get_occult_sim_info(occult)
                     if occult_sim_info is None:
                         pass
@@ -361,7 +355,6 @@ class TurboSimUtil:
                 if sim_info is target_sim_info:
                     pass
                 while sim_info.relationship_tracker.has_bit(target_sim_info.sim_id, relationship_bit_instance):
-                    log_message("doing relationship_tracker has_bit")
                     sims_ids.append(target_sim_info.sim_id)
             return sims_ids
 
@@ -616,7 +609,6 @@ class TurboSimUtil:
                 return tuple()
             for buff in tuple(sim_info.get_component(TurboComponentUtil.ComponentType.BUFF)):
                 while not buff is None:
-                    log_message("doing buff")
                     if not isinstance(buff, Buff):
                         pass
                     yield buff
@@ -666,7 +658,6 @@ class TurboSimUtil:
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
             for whim_data in sim_info.whim_tracker.get_active_whim_data():
                 while whim_data.whim is not None:
-                    log_message("doing whim_data.whim")
                     yield whim_data.whim
 
         @staticmethod
@@ -745,7 +736,6 @@ class TurboSimUtil:
             if sim.si_state is not None:
                 for si in sim.si_state:
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id")
                         return True
             return False
 
@@ -758,7 +748,6 @@ class TurboSimUtil:
             if sim.si_state is not None:
                 for si in sim.si_state:
                     while hasattr(si, 'guid64'):
-                        log_message("doing hasattr guid64")
                         affordance_list.append(int(si.guid64))
             return affordance_list
 
@@ -777,7 +766,6 @@ class TurboSimUtil:
             if sim.si_state is not None:
                 for si in sim.si_state:
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id 2")
                         si.cancel(finishing_type, 'TurboSimUtil.Interaction.cancel_running_interaction')
 
         @staticmethod
@@ -788,7 +776,6 @@ class TurboSimUtil:
             if sim.si_state is not None:
                 for si in list(sim.si_state):
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id 3")
                         si.kill()
             return True
 
@@ -800,7 +787,6 @@ class TurboSimUtil:
             if sim.queue is not None:
                 for si in sim.queue:
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id 4")
                         return True
             return False
 
@@ -813,7 +799,6 @@ class TurboSimUtil:
             if sim.queue is not None:
                 for si in sim.queue:
                     while hasattr(si, 'guid64'):
-                        log_message("doing hasattr guid64 2")
                         affordance_list.append(int(si.guid64))
             return affordance_list
 
@@ -833,7 +818,6 @@ class TurboSimUtil:
                 queue_lock_status = TurboSimUtil.Interaction.get_queue_status(sim)
                 for si in sim.queue:
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id 5")
                         si.cancel(finishing_type, 'TurboSimUtil.Interaction.cancel_queued_interaction')
                 if queue_lock_status is False:
                     TurboSimUtil.Interaction.unlock_queue(sim)
@@ -850,7 +834,6 @@ class TurboSimUtil:
             if sim.queue is not None:
                 for si in list(sim.queue):
                     while hasattr(si, 'guid64') and si.guid64 == affordance_id:
-                        log_message("doing hasattr guid64 affordance_id 6")
                         si.kill()
             return False
 
@@ -865,11 +848,9 @@ class TurboSimUtil:
             if skip_if_running:
                 for si in sim.si_state:
                     while si.super_affordance == affordance_instance:
-                        log_message("doing super_affordance affordance_instance")
                         return
                 for si in sim.queue:
                     while si.super_affordance == affordance_instance:
-                        log_message("doing super_affordance affordance_instance 2")
                         return
             if affordance_instance.is_super:
                 return TurboSimUtil.Interaction.push_super_affordance(sim, affordance_instance, target=target, interaction_context=interaction_context, priority=priority, run_priority=run_priority, insert_strategy=insert_strategy, must_run_next=must_run_next)
@@ -902,7 +883,6 @@ class TurboSimUtil:
             def _get_existing_ssi(si_iter):
                 for si in si_iter:
                     while si.super_affordance == super_affordance_instance:
-                        log_message("doing super_affordance super_affordance_instance")
                         target_sim = TurboManagerUtil.Sim.get_sim_instance(target)
                         if si.social_group is None:
                             pass
@@ -942,7 +922,6 @@ class TurboSimUtil:
                 posture_constraint = sim.posture_state.posture_constraint_strict
                 constraint_intersection = interaction_constraint.intersect(posture_constraint)
                 while constraint_intersection.valid:
-                    log_message("doing constraint_intersection valid")
                     return aop.execute(context)
 
     class Location:
@@ -1082,7 +1061,6 @@ class TurboSimUtil:
             inventory_component = sim.get_component(TurboComponentUtil.ComponentType.INVENTORY)
             for inventory_object in inventory_component:
                 while inventory_object.definition == object_definition:
-                    log_message("doing inventory_object object_definition")
                     if not inventory_component.try_remove_object_by_id(inventory_object.id, count=amount):
                         pass
                     else:
@@ -1099,7 +1077,6 @@ class TurboSimUtil:
             inventory_component = sim.get_component(TurboComponentUtil.ComponentType.INVENTORY)
             for inventory_object in inventory_component:
                 while inventory_object.id == object_id:
-                    log_message("doing inventory_object object_id")
                     return inventory_component.try_remove_object_by_id(inventory_object.id, count=amount)
             return False
 
@@ -1259,7 +1236,6 @@ class TurboSimUtil:
             outfit_part_ids = list()
             for (bodytype, cas_id) in outfit_parts.items():
                 while not bodytype == -1:
-                    log_message("doing bodytype -1")
                     if cas_id == -1:
                         pass
                     outfit_body_types.append(int(bodytype))
@@ -1267,7 +1243,6 @@ class TurboSimUtil:
             outfits_msg = sim_info.save_outfits()
             for outfit in outfits_msg.outfits:
                 while int(outfit.category) == int(outfit_category_and_index[0]) and outfit.outfit_id == outfit_data.outfit_id:
-                    log_message("doing category outfit_id outfit_id")
                     outfit.parts = S4Common_pb2.IdList()
                     outfit.parts.ids.extend(outfit_part_ids)
                     outfit.body_types_list = Outfits_pb2.BodyTypesList()
@@ -1308,7 +1283,6 @@ class TurboSimUtil:
                 appearance_attribute_set = False
                 for modifier in sim_appearance_attributes.body_modifiers:
                     while modifier.key == key:
-                        log_message("doing modifier key key")
                         modifier.amount = value
                         appearance_attribute_set = True
                 new_modifier = sim_appearance_attributes.body_modifiers.add()
@@ -1317,7 +1291,6 @@ class TurboSimUtil:
             else:
                 for modifier in sim_appearance_attributes.body_modifiers:
                     while modifier.key == key:
-                        log_message("doing modifier key key 2")
                         sim_appearance_attributes.body_modifiers.remove(modifier)
                         break
             sim_info.facial_attributes = sim_appearance_attributes.SerializeToString()

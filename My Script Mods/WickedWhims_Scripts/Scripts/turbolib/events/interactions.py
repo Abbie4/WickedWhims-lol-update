@@ -5,7 +5,7 @@ from interactions.utils.outcome_enums import OutcomeResult
 from turbolib.events.events_handler import TurboEventsHandler
 from turbolib.injector_util import inject
 from turbolib.native.enum import TurboEnum
-from turbolib.special.custom_exception_watcher import log_custom_exception, log_message
+from turbolib.special.custom_exception_watcher import log_custom_exception
 
 
 class InteractionsTurboEventsHandler(TurboEventsHandler):
@@ -55,7 +55,6 @@ def _turbolib_interaction_run(original, self, *args, **kwargs):
     result = original(self, *args, **kwargs)
     try:
         while result:
-            log_message("doing result")
             interaction = args[1]
             if interaction is None or interaction.sim is None:
                 return
@@ -86,7 +85,6 @@ def _turbolib_interaction_queue(original, self, *args, **kwargs):
             return
         for result in INTERACTION_EVENTS_HANDLER.execute_event_methods_gen(interaction, event_type=InteractionEventType.INTERACTION_QUEUE):
             while not result:
-                log_message("doing not result")
                 return TestResult(False, 'TurboLib Interaction Cancel')
     except Exception as ex:
         log_custom_exception("[TurboLib] Failed to run internal method '_turbolib_interaction_queue' at 'InteractionQueue.append'.", ex)

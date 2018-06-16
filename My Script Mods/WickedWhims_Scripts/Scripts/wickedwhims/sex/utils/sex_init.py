@@ -11,7 +11,6 @@ from wickedwhims.sxex_bridge.relationships import is_true_family_relationship
 from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_traits import has_sim_traits
-from turbolib.special.custom_exception_watcher import log_message
 
 
 def get_age_limits_for_sex(sims_list):
@@ -46,12 +45,6 @@ def get_age_limits_for_sex(sims_list):
 
 
 def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, skip_cfemales=False, only_npc=False, relative_sims=(), min_sims_age=TurboSimUtil.Age.CHILD, max_sims_age=TurboSimUtil.Age.ELDER, skip_sims_ids=()):
-    log_message("Is skipping males: " + str(skip_males))
-    log_message("Is skipping females: " + str(skip_females))
-    log_message("Is skipping cmales: " + str(skip_cmales))
-    log_message("Is skipping cfemales: " + str(skip_cfemales))
-    log_message("Min age: " + str(min_sims_age))
-    log_message("Max age: " + str(max_sims_age))
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboManagerUtil.Sim.get_sim_id(sim) in skip_sims_ids:
             continue
@@ -68,25 +61,18 @@ def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, sk
         if not TurboSimUtil.Age.is_younger_than(sim, min_sims_age) and not TurboSimUtil.Age.is_older_than(sim, max_sims_age):
             if not (is_sim_in_sex(sim) or is_sim_going_to_sex(sim)):
                 if sim_ev(sim).active_pre_sex_handler is not None:
-                    log_message("No active_pre_sex_handler")
                     continue
                 if has_sim_traits(sim, (SimTrait.HIDDEN_ISEVENTNPC_CHALLENGE, SimTrait.ISGRIMREAPER)):
                     continue
                 if not is_sim_available(sim):
-                    sim_name = TurboSimUtil.Name.get_name(sim)
-                    log_message("Sim is not available " + sim_name[0] + " " + sim_name[1])
                     continue
                 if relative_sims:
-                    log_message("Sim is relative")
                     is_incest = False
                     for incest_test_sim in relative_sims:
-                        log_message("Testing incest")
                         if is_true_family_relationship(sim, incest_test_sim):
-                            log_message("Is true family relationship")
                             is_incest = True
                             break
                     if is_incest is True:
-                        log_message("Is incest")
                         continue
                 yield TurboManagerUtil.Sim.get_sim_id(sim)
 

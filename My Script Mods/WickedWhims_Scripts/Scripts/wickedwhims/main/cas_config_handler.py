@@ -1,6 +1,5 @@
 import json
 import os.path
-from turbolib.special.custom_exception_watcher import log_message
 from turbolib.cas_util import TurboCASUtil
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.sim_util import TurboSimUtil

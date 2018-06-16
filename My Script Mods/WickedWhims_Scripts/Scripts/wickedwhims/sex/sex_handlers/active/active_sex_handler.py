@@ -23,7 +23,6 @@ from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_np
 from wickedwhims.sxex_bridge.body import update_sim_body_flags
 from wickedwhims.sxex_bridge.underwear import update_sim_underwear_data
 from wickedwhims.utils_interfaces import display_notification
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class ActiveSexInteractionHandler(SexInteractionHandler):
@@ -148,29 +147,21 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         self._populate_actors_list()
         genders_list = self.get_animation_instance().get_actors_gender_list()
         for (actor_id, (gender, _)) in genders_list:
-            log_message("1 Checking gender: " + str(gender))
             if self._actors_list[actor_id] is None and sim_gender_sex_type == gender:
-                log_message("Sex gender matched gender")
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, preferenced_gender)) in genders_list:
-            log_message("Checking gender: " + str(gender) + " and preferenced_gender: " + str(preferenced_gender))
             if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
                 self._actors_list[actor_id] = sim_id
-                log_message("Sim gender is BOTH with sim_gender_sex_type: " + str(sim_gender_sex_type) + " and preferenced_gender " + str(preferenced_gender))
                 return True
             if self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH and preferenced_gender == sim_gender_sex_type and (sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE):
                 self._actors_list[actor_id] = sim_id
-                log_message("Sim gender is CBOTH with sim_gender_sex_type: " + str(sim_gender_sex_type) + " and preferenced_gender " + str(preferenced_gender))
                 return True
         for (actor_id, (gender, _)) in genders_list:
-            log_message("2 Checking gender: " + str(gender))
             if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
-                log_message("2 Sim gender is BOTH with sim_gender_sex_type: " + str(sim_gender_sex_type))
                 self._actors_list[actor_id] = sim_id
                 return True
             if self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH and (sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE):
-                log_message("2 Sim gender is CBOTH with sim_gender_sex_type: " + str(sim_gender_sex_type))
                 self._actors_list[actor_id] = sim_id
                 return True
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
@@ -178,7 +169,6 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
                 if self._actors_list[actor_id] is None:
                     self._actors_list[actor_id] = sim_id
                     return True
-        log_message("Failed everything")
         return False
 
     def has_reached_autonomy_actors_limit(self):
@@ -238,66 +228,50 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
 
     def play_if_everyone_ready(self):
         for sim_info in self.get_actors_sim_info_gen():
-            sim_name = TurboSimUtil.Name.get_name(sim_info)
-            log_message("Checking sim to see if ready: " + sim_name[0] + " " + sim_name[1])
             if sim_ev(sim_info).has_setup_sex is False:
-                log_message("Not ready")
                 return
-            else:
-                log_message("Ready")
         self.is_prepared_to_play = True
         if self.is_registered is False:
             register_active_sex_handler(self)
 
     def play(self, is_animation_change=False):
-        log_message("Trying to play animation")
         if self.is_canceled is True:
-            log_message("Is cancelled")
             return
         if not self.is_valid():
-            log_message("Sex Handler detected as invalid!")
             self.stop(hard_stop=True, stop_reason='Sex Handler detected as invalid!')
             return
         if self.get_game_object_id() != -1 and TurboObjectUtil.GameObject.get_object_with_id(self.get_game_object_id()) is None:
             self.stop(hard_stop=True, stop_reason='Game object used for sex went missing!')
             return
-        log_message("It is the beginning boy")
         sims_list = self.get_sims_list()
         is_fresh_start = self.is_playing is False
         self.is_playing = True
         self._is_restarting = False
         self.animation_counter = 0
         self.force_positioning_count = 0
-        log_message("Applying before sex")
+        for (_, sim_info) in sims_list:
+            sim_ev(sim_info).is_playing_sex = True
         apply_before_sex_functions(self, sims_list, is_fresh_start)
         for (_, sim_info) in sims_list:
             sim = TurboManagerUtil.Sim.get_sim_instance(sim_info)
-            sim_name = TurboSimUtil.Name.get_name(sim)
-            log_message("Man-Handling sim: " + sim_name[0] + " " + sim_name[1])
             TurboSimUtil.Interaction.cancel_queued_interaction(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT, finishing_type=TurboInteractionUtil.FinishingType.SI_FINISHED)
             target = None
             if self.get_game_object_id() != -1:
-                log_message("Object id was -1")
                 target = TurboObjectUtil.GameObject.get_object_with_id(self.get_game_object_id())
-            log_message("Unlocking sim queue")
             TurboSimUtil.Interaction.unlock_queue(sim)
             result = TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT_WITH_USER_INTENT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.LAST, priority=TurboInteractionUtil.Priority.High, run_priority=TurboInteractionUtil.Priority.High)
             if result:
-                log_message("Setting is playing sex to true")
                 sim_ev(sim_info).is_playing_sex = True
+            else:
+                sim_ev(sim_info).is_playing_sex = False
             if is_animation_change is True:
-                log_message("is animation change was true")
                 TurboSimUtil.Interaction.cancel_running_interaction(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT, finishing_type=TurboInteractionUtil.FinishingType.SI_FINISHED)
                 apply_pressure_to_interactions_queue(sim)
 
     def pre_update(self, ticks):
-        log_message("Doing pre update")
         if self._prepare_to_play_count >= 2:
-            log_message("Playing")
             self.play()
-            log_message("Returning")
             return
-        log_message("After the pass")
         for (actor_id, sim_info) in self.get_sims_list():
             sim = TurboManagerUtil.Sim.get_sim_instance(sim_info)
             if sim is not None:
@@ -309,7 +283,6 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         update_active_sex_handler(self, ticks)
 
     def stop(self, soft_stop=False, hard_stop=False, no_teleport=False, is_joining_stop=False, is_end=False, stop_reason=None):
-        log_message("Stopping")
         if self._is_restarting is True and hard_stop is False and is_end is False:
             return
         if stop_reason is not None and is_main_debug_flag_enabled():

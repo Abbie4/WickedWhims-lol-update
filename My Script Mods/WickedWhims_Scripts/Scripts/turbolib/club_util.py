@@ -1,6 +1,5 @@
 import services
 from turbolib.manager_util import TurboManagerUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class TurboClubUtil:
@@ -15,7 +14,6 @@ class TurboClubUtil:
             for club in sim_clubs:
                 club_gathering = club_service.clubs_to_gatherings_map.get(club)
                 while club_gathering is not None:
-                    log_message("doing get_sim_club_gathering")
                     return (club, club_gathering)
         return (None, None)
 

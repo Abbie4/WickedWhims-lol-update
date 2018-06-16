@@ -8,7 +8,6 @@ from services import terrain_service
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
 from turbolib.resource_util import TurboResourceUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 
@@ -254,7 +253,6 @@ class TurboWorldUtil:
             current_zone_id = TurboWorldUtil.Zone.get_current_zone_id()
             for household in services.household_manager().get_all():
                 while household.home_zone_id == current_zone_id:
-                    log_message("doing home_zone_id current_zone_id")
                     return household
 
         @staticmethod

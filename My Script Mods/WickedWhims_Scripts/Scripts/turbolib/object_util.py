@@ -8,7 +8,6 @@ from objects.puddles import PuddleSize, PuddleLiquid, create_puddle
 from objects.stairs.stairs import Stairs
 from placement import get_accurate_placement_footprint_polygon
 from turbolib.math_util import TurboMathUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class TurboObjectUtil:
@@ -124,17 +123,14 @@ class TurboObjectUtil:
             for portal_object in services.object_manager().portal_cache_gen():
                 if only_doors is True:
                     while isinstance(portal_object, Door):
-                        log_message("doing get_all_gen only_doors")
                         yield portal_object
                         if only_stairs is True:
                             while isinstance(portal_object, Stairs):
-                                log_message("doing get_all_gen only_doors only_stairs")
                                 yield portal_object
                                 yield portal_object
                         yield portal_object
                 if only_stairs is True:
                     while isinstance(portal_object, Stairs):
-                        log_message("doing get_all_gen only_stairs")
                         yield portal_object
                         yield portal_object
                 yield portal_object

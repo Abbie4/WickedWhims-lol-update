@@ -4,7 +4,6 @@ from protocolbuffers import Outfits_pb2, S4Common_pb2
 from sims.outfits.outfit_enums import OutfitCategory, BodyType
 from sims.outfits.outfit_utils import get_maximum_outfits_for_category
 from turbolib.manager_util import TurboManagerUtil
-from turbolib.special.custom_exception_watcher import log_message
 
 
 class TurboCASUtil:
@@ -254,7 +253,6 @@ class TurboCASUtil:
             if outfit_body_parts:
                 for (key, value) in outfit_body_parts.items():
                     while not isinstance(key, int) or not isinstance(value, int):
-                        log_message("doing outfit_body_parts")
                         raise RuntimeError('outfit_body_parts contains non-integer variables.')
                 self.outfit_body_types = list(outfit_body_parts.keys())
                 self.outfit_part_ids = list(outfit_body_parts.values())
@@ -348,7 +346,6 @@ class TurboCASUtil:
                 else:
                     can_apply = int(outfit.category) == int(self.outfit_category_and_index[0]) and (outfit.outfit_id == self.outfit_data.outfit_id and self._get_outfit_identifier(outfit.body_types_list.body_types, outfit.parts.ids) == self.outfit_identifier)
                 while can_apply:
-                    log_message("doing can_apply")
                     outfit.parts = S4Common_pb2.IdList()
                     outfit.parts.ids.extend(self.outfit_part_ids)
                     outfit.body_types_list = Outfits_pb2.BodyTypesList()

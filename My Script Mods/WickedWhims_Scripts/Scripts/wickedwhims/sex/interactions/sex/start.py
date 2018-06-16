@@ -13,7 +13,6 @@ from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.sex.sex_operators.sex_init_operator import start_new_player_sex_interaction
 from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
-from turbolib.special.custom_exception_watcher import log_message
 
 
 def _test_for_sex_start(interaction_context, interaction_sim, interaction_target, sex_category_types):
@@ -37,9 +36,7 @@ def _test_for_sex_start(interaction_context, interaction_sim, interaction_target
     for sex_category_type in sex_category_types:
         if sex_category_type is None:
             continue
-        log_message("Searching for animations with gender: " + str(sim_gender) + " and category type: " + str(sex_category_type))
         if has_object_identifier_animations(object_identifier, sex_category_type, sim_gender):
-            log_message("Has animations is true")
             return True
     return False
 

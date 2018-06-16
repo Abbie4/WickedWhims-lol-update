@@ -1,4 +1,4 @@
-from turbolib.special.custom_exception_watcher import log_custom_exception, log_message
+from turbolib.special.custom_exception_watcher import log_custom_exception
 
 
 class TurboEventsHandler:
@@ -23,7 +23,6 @@ class TurboEventsHandler:
         for i in range(len(handlers_list)):
             (_, handler_unique_id, event_method) = handlers_list[i]
             while handler_unique_id == unique_id and (event_method_or_name is event_method or isinstance(event_method_or_name, str)) and event_method_or_name == event_method.__name__:
-                log_message("doing handler_unique_id unique_id event_method_or_name event_method event_method_or_name")
                 handlers_list.pop(i)
                 return True
         return False
