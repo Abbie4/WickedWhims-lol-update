@@ -33,9 +33,10 @@ def get_sim_strapon_part_id(sim_identifier):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     sim_is_child = TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD
     sim_strapon_part_id = sim_ev(sim_info).strapon_part_id
-    if sim_is_child:
-        sim_ev(sim_info).strapon_part_id = DEFAULT_CHILD_STRAPON_PART_ID
-    elif sim_strapon_part_id == -1:
-        sim_ev(sim_info).strapon_part_id = DEFAULT_STRAPON_PART_ID
+    if sim_strapon_part_id == -1:
+        if sim_is_child:
+            sim_ev(sim_info).strapon_part_id = DEFAULT_CHILD_STRAPON_PART_ID
+        else:
+            sim_ev(sim_info).strapon_part_id = DEFAULT_STRAPON_PART_ID
     return sim_ev(sim_info).strapon_part_id
 
