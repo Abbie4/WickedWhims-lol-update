@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_file
 SEX_HANDLERS_SAVE_DATA = dict()
 

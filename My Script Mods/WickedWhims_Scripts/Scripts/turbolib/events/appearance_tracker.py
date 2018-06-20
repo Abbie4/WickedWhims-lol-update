@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from buffs.appearance_modifier.appearance_tracker import AppearanceTracker
 from sims.sim_info_base_wrapper import SimInfoBaseWrapper
 from sims4.callback_utils import CallableList

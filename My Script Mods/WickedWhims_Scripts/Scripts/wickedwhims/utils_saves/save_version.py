@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from turbolib.events.core import register_zone_load_event_method
 from wickedwhims.main.update_handler import set_mod_update_status
 from wickedwhims.utils_saves.save_main import get_save_dir, set_has_save_loading_error, get_save_id, load_json_file, save_json_file

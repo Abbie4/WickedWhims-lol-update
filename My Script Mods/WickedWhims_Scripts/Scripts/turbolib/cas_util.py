@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from buffs.appearance_modifier.appearance_modifier import AppearanceModifierType
 from cas.cas import get_caspart_bodytype, get_buff_from_part_ids
 from protocolbuffers import Outfits_pb2, S4Common_pb2

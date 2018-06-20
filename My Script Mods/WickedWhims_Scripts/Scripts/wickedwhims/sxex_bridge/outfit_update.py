@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from turbolib.cas_util import TurboCASUtil
 from turbolib.events.core import register_zone_load_event_method, is_game_loading
 from turbolib.events.sims import register_sim_occult_type_change_event_method, register_sim_info_instance_init_event_method

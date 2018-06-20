@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from turbolib.events.core import has_game_loaded, register_zone_load_event_method
 from turbolib.resource_util import TurboResourceUtil
 GOALS_TO_REPLACE = ((29675, (17127167598028976579,)), (76582, (17127167598028976579,)))

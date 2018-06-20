@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from turbolib.events.interactions import manual_register_interaction_run_event_method, manual_register_interaction_queue_event_method, manual_register_interaction_outcome_event_method
 from turbolib.interaction_util import TurboInteractionUtil
 from turbolib.manager_util import TurboManagerUtil

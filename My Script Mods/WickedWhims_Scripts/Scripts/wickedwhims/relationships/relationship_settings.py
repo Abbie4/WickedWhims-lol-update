@@ -1,10 +1,3 @@
-'''
-This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
-https://creativecommons.org/licenses/by-nc-nd/4.0/
-https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-
-Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
-'''
 from wickedwhims.main.settings.builder import SettingsWindow, SettingsSelectorOption, SettingsBranchOption
 from wickedwhims.main.settings.main_settings import open_main_settings, register_main_settings_option
 from wickedwhims.relationships._ts4_tuning.age_restrictions.interactions import remove_romance_age_restrictions
