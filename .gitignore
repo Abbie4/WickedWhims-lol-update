@@ -8,5 +8,4 @@ __pycache__
 .idea/tasks.xml
 *.pyo
 **/*.pyo
-**/*.ts4script
-*.ts4script
+My\ Script\ Mods/**/*.ts4script
