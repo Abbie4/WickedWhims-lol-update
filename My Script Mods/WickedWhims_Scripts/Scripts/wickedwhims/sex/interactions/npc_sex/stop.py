@@ -1,9 +1,15 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.sim_util import TurboSimUtil
 from turbolib.types_util import TurboTypesUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting
-
 
 class InstantStopNPCSexInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'InstantStopNPCSexInteraction'

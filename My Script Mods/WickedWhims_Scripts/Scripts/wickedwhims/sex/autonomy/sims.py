@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from enums.motives_enum import SimMotive
 from enums.situations_enum import SimSituation
@@ -30,13 +37,13 @@ def get_list_of_possible_sex_pairs(sims_list):
     for sim in sims_list:
         for target_sim in sims_list:
             if sim is target_sim:
-                continue
+                pass
             sims_pair = {TurboManagerUtil.Sim.get_sim_id(sim), TurboManagerUtil.Sim.get_sim_id(target_sim)}
             if sims_pair in checked_sims_pairs:
-                continue
+                pass
             checked_sims_pairs.append(sims_pair)
             sex_pair_score = get_sex_pair_score(sim, target_sim)
-            if sex_pair_score >= get_relationship_sex_acceptance_threshold():
+            while sex_pair_score >= get_relationship_sex_acceptance_threshold():
                 relationships_list.append((sim, target_sim, sex_pair_score))
     return sorted(relationships_list, key=lambda x: x[2], reverse=True)
 
@@ -62,12 +69,13 @@ def get_sex_pair_score(sim_identifier, target_sim_identifier):
         return -1
     if is_true_family_relationship(sim_identifier, target_sim_identifier):
         return -1
-    if get_sex_setting(SexSetting.AUTONOMY_RELATIONSHIP_AWARENESS, variable_type=bool):
+    if not has_sim_trait(sim_identifier, SimTrait.WW_POLYAMOROUS) and not has_sim_trait(sim_identifier, SimTrait.COMMITMENTISSUES):
         sim_significant_relationships = get_sim_relationship_sims(sim_identifier)
-        if sim_significant_relationships and TurboManagerUtil.Sim.get_sim_id(target_sim_identifier) not in sim_significant_relationships and (not has_sim_trait(sim_identifier, SimTrait.WW_POLYAMOROUS) or not has_sim_trait(sim_identifier, SimTrait.COMMITMENTISSUES)):
+        if sim_significant_relationships and TurboManagerUtil.Sim.get_sim_id(target_sim_identifier) not in sim_significant_relationships:
             return -1
+    if get_sex_setting(SexSetting.AUTONOMY_RELATIONSHIP_AWARENESS, variable_type=bool) and not has_sim_trait(target_sim_identifier, SimTrait.WW_POLYAMOROUS) and not has_sim_trait(target_sim_identifier, SimTrait.COMMITMENTISSUES):
         target_significant_relationships = get_sim_relationship_sims(target_sim_identifier)
-        if target_significant_relationships and TurboManagerUtil.Sim.get_sim_id(sim_identifier) not in target_significant_relationships and (not has_sim_trait(target_sim_identifier, SimTrait.WW_POLYAMOROUS) or not has_sim_trait(target_sim_identifier, SimTrait.COMMITMENTISSUES)):
+        if target_significant_relationships and TurboManagerUtil.Sim.get_sim_id(sim_identifier) not in target_significant_relationships:
             return -1
     relationship_score = get_test_relationship_score((sim_identifier, target_sim_identifier), skip_always_accept=True)
     return relationship_score
@@ -76,36 +84,36 @@ def get_sex_pair_score(sim_identifier, target_sim_identifier):
 def get_available_for_sex_sims(only_on_hypersexual_lot=False, forbidden_traits=()):
     sims_list = set()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            continue
-        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
-            continue
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+            pass
+        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+            pass
         if not get_sex_setting(SexSetting.PLAYER_AUTONOMY_STATE, variable_type=bool) and TurboSimUtil.Sim.is_player(sim):
-            continue
+            pass
         object_id = TurboResourceUtil.Resource.get_id(sim)
         if is_autonomy_sex_locations_disabled(object_id):
-            continue
+            pass
         if TurboWorldUtil.Time.get_absolute_ticks() < sim_ev(sim).last_sex_autonomy + get_time_between_sex_autonomy_attempts():
-            continue
-        if not sim_ev(sim).active_sex_handler is not None:
+            pass
+        while not sim_ev(sim).active_sex_handler is not None:
             if sim_ev(sim).active_pre_sex_handler is not None:
-                continue
+                pass
             if not is_sim_allowed_for_autonomy(sim):
-                continue
+                pass
             if not _is_sim_needs_fine(sim):
-                continue
+                pass
             if _is_sim_fearing_possible_pregnancy(sim):
-                continue
+                pass
             if not is_sim_available(sim):
-                continue
+                pass
             if _has_sim_sex_forbidden_traits(sim, forbidden_traits=forbidden_traits):
-                continue
+                pass
             if _has_sim_sex_forbidden_buffs(sim):
-                continue
+                pass
             if _is_sim_in_sex_forbidden_situation(sim):
-                continue
+                pass
             if only_on_hypersexual_lot is True and not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
-                continue
+                pass
             sims_list.add(sim)
     return sims_list
 
@@ -127,7 +135,7 @@ def sort_sex_pairs_for_lowest_distance(sims_pairs):
 def is_sims_list_at_hypersexual_lot(sims_list):
     if has_current_lot_trait(LotTrait.WW_LOTTRAIT_HYPERSEXUAL):
         for sim in sims_list:
-            if not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
+            while not TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
                 return False
         return True
     return False
@@ -148,10 +156,10 @@ def _has_sim_sex_forbidden_buffs(sim_identifier):
 def _is_sim_running_sex_forbidden_interactions(sim_identifier):
     forbidden_interactions = (106223,)
     for interaction_id in TurboSimUtil.Interaction.get_running_interactions_ids(sim_identifier):
-        if interaction_id in forbidden_interactions:
+        while interaction_id in forbidden_interactions:
             return True
     for interaction_id in TurboSimUtil.Interaction.get_queued_interactions_ids(sim_identifier):
-        if interaction_id in forbidden_interactions:
+        while interaction_id in forbidden_interactions:
             return True
     return False
 

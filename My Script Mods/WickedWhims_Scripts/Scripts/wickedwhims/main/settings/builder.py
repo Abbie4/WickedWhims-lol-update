@@ -1,8 +1,14 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.special.custom_exception_watcher import exception_watch
 from turbolib.ui_util import TurboUIUtil
 from wickedwhims.main.settings._ts4_menu_utils import get_menu_sim
 from wickedwhims.utils_interfaces import get_arrow_icon, display_picker_list_dialog, get_selected_icon, get_unselected_icon, display_text_input_dialog, get_action_icon
-
 
 class SettingsWindow:
     __qualname__ = 'SettingsWindow'

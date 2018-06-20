@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import inspect
 import build_buy
 import routing
@@ -29,7 +36,6 @@ from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
 from turbolib.object_util import TurboObjectUtil
 from turbolib.resource_util import TurboResourceUtil
-
 
 class TurboSimUtil:
     __qualname__ = 'TurboSimUtil'
@@ -72,7 +78,11 @@ class TurboSimUtil:
                     sim.queue.on_reset()
                     sim.queue.unlock()
                 if sim.si_state is not None:
-                    sim.si_state.on_reset()
+                    try:
+                        sim.si_state.on_reset()
+                    except:
+                        sim._si_state = SIState(sim)
+                        sim.si_state.on_reset()
                 else:
                     sim._si_state = SIState(sim)
                     sim.si_state.on_reset()
@@ -1145,7 +1155,10 @@ class TurboSimUtil:
         @staticmethod
         def has_outfit(sim_identifier, outfit_category_and_index):
             sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
-            return sim_info.has_outfit(outfit_category_and_index)
+            try:
+                return sim_info.has_outfit(outfit_category_and_index)
+            except:
+                return False
 
         @staticmethod
         def set_current_outfit(sim_identifier, outfit_category_and_index, dirty=False):
@@ -1345,13 +1358,13 @@ class TurboSimUtil:
             sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
             if sim is None:
                 return False
-            for portal_object in TurboObjectUtil.Portal.get_all_gen(only_doors=True):
+            for portal_object in TurboObjectUtil.Portal.get_all_doors_gen():
                 if TurboSimUtil.Routing.has_permission_for_door(sim, portal_object):
-                    for portal_pair in portal_object.portals:
+                    for portal_pair in portal_object.get_portal_pairs():
                         sim.routing_context.unlock_portal(portal_pair.there)
                         sim.routing_context.unlock_portal(portal_pair.back)
                 else:
-                    for portal_pair in portal_object.portals:
+                    for portal_pair in portal_object.get_portal_pairs():
                         sim.routing_context.lock_portal(portal_pair.there)
                         sim.routing_context.lock_portal(portal_pair.back)
             return True

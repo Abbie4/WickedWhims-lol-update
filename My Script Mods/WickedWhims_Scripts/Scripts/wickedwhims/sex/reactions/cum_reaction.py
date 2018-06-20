@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.interactions_enum import SimInteraction
 from enums.relationship_enum import SimRelationshipBit
@@ -26,6 +33,10 @@ def _reaction_to_sims_cum(sim):
         return False
     full_reaction_cooldown = sim_ev(sim).full_cum_reaction_cooldown
     inner_reaction_cooldown = sim_ev(sim).inner_cum_reaction_cooldown
+    if full_reaction_cooldown > 0:
+        pass
+    if inner_reaction_cooldown > 0:
+        pass
     if full_reaction_cooldown > 0 and inner_reaction_cooldown > 0:
         return False
     if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
@@ -40,19 +51,19 @@ def _reaction_to_sims_cum(sim):
     targets = list()
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            continue
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
-            continue
+            pass
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+            pass
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
-            continue
+            pass
         if not _has_sim_visible_cum(target):
-            continue
+            pass
         if not TurboSimUtil.Location.is_visible(target):
-            continue
+            pass
         if TurboSimUtil.Spawner.is_leaving(target):
-            continue
+            pass
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            continue
+            pass
         targets.append(target)
     if targets:
         is_mixer_only = _is_only_mixer_reaction(sim)

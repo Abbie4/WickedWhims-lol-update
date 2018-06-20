@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from wickedwhims.main.settings.builder import SettingsWindow, SettingsSelectorOption, SettingsBranchOption
 from wickedwhims.main.settings.main_settings import open_main_settings, register_main_settings_option
 from wickedwhims.relationships._ts4_tuning.age_restrictions.interactions import remove_romance_age_restrictions
@@ -7,7 +14,6 @@ from wickedwhims.relationships._ts4_tuning.polygamy import unlock_polygamy_for_i
 from wickedwhims.utils_interfaces import display_ok_dialog
 from wickedwhims.utils_saves.save_basics import get_basic_save_data, update_basic_save_data
 RELATIONSHIP_SETTINGS_DICT = dict()
-
 
 class RelationshipSetting:
     __qualname__ = 'RelationshipSetting'

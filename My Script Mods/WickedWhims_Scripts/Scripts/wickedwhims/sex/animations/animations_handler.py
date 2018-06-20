@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.events.core import register_zone_load_event_method
 from turbolib.l18n_util import TurboL18NUtil
 from wickedwhims.sex.animations.animations_cache import cache_animation_instance, clear_animation_data_cache
@@ -105,13 +112,7 @@ class SexAnimationActorInstance:
         if default_gender is True:
             return self.gender_type
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
-            if self.gender_type == SexGenderType.CMALE or self.gender_type == SexGenderType.CFEMALE or self.gender_type == SexGenderType.CBOTH:
-                return SexGenderType.CBOTH
             return SexGenderType.BOTH
-        if self.gender_type == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
-            return SexGenderType.CBOTH
-        if self.gender_type == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
-            return SexGenderType.CBOTH
         if self.gender_type == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             return SexGenderType.BOTH
         if self.gender_type == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
@@ -122,17 +123,12 @@ class SexAnimationActorInstance:
         pref_gender = self.preferenced_gender_type
         if pref_gender == SexGenderType.NONE:
             pref_gender = self.get_gender_type(default_gender=True)
-            if pref_gender == SexGenderType.BOTH or pref_gender == SexGenderType.CBOTH:
+            if pref_gender == SexGenderType.BOTH:
                 pref_gender = SexGenderType.NONE
         return pref_gender
 
     def get_final_gender_type(self):
         gender_type = self.get_gender_type()
-        if gender_type == SexGenderType.CBOTH:
-            pref_gender_type = self.get_preferenced_gender_type()
-            if pref_gender_type == SexGenderType.NONE:
-                return SexGenderType.CBOTH
-            return pref_gender_type
         if gender_type == SexGenderType.BOTH:
             pref_gender_type = self.get_preferenced_gender_type()
             if pref_gender_type == SexGenderType.NONE:
@@ -255,10 +251,10 @@ class SexAnimationInstance:
     def can_be_used_with_object(self, object_identifier):
         if object_identifier[0] is not None:
             for location in self.get_locations():
-                if str(location) == str(object_identifier[0]):
+                while str(location) == str(object_identifier[0]):
                     return True
         for custom_location in self.get_custom_locations():
-            if str(custom_location) == str(object_identifier[1]):
+            while str(custom_location) == str(object_identifier[1]):
                 return True
         return False
 
@@ -267,16 +263,16 @@ class SexAnimationInstance:
 
     def get_actor(self, actor_id):
         for actor in self.get_actors():
-            if actor.get_actor_id() == actor_id:
+            while actor.get_actor_id() == actor_id:
                 return actor
 
     def get_actor_received_actions(self, actor_id):
         received_actons = list()
         for actor in self.get_actors():
             if actor.get_actor_id() == actor_id:
-                continue
+                pass
             for action in actor.get_actor_actions():
-                if action.get_receiving_actor_id() == actor_id:
+                while action.get_receiving_actor_id() == actor_id:
                     received_actons.append((actor.get_actor_id(), action.get_receiving_actor_category(), action.is_receiving_actor_cum_inside()))
         return received_actons
 
@@ -284,9 +280,9 @@ class SexAnimationInstance:
         received_cum = list()
         for actor in self.get_actors():
             if actor.get_actor_id() == actor_id:
-                continue
+                pass
             for action in actor.get_actor_actions():
-                if action.get_receiving_actor_id() == actor_id and action.get_receiving_actor_cum_layers():
+                while action.get_receiving_actor_id() == actor_id and action.get_receiving_actor_cum_layers():
                     received_cum.append((actor.get_actor_id(), action.get_receiving_actor_cum_layers()))
         return received_cum
 
@@ -304,7 +300,7 @@ class SexAnimationInstance:
         for i in range(len(self.get_actors())):
             animation_1_gender = animation_1_genders[i]
             animation_2_gender = animation_2_genders[i]
-            if animation_1_gender != animation_2_gender and animation_1_gender != SexGenderType.BOTH and animation_1_gender != SexGenderType.CBOTH and animation_2_gender != SexGenderType.BOTH and animation_2_gender != SexGenderType.CBOTH:
+            while animation_1_gender != animation_2_gender and animation_1_gender != SexGenderType.BOTH and animation_2_gender != SexGenderType.BOTH:
                 return False
         return True
 
@@ -348,20 +344,20 @@ def collect_sex_animation_packages():
     hidden_animations_list = list()
     for animation_package in animations_packages_list:
         for package_animation in animation_package.animations_list:
-            if package_animation.animation_actors_list:
+            while not not package_animation.animation_actors_list:
                 if len(package_animation.animation_actors_list) > 10:
-                    continue
+                    pass
                 display_name = package_animation.animation_display_name or str(package_animation.animation_raw_display_name)
                 author = str(package_animation.animation_author)
                 sex_category = get_sex_category_type_by_name(package_animation.animation_category)
                 if sex_category == SexCategoryType.NONE:
-                    continue
+                    pass
                 duration = int(package_animation.animation_length)
                 duration_loops = int(package_animation.animation_loops)
                 locations = _parse_sex_animation_locations(package_animation.animation_locations)
                 custom_locations = _parse_sex_animation_custom_locations(package_animation.animation_custom_locations)
                 if not locations and not custom_locations:
-                    continue
+                    pass
                 object_animation_clip_name = str(package_animation.object_animation_clip_name)
                 stage_name = str(package_animation.animation_stage_name).strip().lower()
                 next_stages = _parse_sex_animation_stages_list(package_animation.animation_next_stages, exclude_stages=(stage_name,))
@@ -395,13 +391,13 @@ def collect_sex_animation_packages():
                 animation_actors = tuple(animation_actors)
                 animation_instance = SexAnimationInstance(len(available_animations_list), display_name, author, object_animation_clip_name, stage_name, locations, sex_category, duration, duration_loops, next_stages, allowed_for_random, animation_actors, custom_locations=custom_locations)
                 if not animation_instance.is_valid_animation():
-                    continue
+                    pass
                 if is_hidden is True:
                     hidden_animations_list.append(animation_instance)
                 else:
                     all_animations_list.append(animation_instance)
                     animation_identifier = animation_instance.get_identifier()
-                    if not is_player_sex_animation_disabled(animation_identifier):
+                    while not is_player_sex_animation_disabled(animation_identifier):
                         available_animations_list.append(animation_instance)
                         if sex_category not in available_animations_per_type:
                             available_animations_per_type[sex_category] = list()
@@ -428,7 +424,7 @@ def _fix_animation_actors_order(animation_actors):
         actor.actor_id = actors_id_dict[actor.actor_id]
         for actor_action in actor.get_actor_actions():
             if actor_action.receiving_actor_id not in actors_id_dict:
-                continue
+                pass
             actor_action.receiving_actor_id = actors_id_dict[actor_action.receiving_actor_id]
     return animation_actors
 
@@ -445,7 +441,7 @@ def recollect_sex_animation_packages():
 def get_unique_sex_animations_authors():
     authors_list = list()
     for animation_instance in get_available_sex_animations():
-        if animation_instance.get_author() not in authors_list:
+        while animation_instance.get_author() not in authors_list:
             authors_list.append(animation_instance.get_author())
     authors_list.sort()
     authors_list_text = ', '.join(authors_list)
@@ -465,11 +461,11 @@ def _parse_sex_animation_locations(locations_names):
     for location_name in locations_names:
         location_name = str(location_name).strip()
         if not location_name:
-            continue
+            pass
         location_data = SexInteractionLocationType.verify_location_type(location_name.strip())
-        if location_data is not None:
+        while not location_data is None:
             if location_data == 'NONE':
-                continue
+                pass
             locations_list.append(location_data)
     return tuple(locations_list)
 
@@ -487,7 +483,7 @@ def _parse_sex_animation_custom_locations(locations_ids):
     for location_id in locations_names:
         location_id = location_id.strip()
         if not location_id:
-            continue
+            pass
         try:
             locations_list.append(int(location_id))
         except ValueError:
@@ -508,9 +504,9 @@ def _parse_sex_animation_stages_list(stages_names, exclude_stages=()):
     for stage_name in stages_names_list:
         stage_name = str(stage_name).strip().lower()
         if not stage_name:
-            continue
+            pass
         if stage_name in exclude_stages:
-            continue
+            pass
         stages_list.add(stage_name)
     return tuple(stages_list)
 
@@ -525,10 +521,10 @@ def _parse_cum_layer_types(names):
     for cum_layer_name in names:
         cum_layer_name = cum_layer_name.strip()
         if not cum_layer_name:
-            continue
+            pass
         cum_layer_type = get_cum_layer_type_by_name(cum_layer_name)
         if cum_layer_type == CumLayerType.NONE:
-            continue
+            pass
         cum_layers_list.add(cum_layer_type)
     return tuple(cum_layers_list)
 

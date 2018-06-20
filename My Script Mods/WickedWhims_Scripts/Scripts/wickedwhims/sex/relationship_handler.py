@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.buffs_enum import SimBuff
 from enums.moods_enum import SimMood
@@ -288,8 +295,6 @@ def apply_asking_for_woohoo_relations(sim_identifier, target_sim_identifier, sta
         change_sim_statistic_value(sim_info, 50, SimCommodity.TRAIT_ROMANTIC_AFFECTION)
     if status is True:
         TurboSimUtil.Gender.set_gender_preference(sim_info, TurboSimUtil.Gender.get_gender(target_sim_info), TurboSimUtil.Gender.get_gender_preference(sim_info, TurboSimUtil.Gender.get_gender(target_sim_info)) + 10)
-        sim_opposite_gender = TurboSimUtil.Gender.MALE if TurboSimUtil.Gender.is_female(target_sim_info) else TurboSimUtil.Gender.FEMALE
-        TurboSimUtil.Gender.set_gender_preference(sim_info, sim_opposite_gender, TurboSimUtil.Gender.get_gender_preference(sim_info, sim_opposite_gender) + 10)
         change_sim_statistic_value(sim_info, 10, SimCommodity.BUFF_SOCIAL_FLIRTYCONVERSATION)
         change_sim_statistic_value(target_sim_info, 10, SimCommodity.BUFF_SOCIAL_FLIRTYCONVERSATION)
         change_sim_statistic_value(sim_info, -10, SimCommodity.BUFF_SOCIAL_ANGRYCONVERSATION)

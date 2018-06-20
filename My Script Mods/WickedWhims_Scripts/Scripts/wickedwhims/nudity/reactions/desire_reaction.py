@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.situations_enum import SimSituation
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
@@ -15,44 +22,46 @@ from wickedwhims.utils_situations import has_sim_situations
 @register_on_game_update_method(interval=2500)
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            continue
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
-            continue
-        if not is_sim_in_sex(sim):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+            pass
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+            pass
+        while not is_sim_in_sex(sim):
             if is_sim_going_to_sex(sim):
-                continue
+                pass
             if has_sim_situations(sim, (SimSituation.GRIMREAPER, SimSituation.FIRE, SimSituation.BABYBIRTH_HOSPITAL)):
-                continue
+                pass
             if not is_sim_available(sim):
-                continue
+                pass
             line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
             for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
                 if sim is target:
-                    continue
-                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
-                    continue
+                    pass
+                if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
+                    pass
                 if not _has_reaction_to_nudity(sim, target):
-                    continue
+                    pass
                 if TurboSimUtil.Gender.get_gender(target) not in get_sim_preferenced_genders(sim):
-                    continue
+                    pass
                 if not TurboSimUtil.Location.is_visible(target):
-                    continue
+                    pass
                 if TurboSimUtil.Spawner.is_leaving(target):
-                    continue
+                    pass
                 (desire_limit, desire_increase) = _get_desire_nudity_value(target)
-                if not desire_limit <= 0 and desire_increase > 0:
+                while not desire_limit <= 0:
+                    if desire_increase <= 0:
+                        pass
                     if get_sim_desire_level(sim) > desire_limit:
-                        continue
+                        pass
                     if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-                        continue
+                        pass
                     change_sim_desire_level(sim, desire_increase)
 
 
 def _has_reaction_to_nudity(sim, target):
-    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD:
+    if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
         return True
-    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and (TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.CHILD):
+    if is_sim_naturist(sim) and TurboSimUtil.Age.is_older_than(sim, TurboSimUtil.Age.ADULT, or_equal=True) and TurboSimUtil.Age.get_age(target) == TurboSimUtil.Age.TEEN:
         return True
     if is_sim_exhibitionist(sim):
         return True

@@ -1,9 +1,15 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import inspect
 from functools import wraps
 import sims4
 from sims4.commands import Command, CommandType
 from turbolib.special.custom_exception_watcher import exception_watch
-
 
 class TurboCommandType:
     __qualname__ = 'TurboCommandType'

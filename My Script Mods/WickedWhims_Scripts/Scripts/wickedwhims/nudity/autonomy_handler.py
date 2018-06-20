@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.interactions_enum import SimInteraction
 from enums.situations_enum import SimSituation
@@ -30,36 +37,36 @@ def _trigger_nudity_autonomy_on_game_update():
         return
     is_special_lot = TurboWorldUtil.Venue.get_current_venue_type() in (VenueType.BAR, VenueType.LOUNGE, VenueType.CLUB)
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            continue
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
-            continue
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+            pass
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+            pass
         if TurboWorldUtil.Time.get_absolute_ticks() <= sim_ev(sim).last_nudity_autonomy:
-            continue
+            pass
         if get_nudity_setting(NuditySetting.AUTONOMY_TYPE, variable_type=int) == NudityAutonomyTypeSetting.NPC_ONLY and TurboSimUtil.Sim.is_player(sim):
-            continue
+            pass
         if not is_sim_allowed_for_autonomy(sim):
-            continue
+            pass
         if not _is_sim_ready_to_undress(sim):
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 30000
         is_sim_on_lot = TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim))
         has_child_sims_on_lot = False
         for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
             if sim is target:
-                continue
-            if is_special_lot is False and TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
+                pass
+            if is_special_lot is False and TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
                 has_child_sims_on_lot = True
                 break
-            if get_sim_outfit_level(target) == OutfitLevel.NUDE:
+            while get_sim_outfit_level(target) == OutfitLevel.NUDE:
                 if is_sim_on_lot is True and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(target)) or TurboMathUtil.Position.get_distance(TurboSimUtil.Location.get_position(sim), TurboSimUtil.Location.get_position(target)) <= 12:
-                    continue
+                    pass
         if has_child_sims_on_lot is True:
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 30000
         if is_sim_exhibitionist(sim):
-            continue
+            pass
         if random.uniform(0, 1) > sim_ev(sim).nudity_autonomy_chance:
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 25000
-        if trigger_nudity_autonomy(sim):
+        while trigger_nudity_autonomy(sim):
             sim_ev(sim).last_nudity_autonomy = TurboWorldUtil.Time.get_absolute_ticks() + 55000
             sim_ev(sim).nudity_autonomy_chance = 0.05
             return

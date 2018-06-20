@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.native.enum import TurboEnum
 from wickedwhims.main.basemental_handler import is_basemental_drugs_installed
@@ -10,7 +17,6 @@ from wickedwhims.sex.sex_operators.active_sex_handlers_operator import get_activ
 from wickedwhims.utils_interfaces import display_ok_dialog
 from wickedwhims.utils_saves.save_basics import get_basic_save_data, update_basic_save_data
 SEX_SETTINGS_DICT = dict()
-
 
 class SexSetting:
     __qualname__ = 'SexSetting'
@@ -153,7 +159,7 @@ def _setup_settings_variables():
     _setup_settings_variable(SexSetting.CUM_VISIBILITY_WITH_CONDOM_STATE, 1)
     _setup_settings_variable(SexSetting.SILENCE_PHONE_STATE, 1)
     _setup_settings_variable(SexSetting.VANILLA_INTERACTIONS_SWITCH, 0)
-    _setup_settings_variable(SexSetting.DEFAULT_WOOHOO_SWITCH, 0)
+    _setup_settings_variable(SexSetting.DEFAULT_WOOHOO_SWITCH, 1)
     _setup_settings_variable(SexSetting.ALWAYS_ACCEPT_STATE, 0)
     _setup_settings_variable(SexSetting.INSTANT_UNDRESSING_STATE, 0)
     _setup_settings_variable(SexSetting.MANUAL_NPC_SEX_STATE, 0)

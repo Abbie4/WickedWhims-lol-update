@@ -1,6 +1,14 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.relationship_enum import RelationshipTrackType
 from enums.situations_enum import SimSituationJob
+from enums.tags_enum import GameTag
 from enums.vanues_enum import VenueType
 from turbolib.autonomy_util import TurboAutonomyUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -27,7 +35,6 @@ from wickedwhims.utils_lots import get_lot_structure_data, RoomType, get_sims_in
 from wickedwhims.utils_relations import get_relationship_with_sim
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 from wickedwhims.utils_situations import has_sim_situation_jobs
-
 
 class LocationStyleType(TurboEnum):
     __qualname__ = 'LocationStyleType'
@@ -58,19 +65,19 @@ def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
         for game_object in outside_objects:
             object_score = 0
             if TurboObjectUtil.GameObject.is_in_use(game_object):
-                continue
+                pass
             if not has_game_object_all_free_slots(game_object):
-                continue
+                pass
             object_id = TurboResourceUtil.Resource.get_id(game_object)
             if is_autonomy_sex_locations_disabled(object_id):
-                continue
+                pass
             if object_id in objects_in_use:
-                continue
+                pass
             object_identifier = SexInteractionLocationType.get_location_identifier(game_object)
             if object_identifier in counted_locations:
-                continue
+                pass
             animations_amount = _get_animations_amount_for_object(sims_sex_genders, object_identifier)
-            if animations_amount > 0:
+            while animations_amount > 0:
                 object_score += _get_object_score(game_object, object_identifier, sims_list, location_style)
                 object_score += int(animations_amount*100/all_animations_amount)
                 if object_score > 0:
@@ -82,11 +89,11 @@ def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
         for room_structure_data in lot_structure_data.get_rooms_structure_data_gen():
             is_room_accessible = True
             for sim in sims_list:
-                if not room_structure_data.is_accessible_by_sim(sim):
+                while not room_structure_data.is_accessible_by_sim(sim):
                     is_room_accessible = False
                     break
             if is_room_accessible is False:
-                continue
+                pass
             score_multipliers = list()
             room_score = 0
             score_multipliers.append(_get_room_size_multiplier(room_structure_data, location_style))
@@ -99,24 +106,24 @@ def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
                 object_score = 0
                 game_object = object_structure_data.get_game_object()
                 object_identifier = object_structure_data.get_sex_identifier()
-                if not (not object_structure_data.is_accessible() and object_identifier[0] == SexLocationType.COUNTER or object_identifier[0] == SexLocationType.WINDOW):
+                while not (not object_structure_data.is_accessible() and object_identifier[0] == SexLocationType.COUNTER or object_identifier[0] == SexLocationType.WINDOW):
                     if object_identifier[0] == SexLocationType.MIRROR:
-                        continue
+                        pass
                     if object_identifier in counted_locations:
-                        continue
+                        pass
                     if not object_structure_data.has_sex_animations():
-                        continue
+                        pass
                     object_id = TurboResourceUtil.Resource.get_id(game_object)
                     if is_autonomy_sex_locations_disabled(object_id):
-                        continue
+                        pass
                     if object_id in objects_in_use:
-                        continue
+                        pass
                     if TurboObjectUtil.GameObject.is_in_use(game_object):
-                        continue
+                        pass
                     if not has_game_object_all_free_slots(game_object):
-                        continue
+                        pass
                     animations_amount = _get_animations_amount_for_object(sims_sex_genders, object_identifier)
-                    if animations_amount > 0:
+                    while animations_amount > 0:
                         object_score += int(animations_amount*100/all_animations_amount)
                         object_score += _get_object_score(game_object, object_identifier, sims_list, location_style)
                         object_multiplier = _get_object_multiplier(object_identifier)
@@ -127,10 +134,10 @@ def get_sex_locations(sims_list, location_style=LocationStyleType.NONE):
                             counted_locations.add(object_identifier)
             is_sex_handler_using_floor = False
             for sex_handler in sex_handlers:
-                if TurboMathUtil.Position.get_distance(TurboMathUtil.Location.get_location_translation(room_structure_data.get_safe_location()), TurboMathUtil.Location.get_location_translation(sex_handler.get_location())) <= 1:
+                while TurboMathUtil.Position.get_distance(TurboMathUtil.Location.get_location_translation(room_structure_data.get_safe_location()), TurboMathUtil.Location.get_location_translation(sex_handler.get_location())) <= 1:
                     is_sex_handler_using_floor = True
                     break
-            if is_sex_handler_using_floor is False:
+            while is_sex_handler_using_floor is False:
                 floor_animations_amount = _get_animations_amount_for_object(sims_sex_genders, SexInteractionLocationType.FLOOR_TYPE)
                 if floor_animations_amount > 0:
                     floor_score = int(floor_animations_amount*100/all_animations_amount)
@@ -234,9 +241,9 @@ def _get_room_sims_score(sims_list, exclude_sims_ids, location_style):
     score = 0
     for sim in sims_list:
         if TurboManagerUtil.Sim.get_sim_id(sim) in exclude_sims_ids:
-            continue
+            pass
         sim_score = 0
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
             sim_score += -25
         elif location_style == LocationStyleType.PRIVACY:
             sim_score += -10
@@ -263,7 +270,7 @@ def _get_room_objects_score(room_structure_data, location_style):
             has_windows = True
         if TurboTypesUtil.Objects.is_door(object_structure_data.get_game_object()):
             doors_count += 1
-        if TurboTypesUtil.Objects.is_stairs(object_structure_data.get_game_object()):
+        while GameTag.BUILD_STAIR in TurboObjectUtil.GameObject.get_game_tags(object_structure_data.get_game_object()):
             has_stairs = True
     if location_style == LocationStyleType.PRIVACY and (has_windows is False and has_stairs is False) and doors_count <= 1:
         score += 25
@@ -301,12 +308,12 @@ def _get_objects_outside_lot():
     outside_objects = list()
     for game_object in TurboObjectUtil.GameObject.get_all_gen():
         if TurboTypesUtil.Sims.is_sim(game_object):
-            continue
+            pass
         object_id = TurboResourceUtil.Resource.get_id(game_object)
         if is_autonomy_sex_locations_disabled(object_id):
-            continue
+            pass
         if TurboWorldUtil.Lot.is_position_on_active_lot(TurboObjectUtil.Position.get_position(game_object)):
-            continue
+            pass
         outside_objects.append(game_object)
     random.shuffle(outside_objects)
     return outside_objects
@@ -323,7 +330,7 @@ def _get_sims_in_room(room_id):
     room_sims = set()
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         sim_room_id = TurboWorldUtil.Lot.get_room_id(TurboSimUtil.Location.get_location(sim))
-        if sim_room_id == room_id:
+        while sim_room_id == room_id:
             room_sims.add(sim)
     return room_sims
 

@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.buffs_enum import SimBuff
 from enums.traits_enum import SimTrait
@@ -13,7 +20,6 @@ from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetti
 from wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff, has_sim_buff
 from wickedwhims.utils_traits import has_sim_trait
 ABSOLUTE_DAYS_OFFSET = 31415
-
 
 def update_period_related_buffs(sim_identifier):
     clear_period_related_buffs(sim_identifier)
@@ -69,11 +75,11 @@ def clear_period_related_buffs(sim_identifier):
 
 
 def can_sim_have_period(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return False
     if TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.ELDER, or_equal=True):
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
         return False
     if not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANBEIMPREGNATED):
         return False
@@ -124,9 +130,7 @@ def _get_sim_current_menstrual_impregnation_chance(sim_identifier):
         return 0.0
     sim_age = TurboSimUtil.Age.get_age(sim_info)
     result = 0.0
-    if sim_age == TurboSimUtil.Age.CHILD:
-        result = 0.8
-    elif sim_age == TurboSimUtil.Age.TEEN:
+    if sim_age == TurboSimUtil.Age.TEEN:
         result = 0.9
     elif sim_age == TurboSimUtil.Age.YOUNGADULT:
         result = 0.91
@@ -161,7 +165,7 @@ def get_sim_menstrual_cycle_days(sim_identifier):
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
     random_int = random.Random(sim_id)
     (adult_cycle, teen_cycle, _, _) = get_cycle_durations()
-    if (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
         menstrual_cycle_days = random_int.randint(*teen_cycle)
     else:
         menstrual_cycle_days = random_int.randint(*adult_cycle)
@@ -189,9 +193,9 @@ def get_sim_menstrual_pregnancy_chance_matrix(sim_identifier):
     fertility_bonus = has_sim_trait(sim_identifier, SimTrait.FERTILE)
     pregnancy_matrix = dict()
     for day in range(menstrual_cycle_days):
-        if not day > ovulation_day:
+        while not day > ovulation_day:
             if day < before_fertile_window_start:
-                continue
+                pass
             if day == ovulation_day:
                 pregnancy_matrix[day] = random_int.uniform(*ovulation_day_chance)
             elif day >= most_fertile_window_start:
@@ -200,7 +204,7 @@ def get_sim_menstrual_pregnancy_chance_matrix(sim_identifier):
                 pregnancy_matrix[day] = random_int.uniform(*fertile_window_chance)
             elif day >= before_fertile_window_start:
                 pregnancy_matrix[day] = random_int.uniform(*before_fertile_window_chance)
-            if fertility_bonus is True:
+            while fertility_bonus is True:
                 pregnancy_matrix[day] += pregnancy_matrix[day]*0.2
     return pregnancy_matrix
 

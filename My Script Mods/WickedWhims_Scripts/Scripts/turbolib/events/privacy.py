@@ -1,10 +1,16 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from interactions.privacy import Privacy
 from turbolib.events.events_handler import TurboEventsHandler
 from turbolib.injector_util import inject
 from turbolib.native.enum import TurboEnum
 from turbolib.special.custom_exception_watcher import log_custom_exception
 PRIVACY_EVENTS_HANDLER = TurboEventsHandler()
-
 
 class PrivacyResult(TurboEnum):
     __qualname__ = 'PrivacyResult'

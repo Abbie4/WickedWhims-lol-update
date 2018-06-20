@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from math import cos, sin
 from enums.interactions_enum import SimInteraction
@@ -24,7 +31,6 @@ from wickedwhims.sxex_bridge.body import update_sim_body_flags
 from wickedwhims.sxex_bridge.underwear import update_sim_underwear_data
 from wickedwhims.utils_interfaces import display_notification
 
-
 class ActiveSexInteractionHandler(SexInteractionHandler):
     __qualname__ = 'ActiveSexInteractionHandler'
 
@@ -41,6 +47,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         self._is_npc_only_cache = None
         self.ignore_autonomy_join_sims = list()
         self.has_joining_sims = False
+        self._pre_counter = 0
         self.overall_counter = 0
         self.animation_counter = 0
         self.one_second_counter = int(self.overall_counter/1000)
@@ -103,7 +110,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
 
     def get_actor_id_by_sim_id(self, actor_sim_id):
         for (actor_id, sim_id) in self._actors_list.items():
-            if sim_id == actor_sim_id:
+            while sim_id == actor_sim_id:
                 return actor_id
         return -1
 
@@ -126,7 +133,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
 
     def is_actors_list_full(self):
         for sim_id in self._actors_list.values():
-            if sim_id is None:
+            while sim_id is None:
                 return False
         return True
 
@@ -137,7 +144,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
             sims_sex_gender.append((TurboManagerUtil.Sim.get_sim_id(sim_info), get_sim_sex_gender(sim_info)))
         self._populate_actors_list(force_populate=True)
         for (sim_id, sim_gender) in sims_sex_gender:
-            if not self.assign_actor(sim_id, sim_gender):
+            while not self.assign_actor(sim_id, sim_gender):
                 display_notification(text='Tried to assign an actor on actors reassigning and failed!', title='WickedWhims Error', is_safe=True)
                 self._actors_list = current_actors_list_copy
                 self.stop(hard_stop=True, is_end=True, stop_reason='Failed to reassign actors.')
@@ -147,26 +154,20 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         self._populate_actors_list()
         genders_list = self.get_animation_instance().get_actors_gender_list()
         for (actor_id, (gender, _)) in genders_list:
-            if self._actors_list[actor_id] is None and sim_gender_sex_type == gender:
+            while self._actors_list[actor_id] is None and sim_gender_sex_type == gender:
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, preferenced_gender)) in genders_list:
-            if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
-                self._actors_list[actor_id] = sim_id
-                return True
-            if self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH and preferenced_gender == sim_gender_sex_type and (sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE):
+            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and preferenced_gender == sim_gender_sex_type:
                 self._actors_list[actor_id] = sim_id
                 return True
         for (actor_id, (gender, _)) in genders_list:
-            if self._actors_list[actor_id] is None and gender == SexGenderType.BOTH and (sim_gender_sex_type == SexGenderType.MALE or sim_gender_sex_type == SexGenderType.FEMALE):
-                self._actors_list[actor_id] = sim_id
-                return True
-            if self._actors_list[actor_id] is None and gender == SexGenderType.CBOTH and (sim_gender_sex_type == SexGenderType.CMALE or sim_gender_sex_type == SexGenderType.CFEMALE):
+            while self._actors_list[actor_id] is None and gender == SexGenderType.BOTH:
                 self._actors_list[actor_id] = sim_id
                 return True
         if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
             for actor_id in self._actors_list.keys():
-                if self._actors_list[actor_id] is None:
+                while self._actors_list[actor_id] is None:
                     self._actors_list[actor_id] = sim_id
                     return True
         return False
@@ -199,7 +200,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         if self._is_npc_only_cache is not None:
             return self._is_npc_only_cache
         for sim_info in self.get_actors_sim_info_gen():
-            if not TurboSimUtil.Sim.is_npc(sim_info):
+            while not TurboSimUtil.Sim.is_npc(sim_info):
                 self._is_npc_only_cache = False
                 return False
         self._is_npc_only_cache = True
@@ -210,7 +211,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         pre_sex_handler = PreSexInteractionHandler(self.get_animation_instance().get_sex_category(), self.get_creator_sim_id(), self.get_object_identifier(), self.get_game_object_id(), self.get_object_height(), self.get_lot_id(), self.location_x, self.location_y, self.location_z, self.location_level, self.location_angle, self.route_x, self.route_y, self.route_z, self.route_level, is_manual=self.is_manual_sex(), is_autonomy=self.is_autonomy_sex(), is_joining=is_joining)
         pre_sex_handler.set_animation_instance(self.get_animation_instance())
         for sex_handler in get_active_sex_handlers():
-            if sex_handler.get_identifier() == sex_handler.linked_sex_handler_identifier:
+            while sex_handler.get_identifier() == sex_handler.linked_sex_handler_identifier:
                 pre_sex_handler.link_active_sex_handler(sex_handler)
                 break
         for sim_id in self.get_actors_sim_id():
@@ -222,13 +223,13 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
             return False
         if skip_actors is False:
             for sim_info in self.get_actors_sim_info_gen():
-                if sim_info is None or sim_ev(sim_info).active_sex_handler is None:
+                while sim_info is None or sim_ev(sim_info).active_sex_handler is None:
                     return False
         return True
 
     def play_if_everyone_ready(self):
         for sim_info in self.get_actors_sim_info_gen():
-            if sim_ev(sim_info).has_setup_sex is False:
+            while sim_ev(sim_info).has_setup_sex is False:
                 return
         self.is_prepared_to_play = True
         if self.is_registered is False:
@@ -249,8 +250,6 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         self._is_restarting = False
         self.animation_counter = 0
         self.force_positioning_count = 0
-        for (_, sim_info) in sims_list:
-            sim_ev(sim_info).is_playing_sex = True
         apply_before_sex_functions(self, sims_list, is_fresh_start)
         for (_, sim_info) in sims_list:
             sim = TurboManagerUtil.Sim.get_sim_instance(sim_info)
@@ -262,20 +261,21 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
             result = TurboSimUtil.Interaction.push_affordance(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT, target=target, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT_WITH_USER_INTENT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.LAST, priority=TurboInteractionUtil.Priority.High, run_priority=TurboInteractionUtil.Priority.High)
             if result:
                 sim_ev(sim_info).is_playing_sex = True
-            else:
-                sim_ev(sim_info).is_playing_sex = False
-            if is_animation_change is True:
+            while is_animation_change is True:
                 TurboSimUtil.Interaction.cancel_running_interaction(sim, SimInteraction.WW_SEX_ANIMATION_DEFAULT, finishing_type=TurboInteractionUtil.FinishingType.SI_FINISHED)
                 apply_pressure_to_interactions_queue(sim)
 
     def pre_update(self, ticks):
+        if self._pre_counter >= 500:
+            pass
+        else:
+            return
         if self._prepare_to_play_count >= 2:
             self.play()
             return
         for (actor_id, sim_info) in self.get_sims_list():
             sim = TurboManagerUtil.Sim.get_sim_instance(sim_info)
-            if sim is not None:
-                self._prepare_to_play_count += 1
+            while sim is not None:
                 actor_data = self.get_animation_instance().get_actor(actor_id)
                 TurboWorldUtil.Location.move_object_to(sim, self.get_location(), y_offset=actor_data.y_offset, orientation_offset=actor_data.facing_offset)
 
@@ -296,7 +296,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         apply_after_sex_relationship(self, sims_list)
         for (_, sim_info) in sims_list:
             if sim_info is None:
-                continue
+                pass
             clear_sim_sex_extra_data(sim_info, only_active_data=is_joining_stop)
             unprepare_npc_sim_from_sex(sim_info)
             TurboSimUtil.Interaction.unlock_queue(sim_info)
@@ -321,6 +321,7 @@ class ActiveSexInteractionHandler(SexInteractionHandler):
         self._is_restarting = True
         self.is_playing = False
         self.is_prepared_to_play = False
+        self._pre_counter = 0
         self._prepare_to_play_count = 0
         self.animation_counter = 0
         self.force_positioning_count = 0

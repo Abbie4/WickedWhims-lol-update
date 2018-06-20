@@ -1,10 +1,16 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.sim_util import TurboSimUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.sex.pregnancy.menstrual_cycle_handler import get_sim_current_menstrual_pregnancy_chance, get_sim_days_till_ovulation
 from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chance
 from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting
 from wickedwhims.utils_interfaces import display_notification
-
 
 class PrePregnancyTakeFertilityTestInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'PrePregnancyTakeFertilityTestInteraction'

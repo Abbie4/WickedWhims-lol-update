@@ -1,10 +1,16 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import services
 from objects import ALL_HIDDEN_REASONS
 from sims.sim import Sim
 from sims.sim_info import SimInfo
 from sims.sim_info_base_wrapper import SimInfoBaseWrapper
 from sims.sim_info_types import Species
-
 
 class TurboManagerUtil:
     __qualname__ = 'TurboManagerUtil'

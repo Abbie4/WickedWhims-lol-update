@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.statistics_enum import SimCommodity
 from turbolib.sim_util import TurboSimUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
@@ -5,7 +12,6 @@ from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_statistics import get_sim_statistic_value
-
 
 class DebugUnderwearMatrixInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugUnderwearMatrixInteraction'

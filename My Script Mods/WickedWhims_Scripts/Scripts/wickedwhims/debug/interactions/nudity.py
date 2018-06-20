@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.statistics_enum import SimCommodity
 from turbolib.sim_util import TurboSimUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
@@ -7,7 +14,6 @@ from wickedwhims.nudity.skill.skills_utils import is_sim_naturist, is_sim_exhibi
 from wickedwhims.sxex_bridge.body import get_sim_body_state, get_sim_additional_body_state, get_sim_actual_body_state, has_sim_outfit_top, has_sim_outfit_bottom, is_sim_outfit_fullbody
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_statistics import get_sim_statistic_value
-
 
 class DebugNudityInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugNudityInfoInteraction'

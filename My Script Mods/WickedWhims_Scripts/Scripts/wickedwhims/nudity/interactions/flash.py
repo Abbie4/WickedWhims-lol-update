@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from turbolib.interaction_util import TurboInteractionUtil
 from turbolib.sim_util import TurboSimUtil
@@ -17,7 +24,6 @@ from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
 from wickedwhims.utils_buffs import has_sim_buff, add_sim_buff
-
 
 class ExhibitionismUndressToFlashBoobsInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ExhibitionismUndressToFlashBoobsInteraction'
@@ -54,7 +60,7 @@ class ExhibitionismFlashBoobsInteraction(TurboSocialMixerInteraction, TurboInter
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_outfit_fullbody(sim):
             return False
@@ -107,7 +113,7 @@ class ExhibitionismFlashPussyInteraction(TurboSocialMixerInteraction, TurboInter
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_outfit_fullbody(sim):
             return False
@@ -160,7 +166,7 @@ class ExhibitionismFlashDickInteraction(TurboSocialMixerInteraction, TurboIntera
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_outfit_fullbody(sim):
             return False
@@ -214,7 +220,7 @@ class ExhibitionismFlashButtInteraction(TurboSocialMixerInteraction, TurboIntera
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_outfit_fullbody(sim):
             return False
@@ -269,7 +275,7 @@ class ExhibitionismFlashEverythingInteraction(TurboSocialMixerInteraction, Turbo
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if get_sim_body_state(sim, 6) == BodyState.OUTFIT and get_sim_body_state(sim, 7) == BodyState.OUTFIT:
             return True

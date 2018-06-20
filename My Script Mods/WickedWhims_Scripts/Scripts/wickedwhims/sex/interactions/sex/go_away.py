@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.interactions_enum import SimInteraction
 from turbolib.interaction_util import TurboInteractionUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -7,7 +14,6 @@ from turbolib.types_util import TurboTypesUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex._ts4_sex_utils import route_sim_away_from_interaction
-
 
 class GoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'GoAwayInteraction'

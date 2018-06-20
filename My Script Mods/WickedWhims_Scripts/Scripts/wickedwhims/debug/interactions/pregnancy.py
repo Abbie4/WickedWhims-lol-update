@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.relationship_enum import SimRelationshipBit
 from turbolib.manager_util import TurboManagerUtil
@@ -11,7 +18,6 @@ from wickedwhims.sex.pregnancy.native_pregnancy_handler import get_sim_pregnancy
 from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregnancy_chance
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_relations import get_sim_ids_with_relationsip_bit
-
 
 class DebugPregnancyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugPregnancyInteraction'

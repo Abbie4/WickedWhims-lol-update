@@ -1,10 +1,16 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from buffs.appearance_modifier.appearance_modifier import AppearanceModifierType
 from cas.cas import get_caspart_bodytype, get_buff_from_part_ids
 from protocolbuffers import Outfits_pb2, S4Common_pb2
 from sims.outfits.outfit_enums import OutfitCategory, BodyType
 from sims.outfits.outfit_utils import get_maximum_outfits_for_category
 from turbolib.manager_util import TurboManagerUtil
-
 
 class TurboCASUtil:
     __qualname__ = 'TurboCASUtil'
@@ -31,6 +37,8 @@ class TurboCASUtil:
         SITUATION = _get_outfit_category(7)
         SPECIAL = _get_outfit_category(8)
         SWIMWEAR = _get_outfit_category(9)
+        HOTWEATHER = _get_outfit_category(10)
+        COLDWEATHER = _get_outfit_category(11)
 
         @staticmethod
         def get_outfit_category(outfit_category_id):

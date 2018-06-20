@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.interactions_enum import SimInteraction
 from turbolib.interaction_util import TurboInteractionUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -7,7 +14,6 @@ from turbolib.wrappers.interactions import TurboInteractionStartMixin, TurboInte
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sex
-
 
 class WaitForSexPartnerInteraction(TurboBaseSuperInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'WaitForSexPartnerInteraction'

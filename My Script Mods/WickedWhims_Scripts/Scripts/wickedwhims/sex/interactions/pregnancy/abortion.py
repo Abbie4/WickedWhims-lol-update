@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from enums.interactions_enum import SimInteraction
 from enums.traits_enum import SimTrait
@@ -10,7 +17,6 @@ from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
 from wickedwhims.utils_buffs import add_sim_buff
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_traits import has_sim_trait
-
 
 class CompleteTerminatePregnancyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CompleteTerminatePregnancyInteraction'

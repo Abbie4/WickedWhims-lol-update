@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.cas_util import TurboCASUtil
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
@@ -14,7 +21,6 @@ from wickedwhims.sxex_bridge.outfit import strip_outfit, dress_up_outfit, StripT
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_underwear_outfit
 from wickedwhims.utils_cas import get_sim_outfit_cas_part_from_bodytype, has_sim_body_part, copy_outfit_to_special, get_modified_outfit
 from wickedwhims.utils_interfaces import display_outfit_picker_dialog
-
 
 class ChangeActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'ChangeActorOutfitInteraction'
@@ -50,7 +56,7 @@ class ChangeActorOutfitInteraction(TurboImmediateSuperInteraction, TurboInteract
                 actor_data = active_sex_handler.get_animation_instance().get_actor(active_sex_handler.get_actor_id_by_sim_id(TurboManagerUtil.Sim.get_sim_id(target)))
                 undress_sim(target, actor_data=actor_data)
 
-        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR):
+        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
             for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
                 while TurboSimUtil.CAS.has_outfit(target, (outfit_category, outfit_index)):
                     outfits.append((outfit_category, outfit_index))

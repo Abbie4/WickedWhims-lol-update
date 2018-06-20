@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.buffs_enum import SimBuff
 from turbolib.cas_util import TurboCASUtil
@@ -13,9 +20,7 @@ from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
 from wickedwhims.utils_buffs import add_sim_buff
 from wickedwhims.utils_cas import get_modified_outfit
 from wickedwhims.utils_interfaces import display_notification
-
 JUMPING_INTERACTIONS = (128702, 128703, 128704, 128705)
-
 
 @register_interaction_run_event_method(unique_id='WickedWhims')
 def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):
@@ -25,7 +30,7 @@ def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):
     if interaction_guid not in JUMPING_INTERACTIONS:
         return
     sim_info = TurboManagerUtil.Sim.get_sim_info(TurboInteractionUtil.get_interaction_sim(interaction_instance))
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
         return
     if get_modified_outfit(sim_info)[0] != TurboCASUtil.OutfitCategory.SWIMWEAR:
         return

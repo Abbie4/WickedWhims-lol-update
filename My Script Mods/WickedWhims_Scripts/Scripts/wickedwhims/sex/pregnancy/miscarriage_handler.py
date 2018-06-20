@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.buffs_enum import SimBuff
 from enums.interactions_enum import SimInteraction
@@ -119,7 +126,9 @@ def _try_trigger_sim_miscarriage(sim_identifier):
     if remove_sim_pregnancy(sim_identifier):
         add_sim_buff(sim_identifier, SimBuff.WW_PREGNANCY_MISCARRIAGE, reason=3245985980)
         TurboSimUtil.Interaction.push_affordance(sim_identifier, SimInteraction.WW_PREGNANCY_MISCARRIAGE, interaction_context=TurboInteractionUtil.InteractionContext.SOURCE_SCRIPT, insert_strategy=TurboInteractionUtil.QueueInsertStrategy.NEXT, must_run_next=True, priority=TurboInteractionUtil.Priority.Critical, run_priority=TurboInteractionUtil.Priority.Critical)
-        TurboObjectUtil.Puddle.create_puddle(sim_identifier, 10, TurboObjectUtil.Puddle.PuddleSize.SmallPuddle)
+        miscarriage_puddle_object = TurboObjectUtil.GameObject.create_object(12327982570318338407)
+        if miscarriage_puddle_object:
+            TurboObjectUtil.Puddle.place_puddle(miscarriage_puddle_object, sim_identifier)
         TurboWorldUtil.Time.set_current_time_speed(TurboWorldUtil.Time.ClockSpeedMode.NORMAL)
         display_notification(text=1234477375, text_tokens=(sim_identifier,), title=971885236, visual_type=TurboUIUtil.Notification.UiDialogNotificationVisualType.SPECIAL_MOMENT, secondary_icon=sim_identifier)
         TurboUIUtil.Camera.move_to_sim(sim_identifier)

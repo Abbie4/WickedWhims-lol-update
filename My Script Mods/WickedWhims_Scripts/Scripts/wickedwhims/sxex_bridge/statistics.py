@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.relationship_enum import SimRelationshipBit
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.resources.affordances import AffordanceRegistration, register_affordance_class
@@ -105,9 +112,9 @@ def _update_sim_statistics(sim_identifier):
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_adult', 0)
     set_sim_ww_statistic(sim_info, 'unique_sex_partner_elder', 0)
     for target_sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if sim_info is not target_sim_info and has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
+        while sim_info is not target_sim_info and has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
             increase_sim_ww_statistic(sim_info, 'unique_sex_partners')
-            if (TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD):
+            if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN:
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_teen')
             elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.YOUNGADULT:
                 increase_sim_ww_statistic(sim_info, 'unique_sex_partner_youngadult')

@@ -1,5 +1,11 @@
-from turbolib.special.custom_exception_watcher import log_custom_exception
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
+from turbolib.special.custom_exception_watcher import log_custom_exception
 
 class TurboEventsHandler:
     __qualname__ = 'TurboEventsHandler'
@@ -35,7 +41,7 @@ class TurboEventsHandler:
             try:
                 event_method(*args)
             except Exception as ex:
-                log_custom_exception("[TurboLib] Failed to run '" + str(event_method.__name__) + "' method from '" + str(handler_unique_id) + "'.", ex)
+                log_custom_exception("[TurboLib] Failed to run '" + str(event_method.__name__) + "' method from '" + str(handler_unique_id) + "'", ex)
         return True
 
     def execute_event_methods_gen(self, *args, event_type=0):
@@ -45,5 +51,5 @@ class TurboEventsHandler:
                 try:
                     yield event_method(*args)
                 except Exception as ex:
-                    log_custom_exception("[TurboLib] Failed to run '" + str(event_method.__name__) + "' method from '" + str(handler_unique_id) + "'.", ex)
+                    log_custom_exception("[TurboLib] Failed to run '" + str(event_method.__name__) + "' method from '" + str(handler_unique_id) + "'", ex)
 

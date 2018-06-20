@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.traits_enum import SimTrait
 from turbolib.resource_util import TurboResourceUtil
 from turbolib.sim_util import TurboSimUtil
@@ -6,7 +13,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.pregnancy.birth_control.condoms import give_sim_condoms, try_to_take_and_use_condoms
 from wickedwhims.sex.pregnancy.birth_control.pills import take_birth_control_pill, give_sim_birth_control_pills
 from wickedwhims.utils_traits import has_sim_trait
-
 
 class UseCondomsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UseCondomsInteraction'

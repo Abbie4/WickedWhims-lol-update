@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.cas_util import TurboCASUtil
 from turbolib.events.interactions import register_interaction_run_event_method
 from turbolib.interaction_util import TurboInteractionUtil
@@ -13,8 +20,8 @@ from wickedwhims.sxex_bridge.body import BodyState, get_sim_body_state, set_sim_
 from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit, dress_up_outfit
 from wickedwhims.sxex_bridge.underwear import set_sim_bottom_underwear_state, is_sim_top_underwear
 from wickedwhims.utils_cas import get_modified_outfit, get_sim_outfit_cas_part_from_bodytype, set_bodytype_caspart
+HAS_SIMS_USING_TOILET = True
 TOILET_USE_INTERACTIONS = (151354, 13443)
-
 
 class OutfitStateBeforeToiletUse(TurboEnum):
     __qualname__ = 'OutfitStateBeforeToiletUse'
@@ -25,20 +32,22 @@ class OutfitStateBeforeToiletUse(TurboEnum):
 
 @register_interaction_run_event_method(unique_id='WickedWhims')
 def _wickedwhims_undress_bottom_on_toilet_use(interaction_instance):
+    global HAS_SIMS_USING_TOILET
     if not get_nudity_setting(NuditySetting.TOILET_USE_UNDRESS_STATE, variable_type=bool):
         return
     interaction_guid = TurboResourceUtil.Resource.get_guid64(interaction_instance)
     if interaction_guid not in TOILET_USE_INTERACTIONS:
         return
+    HAS_SIMS_USING_TOILET = True
     sim = TurboInteractionUtil.get_interaction_sim(interaction_instance)
     if sim_ev(sim).on_toilet_outfit_state != OutfitStateBeforeToiletUse.NONE:
         return
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
         return
     if has_sim_outfit_bottom(sim):
         bottom_body_state = get_sim_body_state(sim, 7)
         if bottom_body_state != BodyState.NUDE:
-            strip_result = strip_outfit(sim, strip_type_bottom=StripType.NUDE)
+            strip_result = strip_outfit(sim, strip_type_bottom=StripType.NUDE, allow_stripping_feet=False)
             if strip_result is True:
                 sim_ev(sim).on_toilet_outfit_state = int(OutfitStateBeforeToiletUse.UNDERWEAR if bottom_body_state == BodyState.UNDERWEAR else OutfitStateBeforeToiletUse.OUTFIT)
                 set_sim_bottom_naked_state(sim, True)
@@ -57,12 +66,17 @@ def _wickedwhims_undress_bottom_on_toilet_use(interaction_instance):
 
 @register_on_game_update_method(interval=1500)
 def _update_dress_up_after_toilet_use_on_game_update():
+    global HAS_SIMS_USING_TOILET
     if not get_nudity_setting(NuditySetting.TOILET_USE_UNDRESS_STATE, variable_type=bool):
         return
+    if HAS_SIMS_USING_TOILET is False:
+        return
+    has_sims_peeing = False
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.NONE:
             pass
-        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+        has_sims_peeing = True
+        if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
             pass
         is_using_toilet = False
         for affordance_id in TOILET_USE_INTERACTIONS:
@@ -70,18 +84,23 @@ def _update_dress_up_after_toilet_use_on_game_update():
                 is_using_toilet = True
                 break
         if is_using_toilet is True:
-            pass
-        sim_ev(sim).on_toilet_outfit_state = int(OutfitStateBeforeToiletUse.NONE)
+            has_sims_peeing = True
         current_outfit = TurboSimUtil.CAS.get_current_outfit(sim)
         if not (current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0):
             pass
         current_outfit = get_modified_outfit(sim)
-        if sim_ev(sim).on_toilet_outfit_state != -1 and has_sim_outfit_bottom(sim, outfit_category_and_index=current_outfit):
-            if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.OUTFIT:
-                part_id = get_sim_outfit_cas_part_from_bodytype(sim, 7, outfit_category_and_index=current_outfit)
-            else:
-                part_id = get_sim_underwear_data(sim, current_outfit)[1]
-            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), 7, part_id)
+        if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.UNDERWEAR:
+            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_underwear_data(sim, current_outfit)[1])
+            set_sim_bottom_underwear_state(sim, True)
+            try:
+                TurboSimUtil.CAS.refresh_outfit(sim)
+            except:
+                pass
+        elif sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.OUTFIT and has_sim_outfit_bottom(sim, outfit_category_and_index=current_outfit):
+            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_outfit_cas_part_from_bodytype(sim, TurboCASUtil.BodyType.LOWER_BODY, outfit_category_and_index=current_outfit))
+            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.TIGHTS, get_sim_outfit_cas_part_from_bodytype(sim, TurboCASUtil.BodyType.TIGHTS, outfit_category_and_index=current_outfit))
+            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.SOCKS, get_sim_outfit_cas_part_from_bodytype(sim, TurboCASUtil.BodyType.SOCKS, outfit_category_and_index=current_outfit))
+            set_sim_bottom_underwear_state(sim, True)
             try:
                 TurboSimUtil.CAS.refresh_outfit(sim)
             except:
@@ -90,4 +109,7 @@ def _update_dress_up_after_toilet_use_on_game_update():
             dress_up_outfit(sim)
         else:
             dress_up_outfit(sim)
+        sim_ev(sim).on_toilet_outfit_state = int(OutfitStateBeforeToiletUse.NONE)
+    if has_sims_peeing is False:
+        HAS_SIMS_USING_TOILET = False
 

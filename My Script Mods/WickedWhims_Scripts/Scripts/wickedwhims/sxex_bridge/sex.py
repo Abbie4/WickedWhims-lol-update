@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
 from wickedwhims.main.sim_ev_handler import sim_ev
@@ -22,7 +29,7 @@ def is_sim_ready_for_sex(sim_identifier):
         return False
     if sim_ev(sim).is_ready_to_sex is True:
         return False
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
         return False
     if not is_sim_available(sim):
         return False

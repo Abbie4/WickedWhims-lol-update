@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import camera
 import services
 from event_testing.resolver import DoubleSimResolver
@@ -8,7 +15,6 @@ from ui.ui_dialog_notification import UiDialogNotification
 from ui.ui_dialog_picker import ObjectPickerRow, UiObjectPicker, UiSimPicker, SimPickerRow, OutfitPickerRow, UiOutfitPicker
 from turbolib.l18n_util import TurboL18NUtil
 from turbolib.manager_util import TurboManagerUtil
-
 
 class TurboUIUtil:
     __qualname__ = 'TurboUIUtil'
@@ -54,10 +60,11 @@ class TurboUIUtil:
         __qualname__ = 'TurboUIUtil.OkDialog'
 
         @staticmethod
-        def display(text, title, callback=None):
+        def display(text, title, ok_text=3648501874, callback=None):
             text = TurboL18NUtil.get_localized_string(text)
             title = TurboL18NUtil.get_localized_string(title)
-            ok_dialog = UiDialogOk.TunableFactory().default(TurboUIUtil._get_client_sim(), text=lambda *args, **kwargs: text, title=lambda *args, **kwargs: title)
+            ok_text = TurboL18NUtil.get_localized_string(ok_text)
+            ok_dialog = UiDialogOk.TunableFactory().default(TurboUIUtil._get_client_sim(), text=lambda *args, **kwargs: text, title=lambda *args, **kwargs: title, text_ok=lambda *args, **kwargs: ok_text)
             if callback is not None:
                 ok_dialog.add_listener(callback)
             ok_dialog.show_dialog()
@@ -66,10 +73,12 @@ class TurboUIUtil:
         __qualname__ = 'TurboUIUtil.OkCancelDialog'
 
         @staticmethod
-        def display(text, title, callback=None):
+        def display(text, title, ok_text=3648501874, cancel_text=3497542682, callback=None):
             text = TurboL18NUtil.get_localized_string(text)
             title = TurboL18NUtil.get_localized_string(title)
-            ok_dialog = UiDialogOkCancel.TunableFactory().default(TurboUIUtil._get_client_sim(), text=lambda *args, **kwargs: text, title=lambda *args, **kwargs: title)
+            ok_text = TurboL18NUtil.get_localized_string(ok_text)
+            cancel_text = TurboL18NUtil.get_localized_string(cancel_text)
+            ok_dialog = UiDialogOkCancel.TunableFactory().default(TurboUIUtil._get_client_sim(), text=lambda *args, **kwargs: text, title=lambda *args, **kwargs: title, text_ok=lambda *args, **kwargs: ok_text, text_cancel=lambda *args, **kwargs: cancel_text)
             if callback is not None:
                 ok_dialog.add_listener(callback)
             ok_dialog.show_dialog()

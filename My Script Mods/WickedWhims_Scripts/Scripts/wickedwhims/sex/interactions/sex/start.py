@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.object_util import TurboObjectUtil
 from turbolib.sim_util import TurboSimUtil
 from turbolib.types_util import TurboTypesUtil
@@ -14,13 +21,12 @@ from wickedwhims.sex.sex_operators.sex_init_operator import start_new_player_sex
 from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 
-
 def _test_for_sex_start(interaction_context, interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
     if not is_sim_ready_for_sex(interaction_sim) or sim_ev(interaction_sim).active_pre_sex_handler is not None:
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.CHILD):
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.TEEN:
         return False
     if TurboTypesUtil.Objects.is_game_object(interaction_target):
         interaction_target = TurboObjectUtil.GameObject.get_parent(interaction_target)
@@ -34,9 +40,7 @@ def _test_for_sex_start(interaction_context, interaction_sim, interaction_target
     object_identifier = SexInteractionLocationType.get_location_identifier(interaction_target)
     sim_gender = get_sim_sex_gender(interaction_sim)
     for sex_category_type in sex_category_types:
-        if sex_category_type is None:
-            continue
-        if has_object_identifier_animations(object_identifier, sex_category_type, sim_gender):
+        while has_object_identifier_animations(object_identifier, sex_category_type, sim_gender):
             return True
     return False
 
@@ -123,3 +127,4 @@ class StartSexRandomInteraction(TurboTerrainImmediateSuperInteraction, TurboInte
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_player_sex_interaction(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=None)
+

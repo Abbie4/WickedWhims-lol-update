@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.traits_enum import SimTrait
 from turbolib.cas_util import TurboCASUtil
@@ -45,7 +52,7 @@ def _wickedwhims_command_set_global_nudity_skill_level(*args, output=None):
         output('Incorrect <level> variable!')
         return
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
             pass
         if level > 0:
             set_sim_nudity_skill_level(sim_info, level)
@@ -64,7 +71,7 @@ def _wickedwhims_command_set_sim_nudity_skill_level(output=None):
 @register_game_command('ww.global_convert_to_exhibitionism', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_set_sim_nudity_skill_level(output=None):
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
             pass
         add_sim_trait(sim_info, SimTrait.WW_EXHIBITIONIST)
     output('Sim Exhibitionist trait has been added to all Sims.')
@@ -81,7 +88,7 @@ def _wickedwhims_command_set_sim_nudity_skill_level(output=None):
 @register_game_command('ww.remove_global_exhibitionist_trait', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_set_sim_nudity_skill_level(output=None):
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
             pass
         remove_sim_nudity_skill(sim_info)
         remove_sim_trait(sim_info, SimTrait.WW_EXHIBITIONIST)
@@ -91,7 +98,7 @@ def _wickedwhims_command_set_sim_nudity_skill_level(output=None):
 @register_game_command('ww.simulate_nudity_story_progression', command_type=TurboCommandType.LIVE)
 def _wickedwhims_command_simulate_story_progression(output=None):
     for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
-        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
+        if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
             pass
         apply_nudity_skill_influence(sim_info, random.uniform(0, 1)*random.randint(1, 7))
     trigger_story_progression()
@@ -109,7 +116,7 @@ def _wickedwhims_command_random_underwear_for_all_npc_sims(output=None):
         if TurboSimUtil.Sim.is_player(sim_info):
             pass
         underwear_data = get_random_underwear_set(sim_info)
-        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY):
+        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
             for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
                 while TurboSimUtil.CAS.has_outfit(sim_info, (outfit_category, outfit_index)):
                     if not has_sim_underwear_data(sim_info, (outfit_category, outfit_index)):

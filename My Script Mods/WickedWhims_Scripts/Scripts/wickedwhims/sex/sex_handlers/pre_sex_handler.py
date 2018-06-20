@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
 from turbolib.world_util import TurboWorldUtil
@@ -10,7 +17,6 @@ from wickedwhims.sex.sex_handlers.sex_handler import SexInteractionHandler
 from wickedwhims.sex.sex_handlers.sex_handler_utils import get_sim_sex_state_snapshot
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.utils_interfaces import display_notification
-
 
 class PreSexInteractionHandler(SexInteractionHandler):
     __qualname__ = 'PreSexInteractionHandler'
@@ -65,7 +71,7 @@ class PreSexInteractionHandler(SexInteractionHandler):
 
     def get_second_sim_id(self):
         for sim_id in self._sims_ids_list:
-            if sim_id != self.get_creator_sim_id():
+            while sim_id != self.get_creator_sim_id():
                 return int(sim_id)
         return -1
 
@@ -79,13 +85,13 @@ class PreSexInteractionHandler(SexInteractionHandler):
 
     def is_npc_only(self):
         for sim_info in self.get_actors_sim_info_gen():
-            if TurboSimUtil.Sim.is_player(sim_info):
+            while TurboSimUtil.Sim.is_player(sim_info):
                 return False
         return True
 
     def are_all_sims_ready(self):
         for sim_info in self.get_actors_sim_info_gen():
-            if sim_ev(sim_info).is_ready_to_sex is False:
+            while sim_ev(sim_info).is_ready_to_sex is False:
                 return False
         return True
 

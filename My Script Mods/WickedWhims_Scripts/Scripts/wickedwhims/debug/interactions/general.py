@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.motives_enum import SimMotive
 from enums.situations_enum import SimSituation
 from turbolib.cas_util import TurboCASUtil
@@ -10,7 +17,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_cas import get_modified_outfit, get_previous_modified_outfit
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_motives import get_sim_motive_value
-
 
 class DebugGeneralInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugGeneralInfoInteraction'

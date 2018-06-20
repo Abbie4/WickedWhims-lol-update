@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from enums.relationship_enum import SimRelationshipBit
 from enums.statistics_enum import SimCommodity
@@ -40,11 +47,12 @@ def apply_before_sex_functions(sex_handler, sims_list, is_fresh_start):
                 complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_SIM, target_sim_identifier=sim_info)
                 if not TurboWorldUtil.Lot.is_sim_on_home_lot(sim_info):
                     complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_SIM_IN_PUBLIC, target_sim_identifier=sim_info)
-                for (other_actor_id, other_sim_info) in sims_list:
-                    complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_PARTNER, target_sim_identifier=other_sim_info)
-                    complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_NEW_ROMANCE, target_sim_identifier=other_sim_info)
-                    while has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT) and has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT):
-                        complete_sim_situation_goal(sim_info, SimWhim.WW_GOAL_SEX_WITH_DATE, target_sim_identifier=other_sim_info)
+                while True:
+                    for (other_actor_id, other_sim_info) in sims_list:
+                        complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_PARTNER, target_sim_identifier=other_sim_info)
+                        complete_sim_whim(sim_info, SimWhim.WW_SEX_WITH_NEW_ROMANCE, target_sim_identifier=other_sim_info)
+                        while has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT) and has_relationship_bit_with_sim(sim_info, other_sim_info, SimRelationshipBit.DATE_SITUATION_BIT):
+                            complete_sim_situation_goal(sim_info, SimWhim.WW_GOAL_SEX_WITH_DATE, target_sim_identifier=other_sim_info)
 
 
 def _before_autonomy_sex(sims_list, sex_handler):

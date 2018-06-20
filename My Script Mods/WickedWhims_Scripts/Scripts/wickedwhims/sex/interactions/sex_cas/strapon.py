@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.traits_enum import SimTrait
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
@@ -12,7 +19,6 @@ from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
 from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class ChangeSimStraponInteraction(TurboSuperInteraction):
     __qualname__ = 'ChangeSimStraponInteraction'
 
@@ -25,7 +31,7 @@ class ChangeSimStraponInteraction(TurboSuperInteraction):
         sim = cls.get_interaction_sim(interaction_context)
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN:
             return False
         if not has_loaded_strapon():
             return False

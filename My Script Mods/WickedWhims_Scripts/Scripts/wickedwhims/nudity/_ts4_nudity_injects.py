@@ -1,10 +1,16 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from buffs.buff import Buff
 from clubs.club_gathering_situation import ClubGatheringSituation
 from sims.occult.sim_info_with_occult_tracker import SimInfoWithOccultTracker
 from sims.outfits.outfit_change import TunableOutfitChange
 from sims.outfits.outfit_tracker import OutfitTrackerMixin
-from sims.sim import Sim
 from enums.outfits_enum import SimOutfitChangeReason
 from enums.tags_enum import GameTag
 from enums.traits_enum import SimTrait
@@ -113,16 +119,6 @@ def _wickedwhims_on_outfit_changed_club(original, self, *args, **kwargs):
             return
     except Exception as ex:
         log_custom_exception("Failed to prevent Sim outfit update at 'ClubGatheringSituation._on_outfit_changed'.", ex)
-    return original(self, *args, **kwargs)
-
-
-@inject(Sim, 'preload_inappropriate_streetwear_change')
-def _wickedwhims_on_inappropriate_streetwear_change(original, self, *args, **kwargs):
-    try:
-        if TurboSimUtil.Sim.is_player(self):
-            return
-    except Exception as ex:
-        log_custom_exception("Failed to prevent Sim streetwear outfit change at 'Sim.preload_inappropriate_streetwear_change'.", ex)
     return original(self, *args, **kwargs)
 
 

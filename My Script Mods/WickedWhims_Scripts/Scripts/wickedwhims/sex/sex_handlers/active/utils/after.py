@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import itertools
 import random
 from enums.buffs_enum import SimBuff
@@ -79,19 +86,21 @@ def apply_after_sex_relationship(sex_handler, sims_list):
                     relationship_score *= 0.1
                 change_relationship_with_sim(sim_info, target_sim_info, relationship_track, relationship_score)
         if get_relationship_setting(RelationshipSetting.JEALOUSY_STATE, variable_type=bool):
-            for (_, sim_info) in sims_list:
-                relationship_sims_ids = get_sim_relationship_sims(sim_info)
-                while len(relationship_sims_ids) > 0:
-                    has_cheated = True
-                    for (_, target_sim_info) in sims_list:
-                        if sim_info is target_sim_info:
-                            pass
-                        while TurboManagerUtil.Sim.get_sim_id(target_sim_info) in relationship_sims_ids:
-                            has_cheated = False
-                            break
-                    if has_cheated is True:
+            while True:
+                for (_, sim_info) in sims_list:
+                    relationship_sims_ids = get_sim_relationship_sims(sim_info)
+                    while len(relationship_sims_ids) > 0:
+                        has_cheated = True
                         for (_, target_sim_info) in sims_list:
-                            add_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_CHEATEDWITH)
+                            if sim_info is target_sim_info:
+                                pass
+                            while TurboManagerUtil.Sim.get_sim_id(target_sim_info) in relationship_sims_ids:
+                                has_cheated = False
+                                break
+                        if has_cheated is True:
+                            while True:
+                                for (_, target_sim_info) in sims_list:
+                                    add_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_CHEATEDWITH)
     for ((_, sim_info), (_, target_sim_info)) in itertools.permutations(sims_list, 2):
         if not has_relationship_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
             add_relationsip_bit_with_sim(sim_info, target_sim_info, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO)
@@ -148,8 +157,9 @@ def _after_sex_buffs(sims_list):
         for (_, sim_info) in sims_list:
             add_sim_trait(sim_info, SimTrait.HIDDEN_HADWOOHOO)
             while not TurboSimUtil.Occult.is_ghost(sim_info):
-                for (_, target_sim_info) in sims_list:
-                    while sim_info is not target_sim_info and TurboSimUtil.Occult.is_ghost(target_sim_info):
-                        add_sim_buff(sim_info, SimBuff.WOOHOO_WITH_GHOST)
-                        break
+                while True:
+                    for (_, target_sim_info) in sims_list:
+                        while sim_info is not target_sim_info and TurboSimUtil.Occult.is_ghost(target_sim_info):
+                            add_sim_buff(sim_info, SimBuff.WOOHOO_WITH_GHOST)
+                            break
 

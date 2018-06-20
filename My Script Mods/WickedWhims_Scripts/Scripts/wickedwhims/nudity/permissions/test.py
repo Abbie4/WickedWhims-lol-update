@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from enums.relationship_enum import SimRelationshipBit, RelationshipTrackType
 from enums.traits_enum import LotTrait
@@ -14,7 +21,6 @@ from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relat
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_traits import has_current_lot_trait
 
-
 class NudityPermissionDenied(TurboEnum):
     __qualname__ = 'NudityPermissionDenied'
     NOT_AT_HOME = 1
@@ -25,9 +31,9 @@ class NudityPermissionDenied(TurboEnum):
 
 def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, extra_skill_level=0, **kwargs):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
     if nudity_setting_test is True and not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
         return (True, tuple())
@@ -78,7 +84,7 @@ def _sims_test(sim, current_score, targets=(), **__):
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
             pass
         penalty_score -= _get_sim_value(sim, target)*(6 - get_sim_nudity_skill_level(sim))
-        if current_score + penalty_score <= 0:
+        while current_score + penalty_score <= 0:
             break
     return (penalty_score, NudityPermissionDenied.TOO_MANY_SIMS_AROUND)
 

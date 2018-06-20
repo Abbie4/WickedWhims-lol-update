@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.traits_enum import SimTrait
 from turbolib.sim_util import TurboSimUtil
 from wickedwhims.nudity.nudity_settings import NuditySetting, get_nudity_setting, NudityNotificationsTypeSetting
@@ -12,9 +19,10 @@ def nudity_notification(text=None, text_tokens=(), title=None, title_tokens=(), 
         if notifications_visibility_type == NudityNotificationsTypeSetting.AUTONOMY and is_autonomy is False:
             return
         if get_nudity_setting(NuditySetting.NOTIFICATIONS_HOUSEHOLD_LIMIT_STATE, variable_type=bool):
-            for included_sim_info in sims:
-                while TurboSimUtil.Sim.is_npc(included_sim_info):
-                    return
+            while True:
+                for included_sim_info in sims:
+                    while TurboSimUtil.Sim.is_npc(included_sim_info):
+                        return
     if title is None:
         if not sims:
             title = 3145721892

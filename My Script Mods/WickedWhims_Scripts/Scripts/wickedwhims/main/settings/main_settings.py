@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import webbrowser
 from turbolib.command_util import TurboCommandUtil
 from turbolib.resources.affordances import AffordanceRegistration, register_affordance_class
@@ -9,7 +16,6 @@ from wickedwhims.main.settings._ts4_menu_utils import get_menu_sim, clear_menu_s
 from wickedwhims.utils_interfaces import display_picker_list_dialog, display_okcancel_dialog, get_question_icon, get_arrow_icon, get_action_icon
 MAIN_SETTINGS_OPTIONS = list()
 IS_TIME_PAUSED = True
-
 
 class DisplayMainSettingsInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisplayMainSettingsInteraction'

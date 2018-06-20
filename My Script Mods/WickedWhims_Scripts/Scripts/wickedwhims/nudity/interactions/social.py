@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.interactions_enum import SimInteraction
 from enums.traits_enum import SimTrait
@@ -18,14 +25,13 @@ from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
 from wickedwhims.utils_traits import add_sim_trait
 
-
 class _NuditySocialComplimentSexyBodyInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialComplimentSexyBodyInteraction'
 
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         nudity_skill_level = get_sim_nudity_skill_level(sim)
         if nudity_skill_level < 2:
@@ -77,7 +83,7 @@ class _NuditySocialTalkAboutNudityInteraction(TurboSocialMixerInteraction, Turbo
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         if is_sim_in_sex(sim) or (is_sim_going_to_sex(sim) or is_sim_in_sex(interaction_target)) or is_sim_going_to_sex(interaction_target):
             return False
@@ -136,7 +142,7 @@ class _NuditySocialConvinceToNudityInteraction(TurboSocialMixerInteraction, Turb
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
             return False
         nudity_skill_level = get_sim_nudity_skill_level(sim)
         if nudity_skill_level < 4:
@@ -194,7 +200,7 @@ class _NuditySocialAskToGetNakedInteraction(TurboSocialMixerInteraction, TurboIn
         if not TurboTypesUtil.Sims.is_sim(interaction_target):
             return False
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN):
             return False
         skill_level = get_sim_nudity_skill_level(sim)
         if skill_level <= 1:

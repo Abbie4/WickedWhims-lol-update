@@ -1,9 +1,15 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import services
 from sims4.localization import TunableLocalizedString
 from sims4.resources import Types
 from sims4.tuning.instances import HashedTunedInstanceMetaclass
 from sims4.tuning.tunable import HasTunableFactory, AutoFactoryInit, Tunable, TunableList
-
 
 class _WickedWhimsActorInteractionData(HasTunableFactory, AutoFactoryInit):
     __qualname__ = '_WickedWhimsActorInteractionData'

@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import services
 from objects.script_object import ScriptObject
 from services.terrain_service import TerrainService
@@ -7,7 +14,6 @@ from turbolib.injector_util import inject
 from turbolib.resource_util import TurboResourceUtil
 from turbolib.special.custom_exception_watcher import log_custom_exception
 AFFORDANCE_REGISTRATION_CLASSES = list()
-
 
 def register_affordance_class():
     '''

@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import os
 import random
 from turbolib.events.core_tick import register_zone_update_event_method, unregister_zone_update_event_method
@@ -32,7 +39,7 @@ def _display_hello_notification():
     current_mod_version = get_mod_version_str()
     loaded_animations_count = str(len(get_available_sex_animations()))
     unique_animations_authors = get_unique_sex_animations_authors()
-    display_notification(text=2433468877, text_tokens=(random.choice(hello_ids), current_mod_version, loaded_animations_count, unique_animations_authors), title='WickedWhims', visual_type=TurboUIUtil.Notification.UiDialogNotificationVisualType.SPECIAL_MOMENT)
+    display_notification(text=3265194817, text_tokens=(random.choice(hello_ids), current_mod_version, loaded_animations_count, unique_animations_authors), title='WickedWhims', visual_type=TurboUIUtil.Notification.UiDialogNotificationVisualType.SPECIAL_MOMENT)
 
 
 def _is_file_existing(file_name):

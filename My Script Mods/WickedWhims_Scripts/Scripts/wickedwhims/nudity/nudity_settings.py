@@ -1,9 +1,15 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.native.enum import TurboEnum
 from wickedwhims.main.settings.builder import SettingsBranchOption, SettingsWindow, SettingsSwitchOption, SettingsSelectorOption
 from wickedwhims.main.settings.main_settings import open_main_settings, register_main_settings_option
 from wickedwhims.utils_saves.save_basics import update_basic_save_data, get_basic_save_data
 NUDITY_SETTINGS_DICT = dict()
-
 
 class NuditySetting:
     __qualname__ = 'NuditySetting'

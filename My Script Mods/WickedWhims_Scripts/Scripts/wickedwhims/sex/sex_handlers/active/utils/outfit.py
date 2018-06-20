@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from turbolib.cas_util import TurboCASUtil
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
@@ -10,7 +17,6 @@ from wickedwhims.sxex_bridge.nudity import update_nude_body_data, reset_sim_bath
 from wickedwhims.sxex_bridge.outfit import strip_outfit, StripType
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfit
 from wickedwhims.utils_cas import copy_outfit_to_special, get_modified_outfit
-
 
 def undress_sim(sim_identifier, actor_data, is_npc_only=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
@@ -45,29 +51,29 @@ def undress_sim(sim_identifier, actor_data, is_npc_only=False):
     if actor_data.get_naked_type() == SexNakedType.ALL:
         if top_body_state == BodyState.NUDE and bottom_body_state == BodyState.NUDE:
             return
-        if strip_outfit(sim_info, strip_type_top=StripType.NUDE, strip_type_bottom=StripType.NUDE):
-            set_sim_top_naked_state(sim_info, True)
-            set_sim_bottom_naked_state(sim_info, True)
-            set_sim_top_underwear_state(sim_info, False)
-            set_sim_bottom_underwear_state(sim_info, False)
+        strip_outfit(sim_info, strip_type_top=StripType.NUDE, strip_type_bottom=StripType.NUDE)
+        set_sim_top_naked_state(sim_info, True)
+        set_sim_bottom_naked_state(sim_info, True)
+        set_sim_top_underwear_state(sim_info, False)
+        set_sim_bottom_underwear_state(sim_info, False)
     elif actor_data.get_naked_type() == SexNakedType.TOP:
         if top_body_state == BodyState.NUDE:
             return
         has_bottom_underwear_on = is_underwear_outfit(get_modified_outfit(sim_info)[0]) and is_sim_bottom_underwear(sim_info)
         strip_type_bottom = StripType.NONE if not is_sim_outfit_fullbody(sim_info) else StripType.UNDERWEAR if has_bottom_underwear_on else StripType.NUDE
-        if strip_outfit(sim_info, strip_type_top=StripType.NUDE, strip_type_bottom=strip_type_bottom):
-            set_sim_top_naked_state(sim_info, True)
-            set_sim_bottom_naked_state(sim_info, strip_type_bottom == StripType.NUDE)
-            set_sim_top_underwear_state(sim_info, False)
-            set_sim_bottom_underwear_state(sim_info, strip_type_bottom == StripType.UNDERWEAR)
+        strip_outfit(sim_info, strip_type_top=StripType.NUDE, strip_type_bottom=strip_type_bottom)
+        set_sim_top_naked_state(sim_info, True)
+        set_sim_bottom_naked_state(sim_info, strip_type_bottom == StripType.NUDE)
+        set_sim_top_underwear_state(sim_info, False)
+        set_sim_bottom_underwear_state(sim_info, strip_type_bottom == StripType.UNDERWEAR)
     elif actor_data.get_naked_type() == SexNakedType.BOTTOM:
         if bottom_body_state == BodyState.NUDE:
             return
         has_top_underwear_on = TurboSimUtil.Gender.is_female(sim_info) and (is_underwear_outfit(get_modified_outfit(sim_info)[0]) and is_sim_top_underwear(sim_info))
         strip_type_top = StripType.NONE if not is_sim_outfit_fullbody(sim_info) else StripType.UNDERWEAR if has_top_underwear_on else StripType.NUDE
-        if strip_outfit(sim_info, strip_type_top=strip_type_top, strip_type_bottom=StripType.NUDE):
-            set_sim_top_naked_state(sim_info, strip_type_top == StripType.NUDE)
-            set_sim_bottom_naked_state(sim_info, True)
-            set_sim_top_underwear_state(sim_info, strip_type_top == StripType.UNDERWEAR)
-            set_sim_bottom_underwear_state(sim_info, False)
+        strip_outfit(sim_info, strip_type_top=strip_type_top, strip_type_bottom=StripType.NUDE)
+        set_sim_top_naked_state(sim_info, strip_type_top == StripType.NUDE)
+        set_sim_bottom_naked_state(sim_info, True)
+        set_sim_top_underwear_state(sim_info, strip_type_top == StripType.UNDERWEAR)
+        set_sim_bottom_underwear_state(sim_info, False)
 

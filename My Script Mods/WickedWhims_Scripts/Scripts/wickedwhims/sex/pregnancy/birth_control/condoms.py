@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from enums.traits_enum import SimTrait
 from turbolib.manager_util import TurboManagerUtil
@@ -85,15 +92,16 @@ def try_auto_apply_condoms(sex_handler, sims_list):
             is_pregnancy_sex = True
             break
         while len(sims_list) == 2 and sex_handler.get_animation_instance().get_sex_category() == SexCategoryType.VAGINAL:
-            for (action_actor_id, actor_sim_info) in sims_list:
-                if actor_id == action_actor_id:
-                    pass
-                if actor_sim_info is sim_info:
-                    pass
-                if not can_sim_impregnate(actor_sim_info):
-                    pass
-                is_pregnancy_sex = True
-                break
+            while True:
+                for (action_actor_id, actor_sim_info) in sims_list:
+                    if actor_id == action_actor_id:
+                        pass
+                    if actor_sim_info is sim_info:
+                        pass
+                    if not can_sim_impregnate(actor_sim_info):
+                        pass
+                    is_pregnancy_sex = True
+                    break
     if is_pregnancy_sex is False:
         return False
     condom_sims = list()

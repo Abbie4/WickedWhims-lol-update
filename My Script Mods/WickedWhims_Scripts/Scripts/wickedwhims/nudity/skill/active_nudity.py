@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.relationship_enum import SimRelationshipBit, RelationshipTrackType
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
@@ -10,11 +17,10 @@ from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
 from wickedwhims.utils_sims import is_sim_available
 
-
 def update_sim_nudity_skill_on_active_nudity(sim_identifier):
-    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN):
         return
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN:
         return
     if is_sim_in_sex(sim_identifier) or is_sim_going_to_sex(sim_identifier):
         return
@@ -49,13 +55,13 @@ def _get_sims_around_value(sim_identifier, max_sims=6):
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            continue
+            pass
         if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.BABY, or_equal=True):
-            continue
+            pass
         if not is_sim_available(target):
-            continue
+            pass
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            continue
+            pass
         points_collection.append(_get_sim_nudity_value(sim, target))
     points_collection = sorted(points_collection, reverse=True)
     high_value = sum(points_collection[:int(max_sims/2)])
@@ -70,7 +76,7 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TODDLER:
         base_modifier = -0.5
     elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
-        base_modifier = 1.0
+        base_modifier = -1.0
     else:
         sim_outfit_level = get_sim_outfit_level(sim_info)
         target_outfit_level = get_sim_outfit_level(target_sim_info)

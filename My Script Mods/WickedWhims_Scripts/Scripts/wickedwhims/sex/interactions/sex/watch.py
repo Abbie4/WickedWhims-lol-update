@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.interactions_enum import SimInteraction
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.sim_util import TurboSimUtil
@@ -5,7 +12,6 @@ from turbolib.types_util import TurboTypesUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sxex_bridge.sex import is_sim_in_sex
-
 
 class WatchSexInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'WatchSexInteraction'

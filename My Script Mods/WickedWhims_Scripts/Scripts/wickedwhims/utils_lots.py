@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.tags_enum import GameTag
 from turbolib.events.buildbuy import register_buildbuy_state_change_event_method
@@ -13,7 +20,6 @@ from wickedwhims.sex.animations.animations_handler import get_available_sex_anim
 from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.utils_objects import get_object_fixed_direction
 LOT_DATA_CACHE = None
-
 
 class RoomType(TurboEnum):
     __qualname__ = 'RoomType'

@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import datetime
 import os
 from turbolib.l18n_util import TurboL18NUtil
@@ -41,16 +48,16 @@ def _export_current_settings():
     save_export_dict = _get_settings_export_dict()
 
     def _get_first_free_name():
-        i = 0
+        i = 1
+        first_free_name = ''.join(('My_Sexy_Settings_', str(i)))
         found_free_name = True
-        first_free_name = None
-        while found_free_name is False:
+        for save_name in save_export_dict.keys():
+            while save_name.lower() == first_free_name.lower():
+                found_free_name = False
+                break
+        if found_free_name is False:
             i += 1
-            first_free_name = ''.join(('My_Sexy_Settings_', str(i)))
-            for save_name in save_export_dict.keys():
-                while save_name.lower() == first_free_name.lower():
-                    found_free_name = False
-                    break
+            continue
         return first_free_name
 
     def _export_done_dialog_callback(_):

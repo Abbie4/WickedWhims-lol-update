@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 import random
 from enums.traits_enum import SimTrait
 from turbolib.manager_util import TurboManagerUtil
@@ -30,9 +37,9 @@ def trigger_sex_autonomy_interaction(sims_pair, sex_location, sex_category_types
     animation_instance = None
     for sex_category_type in sex_category_types:
         if not is_sim_allowed_for_animation(sims_pair, sex_category_type):
-            continue
+            pass
         animation_instance = get_random_animation_of_type(sex_category_type, object_identifier, genders, ignore_animations=get_autonomy_disabled_sex_animations())
-        if animation_instance is not None:
+        while animation_instance is not None:
             break
     if animation_instance is None:
         return False
@@ -86,14 +93,14 @@ def get_sims_risk_chance_for_sex_autonomy(sims_list, location_style):
     risk_chance = 1.0
     for sim in sims_list:
         sim_age = TurboSimUtil.Age.get_age(sim)
-        if (sim_age == TurboSimUtil.Age.TEEN or sim_age == TurboSimUtil.Age.CHILD):
+        if sim_age == TurboSimUtil.Age.TEEN:
             risk_chance -= 0.05
         else:
-            if sim_age == TurboSimUtil.Age.ELDER:
+            while sim_age == TurboSimUtil.Age.ELDER:
                 risk_chance -= 0.1
     if location_style == LocationStyleType.PRIVACY or (location_style == LocationStyleType.COMFORT or location_style == LocationStyleType.SEMI_OPEN) or location_style == LocationStyleType.OPEN:
         for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
-            if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
+            while TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN) and TurboWorldUtil.Lot.is_position_on_active_lot(TurboSimUtil.Location.get_position(sim)):
                 risk_chance -= 0.05
     return risk_chance
 

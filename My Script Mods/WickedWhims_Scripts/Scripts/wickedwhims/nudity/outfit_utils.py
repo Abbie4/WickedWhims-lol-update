@@ -1,3 +1,10 @@
+'''
+This file is part of WickedWhims, licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International public license (CC BY-NC-ND 4.0).
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Copyright (c) TURBODRIVER <https://wickedwhimsmod.com/>
+'''
 from enums.buffs_enum import SimBuff
 from turbolib.cas_util import TurboCASUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -6,7 +13,6 @@ from turbolib.sim_util import TurboSimUtil
 from wickedwhims.sxex_bridge.body import get_sim_actual_body_state, BodyState
 from wickedwhims.sxex_bridge.nudity import update_nude_body_data
 from wickedwhims.utils_buffs import has_sim_buff
-
 
 class OutfitLevel(TurboEnum):
     __qualname__ = 'OutfitLevel'
@@ -20,8 +26,6 @@ class OutfitLevel(TurboEnum):
 def get_sim_outfit_level(sim_identifier, outfit_category_and_index=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     sim_nudity_state = OutfitLevel.OUTFIT
-    if sim_info is None:
-        return sim_nudity_state
     current_outfit = outfit_category_and_index or TurboSimUtil.CAS.get_current_outfit(sim_info)
     if current_outfit[0] == TurboCASUtil.OutfitCategory.BATHING:
         return OutfitLevel.BATHING
