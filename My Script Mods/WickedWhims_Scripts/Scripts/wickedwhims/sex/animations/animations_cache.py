@@ -44,7 +44,7 @@ def has_animation_with_object(object_id, gender):
             animation_cache_category_object_genders_list = animation_cache_category_object_dict[genders_amount]
             for genders_list in animation_cache_category_object_genders_list:
                 for gender_in_list in genders_list:
-                    if gender == gender_in_list:
+                    if gender_in_list == gender:
                         return True
                     if gender_in_list == SexGenderType.BOTH and (gender == SexGenderType.MALE or gender == SexGenderType.FEMALE):
                         return True
@@ -59,9 +59,9 @@ def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
             complete_list.append(SexGenderType.BOTH)
         if sim_gender_copy == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.BOTH)
-        if sim_gender_copy == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
-            complete_list.append(SexGenderType.CBOTH)
         if sim_gender_copy == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
+            complete_list.append(SexGenderType.CBOTH)
+        if sim_gender_copy == SexGenderType.CMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.CBOTH)
         complete_list.append(sim_gender_copy)
     sim_genders_used = list(sim_genders)
@@ -71,25 +71,17 @@ def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
             sim_genders_used.remove(sim_gender)
     if len(complete_list) == 0:
         return True
-    found_genders = False
     for gender in complete_list:
+        found_genders = False
         if gender == SexGenderType.BOTH:
             for sim_gender in sim_genders_used:
-                if sim_gender == SexGenderType.MALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_genders = True
-                    break
-                if sim_gender == SexGenderType.FEMALE:
+                if sim_gender == SexGenderType.MALE or sim_gender == SexGenderType.FEMALE:
                     sim_genders_used.remove(sim_gender)
                     found_genders = True
                     break
         elif gender == SexGenderType.CBOTH:
             for sim_gender in sim_genders_used:
-                if sim_gender == SexGenderType.CMALE:
-                    sim_genders_used.remove(sim_gender)
-                    found_genders = True
-                    break
-                if sim_gender == SexGenderType.CFEMALE:
+                if sim_gender == SexGenderType.CMALE or sim_gender == SexGenderType.CFEMALE:
                     sim_genders_used.remove(sim_gender)
                     found_genders = True
                     break

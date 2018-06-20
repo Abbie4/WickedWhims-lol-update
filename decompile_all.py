@@ -8,4 +8,6 @@ if not os.path.exists(ea_folder):
 gameplay_folder_data = os.path.join(game_folder, 'Data', 'Simulation', 'Gameplay')
 gameplay_folder_game = os.path.join(game_folder, 'Game', 'Bin', 'Python')
 
-decompile_dir('./decompiled')
+# decompile_dir('./decompiled')
+extract_folder(ea_folder,gameplay_folder_data)
+extract_folder(ea_folder,gameplay_folder_game)
