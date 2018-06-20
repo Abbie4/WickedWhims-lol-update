@@ -397,6 +397,24 @@
          "Dagangsta"
       ],
       [
+         501,
+         "MiniGiles_Diaphallia",
+         "LoveBelow Diphallia",
+         "MiniGiles"
+      ],
+      [ 
+         502,
+         "MiniGiles_Vertical_Diaphallia",
+         "LoveBelow *Vertical* Diphallia",
+         "MiniGiles"
+      ],
+      [
+         503,
+         "MiniGiles_Shafted_Celestrain",
+         "LoveBelow Shafted Celestrian",
+         "MiniGiles"
+      ],
+      [
          600,
          "Penis_Churchai",
          "Churchai Child",
@@ -1116,6 +1134,18 @@
       "PENIS_lillithv2b":{
          "PENIS_HARD_CAS_PART_ID_CHILD":13277407424995034896,
          "PENIS_HARD_CAS_TEXTURE_ID_CHILD": 9223372039768271558
+      },
+      "MiniGiles_Diaphallia":{
+         "PENIS_SOFT_CAS_PART_ID_MMF":14630425974063069204,
+         "PENIS_HARD_CAS_PART_ID_MMF":15598348091856858610
+      },
+     "MiniGiles_Vertical_Diaphallia":{
+         "PENIS_SOFT_CAS_PART_ID_MMF":9431078488139155075,
+         "PENIS_HARD_CAS_PART_ID_MMF":11261635391992758759
+      },
+     "MiniGiles_Shafted_Celestrain":{
+         "PENIS_SOFT_CAS_PART_ID_MMF":18299327931902899849,
+         "PENIS_HARD_CAS_PART_ID_MMF":15335206778036027872
       }
    },
 
@@ -1351,6 +1381,18 @@
          "Strapon_Azmodan22_Female",
          "Azmodan22 Female Strapon",
          "Azmodan22"
+      ],
+      [
+         20,
+         "Strapon_MiniGiles_HotFus",
+         "LoveBelow SkyrimFantasies Edition Hot Fus Stallion Style Strap-On",
+         "MiniGiles"
+      ],
+      [	
+         21,
+         "Strapon_MiniGiles_AlphaLich",
+         "LoveBelow SkyrimFantasies Edition Alpha-Lich DoubleEnded Strap-On",
+         "MiniGiles"
       ]
    ],
    "_STRAPON_PARTS":{
@@ -1374,6 +1416,20 @@
          17564824903314514029,
          11701898016962346052,
          12256572452638468176
+      ],
+      "Strapon_MiniGiles_HotFus":[
+         12820499204938184418,
+         17027880482251088260,
+         16872153384434695286,
+         14727079296845796166,
+         10483450363074719063,
+         18286629815170425746
+      ],
+      "Strapon_MiniGiles_AlphaLich":[
+         14793655375203257128,
+         13175402256733636286,
+         9338950497735163637,
+         14610797525684074839
       ]
    },
 
