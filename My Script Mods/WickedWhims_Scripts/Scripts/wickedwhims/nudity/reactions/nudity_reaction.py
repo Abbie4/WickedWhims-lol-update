@@ -35,9 +35,9 @@ def react_to_sims_nudity(sim):
     full_reaction_cooldown = sim_ev(sim).full_nudity_reaction_cooldown
     inner_reaction_cooldown = sim_ev(sim).inner_nudity_reaction_cooldown
     if full_reaction_cooldown > 0:
-        pass
+        return False
     if inner_reaction_cooldown > 0:
-        pass
+        return False
     if full_reaction_cooldown > 0 and inner_reaction_cooldown > 0:
         return False
     if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
@@ -54,22 +54,22 @@ def react_to_sims_nudity(sim):
     targets = list()
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            pass
+            continue
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
-            pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
-            pass
+            continue
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
+            continue
         if is_sim_in_sex(target):
-            pass
+            continue
         if not TurboSimUtil.Location.is_visible(target):
-            pass
+            continue
         if TurboSimUtil.Spawner.is_leaving(target):
-            pass
+            continue
         target_outfit_level = get_sim_outfit_level(target)
         if target_outfit_level != OutfitLevel.NUDE and target_outfit_level != OutfitLevel.BATHING:
-            pass
+            continue
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            pass
+            continue
         if target_outfit_level == OutfitLevel.BATHING:
             extra_skill_level = 1
         else:
@@ -78,7 +78,7 @@ def react_to_sims_nudity(sim):
         if has_permission_to_nudity is None:
             has_permission_to_nudity = has_sim_permission_for_nudity(sim, extra_skill_level=extra_skill_level)[0]
         if has_permission_to_nudity is True:
-            pass
+            continue
         targets.append(target)
     if targets:
         is_mixer_only = _is_only_mixer_reaction(sim)
@@ -126,7 +126,7 @@ def _is_only_mixer_reaction(sim):
 
 
 def _is_positive_to_sim_nudity(sim, target):
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD, or_equal=True):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return False
     if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.ROMANTIC_HAVEDONEWOOHOO):
         return True
@@ -142,7 +142,7 @@ def _is_positive_to_sim_nudity(sim, target):
         return False
     if TurboSimUtil.Gender.get_gender(target) not in get_sim_preferenced_genders(sim):
         chance = 0.15
-        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD:
             chance += 0.05
         if has_sim_mood(sim, SimMood.FLIRTY):
             chance += 0.05

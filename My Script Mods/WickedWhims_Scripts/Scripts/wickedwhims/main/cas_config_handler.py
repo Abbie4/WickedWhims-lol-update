@@ -255,7 +255,7 @@ def get_underwear_part_sets(sim_gender, is_sim_child=False):
         CAS_PARTS_DICT = get_pre_cas_parts_dict()
     cas_parts = CAS_PARTS_DICT
     if is_sim_child:
-        underwear_key = '_UNDERWEAR_CHILD_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_CHILD_FEMALE_PARTS'	+        cas_parts = get_pre_cas_parts_dict()
+        underwear_key = '_UNDERWEAR_CHILD_MALE_PARTS' if sim_gender == TurboSimUtil.Gender.MALE else '_UNDERWEAR_CHILD_FEMALE_PARTS'
         if underwear_key not in cas_parts:
             if '_UNDERWEAR_MALE_PARTS' in cas_parts and underwear_key == '_UNDERWEAR_CHILD_MALE_PARTS':
                 underwear_key = '_UNDERWEAR_MALE_PARTS'

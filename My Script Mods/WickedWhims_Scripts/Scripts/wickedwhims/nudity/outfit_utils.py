@@ -19,6 +19,8 @@ class OutfitLevel(TurboEnum):
 def get_sim_outfit_level(sim_identifier, outfit_category_and_index=None):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     sim_nudity_state = OutfitLevel.OUTFIT
+    if sim_info is None:
+        return sim_nudity_state
     current_outfit = outfit_category_and_index or TurboSimUtil.CAS.get_current_outfit(sim_info)
     if current_outfit[0] == TurboCASUtil.OutfitCategory.BATHING:
         return OutfitLevel.BATHING

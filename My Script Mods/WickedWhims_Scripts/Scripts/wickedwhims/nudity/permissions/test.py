@@ -24,9 +24,9 @@ class NudityPermissionDenied(TurboEnum):
 
 def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, extra_skill_level=0, **kwargs):
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
     if nudity_setting_test is True and not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
         return (True, tuple())
@@ -42,7 +42,7 @@ def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, ext
     denied_permissions = set()
     for permission_check in (_home_test, _outside_test, _sims_test):
         test_result = permission_check(sim, score, **kwargs)
-        while test_result and test_result[0] != 0:
+        if test_result and test_result[0] != 0:
             score += test_result[0]
             denied_permissions.add(test_result[1])
             if score <= 0:
@@ -69,15 +69,15 @@ def _sims_test(sim, current_score, targets=(), **__):
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 10.0)
     for target in targets or TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            pass
+            continue
         if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TODDLER, or_equal=True):
-            pass
+            continue
         if not is_sim_available(target):
-            pass
+            continue
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            pass
+            continue
         penalty_score -= _get_sim_value(sim, target)*(6 - get_sim_nudity_skill_level(sim))
-        while current_score + penalty_score <= 0:
+        if current_score + penalty_score <= 0:
             break
     return (penalty_score, NudityPermissionDenied.TOO_MANY_SIMS_AROUND)
 

@@ -33,7 +33,7 @@ class _NudityUndressOutfitTopInteraction(TurboSuperInteraction, TurboInteraction
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -99,7 +99,7 @@ class _NudityUndressOutfitBottomInteraction(TurboSuperInteraction, TurboInteract
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -220,7 +220,7 @@ class _NudityUndressOutfitInteraction(TurboSuperInteraction, TurboInteractionSet
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -290,7 +290,7 @@ class _NudityUndressToNudeInteraction(TurboSuperInteraction, TurboInteractionSet
     @classmethod
     def on_interaction_test(cls, interaction_context, interaction_target):
         sim = cls.get_interaction_sim(interaction_context)
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN:
+        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
             return False
         if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
             return False
@@ -352,12 +352,14 @@ def _has_permission_to_undress(interaction_sim, interaction_context):
         return False
     text_tokens = [interaction_sim]
     for denied_permission in denied_permissions:
+        if denied_permission is None:
+            continue
         if denied_permission == NudityPermissionDenied.NOT_AT_HOME:
             text_tokens.append(2434379342)
         elif denied_permission == NudityPermissionDenied.OUTSIDE:
             text_tokens.append(14125364)
         else:
-            while denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
+            if denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
                 text_tokens.append(902300171)
     for _ in range(11 - len(text_tokens)):
         text_tokens.append(0)
@@ -398,7 +400,7 @@ class _NudityDressUpOutfitInteraction(TurboSuperInteraction, TurboInteractionCon
                     elif denied_permission == NudityPermissionDenied.OUTSIDE:
                         text_tokens.append(14125364)
                     else:
-                        while denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
+                        if denied_permission == NudityPermissionDenied.TOO_MANY_SIMS_AROUND:
                             text_tokens.append(902300171)
             for _ in range(11 - len(text_tokens)):
                 text_tokens.append(0)
