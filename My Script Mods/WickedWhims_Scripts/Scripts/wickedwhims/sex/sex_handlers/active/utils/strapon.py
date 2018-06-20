@@ -32,7 +32,7 @@ def update_stapon(sim_identifier, actor_data=None, is_npc_only=False, force_remo
     allows_strapon = False
     if actor_data is not None and actor_data.is_allowing_strapon():
         allows_strapon = True
-    elif actor_data is not None and actor_data.get_final_gender_type() == SexGenderType.MALE:
+    elif actor_data is not None and (actor_data.get_final_gender_type() == SexGenderType.MALE or actor_data.get_final_gender_type() == SexGenderType.CMALE):
         allows_strapon = True
     if is_strapon_on_sim(sim_info):
         if allows_strapon is False and get_sex_setting(SexSetting.STRAPON_AUTO_REMOVE_STATE, variable_type=bool):

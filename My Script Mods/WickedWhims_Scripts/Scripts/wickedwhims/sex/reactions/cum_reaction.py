@@ -26,10 +26,6 @@ def _reaction_to_sims_cum(sim):
         return False
     full_reaction_cooldown = sim_ev(sim).full_cum_reaction_cooldown
     inner_reaction_cooldown = sim_ev(sim).inner_cum_reaction_cooldown
-    if full_reaction_cooldown > 0:
-        pass
-    if inner_reaction_cooldown > 0:
-        pass
     if full_reaction_cooldown > 0 and inner_reaction_cooldown > 0:
         return False
     if is_sim_in_sex(sim) or is_sim_going_to_sex(sim):
@@ -44,19 +40,19 @@ def _reaction_to_sims_cum(sim):
     targets = list()
     for target in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim is target:
-            pass
-        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.TEEN):
-            pass
+            continue
+        if TurboSimUtil.Age.is_younger_than(target, TurboSimUtil.Age.CHILD):
+            continue
         if has_relationship_bit_with_sim(sim, target, SimRelationshipBit.WW_JUST_HAD_SEX):
-            pass
+            continue
         if not _has_sim_visible_cum(target):
-            pass
+            continue
         if not TurboSimUtil.Location.is_visible(target):
-            pass
+            continue
         if TurboSimUtil.Spawner.is_leaving(target):
-            pass
+            continue
         if not TurboMathUtil.LineOfSight.test(line_of_sight, TurboSimUtil.Location.get_position(target)):
-            pass
+            continue
         targets.append(target)
     if targets:
         is_mixer_only = _is_only_mixer_reaction(sim)

@@ -21,22 +21,45 @@ class SexGenderType(TurboEnum):
     ALIEN_MALE = 10
     ALIEN_FEMALE = 11
     ALIEN_BOTH = 12
+    CMALE = 13
+    CFEMALE = 14
+    CBOTH = 15
 
 
 def get_sim_sex_gender(sim_identifier, ignore_sim_specific_gender=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
     if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.SEX_BASED:
-        if TurboSimUtil.Gender.get_gender(sim_info) == TurboSimUtil.Gender.MALE:
-            return SexGenderType.MALE
-        return SexGenderType.FEMALE
-    else:
-        if sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.MALE:
-            return SexGenderType.MALE
-        if ignore_sim_specific_gender is False and get_sex_setting(SexSetting.GENDER_RECOGNITION_SIM_SPECIFIC_STATE, variable_type=bool) and sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.FEMALE:
+        is_male = TurboSimUtil.Gender.get_gender(sim_info) == TurboSimUtil.Gender.MALE
+        if sim_is_child:
+            if is_male:
+                return SexGenderType.CMALE
+            return SexGenderType.CFEMALE
+        else:
+            if is_male:
+                return SexGenderType.MALE
             return SexGenderType.FEMALE
-        if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
-            return SexGenderType.MALE
-        return SexGenderType.FEMALE
+    else:
+        is_gender_recognized_male = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.MALE
+        is_gender_recognized_female = sim_ev(sim_info).gender_recognition == TurboSimUtil.Gender.FEMALE
+        is_gender_specific_to_sims = get_sex_setting(SexSetting.GENDER_RECOGNITION_SIM_SPECIFIC_STATE, variable_type=bool)
+        has_toilet_standing_trait = has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING)
+        if sim_is_child:
+            if is_gender_recognized_male:
+                return SexGenderType.CMALE
+            if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
+                return SexGenderType.CFEMALE
+            if has_toilet_standing_trait:
+                return SexGenderType.CMALE
+            return SexGenderType.CFEMALE
+        else:
+            if is_gender_recognized_male:
+                return SexGenderType.MALE
+            if ignore_sim_specific_gender is False and is_gender_specific_to_sims and is_gender_recognized_female:
+                return SexGenderType.FEMALE
+            if has_toilet_standing_trait:
+                return SexGenderType.MALE
+            return SexGenderType.FEMALE
 
 
 def get_sex_gender_type_by_name(name):
@@ -47,5 +70,11 @@ def get_sex_gender_type_by_name(name):
         return SexGenderType.FEMALE
     if name == 'BOTH':
         return SexGenderType.BOTH
+    if name == 'CMALE':
+        return SexGenderType.CMALE
+    if name == 'CFEMALE':
+        return SexGenderType.CFEMALE
+    if name == 'CBOTH':
+        return SexGenderType.CBOTH
     return SexGenderType.NONE
 

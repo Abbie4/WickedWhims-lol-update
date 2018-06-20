@@ -14,7 +14,7 @@ def setup_sim_nude_outfit(sim_info):
 
 def update_nude_body_data(sim_identifier, force_update=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
-    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.TEEN):
+    if TurboSimUtil.Age.is_younger_than(sim_info, TurboSimUtil.Age.CHILD):
         return
     if has_sim_trait(sim_info, SimTrait.GENDEROPTIONS_TOILET_STANDING):
         from wickedwhims.sxex_bridge.penis import get_penis_soft_cas_id, get_penis_soft_texture_cas_id, get_penis_hard_cas_id, get_penis_hard_texture_cas_id
@@ -63,7 +63,7 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
         outfit_editor = TurboCASUtil.OutfitEditor(sim_identifier, outfit_category_and_index=(TurboCASUtil.OutfitCategory.BATHING, 0))
     except RuntimeError:
         return False
-    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD):
+    if nude_outfit_assurance is True and TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.CHILD, or_equal=True):
         for bodytype in (TurboCASUtil.BodyType.UPPER_BODY, TurboCASUtil.BodyType.LOWER_BODY, TurboCASUtil.BodyType.SHOES):
             outfit_editor.add_cas_part(bodytype, get_default_nude_cas_part_id(sim_identifier, bodytype))
         if has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_TOILET_STANDING) and sim_ev(data_holder_sim_info).nude_outfit_parts[TurboCASUtil.BodyType.LOWER_BODY] != -1:
@@ -75,6 +75,24 @@ def _generate_sim_nude_outfit(sim_identifier, data_holder_sim_info, nude_outfit_
 
 
 def get_default_nude_cas_part_id(sim_identifier, bodytype):
+    sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
+    if sim_info is None:
+        sim_info = TurboManagerUtil.Sim.get_active_sim()
+    sim_is_child = TurboSimUtil.Age.get_age(sim_info) is TurboSimUtil.Age.CHILD
+    if sim_is_child:
+        if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
+            if TurboSimUtil.Gender.is_male(sim_identifier):
+                return 22069
+            else:
+                return 62394
+        if bodytype == TurboCASUtil.BodyType.LOWER_BODY:
+            if TurboSimUtil.Gender.is_male(sim_identifier):
+                return 11128915431855097336
+            else:
+                return 22074
+        if bodytype == TurboCASUtil.BodyType.SHOES:
+            return 22018
+        return -1
     if bodytype == TurboCASUtil.BodyType.UPPER_BODY:
         return 6562
     if bodytype == TurboCASUtil.BodyType.LOWER_BODY:

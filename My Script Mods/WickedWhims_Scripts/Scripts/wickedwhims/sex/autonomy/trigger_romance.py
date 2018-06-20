@@ -45,7 +45,7 @@ def _wickedwhims_on_sex_autonomy_romance_interactions_outcome(interaction_instan
         return
     if not get_sex_setting(SexSetting.PLAYER_AUTONOMY_STATE, variable_type=bool) and TurboSimUtil.Sim.is_player(sim_info) and TurboSimUtil.Sim.is_player(target_sim_info):
         return
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN):
+    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_info) == TurboSimUtil.Age.CHILD or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD):
         return
     if int(GameTag.SOCIAL_FLIRTY) not in TurboInteractionUtil.get_affordance_tags(interaction_instance):
         return

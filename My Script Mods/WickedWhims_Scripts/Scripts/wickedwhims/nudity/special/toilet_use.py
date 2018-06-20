@@ -67,20 +67,20 @@ def _update_dress_up_after_toilet_use_on_game_update():
     has_sims_peeing = False
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.NONE:
-            pass
+            continue
         has_sims_peeing = True
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
-            pass
+            continue
         is_using_toilet = False
         for affordance_id in TOILET_USE_INTERACTIONS:
-            while TurboSimUtil.Interaction.is_running_interaction(sim, affordance_id):
+            if TurboSimUtil.Interaction.is_running_interaction(sim, affordance_id):
                 is_using_toilet = True
                 break
         if is_using_toilet is True:
             has_sims_peeing = True
         current_outfit = TurboSimUtil.CAS.get_current_outfit(sim)
         if not (current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0):
-            pass
+            continue
         current_outfit = get_modified_outfit(sim)
         if sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.UNDERWEAR:
             set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_underwear_data(sim, current_outfit)[1])
@@ -88,7 +88,7 @@ def _update_dress_up_after_toilet_use_on_game_update():
             try:
                 TurboSimUtil.CAS.refresh_outfit(sim)
             except:
-                pass
+                continue
         elif sim_ev(sim).on_toilet_outfit_state == OutfitStateBeforeToiletUse.OUTFIT and has_sim_outfit_bottom(sim, outfit_category_and_index=current_outfit):
             set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_outfit_cas_part_from_bodytype(sim, TurboCASUtil.BodyType.LOWER_BODY, outfit_category_and_index=current_outfit))
             set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.TIGHTS, get_sim_outfit_cas_part_from_bodytype(sim, TurboCASUtil.BodyType.TIGHTS, outfit_category_and_index=current_outfit))
@@ -97,7 +97,7 @@ def _update_dress_up_after_toilet_use_on_game_update():
             try:
                 TurboSimUtil.CAS.refresh_outfit(sim)
             except:
-                pass
+                continue
         elif is_sim_outfit_fullbody(sim, outfit_category_and_index=current_outfit):
             dress_up_outfit(sim)
         else:
