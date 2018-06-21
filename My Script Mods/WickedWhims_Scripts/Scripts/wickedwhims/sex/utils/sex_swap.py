@@ -2,8 +2,6 @@ from turbolib.sim_util import TurboSimUtil
 from turbolib.manager_util import TurboManagerUtil
 from wickedwhims.sex.enums.sex_gender import SexGenderType, get_sim_sex_gender
 from wickedwhims.sex.settings.sex_settings import SexGenderTypeSetting, SexSetting, get_sex_setting
-from turbolib.special.custom_exception_watcher import log_message
-
 
 def is_compatible_actor(sim_identifier, sim_actor, target_sim_identifier, target_actor):
     if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
@@ -24,7 +22,7 @@ def is_compatible_actor(sim_identifier, sim_actor, target_sim_identifier, target
 
     if swap_from_animation_gender == swap_to_animation_gender or swap_from_real_sex_gender == swap_to_real_sex_gender or (gender_sim_identifier == gender_target_sim_identifier and swap_from_is_adult and swap_to_is_adult):
         return True
-    
+
     swap_from_is_both = swap_from_animation_gender == SexGenderType.BOTH and swap_from_is_adult
     swap_to_is_both = swap_to_animation_gender == SexGenderType.BOTH and swap_to_is_adult
 

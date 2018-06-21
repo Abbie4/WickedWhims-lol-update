@@ -1,14 +1,10 @@
 import objects.system
-import routing
 import services
-import terrain
 from objects.doors.door import Door
 from objects.object_enums import ResetReason
 from objects.puddles import PuddleSize, PuddleLiquid, create_puddle
-from objects.stairs.stairs import Stairs
+from objects.terrain import TerrainPoint
 from placement import get_accurate_placement_footprint_polygon
-from turbolib.math_util import TurboMathUtil
-
 
 class TurboObjectUtil:
     __qualname__ = 'TurboObjectUtil'
@@ -89,6 +85,13 @@ class TurboObjectUtil:
         def get_game_tags(game_object):
             return game_object.get_tags()
 
+    class Terrain:
+        __qualname__ = 'TurboObjectUtil.Terrain'
+
+        @staticmethod
+        def create_terrain_point(position, routing_surface):
+            return TerrainPoint.create_for_position_and_orientation(position, routing_surface)
+
     class Position:
         __qualname__ = 'TurboObjectUtil.Position'
 
@@ -119,52 +122,10 @@ class TurboObjectUtil:
         __qualname__ = 'TurboObjectUtil.Portal'
 
         @staticmethod
-        def get_all_gen(only_doors=False, only_stairs=False):
+        def get_all_doors_gen():
             for portal_object in services.object_manager().portal_cache_gen():
-                if only_doors is True:
-                    while isinstance(portal_object, Door):
-                        yield portal_object
-                        if only_stairs is True:
-                            while isinstance(portal_object, Stairs):
-                                yield portal_object
-                                yield portal_object
-                        yield portal_object
-                if only_stairs is True:
-                    while isinstance(portal_object, Stairs):
-                        yield portal_object
-                        yield portal_object
-                yield portal_object
-
-        @staticmethod
-        def get_door_sides(portal_object):
-            door_pos = portal_object.transform.translation
-            door_orient = portal_object.transform.orientation
-            pos_offset = door_orient.transform_vector(TurboMathUtil.Position.get_vector3(0.0, 0.0, 0.85))
-            door_position_1 = door_pos + pos_offset
-            door_position_2 = door_pos - pos_offset
-            door_position_1.y = terrain.get_lot_level_height(door_position_1.x, door_position_1.z, portal_object.routing_surface.secondary_id, portal_object.routing_surface.primary_id)
-            door_position_2.y = terrain.get_lot_level_height(door_position_2.x, door_position_2.z, portal_object.routing_surface.secondary_id, portal_object.routing_surface.primary_id)
-            return (door_position_1, door_position_2)
-
-        @staticmethod
-        def get_stairs_sides(portal_object):
-            stair_lanes = routing.get_stair_portals(portal_object.id, portal_object.zone_id)
-            if stair_lanes is None or len(stair_lanes) == 0:
-                return ()
-            for lane in stair_lanes:
-                for end_set in lane:
-                    lane_start = end_set[0]
-                    lane_end = end_set[1]
-                    start_pos = lane_start[0]
-                    end_pos = lane_end[0]
-                    stairs_position_1 = TurboMathUtil.Position.get_vector3(start_pos[0], start_pos[1], start_pos[2])
-                    stairs_position_1.y = terrain.get_lot_level_height(stairs_position_1.x, stairs_position_1.z, lane_start[1].secondary_id, lane_start[1].primary_id)
-                    stairs_level_1 = lane_start[1].secondary_id
-                    stairs_position_2 = TurboMathUtil.Position.get_vector3(end_pos[0], end_pos[1], end_pos[2])
-                    stairs_position_2.y = terrain.get_lot_level_height(stairs_position_2.x, stairs_position_2.z, lane_end[1].secondary_id, lane_end[1].primary_id)
-                    stairs_level_2 = lane_end[1].secondary_id
-                    yield (stairs_position_1, stairs_level_1, stairs_position_2, stairs_level_2)
-            return ()
+                while isinstance(portal_object, Door):
+                    yield portal_object
 
     class Mannequin:
         __qualname__ = 'TurboObjectUtil.Mannequin'
@@ -221,12 +182,19 @@ class TurboObjectUtil:
             WATER = _get_puddle_liquid(0)
             DARK_MATTER = _get_puddle_liquid(1)
             GREEN_GOO = _get_puddle_liquid(2)
+            VOMIT = _get_puddle_liquid(57345)
+            MUD = _get_puddle_liquid(59393)
 
         @staticmethod
         def create_puddle(game_object_target, puddle_liquid, puddle_size, max_distance=8):
             puddle = create_puddle(puddle_size, puddle_liquid)
             if puddle:
-                puddle.place_puddle(game_object_target, max_distance=max_distance)
+                TurboObjectUtil.Puddle.place_puddle(puddle, game_object_target, max_distance=max_distance)
+            return False
+
+        @staticmethod
+        def place_puddle(puddle_object, game_object_target, max_distance=8):
+            return puddle_object.place_puddle(game_object_target, max_distance=max_distance)
 
     class Special:
         __qualname__ = 'TurboObjectUtil.Special'

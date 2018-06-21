@@ -13,9 +13,7 @@ from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
 from wickedwhims.utils_buffs import add_sim_buff
 from wickedwhims.utils_cas import get_modified_outfit
 from wickedwhims.utils_interfaces import display_notification
-
 JUMPING_INTERACTIONS = (128702, 128703, 128704, 128705)
-
 
 @register_interaction_run_event_method(unique_id='WickedWhims')
 def _wickedwhims_undress_swimwear_on_jumping_to_water(interaction_instance):

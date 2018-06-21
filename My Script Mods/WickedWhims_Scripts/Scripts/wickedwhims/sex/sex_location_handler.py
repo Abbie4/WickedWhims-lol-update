@@ -3,7 +3,6 @@ from enums.tags_enum import GameTag
 from turbolib.object_util import TurboObjectUtil
 from turbolib.types_util import TurboTypesUtil
 
-
 class SexLocationType:
     __qualname__ = 'SexLocationType'
     FLOOR = 'FLOOR'

@@ -3,7 +3,6 @@ from turbolib.resources.affordances import register_affordance_class, Affordance
 from turbolib.tunable_util import TurboTunableUtil
 from wickedwhims.utils_rewards import register_satisfaction_reward
 
-
 @register_zone_load_event_method(unique_id='WickedWhims', priority=5, late=True)
 def _wickedwhims_add_relationship_satisfaction_rewards():
     if has_game_loaded():

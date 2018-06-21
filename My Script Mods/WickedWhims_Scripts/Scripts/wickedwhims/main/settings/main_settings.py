@@ -10,7 +10,6 @@ from wickedwhims.utils_interfaces import display_picker_list_dialog, display_okc
 MAIN_SETTINGS_OPTIONS = list()
 IS_TIME_PAUSED = True
 
-
 class DisplayMainSettingsInteraction(TurboTerrainImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisplayMainSettingsInteraction'
 

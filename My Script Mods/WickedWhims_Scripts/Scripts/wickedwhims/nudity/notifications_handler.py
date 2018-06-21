@@ -12,9 +12,10 @@ def nudity_notification(text=None, text_tokens=(), title=None, title_tokens=(), 
         if notifications_visibility_type == NudityNotificationsTypeSetting.AUTONOMY and is_autonomy is False:
             return
         if get_nudity_setting(NuditySetting.NOTIFICATIONS_HOUSEHOLD_LIMIT_STATE, variable_type=bool):
-            for included_sim_info in sims:
-                while TurboSimUtil.Sim.is_npc(included_sim_info):
-                    return
+            while True:
+                for included_sim_info in sims:
+                    while TurboSimUtil.Sim.is_npc(included_sim_info):
+                        return
     if title is None:
         if not sims:
             title = 3145721892

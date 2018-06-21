@@ -28,11 +28,12 @@ def open_strapon_mannequin(sim=None):
     mannequin_component = TurboObjectUtil.Mannequin.get_component(mannequin)
     mannequin_sim_info = TurboObjectUtil.Mannequin.get_mannequin_component_sim_info(mannequin_component)
     TurboObjectUtil.Mannequin.remove_mannequin_protocol_buffer(mannequin)
-    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR):
-        if sim_is_child:
-            TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, 0), {TurboCASUtil.BodyType.HAIR: 12348270534692886420, TurboCASUtil.BodyType.HEAD: 12348270534692886420, TurboCASUtil.BodyType.UPPER_BODY: 62394, TurboCASUtil.BodyType.LOWER_BODY: get_sim_strapon_part_id(sim), TurboCASUtil.BodyType.SHOES: 22018})
-        else:
-            TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, 0), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: 6540, TurboCASUtil.BodyType.LOWER_BODY: get_sim_strapon_part_id(sim), TurboCASUtil.BodyType.SHOES: 6543})
+    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
+        if TurboSimUtil.CAS.has_outfit(sim, (outfit_category, 0)):
+            if sim_is_child:
+                TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, 0), {TurboCASUtil.BodyType.HAIR: 12348270534692886420, TurboCASUtil.BodyType.HEAD: 12348270534692886420, TurboCASUtil.BodyType.UPPER_BODY: 62394, TurboCASUtil.BodyType.LOWER_BODY: get_sim_strapon_part_id(sim), TurboCASUtil.BodyType.SHOES: 22018})
+            else:
+                TurboSimUtil.CAS.set_outfit_parts(mannequin_sim_info, (outfit_category, 0), {TurboCASUtil.BodyType.HAIR: 16045584265534180326, TurboCASUtil.BodyType.HEAD: 16045584265534180326, TurboCASUtil.BodyType.UPPER_BODY: 6540, TurboCASUtil.BodyType.LOWER_BODY: get_sim_strapon_part_id(sim), TurboCASUtil.BodyType.SHOES: 6543})
     TurboObjectUtil.Mannequin.populate_mannequin_protocol_buffer(mannequin_component)
     TurboSimUtil.CAS.set_current_outfit(mannequin_sim_info, TurboSimUtil.CAS.get_current_outfit(sim))
     display_notification(text=1645033536, title=1851298968, information_level=TurboUIUtil.Notification.UiDialogNotificationLevel.PLAYER)

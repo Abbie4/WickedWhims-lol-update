@@ -5,7 +5,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSetting
 from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_planning_for_sex
 
-
 class SetSimGenderRecognitionAsMaleInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SetSimGenderRecognitionAsMaleInteraction'
 

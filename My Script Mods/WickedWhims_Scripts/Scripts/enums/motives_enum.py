@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimMotive(TurboEnum):
     __qualname__ = 'SimMotive'
     HUNGER = 16656

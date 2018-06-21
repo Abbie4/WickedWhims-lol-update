@@ -38,5 +38,6 @@ def _wickedwhims_test_mod_version():
     save_version_dict = get_version_save_data()
     if save_version_dict is not None and (len(save_version_dict) > 0 and 'version' in save_version_dict) and get_mod_version_int() == save_version_dict['version']:
         return
+    update_version_save_data({'ignore_update': False})
     set_mod_update_status(True)
 

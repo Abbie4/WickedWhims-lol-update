@@ -7,7 +7,6 @@ from turbolib.injector_util import inject
 from turbolib.native.enum import TurboEnum
 from turbolib.special.custom_exception_watcher import log_custom_exception
 
-
 class InteractionsTurboEventsHandler(TurboEventsHandler):
     __qualname__ = 'InteractionsTurboEventsHandler'
 
@@ -28,7 +27,6 @@ class InteractionsTurboEventsHandler(TurboEventsHandler):
                 yield event_method(*args)
 
 INTERACTION_EVENTS_HANDLER = InteractionsTurboEventsHandler()
-
 
 class InteractionEventType(TurboEnum):
     __qualname__ = 'InteractionEventType'

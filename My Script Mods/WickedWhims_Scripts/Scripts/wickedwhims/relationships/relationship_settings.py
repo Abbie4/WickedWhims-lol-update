@@ -8,7 +8,6 @@ from wickedwhims.utils_interfaces import display_ok_dialog
 from wickedwhims.utils_saves.save_basics import get_basic_save_data, update_basic_save_data
 RELATIONSHIP_SETTINGS_DICT = dict()
 
-
 class RelationshipSetting:
     __qualname__ = 'RelationshipSetting'
     ROMANCE_AGE_RESTRICTION_STATE = 'romance_age_restrictions'

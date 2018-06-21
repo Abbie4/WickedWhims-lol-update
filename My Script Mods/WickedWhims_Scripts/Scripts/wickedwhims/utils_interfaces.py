@@ -30,16 +30,19 @@ def display_debug(text=None, include_traceback=False, sim_info=None):
     display_notification(text=text, title='Debug', secondary_icon=sim_info, is_safe=True)
 
 
-def display_ok_dialog(text=None, text_tokens=(), title=None, title_tokens=(), callback=None):
+def display_ok_dialog(text=None, text_tokens=(), title=None, title_tokens=(), ok_text=3648501874, ok_text_tokens=(), callback=None):
     localized_text = TurboL18NUtil.get_localized_string(text, text_tokens)
     localized_title = TurboL18NUtil.get_localized_string(title, title_tokens)
-    TurboUIUtil.OkDialog.display(localized_text, localized_title, callback=callback)
+    localized_ok_text = TurboL18NUtil.get_localized_string(ok_text, ok_text_tokens)
+    TurboUIUtil.OkDialog.display(localized_text, localized_title, ok_text=localized_ok_text, callback=callback)
 
 
-def display_okcancel_dialog(text=None, text_tokens=(), title=None, title_tokens=(), callback=None):
+def display_okcancel_dialog(text=None, text_tokens=(), title=None, title_tokens=(), ok_text=3648501874, ok_text_tokens=(), cancel_text=3497542682, cancel_text_tokens=(), callback=None):
     localized_text = TurboL18NUtil.get_localized_string(text, text_tokens)
     localized_title = TurboL18NUtil.get_localized_string(title, title_tokens)
-    TurboUIUtil.OkCancelDialog.display(localized_text, localized_title, callback=callback)
+    localized_ok_text = TurboL18NUtil.get_localized_string(ok_text, ok_text_tokens)
+    localized_cancel_text = TurboL18NUtil.get_localized_string(cancel_text, cancel_text_tokens)
+    TurboUIUtil.OkCancelDialog.display(localized_text, localized_title, ok_text=localized_ok_text, cancel_text=localized_cancel_text, callback=callback)
 
 
 def display_drama_dialog(sim_identifier, target_sim_identifier, text=None, text_tokens=(), ok_text=None, ok_text_tokens=(), cancel_text=None, cancel_text_tokens=(), callback=None):

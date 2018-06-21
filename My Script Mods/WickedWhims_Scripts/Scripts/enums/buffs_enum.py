@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimBuff(TurboEnum):
     __qualname__ = 'SimBuff'
     ADOPTION = 40069

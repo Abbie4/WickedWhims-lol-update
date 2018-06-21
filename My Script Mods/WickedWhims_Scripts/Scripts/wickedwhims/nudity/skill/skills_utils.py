@@ -15,7 +15,6 @@ from wickedwhims.utils_skills import get_sim_skill_level, has_sim_skill, get_sim
 from wickedwhims.utils_statistics import change_sim_statistic_value, get_sim_statistic_value, set_sim_statistic_value
 from wickedwhims.utils_traits import has_sim_trait, has_current_lot_trait
 
-
 class NuditySkillIncreaseReason(TurboEnum):
     __qualname__ = 'NuditySkillIncreaseReason'
     NONE = 0
@@ -32,9 +31,7 @@ class NuditySkillIncreaseReason(TurboEnum):
     SHAMELESS_BONUS_BONUS = 11
     LONER_BONUS = 12
 
-
 NUDITY_SKILL_EXP = {NuditySkillIncreaseReason.BEING_IN_NAKED_OUTFIT: 0.85, NuditySkillIncreaseReason.BEING_IN_BATHING_OUTFIT: 0.25, NuditySkillIncreaseReason.BEING_IN_REVEALING_OUTFIT: 0.1, NuditySkillIncreaseReason.SEEING_NUDITY: 0.1, NuditySkillIncreaseReason.MIRROR_NAKED_OUTFIT: 0.4, NuditySkillIncreaseReason.MIRROR_REVEALING_OUTFIT: 0.15, NuditySkillIncreaseReason.FLASHING_BODY: 5.5, NuditySkillIncreaseReason.SOCIAL_COMPLIMENT: 4.0, NuditySkillIncreaseReason.SOCIAL_CONVINCE: 6.0, NuditySkillIncreaseReason.CONFIDENCE_BONUS: 0.1, NuditySkillIncreaseReason.SHAMELESS_BONUS_BONUS: 0.25, NuditySkillIncreaseReason.LONER_BONUS: 0.15}
-
 
 def get_nudity_skill_points_modifier(nudity_skill_increase_reason):
     return NUDITY_SKILL_EXP[nudity_skill_increase_reason]

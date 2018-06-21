@@ -12,7 +12,6 @@ from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregna
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_relations import get_sim_ids_with_relationsip_bit
 
-
 class DebugPregnancyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugPregnancyInteraction'
 

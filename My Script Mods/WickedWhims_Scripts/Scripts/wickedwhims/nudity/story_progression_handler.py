@@ -9,7 +9,6 @@ from wickedwhims.nudity.nudity_settings import get_nudity_setting, NuditySetting
 from wickedwhims.nudity.skill.skills_utils import get_sim_nudity_skill_level, has_sim_reached_max_nudity_skill_level, get_sim_nudity_skill_progress, increase_sim_nudity_skill
 LAST_DAY_VALUE = -1
 
-
 @register_on_game_update_method(interval=10000)
 def _update_nudity_story_progression_on_game_update():
     global LAST_DAY_VALUE

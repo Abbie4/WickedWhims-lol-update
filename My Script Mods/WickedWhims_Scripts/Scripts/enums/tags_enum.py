@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class GameTag(TurboEnum):
     __qualname__ = 'GameTag'
     MOOD_OPTIMISM = 64

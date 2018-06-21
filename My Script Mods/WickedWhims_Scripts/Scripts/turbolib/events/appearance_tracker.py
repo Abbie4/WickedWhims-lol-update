@@ -4,7 +4,6 @@ from sims4.callback_utils import CallableList
 from turbolib.injector_util import inject
 from turbolib.special.custom_exception_watcher import log_custom_exception
 
-
 @inject(SimInfoBaseWrapper, '__init__')
 def _turbolib_on_sim_info_base_wrapper_init(original, self, *args, **kwargs):
     try:

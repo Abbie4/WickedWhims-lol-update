@@ -86,7 +86,7 @@ def get_sims_risk_chance_for_sex_autonomy(sims_list, location_style):
     risk_chance = 1.0
     for sim in sims_list:
         sim_age = TurboSimUtil.Age.get_age(sim)
-        if (sim_age == TurboSimUtil.Age.TEEN or sim_age == TurboSimUtil.Age.CHILD):
+        if sim_age == TurboSimUtil.Age.TEEN or sim_age == TurboSimUtil.Age.CHILD:
             risk_chance -= 0.05
         else:
             if sim_age == TurboSimUtil.Age.ELDER:

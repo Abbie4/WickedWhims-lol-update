@@ -8,7 +8,6 @@ from wickedwhims.sex.pregnancy.menstrual_cycle_handler import apply_pregnancy_bo
 from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting
 from wickedwhims.utils_interfaces import display_notification
 
-
 class PhonePregnancyFertilityTreatmentInteraction(TurboSuperInteraction):
     __qualname__ = 'PhonePregnancyFertilityTreatmentInteraction'
 

@@ -8,7 +8,6 @@ from turbolib.resource_util import TurboResourceUtil
 from turbolib.special.custom_exception_watcher import log_custom_exception
 AFFORDANCE_REGISTRATION_CLASSES = list()
 
-
 def register_affordance_class():
     '''
     Use as a decorator on every AffordanceRegistration class to register it.

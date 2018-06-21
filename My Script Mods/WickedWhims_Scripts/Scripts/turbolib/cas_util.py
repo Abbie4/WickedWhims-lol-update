@@ -5,7 +5,6 @@ from sims.outfits.outfit_enums import OutfitCategory, BodyType
 from sims.outfits.outfit_utils import get_maximum_outfits_for_category
 from turbolib.manager_util import TurboManagerUtil
 
-
 class TurboCASUtil:
     __qualname__ = 'TurboCASUtil'
     __doc__ = '\n    TurboCASUtil class is used for any CAS related functions outside direct Sim object manipulation or for special CAS related tools.\n    '
@@ -31,6 +30,8 @@ class TurboCASUtil:
         SITUATION = _get_outfit_category(7)
         SPECIAL = _get_outfit_category(8)
         SWIMWEAR = _get_outfit_category(9)
+        HOTWEATHER = _get_outfit_category(10)
+        COLDWEATHER = _get_outfit_category(11)
 
         @staticmethod
         def get_outfit_category(outfit_category_id):

@@ -3,7 +3,6 @@ from interactions import ParticipantType
 from sims4.sim_irq_service import yield_to_irq
 from wickedwhims.nudity.permissions.test import has_sim_permission_for_nudity
 
-
 class NudityPermissionActorTestBasedScore(TestBasedScore):
     __qualname__ = 'NudityPermissionActorTestBasedScore'
 

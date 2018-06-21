@@ -7,7 +7,7 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sxex_bridge.body import get_sim_body_state, BodyState
 from wickedwhims.utils_statistics import set_sim_statistic_value
 from wickedwhims.utils_traits import has_sim_trait
-UNDERWEAR_OUTFITS = (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL)
+UNDERWEAR_OUTFITS = (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER)
 
 def is_underwear_outfit(outfit_category):
     return outfit_category in UNDERWEAR_OUTFITS

@@ -16,7 +16,6 @@ from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_s
 from wickedwhims.utils_cas import get_modified_outfit
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class NudityChangeUnderwearInteraction(TurboSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'NudityChangeUnderwearInteraction'
 

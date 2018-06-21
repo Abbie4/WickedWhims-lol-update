@@ -26,7 +26,6 @@ from wickedwhims.utils_situations import has_sim_situations
 from wickedwhims.utils_traits import has_sim_trait
 JEALOUSY_WOOHOO_REACTION_LIST = (76431, 76433, 76581, 76564, 76566, 76430)
 
-
 class SexReactionType(TurboEnum):
     __qualname__ = 'SexReactionType'
     NEUTARL = 0
@@ -80,7 +79,7 @@ def _react_to_sims_sex(sim):
             return True
     line_of_sight = TurboMathUtil.LineOfSight.create(TurboSimUtil.Location.get_routing_surface(sim), TurboSimUtil.Location.get_position(sim), 8.0)
     for sex_handler in registered_sex_handlers:
-        if sex_handler.is_playing is not False:
+        if not sex_handler.is_playing is False:
             if sex_handler.is_ready_to_unregister is True:
                 continue
             if sex_handler.get_identifier() in sim_ev(sim).sex_reaction_handlers_list:

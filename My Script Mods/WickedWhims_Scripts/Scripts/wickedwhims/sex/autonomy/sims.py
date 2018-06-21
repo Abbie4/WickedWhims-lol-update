@@ -62,12 +62,13 @@ def get_sex_pair_score(sim_identifier, target_sim_identifier):
         return -1
     if is_true_family_relationship(sim_identifier, target_sim_identifier):
         return -1
-    if get_sex_setting(SexSetting.AUTONOMY_RELATIONSHIP_AWARENESS, variable_type=bool):
+    if not has_sim_trait(sim_identifier, SimTrait.WW_POLYAMOROUS) and not has_sim_trait(sim_identifier, SimTrait.COMMITMENTISSUES):
         sim_significant_relationships = get_sim_relationship_sims(sim_identifier)
-        if sim_significant_relationships and TurboManagerUtil.Sim.get_sim_id(target_sim_identifier) not in sim_significant_relationships and (not has_sim_trait(sim_identifier, SimTrait.WW_POLYAMOROUS) or not has_sim_trait(sim_identifier, SimTrait.COMMITMENTISSUES)):
+        if sim_significant_relationships and TurboManagerUtil.Sim.get_sim_id(target_sim_identifier) not in sim_significant_relationships:
             return -1
+    if get_sex_setting(SexSetting.AUTONOMY_RELATIONSHIP_AWARENESS, variable_type=bool) and not has_sim_trait(target_sim_identifier, SimTrait.WW_POLYAMOROUS) and not has_sim_trait(target_sim_identifier, SimTrait.COMMITMENTISSUES):
         target_significant_relationships = get_sim_relationship_sims(target_sim_identifier)
-        if target_significant_relationships and TurboManagerUtil.Sim.get_sim_id(sim_identifier) not in target_significant_relationships and (not has_sim_trait(target_sim_identifier, SimTrait.WW_POLYAMOROUS) or not has_sim_trait(target_sim_identifier, SimTrait.COMMITMENTISSUES)):
+        if target_significant_relationships and TurboManagerUtil.Sim.get_sim_id(sim_identifier) not in target_significant_relationships:
             return -1
     relationship_score = get_test_relationship_score((sim_identifier, target_sim_identifier), skip_always_accept=True)
     return relationship_score

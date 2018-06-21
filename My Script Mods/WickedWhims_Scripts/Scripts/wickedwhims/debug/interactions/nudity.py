@@ -8,7 +8,6 @@ from wickedwhims.sxex_bridge.body import get_sim_body_state, get_sim_additional_
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_statistics import get_sim_statistic_value
 
-
 class DebugNudityInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugNudityInfoInteraction'
 

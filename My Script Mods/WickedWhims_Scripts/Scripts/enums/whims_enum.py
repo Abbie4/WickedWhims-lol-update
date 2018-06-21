@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimWhim(TurboEnum):
     __qualname__ = 'SimWhim'
     WW_SEX_WITH_SIM_IN_PUBLIC = 11561004916990309644

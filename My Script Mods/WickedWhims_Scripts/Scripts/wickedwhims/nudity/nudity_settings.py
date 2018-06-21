@@ -4,7 +4,6 @@ from wickedwhims.main.settings.main_settings import open_main_settings, register
 from wickedwhims.utils_saves.save_basics import update_basic_save_data, get_basic_save_data
 NUDITY_SETTINGS_DICT = dict()
 
-
 class NuditySetting:
     __qualname__ = 'NuditySetting'
     NUDITY_SWITCH_STATE = 'exhibitionism_switch'

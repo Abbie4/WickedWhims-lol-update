@@ -1,7 +1,6 @@
 from protocolbuffers.Localization_pb2 import LocalizedString
 from sims4.localization import LocalizationHelperTuning, _create_localized_string, create_tokens
 
-
 class TurboL18NUtil:
     __qualname__ = 'TurboL18NUtil'
 

@@ -13,7 +13,6 @@ from wickedwhims.utils_cas import get_modified_outfit, is_sim_in_special_outfit,
 from wickedwhims.utils_traits import has_sim_trait
 from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 
-
 class StripType(enum.Int, export=False):
     __qualname__ = 'StripType'
     NONE = 0
@@ -102,7 +101,6 @@ def strip_outfit(sim_identifier, strip_type_top=StripType.NONE, strip_type_botto
 
 
 def dress_up_outfit(sim_identifier, override_outfit_category_and_index=None, skip_outfit_change=False):
-    sim_name = TurboSimUtil.Name.get_name(sim_identifier)
     if is_sim_in_sex(sim_identifier) or is_sim_going_to_sex(sim_identifier):
         return -1
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)

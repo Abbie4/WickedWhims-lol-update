@@ -14,7 +14,6 @@ from wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff, has_sim_buff
 from wickedwhims.utils_traits import has_sim_trait
 ABSOLUTE_DAYS_OFFSET = 31415
 
-
 def update_period_related_buffs(sim_identifier):
     clear_period_related_buffs(sim_identifier)
     if get_sex_setting(SexSetting.PREGNANCY_MODE, variable_type=int) != PregnancyModeSetting.MENSTRUAL_CYCLE:
@@ -161,7 +160,7 @@ def get_sim_menstrual_cycle_days(sim_identifier):
     sim_id = TurboManagerUtil.Sim.get_sim_id(sim_identifier)
     random_int = random.Random(sim_id)
     (adult_cycle, teen_cycle, _, _) = get_cycle_durations()
-    if (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD:
         menstrual_cycle_days = random_int.randint(*teen_cycle)
     else:
         menstrual_cycle_days = random_int.randint(*adult_cycle)

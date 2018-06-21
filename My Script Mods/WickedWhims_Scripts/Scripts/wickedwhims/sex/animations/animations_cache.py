@@ -1,8 +1,6 @@
 from wickedwhims.sex.enums.sex_gender import SexGenderType
 from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting, SexGenderTypeSetting
-
 ANIMATIONS_CACHE = dict()
-
 
 def has_animation_with_genders(animation_category, object_id, genders):
     if object_id is None:
@@ -55,9 +53,9 @@ def has_animation_with_object(object_id, gender):
 def compare_sim_genders_with_actor_genders_list(sim_genders, genders_list):
     complete_list = list()
     for sim_gender_copy in genders_list:
-        if sim_gender_copy == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
-            complete_list.append(SexGenderType.BOTH)
         if sim_gender_copy == SexGenderType.FEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
+            complete_list.append(SexGenderType.BOTH)
+        if sim_gender_copy == SexGenderType.MALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_MALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.BOTH)
         if sim_gender_copy == SexGenderType.CFEMALE and get_sex_setting(SexSetting.GENDER_RECOGNITION_FEMALE_TO_BOTH_STATE, variable_type=bool):
             complete_list.append(SexGenderType.CBOTH)
@@ -134,7 +132,7 @@ def cache_animation_instance(animation_instance):
     animation_genders.sort()
     animation_genders = tuple(animation_genders)
     for animation_location in animation_locations:
-        if animation_location is not None:
+        if not animation_location is None:
             if animation_location == 'NONE':
                 continue
             get_animation_cache_category_object_genders_list(animation_category, animation_location, animation_genders, create=True)
@@ -193,3 +191,4 @@ def get_animation_cache_category(animation_category, create=False):
             return
         ANIMATIONS_CACHE[animation_category] = dict()
     return ANIMATIONS_CACHE[animation_category]
+

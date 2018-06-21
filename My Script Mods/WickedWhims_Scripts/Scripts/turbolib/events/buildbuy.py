@@ -5,7 +5,6 @@ from turbolib.native.enum import TurboEnum
 from turbolib.special.custom_exception_watcher import log_custom_exception
 BUILDBUY_EVENTS_HANDLER = TurboEventsHandler()
 
-
 class BuildBuyEventType(TurboEnum):
     __qualname__ = 'BuildBuyEventType'
     BUILD_BUY_ENTER = 1

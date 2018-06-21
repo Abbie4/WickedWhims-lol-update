@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SexNakedType(TurboEnum):
     __qualname__ = 'SexNakedType'
     NONE = -1

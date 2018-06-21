@@ -2,7 +2,6 @@ from turbolib.types_util import TurboTypesUtil
 from turbolib.wrappers.interactions import TurboSuperInteraction
 from wickedwhims.main.sim_ev_handler import sim_ev
 
-
 class StopSexInteraction(TurboSuperInteraction):
     __qualname__ = 'StopSexInteraction'
 

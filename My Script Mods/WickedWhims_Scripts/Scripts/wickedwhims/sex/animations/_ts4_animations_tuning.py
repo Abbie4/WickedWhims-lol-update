@@ -4,7 +4,6 @@ from sims4.resources import Types
 from sims4.tuning.instances import HashedTunedInstanceMetaclass
 from sims4.tuning.tunable import HasTunableFactory, AutoFactoryInit, Tunable, TunableList
 
-
 class _WickedWhimsActorInteractionData(HasTunableFactory, AutoFactoryInit):
     __qualname__ = '_WickedWhimsActorInteractionData'
     FACTORY_TUNABLES = {'receiving_actor_id': Tunable(tunable_type=int, default=0), 'receiving_actor_category': Tunable(tunable_type=str, default=''), 'receiving_actor_cum_layers': Tunable(tunable_type=str, default=''), 'receiving_actor_cum_inside': Tunable(tunable_type=int, default=1), 'receiving_actor_cum_layer': Tunable(tunable_type=str, default='')}

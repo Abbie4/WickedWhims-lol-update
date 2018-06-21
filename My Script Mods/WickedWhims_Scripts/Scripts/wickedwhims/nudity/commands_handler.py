@@ -109,7 +109,7 @@ def _wickedwhims_command_random_underwear_for_all_npc_sims(output=None):
         if TurboSimUtil.Sim.is_player(sim_info):
             pass
         underwear_data = get_random_underwear_set(sim_info)
-        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY):
+        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
             for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
                 while TurboSimUtil.CAS.has_outfit(sim_info, (outfit_category, outfit_index)):
                     if not has_sim_underwear_data(sim_info, (outfit_category, outfit_index)):

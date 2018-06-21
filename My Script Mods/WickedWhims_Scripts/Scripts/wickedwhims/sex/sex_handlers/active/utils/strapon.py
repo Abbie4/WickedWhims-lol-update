@@ -1,4 +1,3 @@
-from sims.outfits.outfit_enums import OutfitCategory
 from enums.traits_enum import SimTrait
 from turbolib.cas_util import TurboCASUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -45,7 +44,7 @@ def update_stapon(sim_identifier, actor_data=None, is_npc_only=False, force_remo
     if undressing_type == SexUndressingLevelSetting.DISABLED and get_sim_actual_body_state(sim_info, TurboCASUtil.BodyType.LOWER_BODY) != BodyState.NUDE:
         return False
     _undress_bottom(sim_info)
-    set_bodytype_caspart(sim_info, (OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_strapon_part_id(sim_info))
+    set_bodytype_caspart(sim_info, (TurboCASUtil.OutfitCategory.SPECIAL, 0), TurboCASUtil.BodyType.LOWER_BODY, get_sim_strapon_part_id(sim_info))
     try:
         TurboSimUtil.CAS.refresh_outfit(sim_info)
     except:

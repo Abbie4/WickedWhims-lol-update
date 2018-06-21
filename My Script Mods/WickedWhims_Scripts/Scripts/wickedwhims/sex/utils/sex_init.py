@@ -12,7 +12,6 @@ from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_traits import has_sim_traits
 
-
 def get_age_limits_for_sex(sims_list):
     youngest_sim_age = None
     oldest_sim_age = None
@@ -58,7 +57,9 @@ def get_sims_for_sex(skip_males=False, skip_females=False, skip_cmales=False, sk
             continue
         if skip_females is True and get_sim_sex_gender(sim, ignore_sim_specific_gender=True) == SexGenderType.FEMALE:
             continue
-        if not TurboSimUtil.Age.is_younger_than(sim, min_sims_age) and not TurboSimUtil.Age.is_older_than(sim, max_sims_age):
+        if not TurboSimUtil.Age.is_younger_than(sim, min_sims_age):
+            if TurboSimUtil.Age.is_older_than(sim, max_sims_age):
+                continue
             if not (is_sim_in_sex(sim) or is_sim_going_to_sex(sim)):
                 if sim_ev(sim).active_pre_sex_handler is not None:
                     continue

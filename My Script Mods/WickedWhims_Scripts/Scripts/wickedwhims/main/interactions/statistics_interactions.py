@@ -3,7 +3,6 @@ from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, Turbo
 from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
 from wickedwhims.sxex_bridge.statistics import display_sim_statistics_dialog
 
-
 class DisplaySimStatisticsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisplaySimStatisticsInteraction'
 

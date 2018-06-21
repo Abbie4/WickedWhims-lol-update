@@ -5,7 +5,6 @@ from sims.sim_info import SimInfo
 from sims.sim_info_base_wrapper import SimInfoBaseWrapper
 from sims.sim_info_types import Species
 
-
 class TurboManagerUtil:
     __qualname__ = 'TurboManagerUtil'
 

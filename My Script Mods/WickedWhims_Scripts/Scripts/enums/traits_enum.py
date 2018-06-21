@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimTrait(TurboEnum):
     __qualname__ = 'SimTrait'
     ACTIVE = 27419

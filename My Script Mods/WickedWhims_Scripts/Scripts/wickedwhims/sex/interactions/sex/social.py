@@ -7,7 +7,6 @@ from wickedwhims.sex.relationship_handler import apply_asking_for_woohoo_relatio
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import prepare_npc_sim_to_sex
 
-
 class AskForSexSocialMixerInteraction(TurboSocialMixerInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'AskForSexSocialMixerInteraction'
 
@@ -28,8 +27,9 @@ class AskForSexSocialMixerInteraction(TurboSocialMixerInteraction, TurboInteract
         if interaction_finishing_type == TurboInteractionUtil.FinishingType.USER_CANCEL or interaction_instance.has_attempted_asking_for_sex is False:
             pre_sex_handler = sim_ev(cls.get_interaction_sim(interaction_instance)).active_pre_sex_handler
             if pre_sex_handler is not None:
-                for sim_info in pre_sex_handler.get_actors_sim_info_gen():
-                    clear_sim_sex_extra_data(sim_info)
+                while True:
+                    for sim_info in pre_sex_handler.get_actors_sim_info_gen():
+                        clear_sim_sex_extra_data(sim_info)
 
 
 class AskForSexSocialSuccessInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):

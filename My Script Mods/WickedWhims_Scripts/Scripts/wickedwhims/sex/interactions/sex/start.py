@@ -14,7 +14,6 @@ from wickedwhims.sex.sex_operators.sex_init_operator import start_new_player_sex
 from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 
-
 def _test_for_sex_start(interaction_context, interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
@@ -123,3 +122,4 @@ class StartSexRandomInteraction(TurboTerrainImmediateSuperInteraction, TurboInte
     @classmethod
     def on_interaction_start(cls, interaction_instance):
         return start_new_player_sex_interaction(cls.get_interaction_sim(interaction_instance), cls.get_interaction_target(interaction_instance), interaction_context=cls.get_interaction_context(interaction_instance), interaction_type=None)
+

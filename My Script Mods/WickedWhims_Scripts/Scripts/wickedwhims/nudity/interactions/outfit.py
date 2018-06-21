@@ -16,7 +16,6 @@ from wickedwhims.sxex_bridge.underwear import is_sim_top_underwear, is_sim_botto
 from wickedwhims.utils_cas import get_modified_outfit, copy_outfit_to_special
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class _NudityUndressOutfitTopInteraction(TurboSuperInteraction, TurboInteractionSetupMixin, TurboInteractionConstraintMixin, TurboInteractionBasicElementsMixin):
     __qualname__ = '_NudityUndressOutfitTopInteraction'
 
@@ -26,9 +25,7 @@ class _NudityUndressOutfitTopInteraction(TurboSuperInteraction, TurboInteraction
 
     @classmethod
     def on_interaction_setup(cls, interaction_instance):
-        interaction_sim = cls.get_interaction_sim(interaction_instance)
-        interaction_context = cls.get_interaction_context(interaction_instance)
-        if _has_permission_to_undress(interaction_sim, interaction_context):
+        if _has_permission_to_undress(cls.get_interaction_sim(interaction_instance), cls.get_interaction_context(interaction_instance)):
             return True
         cls.kill(interaction_instance)
         return False

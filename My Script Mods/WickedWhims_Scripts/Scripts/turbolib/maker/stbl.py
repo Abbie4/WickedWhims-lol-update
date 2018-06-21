@@ -1,7 +1,6 @@
 from turbolib.hash_util import FNV
 from turbolib.io_util import Binary
 
-
 class StblBuilder:
     __qualname__ = 'StblBuilder'
 

@@ -1,6 +1,7 @@
 import random
 from enums.relationship_enum import RelationshipTrackType
 from enums.situations_enum import SimSituationJob
+from enums.tags_enum import GameTag
 from enums.vanues_enum import VenueType
 from turbolib.autonomy_util import TurboAutonomyUtil
 from turbolib.manager_util import TurboManagerUtil
@@ -27,7 +28,6 @@ from wickedwhims.utils_lots import get_lot_structure_data, RoomType, get_sims_in
 from wickedwhims.utils_relations import get_relationship_with_sim
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
 from wickedwhims.utils_situations import has_sim_situation_jobs
-
 
 class LocationStyleType(TurboEnum):
     __qualname__ = 'LocationStyleType'
@@ -263,7 +263,7 @@ def _get_room_objects_score(room_structure_data, location_style):
             has_windows = True
         if TurboTypesUtil.Objects.is_door(object_structure_data.get_game_object()):
             doors_count += 1
-        if TurboTypesUtil.Objects.is_stairs(object_structure_data.get_game_object()):
+        if GameTag.BUILD_STAIR in TurboObjectUtil.GameObject.get_game_tags(object_structure_data.get_game_object()):
             has_stairs = True
     if location_style == LocationStyleType.PRIVACY and (has_windows is False and has_stairs is False) and doors_count <= 1:
         score += 25
@@ -394,13 +394,6 @@ def get_sex_location_style_and_chance(sims_list):
                         return random.choice(((LocationStyleType.COMFORT, base_value + 0.35), (LocationStyleType.SEMI_OPEN, base_value + 0.15 + exhibitionist_skill_bonus)))
                     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.NORMAL:
                         return random.choice(((LocationStyleType.PRIVACY, base_value + 0.25), (LocationStyleType.COMFORT, base_value + 0.2)))
-                        if household_relationship_score_sum >= 50:
-                            if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
-                                return random.choice(((LocationStyleType.PRIVACY, base_value + 0.7), (LocationStyleType.COMFORT, base_value + 0.6), (LocationStyleType.SEMI_OPEN, base_value + 0.5 + exhibitionist_skill_bonus), (LocationStyleType.OPEN, base_value + 0.25 + exhibitionist_skill_bonus)))
-                            if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.NORMAL:
-                                return random.choice(((LocationStyleType.PRIVACY, base_value + 0.5), (LocationStyleType.COMFORT, base_value + 0.4)))
-                            if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.LOW:
-                                return (LocationStyleType.PRIVACY, base_value + 0.25)
                 elif household_relationship_score_sum >= 50:
                     if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
                         return random.choice(((LocationStyleType.PRIVACY, base_value + 0.7), (LocationStyleType.COMFORT, base_value + 0.6), (LocationStyleType.SEMI_OPEN, base_value + 0.5 + exhibitionist_skill_bonus), (LocationStyleType.OPEN, base_value + 0.25 + exhibitionist_skill_bonus)))
@@ -441,20 +434,6 @@ def get_sex_location_style_and_chance(sims_list):
                 return random.choice(((LocationStyleType.PRIVACY, base_value + 0.5), (LocationStyleType.SEMI_OPEN, base_value + 0.3 + exhibitionist_skill_bonus)))
             if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.LOW:
                 return random.choice(((LocationStyleType.PRIVACY, base_value + 0.25), (LocationStyleType.SEMI_OPEN, base_value + 0.1 + exhibitionist_skill_bonus)))
-                if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
-                    if is_at_party is True:
-                        base_value += 0.05
-                    if is_at_weekend is True:
-                        base_value += 0.1
-                    return random.choice(((LocationStyleType.PRIVACY, base_value + 0.4), (LocationStyleType.SEMI_OPEN, base_value + 0.3 + exhibitionist_skill_bonus), (LocationStyleType.OPEN, base_value + 0.2 + exhibitionist_skill_bonus)))
-                if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.NORMAL:
-                    if is_at_party is True:
-                        base_value += 0.05
-                    if is_at_weekend is True:
-                        base_value += 0.05
-                    return random.choice(((LocationStyleType.PRIVACY, base_value + 0.35), (LocationStyleType.SEMI_OPEN, base_value + 0.2 + exhibitionist_skill_bonus)))
-                if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.LOW:
-                    return (LocationStyleType.PRIVACY, base_value + 0.2)
         else:
             if get_sex_setting(SexSetting.AUTONOMY_LEVEL, variable_type=int) == SexAutonomyLevelSetting.HIGH:
                 if is_at_party is True:

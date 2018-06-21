@@ -11,7 +11,6 @@ from wickedwhims.utils_buffs import add_sim_buff
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class CompleteTerminatePregnancyInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CompleteTerminatePregnancyInteraction'
 

@@ -2,7 +2,6 @@ from interactions.context import QueueInsertStrategy, InteractionSource
 from interactions.interaction_finisher import FinishingType
 from interactions.priority import can_displace, Priority
 
-
 class TurboInteractionUtil:
     __qualname__ = 'TurboInteractionUtil'
 

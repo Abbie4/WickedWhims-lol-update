@@ -17,7 +17,6 @@ from sims4.utils import flexmethod
 from turbolib.interaction_util import TurboInteractionUtil
 from turbolib.math_util import TurboMathUtil
 
-
 class _TurboBaseInteractionUtil:
     __qualname__ = '_TurboBaseInteractionUtil'
 

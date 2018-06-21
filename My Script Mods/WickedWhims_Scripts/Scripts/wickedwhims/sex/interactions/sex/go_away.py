@@ -8,7 +8,6 @@ from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, Turbo
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex._ts4_sex_utils import route_sim_away_from_interaction
 
-
 class GoAwayInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'GoAwayInteraction'
 

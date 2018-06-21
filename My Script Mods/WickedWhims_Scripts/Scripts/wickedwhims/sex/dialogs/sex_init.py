@@ -14,7 +14,6 @@ from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation, display
 from wickedwhims.sex.utils.sex_init import get_age_limits_for_sex, get_nearby_sims_for_sex
 from wickedwhims.utils_interfaces import display_sim_picker_dialog, display_ok_dialog, display_picker_list_dialog, get_arrow_icon
 
-
 def open_start_sex_sims_picker_dialog(origin_position, pre_sex_handler):
 
     @exception_watch()
@@ -137,14 +136,13 @@ def open_start_sex_animations_category_picker_dialog(pre_sex_handler):
 
     genders_list = list()
     for sim_info in pre_sex_handler.get_actors_sim_info_gen():
-        sim_gender = get_sim_sex_gender(sim_info)
-        genders_list.append(sim_gender)
+        genders_list.append(get_sim_sex_gender(sim_info))
     category_picker_rows = list()
     animation_categories = ((0, SexCategoryType.TEASING, 77458156), (1, SexCategoryType.HANDJOB, 1425559843), (3, SexCategoryType.FOOTJOB, 223939754), (4, SexCategoryType.ORALJOB, 2747124438), (5, SexCategoryType.VAGINAL, 574589211), (6, SexCategoryType.ANAL, 1610085053))
     for (index, animation_sex_category_type, animation_sex_category_name) in animation_categories:
         animations_list = get_animations_with_params(animation_sex_category_type, pre_sex_handler.get_object_identifier(), genders_list)
         if not animations_list:
-            pass
+            continue
         picker_row = TurboUIUtil.ObjectPickerDialog.ListPickerRow(index, animation_sex_category_name, TurboL18NUtil.get_localized_string(3166569584, tokens=(str(len(animations_list)),)), skip_tooltip=True, icon=get_arrow_icon(), tag=animation_sex_category_type)
         category_picker_rows.append(picker_row)
     display_picker_list_dialog(title=2301874612, picker_rows=category_picker_rows, callback=animation_categories_picker_callback)

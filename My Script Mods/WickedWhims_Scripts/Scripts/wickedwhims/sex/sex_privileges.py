@@ -13,7 +13,6 @@ from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_inventory import get_object_amount_in_sim_inventory
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class SexDenialReasonType(enum.Int, export=False):
     __qualname__ = 'SexDenialReasonType'
     NONE = 0
@@ -47,7 +46,7 @@ def is_sim_allowed_for_animation(sims_list, animation_category, **kwargs):
     for sim_info in sim_info_list:
         for test in allowing_tests:
             result = test(sim_info, sim_info_list, animation_category, **kwargs)
-            if not result:
+            while not result:
                 return result
     return POSITIVE_RESULT
 
@@ -75,8 +74,8 @@ def _test_for_children_hater(sim_info, sim_info_list, animation_category, **args
         if is_npc_only:
             if get_sex_setting(SexSetting.SIMPLE_NPC_PREGNANCY_CHANCE, variable_type=int) <= 0:
                 return True
-            elif get_sex_setting(SexSetting.SIMPLE_PREGNANCY_CHANCE, variable_type=int) <= 0:
-                return True
+                if get_sex_setting(SexSetting.SIMPLE_PREGNANCY_CHANCE, variable_type=int) <= 0:
+                    return True
         elif get_sex_setting(SexSetting.SIMPLE_PREGNANCY_CHANCE, variable_type=int) <= 0:
             return True
     try_late_assign_birth_control(sim_info)
@@ -85,11 +84,11 @@ def _test_for_children_hater(sim_info, sim_info_list, animation_category, **args
     condoms_needed = 0
     if 'is_joining' in args:
         for actor_sim_info in sim_info_list:
-            if sim_ev(actor_sim_info).has_condom_on is False and has_sim_trait(actor_sim_info, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE):
+            while sim_ev(actor_sim_info).has_condom_on is False and has_sim_trait(actor_sim_info, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE):
                 condoms_needed += 1
     elif sim_ev(sim_info).active_sex_handler is not None:
         for actor_sim_info in sim_ev(sim_info).active_sex_handler.get_actors_sim_info_gen():
-            if sim_ev(actor_sim_info).has_condom_on is False and has_sim_trait(actor_sim_info, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE):
+            while sim_ev(actor_sim_info).has_condom_on is False and has_sim_trait(actor_sim_info, SimTrait.GENDEROPTIONS_PREGNANCY_CANIMPREGNATE):
                 condoms_needed += 1
     else:
         condoms_needed = 1
@@ -98,7 +97,7 @@ def _test_for_children_hater(sim_info, sim_info_list, animation_category, **args
     has_needed_condoms = False
     for actor_sim_info in sim_info_list:
         condoms_count = get_object_amount_in_sim_inventory(actor_sim_info, get_condom_wrapper_object_id())
-        if condoms_count >= condoms_needed:
+        while condoms_count >= condoms_needed:
             has_needed_condoms = True
             break
     if has_needed_condoms is False:

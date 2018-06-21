@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimRoleState(TurboEnum):
     __qualname__ = 'SimRoleState'
     WW_OPEN_STREET_SEX = 16319243356257333476

@@ -10,7 +10,6 @@ from turbolib.tunable_util import TurboTunableUtil
 from turbolib.types_util import TurboTypesUtil
 from wickedwhims.utils_rewards import register_satisfaction_reward
 
-
 @register_affordance_class()
 class SexSimsTerrainAffordanceRegistration(AffordanceRegistration):
     __qualname__ = 'SexSimsTerrainAffordanceRegistration'
@@ -119,10 +118,10 @@ class SexPartnerWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexPartnerWhimsRegistration'
 
     def get_whim_references(self):
-        return (18144792039329369821, 1.0)
+        return ((18144792039329369821, 1.0),)
 
     def get_whim_set_references(self):
-        return (WhimSet.PARTNERS)
+        return (WhimSet.PARTNERS,)
 
 
 @register_whim_class()
@@ -130,10 +129,10 @@ class SexNewRomanceWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexNewRomanceWhimsRegistration'
 
     def get_whim_references(self):
-        return ((10262116769238204219, 1.5))
+        return ((10262116769238204219, 1.5),)
 
     def get_whim_set_references(self):
-        return (WhimSet.NEWROMANCEPLUS)
+        return (WhimSet.NEWROMANCEPLUS,)
 
 
 @register_whim_class()
@@ -141,7 +140,7 @@ class SexSomeoneWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexSomeoneWhimsRegistration'
 
     def get_whim_references(self):
-        return ((16636620952431474582, 1.0))
+        return ((16636620952431474582, 1.0),)
 
     def get_whim_set_references(self):
         return (WhimSet.EMOTIONFLIRTY, WhimSet.BASEMENTAL_MDMA)
@@ -152,7 +151,7 @@ class SexSomeonePublicWhimsRegistration(WhimRegistration):
     __qualname__ = 'SexSomeonePublicWhimsRegistration'
 
     def get_whim_references(self):
-        return ((11561004916990309644, 0.6))
+        return ((11561004916990309644, 0.6),)
 
     def get_whim_set_references(self):
         return (WhimSet.EMOTIONFLIRTY, WhimSet.EMOTIONCONFIDENT, WhimSet.BASEMENTAL_MDMA)

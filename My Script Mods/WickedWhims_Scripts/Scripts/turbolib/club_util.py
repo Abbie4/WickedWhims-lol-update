@@ -1,7 +1,6 @@
 import services
 from turbolib.manager_util import TurboManagerUtil
 
-
 class TurboClubUtil:
     __qualname__ = 'TurboClubUtil'
 

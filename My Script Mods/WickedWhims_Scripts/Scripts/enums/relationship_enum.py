@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class RelationshipTrackType(TurboEnum):
     __qualname__ = 'RelationshipTrackType'
     FRIENDSHIP = 16650

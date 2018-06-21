@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimMood(TurboEnum):
     __qualname__ = 'SimMood'
     CONFIDENT = 14634

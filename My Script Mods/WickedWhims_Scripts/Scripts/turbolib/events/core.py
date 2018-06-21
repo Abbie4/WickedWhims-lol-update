@@ -7,7 +7,6 @@ HAS_GAME_LOADED = False
 IS_GAME_LOADING = True
 CORE_EVENTS_HANDLER = TurboEventsHandler()
 
-
 class CoreEventType(TurboEnum):
     __qualname__ = 'CoreEventType'
     ZONE_EARLY_LOAD = 1

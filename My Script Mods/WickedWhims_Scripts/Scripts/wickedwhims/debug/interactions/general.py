@@ -11,7 +11,6 @@ from wickedwhims.utils_cas import get_modified_outfit, get_previous_modified_out
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_motives import get_sim_motive_value
 
-
 class DebugGeneralInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugGeneralInfoInteraction'
 

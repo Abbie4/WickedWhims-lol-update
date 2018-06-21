@@ -3,7 +3,6 @@ import sims4.collections
 from sims4.collections import FrozenAttributeDict
 from sims4.resources import get_resource_key, Types, ResourceLoader
 
-
 class TurboResourceUtil:
     __qualname__ = 'TurboResourceUtil'
 

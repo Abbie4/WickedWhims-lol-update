@@ -7,7 +7,6 @@ from wickedwhims.sex.pregnancy.birth_control.condoms import give_sim_condoms, tr
 from wickedwhims.sex.pregnancy.birth_control.pills import take_birth_control_pill, give_sim_birth_control_pills
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class UseCondomsInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'UseCondomsInteraction'
 

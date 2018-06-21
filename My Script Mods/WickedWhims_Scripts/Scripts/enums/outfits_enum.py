@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimOutfitChangeReason(TurboEnum):
     __qualname__ = 'SimOutfitChangeReason'
     Invalid = -1

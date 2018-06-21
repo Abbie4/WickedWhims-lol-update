@@ -4,7 +4,6 @@ from sims4.sim_irq_service import yield_to_irq
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.relationship_handler import get_test_relationship_score
 
-
 class RelationshipSexTestBasedScore(TestBasedScore):
     __qualname__ = 'RelationshipSexTestBasedScore'
 

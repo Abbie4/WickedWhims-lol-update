@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimSkill(TurboEnum):
     __qualname__ = 'SimSkill'
     ADULTMAJOR_BAKING = 104198

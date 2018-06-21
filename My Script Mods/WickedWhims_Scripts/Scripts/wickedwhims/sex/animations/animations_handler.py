@@ -348,7 +348,7 @@ def collect_sex_animation_packages():
     hidden_animations_list = list()
     for animation_package in animations_packages_list:
         for package_animation in animation_package.animations_list:
-            if package_animation.animation_actors_list:
+            if not not package_animation.animation_actors_list:
                 if len(package_animation.animation_actors_list) > 10:
                     continue
                 display_name = package_animation.animation_display_name or str(package_animation.animation_raw_display_name)
@@ -467,7 +467,7 @@ def _parse_sex_animation_locations(locations_names):
         if not location_name:
             continue
         location_data = SexInteractionLocationType.verify_location_type(location_name.strip())
-        if location_data is not None:
+        if not location_data is None:
             if location_data == 'NONE':
                 continue
             locations_list.append(location_data)

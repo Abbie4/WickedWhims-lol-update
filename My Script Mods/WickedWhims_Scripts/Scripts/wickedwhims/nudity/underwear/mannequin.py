@@ -15,7 +15,6 @@ UNDERWEAR_MANNEQUIN_IN_USE = False
 UNDERWEAR_MANNEQUIN_SIM_ID = -1
 UNDERWEAR_MANNEQUIN_OBJECT_ID = -1
 
-
 def open_underwear_mannequin(sim=None):
     global UNDERWEAR_MANNEQUIN_IN_USE, UNDERWEAR_MANNEQUIN_SIM_ID, UNDERWEAR_MANNEQUIN_OBJECT_ID
     if sim is None:
@@ -35,7 +34,7 @@ def open_underwear_mannequin(sim=None):
     mannequin_component = TurboObjectUtil.Mannequin.get_component(mannequin)
     mannequin_sim_info = TurboObjectUtil.Mannequin.get_mannequin_component_sim_info(mannequin_component)
     TurboObjectUtil.Mannequin.remove_mannequin_protocol_buffer(mannequin)
-    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR):
+    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.SWIMWEAR, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
         for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
             if TurboSimUtil.CAS.has_outfit(sim, (outfit_category, outfit_index)):
                 underwear_parts = get_sim_underwear_data(sim, (outfit_category, outfit_index))
@@ -83,7 +82,7 @@ def _wickedwhims_check_for_underwear_mannequin():
         return
     mannequin_component = TurboObjectUtil.Mannequin.get_component(mannequin)
     mannequin_sim_info = TurboObjectUtil.Mannequin.get_mannequin_component_sim_info(mannequin_component)
-    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY):
+    for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
         for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
             if TurboSimUtil.CAS.has_outfit(sim_info, (outfit_category, outfit_index)) and TurboSimUtil.CAS.has_outfit(mannequin_sim_info, (outfit_category, outfit_index)):
                 body_parts = TurboSimUtil.CAS.get_outfit_parts(mannequin_sim_info, (outfit_category, outfit_index))

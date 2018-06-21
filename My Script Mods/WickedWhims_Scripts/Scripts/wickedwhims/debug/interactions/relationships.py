@@ -7,7 +7,6 @@ from wickedwhims.sex.relationship_handler import get_relationship_score
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_statistics import get_sim_statistic_value
 
-
 class DebugRelationshipInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugRelationshipInfoInteraction'
 

@@ -6,7 +6,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting, SexGenderTypeSetting
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class SexGenderType(TurboEnum):
     __qualname__ = 'SexGenderType'
     NONE = 0

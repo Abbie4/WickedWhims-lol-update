@@ -1,7 +1,6 @@
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
 
-
 class DebugInfoTempInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugInfoTempInteraction'
 

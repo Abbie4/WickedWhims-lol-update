@@ -6,7 +6,6 @@ from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, Turbo
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sxex_bridge.sex import is_sim_in_sex
 
-
 class WatchSexInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'WatchSexInteraction'
 

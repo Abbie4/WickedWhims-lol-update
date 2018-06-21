@@ -12,7 +12,6 @@ from wickedwhims.sxex_bridge.outfit import StripType, strip_outfit
 from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
 from wickedwhims.utils_traits import has_sim_trait
 
-
 class ChangeSimStraponInteraction(TurboSuperInteraction):
     __qualname__ = 'ChangeSimStraponInteraction'
 

@@ -1,6 +1,5 @@
 from functools import wraps
 
-
 def inject(target_object, target_function_name):
 
     def _wrap_original_function(original_function, new_function):

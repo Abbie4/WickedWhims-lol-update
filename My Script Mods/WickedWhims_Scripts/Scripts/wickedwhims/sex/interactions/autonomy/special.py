@@ -3,7 +3,6 @@ from turbolib.types_util import TurboTypesUtil
 from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, TurboInteractionStartMixin
 from wickedwhims.sex.autonomy.disabled_locations_handler import update_disabled_sex_locations_data, switch_autonomy_sex_disabled_location, is_autonomy_sex_locations_disabled
 
-
 class CheatEnableAutonomySexLocationInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'CheatEnableAutonomySexLocationInteraction'
 

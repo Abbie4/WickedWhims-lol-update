@@ -2,7 +2,6 @@ from _weakrefset import WeakSet
 import services
 from turbolib.manager_util import TurboManagerUtil
 
-
 class TurboPrivacyUtil:
     __qualname__ = 'TurboPrivacyUtil'
 

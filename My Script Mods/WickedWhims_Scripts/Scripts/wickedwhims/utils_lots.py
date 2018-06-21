@@ -14,7 +14,6 @@ from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.utils_objects import get_object_fixed_direction
 LOT_DATA_CACHE = None
 
-
 class RoomType(TurboEnum):
     __qualname__ = 'RoomType'
     OUTSIDE = 0

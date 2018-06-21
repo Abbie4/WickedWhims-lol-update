@@ -94,7 +94,7 @@ def set_first_free_skin_overlay_for_every_outfit(sim_identifier, cas_id):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     result = False
     for occult_sim_info in TurboSimUtil.Occult.get_all_sim_info_occults(sim_info):
-        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.BATHING, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL, TurboCASUtil.OutfitCategory.SWIMWEAR):
+        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.BATHING, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL, TurboCASUtil.OutfitCategory.SWIMWEAR, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
             for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
                 while TurboSimUtil.CAS.has_outfit(occult_sim_info, (outfit_category, outfit_index)):
                     if set_first_free_skin_overlay(occult_sim_info, (outfit_category, outfit_index), cas_id):
@@ -129,7 +129,7 @@ def clear_every_skin_overlay_for_every_outfit(sim_identifier, cas_id):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     result = False
     for occult_sim_info in TurboSimUtil.Occult.get_all_sim_info_occults(sim_info):
-        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.BATHING, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL, TurboCASUtil.OutfitCategory.SWIMWEAR):
+        for outfit_category in (TurboCASUtil.OutfitCategory.EVERYDAY, TurboCASUtil.OutfitCategory.FORMAL, TurboCASUtil.OutfitCategory.ATHLETIC, TurboCASUtil.OutfitCategory.SLEEP, TurboCASUtil.OutfitCategory.PARTY, TurboCASUtil.OutfitCategory.BATHING, TurboCASUtil.OutfitCategory.CAREER, TurboCASUtil.OutfitCategory.SITUATION, TurboCASUtil.OutfitCategory.SPECIAL, TurboCASUtil.OutfitCategory.SWIMWEAR, TurboCASUtil.OutfitCategory.HOTWEATHER, TurboCASUtil.OutfitCategory.COLDWEATHER):
             for outfit_index in range(TurboCASUtil.OutfitCategory.get_maximum_outfits_for_outfit_category(outfit_category)):
                 while TurboSimUtil.CAS.has_outfit(occult_sim_info, (outfit_category, outfit_index)):
                     if clear_every_skin_overlay(occult_sim_info, (outfit_category, outfit_index), cas_id):

@@ -4,7 +4,6 @@ import sims4
 from sims4.commands import Command, CommandType
 from turbolib.special.custom_exception_watcher import exception_watch
 
-
 class TurboCommandType:
     __qualname__ = 'TurboCommandType'
     DEBUG = CommandType.DebugOnly

@@ -11,7 +11,6 @@ from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_objects import get_object_fixed_direction
 
-
 class DisplayObjectDataInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DisplayObjectDataInteraction'
 

@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimSituation(TurboEnum):
     __qualname__ = 'SimSituation'
     ALIENBARFLY = 122604

@@ -1,7 +1,6 @@
 import struct
 from io import BytesIO
 
-
 class Binary:
     __qualname__ = 'Binary'
 

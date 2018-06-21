@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class VenueType(TurboEnum):
     __qualname__ = 'VenueType'
     NONE = 0

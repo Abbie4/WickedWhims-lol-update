@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimCommodity(TurboEnum):
     __qualname__ = 'SimCommodity'
     AGE_ADULT = 38438

@@ -7,7 +7,6 @@ import terrain
 from objects.components.line_of_sight_component import LineOfSight
 from routing import SurfaceIdentifier, SurfaceType
 
-
 class TurboMathUtil:
     __qualname__ = 'TurboMathUtil'
 

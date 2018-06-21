@@ -5,7 +5,6 @@ from wickedwhims.sex.pregnancy.pregnancy_interface import get_sim_current_pregna
 from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting
 from wickedwhims.utils_interfaces import display_notification
 
-
 class PrePregnancyTakeFertilityTestInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'PrePregnancyTakeFertilityTestInteraction'
 

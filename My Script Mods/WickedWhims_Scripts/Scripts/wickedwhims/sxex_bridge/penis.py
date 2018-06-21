@@ -338,7 +338,7 @@ def open_all_sims_soft_penis_picker(sim_identifier):
         update_basic_save_data(get_basic_penis_save_data())
         for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
             if sim_info is None:
-                pass
+                continue
             sim_ev(sim_info).outfit_soft_penis_author = penis_author
             dress_up_outfit(sim_info)
             set_sim_penis_state(sim_info, False, 0)
@@ -365,7 +365,7 @@ def open_all_sims_hard_penis_picker(sim_identifier):
         update_basic_save_data(get_basic_penis_save_data())
         for sim_info in TurboManagerUtil.Sim.get_all_sim_info_gen(humans=True, pets=False):
             if sim_info is None:
-                pass
+                continue
             sim_ev(sim_info).outfit_hard_penis_author = penis_author
             dress_up_outfit(sim_info)
             set_sim_penis_state(sim_info, False, 0)

@@ -1,6 +1,5 @@
 from turbolib.native.enum import TurboEnum
 
-
 class SimInteraction(TurboEnum):
     __qualname__ = 'SimInteraction'
     SIM_STAND = 13983

@@ -7,7 +7,6 @@ from turbolib.wrappers.interactions import TurboBaseSuperInteraction, TurboInter
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_interfaces import display_notification
 
-
 class DefaultAnimationsInteraction(TurboBaseSuperInteraction, TurboInteractionCancelMixin, TurboInteractionASMMixin, TurboInteractionNameMixin, TurboInteractionConstraintMixin):
     __qualname__ = 'DefaultAnimationsInteraction'
 

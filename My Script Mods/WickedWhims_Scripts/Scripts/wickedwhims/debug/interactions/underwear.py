@@ -6,7 +6,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_interfaces import display_notification
 from wickedwhims.utils_statistics import get_sim_statistic_value
 
-
 class DebugUnderwearMatrixInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugUnderwearMatrixInteraction'
 

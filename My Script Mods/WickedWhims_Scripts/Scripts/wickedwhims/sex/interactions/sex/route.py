@@ -8,7 +8,6 @@ from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.sex_operators.general_sex_handlers_operator import clear_sim_sex_extra_data
 from wickedwhims.sex.sex_operators.pre_sex_handlers_operator import unprepare_npc_sim_from_sex
 
-
 class WaitForSexPartnerInteraction(TurboBaseSuperInteraction, TurboInteractionInitMixin, TurboInteractionStartMixin, TurboInteractionCancelMixin):
     __qualname__ = 'WaitForSexPartnerInteraction'
 

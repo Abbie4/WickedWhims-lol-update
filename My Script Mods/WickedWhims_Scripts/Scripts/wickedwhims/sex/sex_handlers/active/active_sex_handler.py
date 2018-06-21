@@ -24,7 +24,6 @@ from wickedwhims.sxex_bridge.body import update_sim_body_flags
 from wickedwhims.sxex_bridge.underwear import update_sim_underwear_data
 from wickedwhims.utils_interfaces import display_notification
 
-
 class ActiveSexInteractionHandler(SexInteractionHandler):
     __qualname__ = 'ActiveSexInteractionHandler'
 

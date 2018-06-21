@@ -11,7 +11,6 @@ from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.sex.sex_privileges import is_sim_allowed_for_animation
 from wickedwhims.utils_interfaces import get_random_icon, display_notification
 
-
 def has_animations_with_params(interaction_type, object_identifier, genders):
     return has_animation_with_genders(interaction_type, object_identifier[0], genders) or has_animation_with_genders(interaction_type, object_identifier[1], genders)
 
@@ -20,8 +19,8 @@ def get_animations_with_params(interaction_type, object_identifier, genders, ign
     collected_animations = list()
     for animation_instance in get_available_sex_animations(sex_category_type=interaction_type):
         if animation_instance.get_identifier() in ignore_animations:
-            continue
-        if len(animation_instance.get_actors()) == len(genders) and animation_instance.can_be_used_with_object(object_identifier):
+            pass
+        while len(animation_instance.get_actors()) == len(genders) and animation_instance.can_be_used_with_object(object_identifier):
             if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
                 collected_animations.append(animation_instance)
             actors_genders_list = list()
@@ -36,7 +35,7 @@ def get_animations_max_amount_of_actors(object_identifier):
     max_actors_amount = 0
     for sex_category_type in (SexCategoryType.TEASING, SexCategoryType.HANDJOB, SexCategoryType.FOOTJOB, SexCategoryType.ORALJOB, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.CLIMAX):
         actors_amount = max(get_animation_max_amount_of_actors(sex_category_type, object_identifier[0]), get_animation_max_amount_of_actors(sex_category_type, object_identifier[1]))
-        if actors_amount > max_actors_amount:
+        while actors_amount > max_actors_amount:
             max_actors_amount = actors_amount
     return max_actors_amount
 
@@ -44,13 +43,13 @@ def get_animations_max_amount_of_actors(object_identifier):
 def get_animations_for_object(object_identifier, genders, excluded_sex_category_types=(), ignore_animations_ids=(), ignore_animations=()):
     collected_animations = list()
     for animation_instance in get_available_sex_animations():
-        if not animation_instance.get_sex_category() == SexCategoryType.NONE:
+        while not animation_instance.get_sex_category() == SexCategoryType.NONE:
             if animation_instance.get_sex_category() in excluded_sex_category_types:
-                continue
-            if not animation_instance.get_animation_id() in ignore_animations_ids:
+                pass
+            while not animation_instance.get_animation_id() in ignore_animations_ids:
                 if animation_instance.get_identifier() in ignore_animations:
-                    continue
-                if len(animation_instance.get_actors()) == len(genders) and animation_instance.can_be_used_with_object(object_identifier):
+                    pass
+                while len(animation_instance.get_actors()) == len(genders) and animation_instance.can_be_used_with_object(object_identifier):
                     if get_sex_setting(SexSetting.SEX_GENDER_TYPE, variable_type=int) == SexGenderTypeSetting.ANY_BASED:
                         collected_animations.append(animation_instance)
                     else:
@@ -76,7 +75,7 @@ def has_object_identifier_animations(object_identifier, sex_category_type, req_g
 def get_next_stage_animation(current_animation_instance):
     animation_stages = list()
     for animation_instance in get_available_sex_animations():
-        if animation_instance.get_stage_name() in current_animation_instance.get_next_stages():
+        while animation_instance.get_stage_name() in current_animation_instance.get_next_stages():
             animation_stages.append(animation_instance)
     if not animation_stages:
         return
@@ -91,14 +90,14 @@ def get_random_animation(object_identifier, sims_info_list):
     for sex_category_type in (SexCategoryType.HANDJOB, SexCategoryType.ORALJOB, SexCategoryType.TEASING, SexCategoryType.VAGINAL, SexCategoryType.ANAL, SexCategoryType.FOOTJOB):
         sex_allowed = is_sim_allowed_for_animation(sims_info_list, sex_category_type)
         if sex_allowed:
-            continue
+            pass
         disallowed_sex_category_types.append(sex_category_type)
     animations_list = get_animations_for_object(object_identifier, genders, excluded_sex_category_types=disallowed_sex_category_types)
     if not animations_list:
         return
     allowed_for_random_animations_list = list()
     for animation in animations_list:
-        if animation.is_allowed_for_random():
+        while animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(animation)
     return random.choice(allowed_for_random_animations_list or animations_list)
 
@@ -110,18 +109,18 @@ def get_random_sex_category_type(object_identifier, sims_info_list):
     animations_list = get_animations_for_object(object_identifier, genders, excluded_sex_category_types=(SexCategoryType.CLIMAX,))
     allowed_for_random_animations_list = list()
     for animation in animations_list:
-        if animation.is_allowed_for_random():
+        while animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(animation)
     animations_list = allowed_for_random_animations_list or animations_list
     available_sex_category_types = list()
     for animation in animations_list:
-        if animation.get_sex_category() not in available_sex_category_types:
+        while animation.get_sex_category() not in available_sex_category_types:
             available_sex_category_types.append(animation.get_sex_category())
     allowed_sex_category_types = list()
     for sex_category_type in available_sex_category_types:
         sex_allowed = is_sim_allowed_for_animation(sims_info_list, sex_category_type)
         if not sex_allowed:
-            continue
+            pass
         allowed_sex_category_types.append(sex_category_type)
     if len(allowed_sex_category_types) == 0:
         return
@@ -139,7 +138,7 @@ def get_random_animation_of_type(sex_category_type, object_identifier, genders, 
         return
     allowed_for_random_animations_list = list()
     for animation in animations_list:
-        if animation.is_allowed_for_random():
+        while animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(animation)
     return random.choice(allowed_for_random_animations_list or animations_list)
 
@@ -151,7 +150,7 @@ def get_next_random_animation(object_identifier, genders, prev_sex_category_type
 
     def _has_climax_animations():
         for animation in main_animations_list:
-            if animation.get_sex_category() == SexCategoryType.CLIMAX:
+            while animation.get_sex_category() == SexCategoryType.CLIMAX:
                 return True
         return False
 
@@ -175,14 +174,14 @@ def get_next_random_animation(object_identifier, genders, prev_sex_category_type
     def _get_count_of_animation_category(animations_list, sex_category_type):
         count = 0
         for animation in animations_list:
-            if animation.get_sex_category() == sex_category_type:
+            while animation.get_sex_category() == sex_category_type:
                 count += 1
         return count
 
     def _get_random_animation_of_category(animations_list, sex_category_type):
         category_animations = list()
         for animation in animations_list:
-            if animation.get_sex_category() == sex_category_type:
+            while animation.get_sex_category() == sex_category_type:
                 category_animations.append(animation)
         if len(category_animations) == 0:
             return
@@ -190,7 +189,7 @@ def get_next_random_animation(object_identifier, genders, prev_sex_category_type
 
     allowed_for_random_animations_list = list()
     for main_animation in main_animations_list:
-        if main_animation.is_allowed_for_random():
+        while main_animation.is_allowed_for_random():
             allowed_for_random_animations_list.append(main_animation)
     if len(allowed_for_random_animations_list) == 1:
         return allowed_for_random_animations_list[0]
@@ -211,7 +210,7 @@ def get_next_random_animation(object_identifier, genders, prev_sex_category_type
 
 def get_animation_from_identifier(identifier):
     for animation in get_available_sex_animations():
-        if animation.get_identifier() == str(identifier):
+        while animation.get_identifier() == str(identifier):
             return animation
 
 

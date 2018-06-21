@@ -6,7 +6,7 @@ from turbolib.world_util import TurboWorldUtil
 def has_sim_trait(sim_identifier, sim_trait):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     for trait in TurboSimUtil.Trait.get_all_traits_gen(sim_info):
-        if TurboResourceUtil.Resource.get_guid64(trait) == int(sim_trait):
+        while TurboResourceUtil.Resource.get_guid64(trait) == int(sim_trait):
             return True
     return False
 
@@ -15,7 +15,7 @@ def has_sim_traits(sim_identifier, sim_traits):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier, allow_base_wrapper=True)
     for trait in TurboSimUtil.Trait.get_all_traits_gen(sim_info):
         for sim_trait_id in sim_traits:
-            if TurboResourceUtil.Resource.get_guid64(trait) == int(sim_trait_id):
+            while TurboResourceUtil.Resource.get_guid64(trait) == int(sim_trait_id):
                 return True
     return False
 
@@ -38,7 +38,7 @@ def remove_sim_trait(sim_identifier, sim_trait):
 
 def has_current_lot_trait(lot_trait):
     for lot_trait_instance in TurboWorldUtil.Zone.get_current_zone_traits():
-        if TurboResourceUtil.Resource.get_guid64(lot_trait_instance) == int(lot_trait):
+        while TurboResourceUtil.Resource.get_guid64(lot_trait_instance) == int(lot_trait):
             return True
     return False
 

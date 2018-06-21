@@ -7,7 +7,6 @@ from wickedwhims.sxex_bridge.body import get_sim_actual_body_state, BodyState
 from wickedwhims.sxex_bridge.nudity import update_nude_body_data
 from wickedwhims.utils_buffs import has_sim_buff
 
-
 class OutfitLevel(TurboEnum):
     __qualname__ = 'OutfitLevel'
     OUTFIT = 0

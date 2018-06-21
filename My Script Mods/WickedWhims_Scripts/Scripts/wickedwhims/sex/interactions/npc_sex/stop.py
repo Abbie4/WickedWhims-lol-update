@@ -4,7 +4,6 @@ from turbolib.wrappers.interactions import TurboImmediateSuperInteraction, Turbo
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.sex.settings.sex_settings import get_sex_setting, SexSetting
 
-
 class InstantStopNPCSexInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'InstantStopNPCSexInteraction'
 

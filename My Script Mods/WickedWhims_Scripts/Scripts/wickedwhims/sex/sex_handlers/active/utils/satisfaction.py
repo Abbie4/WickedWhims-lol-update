@@ -25,7 +25,6 @@ POSITIVE_REACTIONS = (SexReactionType.FRIENDLY, SexReactionType.EXCITED, SexReac
 NEGATIVE_REACTIONS = (SexReactionType.SAD, SexReactionType.ANGRY, SexReactionType.HORRIFIED, SexReactionType.JEALOUS)
 AGE_INDEX = (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.TEEN, TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ADULT, TurboSimUtil.Age.ELDER)
 
-
 class SexSatisfactionType(TurboEnum):
     __qualname__ = 'SexSatisfactionType'
     STRANGER_SEX = 1
@@ -37,16 +36,13 @@ class SexSatisfactionType(TurboEnum):
     GROUP_SEX = 98
     GENERIC = 99
 
-
 SEX_SATISFACTION_BUFFS = {SexSatisfactionType.STRANGER_SEX: SimBuff.WW_SEX_SATISFACTION_STRANGER_SEX, SexSatisfactionType.YOUNG_SEX: SimBuff.WW_SEX_SATISFACTION_YOUNG_SEX, SexSatisfactionType.PUBLIC_SEX: SimBuff.WW_SEX_SATISFACTION_PUBLIC_SEX, SexSatisfactionType.AUDIENCE: SimBuff.WW_SEX_SATISFACTION_AUDIENCE, SexSatisfactionType.FAMILY_SEX: SimBuff.WW_SEX_SATISFACTION_FAMILY_SEX, SexSatisfactionType.GHOST_SEX: SimBuff.WW_SEX_SATISFACTION_GHOST_SEX, SexSatisfactionType.GROUP_SEX: SimBuff.WW_SEX_SATISFACTION_GROUP_SEX, SexSatisfactionType.GENERIC: SimBuff.WW_SEX_SATISFACTION_GENERIC}
-
 
 class SexUnsatisfactionType(TurboEnum):
     __qualname__ = 'SexUnsatisfactionType'
     BAD_EXPERIENICE = 1
     BAD_PERFORMANCE = 2
     GENERIC = 99
-
 
 SEX_UNSATISFACTION_BUFFS = {SexUnsatisfactionType.BAD_EXPERIENICE: SimBuff.WW_SEX_UNSATISFACTION_BAD_EXPERIENCE, SexUnsatisfactionType.BAD_PERFORMANCE: SimBuff.WW_SEX_UNSATISFACTION_BAD_PERFORMANCE, SexUnsatisfactionType.GENERIC: SimBuff.WW_SEX_UNSATISFACTION_GENERIC}
 

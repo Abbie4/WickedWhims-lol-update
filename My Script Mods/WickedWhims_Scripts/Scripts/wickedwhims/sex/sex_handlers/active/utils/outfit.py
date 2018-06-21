@@ -11,7 +11,6 @@ from wickedwhims.sxex_bridge.outfit import strip_outfit, StripType
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state, is_sim_top_underwear, is_sim_bottom_underwear, is_underwear_outfit
 from wickedwhims.utils_cas import copy_outfit_to_special, get_modified_outfit
 
-
 def undress_sim(sim_identifier, actor_data, is_npc_only=False):
     sim_info = TurboManagerUtil.Sim.get_sim_info(sim_identifier)
     if is_npc_only is False:

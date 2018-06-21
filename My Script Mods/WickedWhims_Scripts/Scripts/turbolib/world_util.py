@@ -9,8 +9,6 @@ from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
 from turbolib.resource_util import TurboResourceUtil
 
-
-
 class TurboWorldUtil:
     __qualname__ = 'TurboWorldUtil'
 

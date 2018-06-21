@@ -1,7 +1,6 @@
 from turbolib.manager_util import TurboManagerUtil
 SIM_INFO_EXTRA_DATA_HANDLER = dict()
 
-
 class SimInfoExtraData:
     __qualname__ = 'SimInfoExtraData'
 

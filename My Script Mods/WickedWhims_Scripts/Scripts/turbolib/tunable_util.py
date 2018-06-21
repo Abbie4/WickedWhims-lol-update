@@ -15,7 +15,6 @@ from sims4.tuning.tunable import TunedInterval
 from whims.whims_tracker import WhimsTracker
 from turbolib.resource_util import TurboResourceUtil
 
-
 class TurboTunableUtil:
     __qualname__ = 'TurboTunableUtil'
 

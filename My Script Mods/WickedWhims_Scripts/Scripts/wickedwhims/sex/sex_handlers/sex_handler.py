@@ -2,7 +2,6 @@ from turbolib.math_util import TurboMathUtil
 from turbolib.object_util import TurboObjectUtil
 from wickedwhims.utils_objects import get_object_fixed_direction
 
-
 class SexInteractionHandler:
     __qualname__ = 'SexInteractionHandler'
 

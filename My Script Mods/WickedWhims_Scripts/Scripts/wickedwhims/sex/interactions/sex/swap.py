@@ -6,7 +6,6 @@ from wickedwhims.sex.dialogs.sex_swap import open_swap_sex_sims_picker_dialog
 from wickedwhims.sex.settings.sex_settings import SexSetting, get_sex_setting
 from wickedwhims.sex.utils.sex_swap import is_compatible_actor
 
-
 class SwapActorSexSpotInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'SwapActorSexSpotInteraction'
 

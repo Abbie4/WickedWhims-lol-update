@@ -10,7 +10,6 @@ from wickedwhims.sxex_bridge.sex import is_sim_in_sex, is_sim_going_to_sex
 from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
 from wickedwhims.utils_sims import is_sim_available
 
-
 def update_sim_nudity_skill_on_active_nudity(sim_identifier):
     if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return
@@ -69,8 +68,6 @@ def _get_sim_nudity_value(sim_identifier, target_sim_identifier):
     score_collection = list()
     if TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.TODDLER:
         base_modifier = -0.5
-    elif TurboSimUtil.Age.get_age(target_sim_info) == TurboSimUtil.Age.CHILD:
-        base_modifier = 1.0
     else:
         sim_outfit_level = get_sim_outfit_level(sim_info)
         target_outfit_level = get_sim_outfit_level(target_sim_info)

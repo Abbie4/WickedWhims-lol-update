@@ -6,7 +6,6 @@ from turbolib.native.enum import TurboEnum
 from turbolib.special.custom_exception_watcher import log_custom_exception
 SIM_EVENTS_HANDLER = TurboEventsHandler()
 
-
 class SimEventType(TurboEnum):
     __qualname__ = 'SimEventType'
     SIM_EARLY_INIT = 1

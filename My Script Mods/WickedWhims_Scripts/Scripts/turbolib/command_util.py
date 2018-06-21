@@ -1,7 +1,6 @@
 import services
 import sims4.commands
 
-
 class TurboCommandUtil:
     __qualname__ = 'TurboCommandUtil'
 

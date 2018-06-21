@@ -4,7 +4,6 @@ from wickedwhims.debug.debug_controller import is_main_debug_flag_enabled
 from wickedwhims.main.sim_ev_handler import sim_ev
 from wickedwhims.utils_interfaces import display_notification
 
-
 class DebugSexInfoInteraction(TurboImmediateSuperInteraction, TurboInteractionStartMixin):
     __qualname__ = 'DebugSexInfoInteraction'
 

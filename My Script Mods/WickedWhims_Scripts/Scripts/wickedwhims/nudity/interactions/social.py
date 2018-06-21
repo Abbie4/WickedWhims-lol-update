@@ -18,7 +18,6 @@ from wickedwhims.sxex_bridge.statistics import increase_sim_ww_statistic
 from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, set_sim_bottom_underwear_state
 from wickedwhims.utils_traits import add_sim_trait
 
-
 class _NuditySocialComplimentSexyBodyInteraction(TurboSocialMixerInteraction, TurboInteractionStartMixin):
     __qualname__ = '_NuditySocialComplimentSexyBodyInteraction'
 

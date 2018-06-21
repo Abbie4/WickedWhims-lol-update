@@ -5,7 +5,6 @@ from turbolib.native.enum import TurboEnum
 from turbolib.special.custom_exception_watcher import log_custom_exception
 PRIVACY_EVENTS_HANDLER = TurboEventsHandler()
 
-
 class PrivacyResult(TurboEnum):
     __qualname__ = 'PrivacyResult'
     DEFAULT = 1

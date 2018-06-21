@@ -15,7 +15,6 @@ from wickedwhims.sxex_bridge.underwear import set_sim_top_underwear_state, is_si
 from wickedwhims.utils_cas import get_modified_outfit, get_sim_outfit_cas_part_from_bodytype, set_bodytype_caspart
 BREAST_FEEDING_INTERACTIONS = 13007
 
-
 class OutfitStateBeforeBreastFeeding(TurboEnum):
     __qualname__ = 'OutfitStateBeforeBreastFeeding'
     NONE = -1
@@ -38,7 +37,7 @@ def _wickedwhims_undress_top_on_breast_feeding(interaction_instance):
     if has_sim_outfit_top(sim):
         top_body_state = get_sim_body_state(sim, 6)
         if top_body_state != BodyState.NUDE:
-            strip_result = strip_outfit(sim, strip_type_top=StripType.NUDE)
+            strip_result = strip_outfit(sim, strip_type_top=StripType.NUDE, allow_stripping_gloves=False)
             if strip_result is True:
                 sim_ev(sim).on_breast_feeding_outfit_state = int(OutfitStateBeforeBreastFeeding.UNDERWEAR if top_body_state == BodyState.UNDERWEAR else OutfitStateBeforeBreastFeeding.OUTFIT)
                 set_sim_top_naked_state(sim, True)
@@ -66,17 +65,21 @@ def _update_dress_up_after_breast_feeding_on_game_update():
             continue
         if TurboSimUtil.Interaction.is_running_interaction(sim, BREAST_FEEDING_INTERACTIONS):
             return
-        sim_ev(sim).on_breast_feeding_outfit_state = int(OutfitStateBeforeBreastFeeding.NONE)
         current_outfit = TurboSimUtil.CAS.get_current_outfit(sim)
         if not (current_outfit[0] == TurboCASUtil.OutfitCategory.SPECIAL and current_outfit[1] == 0):
             continue
         current_outfit = get_modified_outfit(sim)
-        if sim_ev(sim).on_breast_feeding_outfit_state != -1 and has_sim_outfit_top(sim, outfit_category_and_index=current_outfit):
-            if sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.OUTFIT:
-                part_id = get_sim_outfit_cas_part_from_bodytype(sim, 6, outfit_category_and_index=current_outfit)
-            else:
-                part_id = get_sim_underwear_data(sim, current_outfit)[1]
+        if sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.UNDERWEAR:
+            set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), 6, get_sim_underwear_data(sim, current_outfit)[0])
+            set_sim_top_underwear_state(sim, True)
+            try:
+                TurboSimUtil.CAS.refresh_outfit(sim)
+            except:
+                continue
+        elif sim_ev(sim).on_breast_feeding_outfit_state == OutfitStateBeforeBreastFeeding.OUTFIT and has_sim_outfit_top(sim, outfit_category_and_index=current_outfit):
+            part_id = get_sim_outfit_cas_part_from_bodytype(sim, 6, outfit_category_and_index=current_outfit)
             set_bodytype_caspart(sim, (TurboCASUtil.OutfitCategory.SPECIAL, 0), 6, part_id)
+            set_sim_top_underwear_state(sim, True)
             try:
                 TurboSimUtil.CAS.refresh_outfit(sim)
             except:
@@ -85,4 +88,5 @@ def _update_dress_up_after_breast_feeding_on_game_update():
             dress_up_outfit(sim)
         else:
             dress_up_outfit(sim)
+        sim_ev(sim).on_breast_feeding_outfit_state = int(OutfitStateBeforeBreastFeeding.NONE)
 
