@@ -9,3 +9,5 @@ __pycache__
 *.pyo
 **/*.pyo
 My\ Script\ Mods/**/*.ts4script
+Release/*.7z
+Release/*.zip
