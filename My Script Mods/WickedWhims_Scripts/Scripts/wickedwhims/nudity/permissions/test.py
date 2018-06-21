@@ -13,6 +13,7 @@ from wickedwhims.utils_locations import is_sim_at_home_lot
 from wickedwhims.utils_relations import has_relationship_bit_with_sim, get_relationship_with_sim
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_traits import has_current_lot_trait
+from cnutils.CNSimUtils import CNSimUtils
 
 class NudityPermissionDenied(TurboEnum):
     __qualname__ = 'NudityPermissionDenied'
@@ -26,7 +27,7 @@ def has_sim_permission_for_nudity(sim_identifier, nudity_setting_test=False, ext
     sim = TurboManagerUtil.Sim.get_sim_instance(sim_identifier)
     if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+    if CNSimUtils.can_have_sex(sim):
         return (False, (NudityPermissionDenied.IS_UNDERAGED,))
     if nudity_setting_test is True and not get_nudity_setting(NuditySetting.NUDITY_SWITCH_STATE, variable_type=bool):
         return (True, tuple())

@@ -20,6 +20,7 @@ from wickedwhims.utils_cas import set_bodytype_caspart
 from wickedwhims.utils_interfaces import get_arrow_icon, get_selected_icon, get_unselected_icon, display_picker_list_dialog
 from wickedwhims.utils_saves.save_basics import update_basic_save_data, get_basic_save_data
 from wickedwhims.utils_traits import has_sim_trait
+from cnutils.CNSimUtils import CNSimUtils
 PENIS_SETTING_SOFT_PENIS_AUTHOR = 'Penis_Default'
 PENIS_SETTING_HARD_PENIS_AUTHOR = 'Penis_Default'
 PENIS_SETTING_RANDOM = False
@@ -229,7 +230,7 @@ class PenisSettingsInteraction(TurboImmediateSuperInteraction, TurboInteractionS
             return False
         if TurboSimUtil.Age.is_younger_than(interaction_target, TurboSimUtil.Age.CHILD):
             return False
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_target) == TurboSimUtil.Age.CHILD):
+        if CNSimUtils.can_have_sex(interaction_target):
             return False
         if is_sim_in_sex(cls.get_interaction_sim(interaction_context)) or is_sim_going_to_sex(cls.get_interaction_sim(interaction_context)):
             return False

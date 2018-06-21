@@ -13,13 +13,14 @@ from wickedwhims.sex.sex_location_handler import SexInteractionLocationType
 from wickedwhims.sex.sex_operators.sex_init_operator import start_new_player_sex_interaction
 from wickedwhims.sxex_bridge.sex import is_sim_ready_for_sex
 from wickedwhims.utils_routes import is_sim_allowed_on_active_lot
+from cnutils.CNSimUtils import CNSimUtils
 
 def _test_for_sex_start(interaction_context, interaction_sim, interaction_target, sex_category_types):
     if interaction_target is None:
         return False
     if not is_sim_ready_for_sex(interaction_sim) or sim_ev(interaction_sim).active_pre_sex_handler is not None:
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(interaction_sim) == TurboSimUtil.Age.CHILD):
+    if not CNSimUtils.can_have_sex(interaction_sim):
         return False
     if TurboTypesUtil.Objects.is_game_object(interaction_target):
         interaction_target = TurboObjectUtil.GameObject.get_parent(interaction_target)

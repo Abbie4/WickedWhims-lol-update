@@ -1,3 +1,4 @@
+from cnutils.CNSimUtils import CNSimUtils
 from enums.traits_enum import SimTrait
 from turbolib.manager_util import TurboManagerUtil
 from turbolib.math_util import TurboMathUtil
@@ -38,7 +39,7 @@ def get_age_limits_for_sex(sims_list):
             return (TurboSimUtil.Age.TEEN, TurboSimUtil.Age.ELDER)
         return (TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ELDER)
     else:
-        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool):
+        if not CNSimUtils.teen_sex_is_enabled():
             return (TurboSimUtil.Age.YOUNGADULT, TurboSimUtil.Age.ELDER)
         return (TurboSimUtil.Age.CHILD, TurboSimUtil.Age.ELDER)
 

@@ -21,6 +21,7 @@ from wickedwhims.utils_autonomy import is_sim_allowed_for_autonomy
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_situations import has_sim_situations
 from wickedwhims.utils_traits import has_sim_traits
+from cnutils.CNSimUtils import CNSimUtils
 
 @register_on_game_update_method(interval=10000)
 def _trigger_nudity_autonomy_on_game_update():
@@ -32,7 +33,7 @@ def _trigger_nudity_autonomy_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             continue
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if CNSimUtils.can_have_sex(sim):
             continue
         if TurboWorldUtil.Time.get_absolute_ticks() <= sim_ev(sim).last_nudity_autonomy:
             continue

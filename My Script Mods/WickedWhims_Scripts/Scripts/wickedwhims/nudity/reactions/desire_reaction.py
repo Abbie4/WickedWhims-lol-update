@@ -11,13 +11,14 @@ from wickedwhims.relationships.relationship_utils import get_sim_preferenced_gen
 from wickedwhims.sxex_bridge.sex import is_sim_going_to_sex, is_sim_in_sex
 from wickedwhims.utils_sims import is_sim_available
 from wickedwhims.utils_situations import has_sim_situations
+from cnutils.CNSimUtils import CNSimUtils
 
 @register_on_game_update_method(interval=2500)
 def _trigger_desire_reaction_on_game_update():
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             continue
-        if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not CNSimUtils.can_have_sex(sim):
             continue
         if not is_sim_in_sex(sim):
             if is_sim_going_to_sex(sim):

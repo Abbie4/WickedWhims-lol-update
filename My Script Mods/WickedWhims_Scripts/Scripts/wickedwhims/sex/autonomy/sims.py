@@ -1,3 +1,4 @@
+from cnutils.CNSimUtils import CNSimUtils
 from enums.buffs_enum import SimBuff
 from enums.motives_enum import SimMotive
 from enums.situations_enum import SimSituation
@@ -79,7 +80,7 @@ def get_available_for_sex_sims(only_on_hypersexual_lot=False, forbidden_traits=(
     for sim in TurboManagerUtil.Sim.get_all_sim_instance_gen(humans=True, pets=False):
         if TurboSimUtil.Age.is_younger_than(sim, TurboSimUtil.Age.CHILD):
             continue
-        if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim) == TurboSimUtil.Age.CHILD):
+        if not CNSimUtils.teen_sex_is_enabled() and CNSimUtils.is_child_or_teen(sim):
             continue
         if not get_sex_setting(SexSetting.PLAYER_AUTONOMY_STATE, variable_type=bool) and TurboSimUtil.Sim.is_player(sim):
             continue

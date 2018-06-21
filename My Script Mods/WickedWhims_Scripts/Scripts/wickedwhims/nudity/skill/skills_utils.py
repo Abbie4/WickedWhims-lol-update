@@ -14,6 +14,7 @@ from wickedwhims.utils_sims import has_sim_mood
 from wickedwhims.utils_skills import get_sim_skill_level, has_sim_skill, get_sim_full_skill_value, remove_sim_skill, set_sim_skill_value, set_sim_skill_level, change_sim_skill_percentage_value, has_sim_reached_max_skill_level, get_sim_skill_value
 from wickedwhims.utils_statistics import change_sim_statistic_value, get_sim_statistic_value, set_sim_statistic_value
 from wickedwhims.utils_traits import has_sim_trait, has_current_lot_trait
+from cnutils.CNSimUtils import CNSimUtils
 
 class NuditySkillIncreaseReason(TurboEnum):
     __qualname__ = 'NuditySkillIncreaseReason'
@@ -60,7 +61,7 @@ def increase_sim_nudity_skill(sim_identifier, amount, extra_fatigue=0.0, reason=
         return
     if TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.CHILD):
         return
-    if not get_nudity_setting(NuditySetting.TEENS_NUDITY_STATE, variable_type=bool) and TurboSimUtil.Age.is_younger_than(sim_identifier, TurboSimUtil.Age.TEEN, or_equal=True):
+    if CNSimUtils.can_have_sex(sim_identifier):
         return
     if reason == NuditySkillIncreaseReason.BEING_IN_NAKED_OUTFIT or reason == NuditySkillIncreaseReason.BEING_IN_BATHING_OUTFIT or reason == NuditySkillIncreaseReason.BEING_IN_REVEALING_OUTFIT:
         if has_sim_trait(sim_identifier, SimTrait.SHAMELESS):

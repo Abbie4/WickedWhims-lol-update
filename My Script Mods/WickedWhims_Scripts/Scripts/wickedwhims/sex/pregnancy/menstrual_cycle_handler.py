@@ -12,6 +12,7 @@ from wickedwhims.sex.pregnancy.native_pregnancy_handler import can_sim_impregnat
 from wickedwhims.sex.settings.sex_settings import PregnancyModeSetting, SexSetting, get_sex_setting, MenstrualCycleDurationSetting
 from wickedwhims.utils_buffs import add_sim_buff, remove_sim_buff, has_sim_buff
 from wickedwhims.utils_traits import has_sim_trait
+from cnutils.CNSimUtils import CNSimUtils
 ABSOLUTE_DAYS_OFFSET = 31415
 
 def update_period_related_buffs(sim_identifier):
@@ -72,7 +73,7 @@ def can_sim_have_period(sim_identifier):
         return False
     if TurboSimUtil.Age.is_older_than(sim_identifier, TurboSimUtil.Age.ELDER, or_equal=True):
         return False
-    if not get_sex_setting(SexSetting.TEENS_SEX_STATE, variable_type=bool) and (TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.TEEN or TurboSimUtil.Age.get_age(sim_identifier) == TurboSimUtil.Age.CHILD):
+    if not CNSimUtils.can_have_sex(sim_identifier):
         return False
     if not has_sim_trait(sim_identifier, SimTrait.GENDEROPTIONS_PREGNANCY_CANBEIMPREGNATED):
         return False
